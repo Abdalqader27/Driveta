@@ -165,7 +165,7 @@ class RegisterationScreen extends StatelessWidget {
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
-          return ProgressDialog(
+          return const ProgressDialog(
             message: "جاري التسجيل ....",
           );
         });

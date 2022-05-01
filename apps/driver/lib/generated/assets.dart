@@ -46,6 +46,7 @@ class Assets {
   static const String lottieSearch = 'assets/lottie/search.json';
   static const String lottieTeam = 'assets/lottie/team.json';
   static const String newUser = 'assets/lottie/new_user.json';
+  static const String carInfo = 'assets/lottie/carinfo.json';
   static const String pinsDestinationMapMarker = 'assets/images/pins/destination_map_marker.png';
   static const String pinsDrivingPin = 'assets/images/pins/driving_pin.png';
   static const String pinsPinUser = 'assets/images/pins/pin_user.png';

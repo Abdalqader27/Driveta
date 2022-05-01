@@ -1,8 +1,16 @@
 import 'package:driver/features/auth/presentation/pages/sgin_up/registeration_screen.dart';
 import 'package:driver/configMaps.dart';
 import 'package:driver/features/map_driver/presentation/pages/map_driver/map_driver.dart';
+import 'package:driver/libraries/el_widgets/widgets/material_text.dart';
+import 'package:driver/libraries/flutter_screenutil/flutter_screenutil.dart';
 import 'package:driver/main.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+
+import '../common/config/theme/colors.dart';
+import '../generated/assets.dart';
+import '../libraries/el_widgets/widgets/responsive_padding.dart';
 
 class CarInfoScreen extends StatefulWidget {
   static const String idScreen = "carinfo";
@@ -32,12 +40,13 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
           child: Column(
             children: [
               const SizedBox(
-                height: 22.0,
+                height: 35.0,
               ),
-              Image.asset(
-                "images/logo.png",
-                width: 390.0,
-                height: 250.0,
+              RPadding.all4(
+                child: Lottie.asset(
+                  Assets.carInfo,
+                  width: 1.sw,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(22.0, 22.0, 22.0, 32.0),
@@ -46,17 +55,14 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
                     const SizedBox(
                       height: 12.0,
                     ),
-                    const Text(
-                      "Enter Car Details",
-                      style: TextStyle(fontFamily: "Brand Bold", fontSize: 24.0),
-                    ),
+                    const MaterialText.headLine6("ادخال تفاصيل سيارتك"),
                     const SizedBox(
                       height: 26.0,
                     ),
                     TextField(
                       controller: carModelTextEditingController,
                       decoration: const InputDecoration(
-                        labelText: "Car Model",
+                        labelText: "موديل السيارة",
                         hintStyle: TextStyle(color: Colors.grey, fontSize: 10.0),
                       ),
                       style: const TextStyle(fontSize: 15.0),
@@ -67,7 +73,7 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
                     TextField(
                       controller: carNumberTextEditingController,
                       decoration: const InputDecoration(
-                        labelText: "Car Number",
+                        labelText: "رقم السيارة",
                         hintStyle: TextStyle(color: Colors.grey, fontSize: 10.0),
                       ),
                       style: const TextStyle(fontSize: 15.0),
@@ -78,7 +84,7 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
                     TextField(
                       controller: carColorTextEditingController,
                       decoration: const InputDecoration(
-                        labelText: "Car Color",
+                        labelText: "لون السيارة",
                         hintStyle: TextStyle(color: Colors.grey, fontSize: 10.0),
                       ),
                       style: const TextStyle(fontSize: 15.0),
@@ -88,7 +94,7 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
                     ),
                     DropdownButton(
                       iconSize: 40,
-                      hint: const Text('Please choose Car Type'),
+                      hint: const Text('الرجاء اختيار توع سيارتك'),
                       value: selectedCarType,
                       onChanged: (newValue) {
                         setState(() {
@@ -106,42 +112,28 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
                     const SizedBox(
                       height: 42.0,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: RaisedButton(
-                        onPressed: () {
-                          if (carModelTextEditingController.text.isEmpty) {
-                            displayToastMessage("please write Car Model.", context);
-                          } else if (carNumberTextEditingController.text.isEmpty) {
-                            displayToastMessage("please write Car Number.", context);
-                          } else if (carColorTextEditingController.text.isEmpty) {
-                            displayToastMessage("please write Car Color.", context);
-                          } else if (selectedCarType == null) {
-                            displayToastMessage("please choose Car Type.", context);
-                          } else {
-                            saveDriverCarInfo(context);
-                          }
-                        },
-                        color: Colors.black54,
-                        child: Padding(
-                          padding: const EdgeInsets.all(17.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Text(
-                                "NEXT",
-                                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.white),
-                              ),
-                              Icon(
-                                Icons.arrow_forward,
-                                color: Colors.white,
-                                size: 26.0,
-                              ),
-                            ],
-                          ),
-                        ),
+                    Center(
+                        child: CupertinoButton(
+                      color: kPRIMARY,
+                      borderRadius: BorderRadius.circular(30.r),
+                      child: MaterialText.button(
+                        'التالي',
+                        style: Theme.of(context).textTheme.button!.copyWith(color: kWhite),
                       ),
-                    ),
+                      onPressed: () {
+                        if (carModelTextEditingController.text.isEmpty) {
+                          displayToastMessage("الرجاء تحديد موديل السيارة.", context);
+                        } else if (carNumberTextEditingController.text.isEmpty) {
+                          displayToastMessage("الرجاء تحديد رقم السيارة.", context);
+                        } else if (carColorTextEditingController.text.isEmpty) {
+                          displayToastMessage("الرجاء تحديد لون السيازة.", context);
+                        } else if (selectedCarType == null) {
+                          displayToastMessage("الرجاء تحديد نوع السيارة.", context);
+                        } else {
+                          saveDriverCarInfo(context);
+                        }
+                      },
+                    )),
                   ],
                 ),
               ),
