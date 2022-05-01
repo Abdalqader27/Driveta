@@ -147,9 +147,9 @@ class MapPanelWidgetBody extends StatelessWidget {
           title: 'اخر التوصيلات',
           buttonText: 'عرض الكل',
         ),
-        const BalanceTransactionWidget(
-          salary: 12.31232,
-          total: 222222,
+        BalanceTransactionWidget(
+          salary: 12.31232.toString(),
+          total: 222222.toString(),
         ),
       ]),
     );

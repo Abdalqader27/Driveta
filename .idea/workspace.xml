@@ -4,7 +4,22 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ccd35d3-7e76-481c-8384-bf94ab9ac4ae" name="Default Changelist" comment="" />
+    <list default="true" id="6ccd35d3-7e76-481c-8384-bf94ab9ac4ae" name="Default Changelist" comment="init">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/AllScreens/HistoryScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/AllScreens/HistoryScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/AllScreens/carInfoScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/AllScreens/carInfoScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/common/widgets/circle_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/common/widgets/circle_button.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/balance/balance_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/balance/balance_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/balance/widgets/balance_body.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/balance/widgets/balance_body.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/balance/widgets/balance_transaction.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/balance/widgets/balance_transaction.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/map_driver/widgets/map_drawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/map_driver/widgets/map_drawer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/map_driver/widgets/map_drawer_item.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/map_driver/widgets/map_drawer_item.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/map_driver/widgets/map_panel_widget_body.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/map_driver/widgets/map_panel_widget_body.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/tabsPages/earningsTabPage.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/tabsPages/profileTabPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/profile/profile_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/tabsPages/ratingTabPage.dart" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,7 +32,16 @@
       </list>
     </option>
   </component>
+  <component name="FindBugs-IDEA-Workspace">
+    <toolWindowEditorPreview>false</toolWindowEditorPreview>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="28WCXlHOg1twe8MEGPqZ9DIip1Q" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -29,17 +53,17 @@
     <property name="cidr.known.project.marker" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/profile" />
     <property name="settings.editor.selected.configurable" value="flutter.settings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/profile" />
       <recent name="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages" />
       <recent name="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/map_driver/widgets" />
       <recent name="$PROJECT_DIR$/apps/driver/lib/features/map_driver/data/models" />
       <recent name="$PROJECT_DIR$/apps/driver/lib/features/map_delivery/presentation/pages" />
-      <recent name="$PROJECT_DIR$/apps/driver/lib/features/map_delivery/domain/entities" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/apps/driver" />
@@ -74,7 +98,30 @@
       <option name="presentableId" value="Default" />
       <updated>1651322996573</updated>
     </task>
+    <task id="LOCAL-00001" summary="init">
+      <created>1651407147545</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1651407147546</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="init" />
+    <option name="LAST_COMMIT_MESSAGE" value="init" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

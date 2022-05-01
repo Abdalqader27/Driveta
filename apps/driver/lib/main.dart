@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
       return GetMaterialApp(
         title: 'Taxi Driver App',
         theme: kLightMod,
-        locale: Locale('ar'),
+        locale: const Locale('ar'),
         builder: (context, child) {
           child = botToastBuilder(context, child);
           return child;

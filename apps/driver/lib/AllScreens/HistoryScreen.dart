@@ -35,7 +35,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
           height: 3.0,
         ),
         itemCount: Provider.of<AppData>(context, listen: false).tripHistoryDataList.length,
-        physics: ClampingScrollPhysics(),
+        physics: const ClampingScrollPhysics(),
         shrinkWrap: true,
       ),
     );

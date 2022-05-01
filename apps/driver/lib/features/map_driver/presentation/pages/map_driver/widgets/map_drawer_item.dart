@@ -9,8 +9,11 @@ class MapDrawerItem extends StatelessWidget {
   final String title;
   final GestureTapCallback? onTap;
   final Widget? leadingText;
+  final Color? color;
+  final Color? textColor;
 
-  const MapDrawerItem({Key? key, required this.icon, required this.title, this.onTap, this.leadingText})
+  const MapDrawerItem(
+      {Key? key, required this.icon, required this.title, this.onTap, this.leadingText, this.color, this.textColor})
       : super(key: key);
 
   @override
@@ -18,11 +21,11 @@ class MapDrawerItem extends StatelessWidget {
     return ListTile(
       leading: Icon(
         icon,
-        color: kPRIMARY,
+        color: color ?? kPRIMARY,
       ),
       title: MaterialText.subTitle2(
         title,
-        style: Theme.of(context).textTheme.subtitle2!.copyWith(fontSize: 13.sp),
+        style: Theme.of(context).textTheme.subtitle2!.copyWith(fontSize: 13.sp, color: textColor),
       ),
       onTap: onTap,
       trailing: leadingText,

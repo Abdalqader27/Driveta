@@ -6,8 +6,8 @@ import '../../../../../../libraries/el_widgets/el_widgets.dart';
 
 class BalanceTransactionWidget extends StatelessWidget {
   const BalanceTransactionWidget({Key? key, required this.total, required this.salary}) : super(key: key);
-  final double total;
-  final double salary;
+  final String total;
+  final String salary;
 
   @override
   Widget build(BuildContext context) {

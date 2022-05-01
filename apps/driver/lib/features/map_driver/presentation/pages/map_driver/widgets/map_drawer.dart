@@ -1,10 +1,16 @@
+import 'package:driver/features/map_driver/presentation/pages/profile/profile_page.dart';
 import 'package:driver/libraries/flutter_screenutil/flutter_screenutil.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_geofire/flutter_geofire.dart';
 import 'package:get/get.dart';
 
+import '../../../../../../AllScreens/login_screen.dart';
 import '../../../../../../common/config/theme/colors.dart';
+import '../../../../../../configMaps.dart';
 import '../../../../../../libraries/el_widgets/widgets/responsive_padding.dart';
 import '../../../../../../libraries/el_widgets/widgets/responsive_sized_box.dart';
+import '../../../../../../main.dart';
 import '../../about_app/about_app_screen.dart';
 import '../../balance/balance_screen.dart';
 import '../../order_book/order_book_screen.dart';
@@ -31,6 +37,21 @@ class MapDrawer extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.r),
                     ),
+                    color: kPRIMARY,
+                    child: MapDrawerItem(
+                      icon: Icons.account_circle_outlined,
+                      title: 'الملف الشخصي ',
+                      leadingText: const SizedBox.shrink(),
+                      color: kWhite,
+                      textColor: kWhite,
+                      onTap: () => Get.to(() => const ProfilePage()),
+                    ),
+                  ),
+                  const RSizedBox.v4(),
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.r),
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -53,7 +74,15 @@ class MapDrawer extends StatelessWidget {
                           icon: Icons.logout,
                           title: 'تسجيل الخروج',
                           leadingText: const Text(''),
-                          onTap: () {},
+                          onTap: () {
+                            Geofire.removeLocation(currentfirebaseUser!.uid);
+                            rideRequestRef?.onDisconnect();
+                            rideRequestRef?.remove();
+                            rideRequestRef = null;
+
+                            FirebaseAuth.instance.signOut();
+                            Navigator.pushNamedAndRemoveUntil(context, LoginScreen.idScreen, (route) => false);
+                          },
                         ),
                       ],
                     ),

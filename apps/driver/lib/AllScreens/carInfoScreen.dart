@@ -29,7 +29,7 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 22.0,
               ),
               Image.asset(
@@ -38,55 +38,55 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
                 height: 250.0,
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(22.0, 22.0, 22.0, 32.0),
+                padding: const EdgeInsets.fromLTRB(22.0, 22.0, 22.0, 32.0),
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 12.0,
                     ),
-                    Text(
+                    const Text(
                       "Enter Car Details",
                       style: TextStyle(fontFamily: "Brand Bold", fontSize: 24.0),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 26.0,
                     ),
                     TextField(
                       controller: carModelTextEditingController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: "Car Model",
                         hintStyle: TextStyle(color: Colors.grey, fontSize: 10.0),
                       ),
-                      style: TextStyle(fontSize: 15.0),
+                      style: const TextStyle(fontSize: 15.0),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     TextField(
                       controller: carNumberTextEditingController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: "Car Number",
                         hintStyle: TextStyle(color: Colors.grey, fontSize: 10.0),
                       ),
-                      style: TextStyle(fontSize: 15.0),
+                      style: const TextStyle(fontSize: 15.0),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     TextField(
                       controller: carColorTextEditingController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: "Car Color",
-                        hintStyle: TextStyle(color: Colors.grey, fontSize: 10.0),
+                        hintStyle: const TextStyle(color: Colors.grey, fontSize: 10.0),
                       ),
-                      style: TextStyle(fontSize: 15.0),
+                      style: const TextStyle(fontSize: 15.0),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 26.0,
                     ),
                     DropdownButton(
                       iconSize: 40,
-                      hint: Text('Please choose Car Type'),
+                      hint: const Text('Please choose Car Type'),
                       value: selectedCarType,
                       onChanged: (newValue) {
                         setState(() {
@@ -101,11 +101,11 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
                         );
                       }).toList(),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 42.0,
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: RaisedButton(
                         onPressed: () {
                           if (carModelTextEditingController.text.isEmpty) {
@@ -122,10 +122,10 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
                         },
                         color: Colors.black54,
                         child: Padding(
-                          padding: EdgeInsets.all(17.0),
+                          padding: const EdgeInsets.all(17.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
+                            children: const [
                               Text(
                                 "NEXT",
                                 style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.white),
