@@ -1,9 +1,9 @@
 import 'package:driver/common/config/theme/colors.dart';
 import 'package:driver/features/map_driver/presentation/pages/balance/widgets/balance_body.dart';
+import 'package:driver/features/map_driver/presentation/pages/order_book/order_book_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../AllScreens/HistoryScreen.dart';
 import '../../../../../DataHandler/appData.dart';
 import '../../../../../common/widgets/round_app_bar.dart';
 import '../../../../../generated/assets.dart';
@@ -44,10 +44,10 @@ class BalanceScreen extends StatelessWidget {
               // margin: EdgeInsets.symmetric(horizontal: 20),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => HistoryScreen()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const OrderBookScreen()));
                 },
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 18),
+                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 18),
                   child: Row(
                     children: [
                       Image.asset(

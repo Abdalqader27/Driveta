@@ -4,12 +4,22 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ccd35d3-7e76-481c-8384-bf94ab9ac4ae" name="Default Changelist" comment="profile page">
+    <list default="true" id="6ccd35d3-7e76-481c-8384-bf94ab9ac4ae" name="Default Changelist" comment="history item">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/map_driver/widgets/map_panel_widget_body.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/map_driver/widgets/map_panel_widget_body.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/order_book/order_book_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/order_book/order_book_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/order_book/widgets/order_book_item.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/order_book/widgets/order_book_item.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/tabsPages/homeTabPage.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/AllScreens/HistoryScreen.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/AllScreens/carInfoScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/AllScreens/carInfoScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/AllScreens/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/auth/presentation/pages/sgin_in/login_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/AllScreens/newRideScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/AllScreens/newRideScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/AllScreens/registeration_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/auth/presentation/pages/sgin_up/registeration_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/AllWidgets/Divider.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/AllWidgets/HistoryItem.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/AllWidgets/progressDialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/common/widgets/progress_dialog.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/Notifications/notificationDialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/Notifications/notificationDialog.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/balance/balance_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/balance/balance_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/map_driver/map_driver.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/map_driver/map_driver.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/map_driver/widgets/map_drawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/map_driver/widgets/map_drawer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/profile/profile_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/profile/profile_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/main.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +67,10 @@
       <recent name="$PROJECT_DIR$/apps/driver/lib/features/map_delivery/presentation/pages" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/apps/driver/lib/AllScreens" />
+      <recent name="$PROJECT_DIR$/apps/driver/lib/features/auth/presentation/pages/sgin_up" />
+      <recent name="$PROJECT_DIR$/apps/driver/lib/features/auth/presentation/pages/sgin_in" />
+      <recent name="$PROJECT_DIR$/apps/driver/lib/common/widgets" />
       <recent name="$PROJECT_DIR$/apps/driver" />
     </key>
   </component>
@@ -103,7 +117,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651410294413</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="history item">
+      <created>1651410962032</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1651410962032</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -120,7 +141,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
     <MESSAGE value="profile page" />
-    <option name="LAST_COMMIT_MESSAGE" value="profile page" />
+    <MESSAGE value="history item" />
+    <option name="LAST_COMMIT_MESSAGE" value="history item" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:driver/AllWidgets/CollectFareDialog.dart';
-import 'package:driver/AllWidgets/progressDialog.dart';
+import 'package:driver/common/widgets/progress_dialog.dart';
 import 'package:driver/Assistants/assistantMethods.dart';
 import 'package:driver/Assistants/mapKitAssistant.dart';
 import 'package:driver/Models/rideDetails.dart';

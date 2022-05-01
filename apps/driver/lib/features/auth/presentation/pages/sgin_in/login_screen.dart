@@ -4,17 +4,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:driver/AllScreens/registeration_screen.dart';
-import 'package:driver/AllWidgets/progressDialog.dart';
+import 'package:driver/features/auth/presentation/pages/sgin_up/registeration_screen.dart';
+import 'package:driver/common/widgets/progress_dialog.dart';
 import 'package:driver/configMaps.dart';
 import 'package:driver/main.dart';
 import 'package:lottie/lottie.dart';
 
-import '../common/config/theme/colors.dart';
-import '../common/widgets/background/primary_background.dart';
-import '../generated/assets.dart';
-import '../libraries/el_widgets/widgets/material_text.dart';
-import '../libraries/el_widgets/widgets/responsive_padding.dart';
+import '../../../../../common/config/theme/colors.dart';
+import '../../../../../common/widgets/background/primary_background.dart';
+import '../../../../../generated/assets.dart';
+import '../../../../../libraries/el_widgets/widgets/material_text.dart';
+import '../../../../../libraries/el_widgets/widgets/responsive_padding.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String idScreen = "login";
@@ -73,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           controller: emailTextEditingController,
                           keyboardType: TextInputType.emailAddress,
                           decoration: const InputDecoration(
-                            labelText: "Email",
+                            labelText: "الايميل",
                             labelStyle: TextStyle(
                               fontSize: 14.0,
                             ),
@@ -91,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           controller: passwordTextEditingController,
                           obscureText: true,
                           decoration: const InputDecoration(
-                            labelText: "Password",
+                            labelText: "كلمة المرور ",
                             labelStyle: TextStyle(
                               fontSize: 14.0,
                             ),
@@ -115,9 +115,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           onPressed: () {
                             if (!emailTextEditingController.text.contains("@")) {
-                              displayToastMessage("Email address is not Valid.", context);
+                              displayToastMessage("الايميل ليس صحيحا.", context);
                             } else if (passwordTextEditingController.text.isEmpty) {
-                              displayToastMessage("Password is mandatory.", context);
+                              displayToastMessage("كلمة المرور الزامية.", context);
                             } else {
                               loginAndAuthenticateUser(context);
                             }

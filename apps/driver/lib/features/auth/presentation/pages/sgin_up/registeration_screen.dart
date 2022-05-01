@@ -6,15 +6,15 @@ import 'package:driver/libraries/flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:driver/AllScreens/login_screen.dart';
-import 'package:driver/AllWidgets/progressDialog.dart';
+import 'package:driver/features/auth/presentation/pages/sgin_in/login_screen.dart';
+import 'package:driver/common/widgets/progress_dialog.dart';
 import 'package:driver/main.dart';
 import 'package:lottie/lottie.dart';
 
-import '../common/config/theme/colors.dart';
-import '../generated/assets.dart';
-import '../libraries/el_widgets/widgets/material_text.dart';
-import '../libraries/el_widgets/widgets/responsive_padding.dart';
+import '../../../../../common/config/theme/colors.dart';
+import '../../../../../generated/assets.dart';
+import '../../../../../libraries/el_widgets/widgets/material_text.dart';
+import '../../../../../libraries/el_widgets/widgets/responsive_padding.dart';
 
 class RegisterationScreen extends StatelessWidget {
   static const String idScreen = "register";
@@ -51,7 +51,7 @@ class RegisterationScreen extends StatelessWidget {
                     height: 1.0,
                   ),
                   const MaterialText.headLine6(
-                    " انشاء حساب  السائق",
+                    " انشاء حساب  ",
                     style: TextStyle(fontSize: 24.0),
                     textAlign: TextAlign.center,
                   ),
@@ -70,7 +70,7 @@ class RegisterationScreen extends StatelessWidget {
                           controller: nameTextEditingController,
                           keyboardType: TextInputType.text,
                           decoration: const InputDecoration(
-                            labelText: "Name",
+                            labelText: "الاسم",
                             labelStyle: TextStyle(fontSize: 14.0),
                             hintStyle: TextStyle(color: Colors.grey, fontSize: 10.0),
                           ),
@@ -81,7 +81,7 @@ class RegisterationScreen extends StatelessWidget {
                           controller: emailTextEditingController,
                           keyboardType: TextInputType.emailAddress,
                           decoration: const InputDecoration(
-                            labelText: "Email",
+                            labelText: "الايميل",
                             labelStyle: TextStyle(fontSize: 14.0),
                             hintStyle: TextStyle(color: Colors.grey, fontSize: 10.0),
                           ),
@@ -92,7 +92,7 @@ class RegisterationScreen extends StatelessWidget {
                           controller: phoneTextEditingController,
                           keyboardType: TextInputType.phone,
                           decoration: const InputDecoration(
-                            labelText: "Phone",
+                            labelText: "الهاتف",
                             labelStyle: TextStyle(fontSize: 14.0),
                             hintStyle: TextStyle(color: Colors.grey, fontSize: 10.0),
                           ),
@@ -105,7 +105,7 @@ class RegisterationScreen extends StatelessWidget {
                           controller: passwordTextEditingController,
                           obscureText: true,
                           decoration: const InputDecoration(
-                            labelText: "Password",
+                            labelText: "كلمة المرور",
                             labelStyle: TextStyle(
                               fontSize: 14.0,
                             ),

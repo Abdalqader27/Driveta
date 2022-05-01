@@ -1,4 +1,4 @@
-import 'package:driver/AllScreens/registeration_screen.dart';
+import 'package:driver/features/auth/presentation/pages/sgin_up/registeration_screen.dart';
 import 'package:driver/configMaps.dart';
 import 'package:driver/features/map_driver/presentation/pages/map_driver/map_driver.dart';
 import 'package:driver/main.dart';
@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 
 class CarInfoScreen extends StatefulWidget {
   static const String idScreen = "carinfo";
+
+  const CarInfoScreen({Key? key}) : super(key: key);
 
   @override
   _CarInfoScreenState createState() => _CarInfoScreenState();
@@ -77,7 +79,7 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
                       controller: carColorTextEditingController,
                       decoration: const InputDecoration(
                         labelText: "Car Color",
-                        hintStyle: const TextStyle(color: Colors.grey, fontSize: 10.0),
+                        hintStyle: TextStyle(color: Colors.grey, fontSize: 10.0),
                       ),
                       style: const TextStyle(fontSize: 15.0),
                     ),
@@ -96,7 +98,7 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
                       },
                       items: carTypesList.map((car) {
                         return DropdownMenuItem(
-                          child: new Text(car),
+                          child: Text(car),
                           value: car,
                         );
                       }).toList(),

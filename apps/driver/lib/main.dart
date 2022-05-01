@@ -9,8 +9,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:driver/AllScreens/login_screen.dart';
-import 'package:driver/AllScreens/registeration_screen.dart';
+import 'package:driver/features/auth/presentation/pages/sgin_in/login_screen.dart';
+import 'package:driver/features/auth/presentation/pages/sgin_up/registeration_screen.dart';
 import 'package:driver/DataHandler/appData.dart';
 
 import 'common/config/theme/theme.dart';

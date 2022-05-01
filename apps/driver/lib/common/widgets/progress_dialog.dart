@@ -2,30 +2,30 @@ import 'package:driver/libraries/flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 class ProgressDialog extends StatelessWidget {
-  String message;
-  ProgressDialog({Key? key, required this.message}) : super(key: key);
+  final String message;
+  const ProgressDialog({Key? key, required this.message}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
       child: Container(
-        margin: EdgeInsets.all(15.0),
+        margin: const EdgeInsets.all(15.0),
         width: double.infinity,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(6.0),
         ),
         child: Padding(
-          padding: EdgeInsets.all(15.0),
+          padding: const EdgeInsets.all(15.0),
           child: Row(
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 6.0,
               ),
-              CircularProgressIndicator(
+              const CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 26.0,
               ),
               Text(

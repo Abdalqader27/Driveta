@@ -1,4 +1,4 @@
-import 'package:driver/AllScreens/login_screen.dart';
+import 'package:driver/features/auth/presentation/pages/sgin_in/login_screen.dart';
 import 'package:driver/common/config/theme/colors.dart';
 import 'package:driver/common/widgets/round_app_bar.dart';
 import 'package:driver/configMaps.dart';

@@ -1,5 +1,5 @@
 import 'package:driver/AllScreens/newRideScreen.dart';
-import 'package:driver/AllScreens/registeration_screen.dart';
+import 'package:driver/features/auth/presentation/pages/sgin_up/registeration_screen.dart';
 import 'package:driver/Assistants/assistantMethods.dart';
 import 'package:driver/Models/rideDetails.dart';
 import 'package:driver/configMaps.dart';

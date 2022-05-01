@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_geofire/flutter_geofire.dart';
 import 'package:get/get.dart';
 
-import '../../../../../../AllScreens/login_screen.dart';
+import '../../../../../auth/presentation/pages/sgin_in/login_screen.dart';
 import '../../../../../../common/config/theme/colors.dart';
 import '../../../../../../configMaps.dart';
 import '../../../../../../libraries/el_widgets/widgets/responsive_padding.dart';
