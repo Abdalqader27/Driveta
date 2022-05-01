@@ -1,4 +1,5 @@
 import 'package:dotted_line/dotted_line.dart';
+import 'package:driver/Models/history.dart';
 import 'package:driver/generated/assets.dart';
 import 'package:driver/libraries/el_widgets/el_widgets.dart';
 import 'package:driver/libraries/flutter_screenutil/flutter_screenutil.dart';
@@ -9,9 +10,10 @@ import 'chip_item.dart';
 import 'header_item.dart';
 
 class OrderBookItem extends StatelessWidget {
+  final History history;
   final GestureTapCallback? onTap;
 
-  const OrderBookItem({Key? key, this.onTap}) : super(key: key);
+  const OrderBookItem({Key? key, this.onTap, required this.history}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,33 +36,30 @@ class OrderBookItem extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    HeaderItem(
-                        context: context,
-                        title: 'المكان الحالي',
-                        subtitle:
-                            'حلب - الميرديانالميرديانالميرديانالميرديانالميرديانالميرديانالميرديانالميرديانالميرديان'),
+                    HeaderItem(context: context, title: 'المكان الانطلاق', subtitle: '${history.pickup}'),
                     DottedLine(
                       dashColor: Colors.grey.withOpacity(.5),
                     ),
-                    HeaderItem(context: context, title: ' الوجهة', subtitle: 'المحافظة '),
+                    HeaderItem(context: context, title: ' الوجهة', subtitle: '${history.dropOff} '),
                   ],
                 ),
               ),
             ],
           ),
           Wrap(
-            children: const [
-              ChipItem(
+            children: [
+              // TODO add time and distance and money
+              const ChipItem(
                 iconData: Icons.access_time,
                 title: '30 min',
               ),
-              ChipItem(
+              const ChipItem(
                 iconData: Icons.add_road_rounded,
                 title: '30 KM',
               ),
               ChipItem(
                 iconData: Icons.account_balance_wallet_outlined,
-                title: '10000 SP',
+                title: '${history.paymentMethod}',
               ),
             ],
           ),

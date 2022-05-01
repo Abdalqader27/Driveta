@@ -1,6 +1,8 @@
 import 'package:driver/features/map_driver/presentation/pages/order_book/widgets/order_book_item.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../../../../DataHandler/appData.dart';
 import '../../../../../common/widgets/round_app_bar.dart';
 
 class OrderBookScreen extends StatelessWidget {
@@ -19,9 +21,11 @@ class OrderBookScreen extends StatelessWidget {
             Expanded(
                 child: ListView.builder(
               physics: const BouncingScrollPhysics(),
-              itemCount: 10,
+              itemCount: Provider.of<AppData>(context, listen: false).tripHistoryDataList.length,
               itemBuilder: (context, index) {
-                return const OrderBookItem();
+                return OrderBookItem(
+                  history: Provider.of<AppData>(context, listen: false).tripHistoryDataList[index],
+                );
               },
             ))
           ],

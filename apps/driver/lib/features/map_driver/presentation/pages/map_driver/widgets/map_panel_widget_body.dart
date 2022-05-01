@@ -139,7 +139,7 @@ class MapPanelWidgetBody extends StatelessWidget {
           title: 'اخر المعاملات',
           buttonText: 'عرض الكل',
         ),
-        const OrderBookItem(),
+        //const OrderBookItem(),
         ShowMoreWidget(
           onPressed: () {
             Get.to(() => const OrderBookScreen());
