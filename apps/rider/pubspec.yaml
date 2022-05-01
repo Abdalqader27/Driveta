@@ -1,0 +1,71 @@
+name: rider
+description: A new Flutter application.
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^0.1.3
+  firebase_core: ^1.15.0
+  firebase_auth: ^3.3.16
+  firebase_database: ^9.0.12
+  fluttertoast: ^7.1.1
+  google_maps_flutter: ^2.1.4
+  geolocator: ^8.2.0
+  http: ^0.13.4
+  provider: ^4.3.2+2
+  font_awesome_flutter: ^8.10.0
+  animated_text_kit: ^2.5.4
+  flutter_polyline_points: ^0.2.4
+  flutter_geofire: ^1.0.3
+  url_launcher: ^6.1.0
+  smooth_star_rating: ^1.1.1
+  intl: ^0.17.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - images/car_android.png
+    - images/car_ios.png
+    - images/desticon.png
+    - images/desticon1.png
+    - images/logo.png
+    - images/logo1.png
+    - images/pickicon.png
+    - images/posimarker.png
+    - images/redmarker.png
+    - images/taxi.png
+    - images/user_icon.png
+    - images/ubergo.png
+    - images/uberx.png
+    - images/bike.png
+
+  fonts:
+    - family: Signatra
+      fonts:
+        - asset: fonts/Signatra.ttf
+    - family: Brand-Regular
+      fonts:
+        - asset: fonts/bolt-regular.ttf
+    - family: Brand Bold
+      fonts:
+        - asset: fonts/bolt-semibold.ttf

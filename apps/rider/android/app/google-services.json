@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "337195797630",
+    "project_id": "driveta-v2",
+    "storage_bucket": "driveta-v2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:337195797630:android:71ea362866fcee99555c2f",
+        "android_client_info": {
+          "package_name": "com.abed.rider"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "337195797630-vpuq97cqr8tfd0q5ud0g61nohi61efju.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMZMoUxmi4UiQgG8mtDkD1pBTAXPTU__Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "337195797630-vpuq97cqr8tfd0q5ud0g61nohi61efju.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
