@@ -33,9 +33,13 @@ void main() async {
 
 DatabaseReference usersRef = FirebaseDatabase.instance.ref().child("users");
 DatabaseReference driversRef = FirebaseDatabase.instance.ref().child("drivers");
-DatabaseReference newRequestsRef = FirebaseDatabase.instance.ref().child("Ride Requests");
-DatabaseReference? rideRequestRef =
-    FirebaseDatabase.instance.ref().child("drivers").child(currentfirebaseUser!.uid).child("newRide");
+DatabaseReference newRequestsRef =
+    FirebaseDatabase.instance.ref().child("Ride Requests");
+DatabaseReference? rideRequestRef = FirebaseDatabase.instance
+    .ref()
+    .child("drivers")
+    .child(currentfirebaseUser!.uid)
+    .child("newRide");
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -55,7 +59,9 @@ class MyApp extends StatelessWidget {
           return child;
         },
         navigatorObservers: [BotToastNavigatorObserver()],
-        initialRoute: FirebaseAuth.instance.currentUser == null ? LoginScreen.idScreen : MapDriverScreen.idScreen,
+        initialRoute: FirebaseAuth.instance.currentUser == null
+            ? LoginScreen.idScreen
+            : MapDriverScreen.idScreen,
         routes: {
           RegisterationScreen.idScreen: (context) => RegisterationScreen(),
           LoginScreen.idScreen: (context) => const LoginScreen(),
