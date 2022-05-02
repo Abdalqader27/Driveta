@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ccd35d3-7e76-481c-8384-bf94ab9ac4ae" name="Default Changelist" comment="auth">
-      <change afterPath="$PROJECT_DIR$/apps/driver/assets/lottie/carinfo.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/AllScreens/carInfoScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/AllScreens/carInfoScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/auth/presentation/pages/sgin_up/registeration_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/auth/presentation/pages/sgin_up/registeration_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/generated/assets.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/generated/assets.dart" afterDir="false" />
-    </list>
+    <list default="true" id="6ccd35d3-7e76-481c-8384-bf94ab9ac4ae" name="Default Changelist" comment="auth" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -121,7 +115,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651412223357</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="auth">
+      <created>1651416485057</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1651416485057</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
