@@ -29,7 +29,7 @@ class MapFloatActionsButton extends StatelessWidget {
           print("${snapshot.data?.pre}");
           print("${snapshot.data?.next}");
           return RPadding(
-            padding: EdgeInsets.symmetric(vertical: 60.h),
+            padding: EdgeInsets.symmetric(vertical: 10.h),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [

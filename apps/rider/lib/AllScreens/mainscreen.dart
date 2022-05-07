@@ -112,7 +112,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                 GoogleMap(
                   padding: EdgeInsets.only(bottom: bottomPaddingOfMap, top: 25.0),
                   mapType: MapType.normal,
-                  myLocationButtonEnabled: true,
+                  myLocationButtonEnabled: false,
                   initialCameraPosition: _kGooglePlex,
                   myLocationEnabled: true,
                   zoomGesturesEnabled: true,
@@ -666,8 +666,6 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       inj<MapState>().isCurrentLoading = false;
       inj<MapState>().pinData.currentAddress = currentAddress ?? "حدث خطا ما ";
       inj<MapBloc>().rxSetMapState(inj<MapState>());
-
-      // Logs.logger.i('${currentAddress?.address}');
     } else if (CheckMapStatus.checkState(
       preState: StatusMap.selectLocation,
       nextState: StatusMap.selectDestination,
@@ -725,7 +723,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   Positioned drawerButton() {
     return Positioned(
       top: 36.0,
-      left: 15.0,
+      right: 15.0,
       child: CupertinoButton(
         padding: EdgeInsets.zero,
         onPressed: () {
@@ -733,7 +731,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
             scaffoldKey.currentState?.openDrawer();
           } else {
             resetApp();
-          } //_handlePressButton(context);
+          }
         },
         child: Card(
           color: kPRIMARY,

@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ccd35d3-7e76-481c-8384-bf94ab9ac4ae" name="Default Changelist" comment="work on header loc">
-      <change afterPath="$PROJECT_DIR$/apps/rider/lib/AllScreens/widgets/float_actions_buttons.dart" afterDir="false" />
+    <list default="true" id="6ccd35d3-7e76-481c-8384-bf94ab9ac4ae" name="Default Changelist" comment="seaarch">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/rider/lib/AllScreens/mainscreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/AllScreens/mainscreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/rider/lib/AllScreens/searchScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/AllScreens/searchScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/rider/lib/Models/placePredictions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/Models/placePredictions.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/AllScreens/widgets/float_actions_buttons.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/AllScreens/widgets/float_actions_buttons.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/AllScreens/widgets/map_drawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/AllScreens/widgets/map_drawer.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,7 +165,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651931651738</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="seaarch">
+      <created>1651932718967</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1651932718967</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -190,7 +196,8 @@
     <MESSAGE value="add drawer" />
     <MESSAGE value="add files" />
     <MESSAGE value="work on header loc" />
-    <option name="LAST_COMMIT_MESSAGE" value="work on header loc" />
+    <MESSAGE value="seaarch" />
+    <option name="LAST_COMMIT_MESSAGE" value="seaarch" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

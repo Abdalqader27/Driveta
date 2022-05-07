@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rider/libraries/flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +8,7 @@ import '../../../../../../libraries/el_widgets/widgets/responsive_sized_box.dart
 import '../../common/config/theme/colors.dart';
 import '../../common/widgets/drawer_header.dart';
 import '../about_app/about_app_page.dart';
+import '../loginScreen.dart';
 import '../orders_history/order_history_page.dart';
 import '../settings/settings_page.dart';
 import '../support/support_page.dart';
@@ -67,6 +69,8 @@ class MapDrawer extends StatelessWidget {
                         leadingText: const Text(''),
                         onTap: () {
                           Navigator.of(context).pop();
+                          FirebaseAuth.instance.signOut();
+                          Navigator.pushNamedAndRemoveUntil(context, LoginScreen.idScreen, (route) => false);
                         },
                       ),
                     ],
