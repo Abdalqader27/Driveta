@@ -16,6 +16,7 @@ import 'package:rider/AllScreens/profileTabPage.dart';
 import 'package:rider/AllScreens/ratingScreen.dart';
 import 'package:rider/AllScreens/registerationScreen.dart';
 import 'package:rider/AllScreens/searchScreen.dart';
+import 'package:rider/AllScreens/widgets/map_drawer.dart';
 import 'package:rider/AllWidgets/CollectFareDialog.dart';
 import 'package:rider/AllWidgets/Divider.dart';
 import 'package:rider/AllWidgets/noDriverAvailableDialog.dart';
@@ -26,12 +27,15 @@ import 'package:rider/DataHandler/appData.dart';
 import 'package:rider/Models/directDetails.dart';
 import 'package:rider/Models/history.dart';
 import 'package:rider/Models/nearbyAvailableDrivers.dart';
+import 'package:rider/common/config/theme/colors.dart';
 import 'package:rider/configMaps.dart';
 import 'package:rider/main.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MainScreen extends StatefulWidget {
   static const String idScreen = "mainScreen";
+
+  const MainScreen({Key? key}) : super(key: key);
   @override
   _MainScreenState createState() => _MainScreenState();
 }
@@ -86,7 +90,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     createIconMarker();
     return Scaffold(
       key: scaffoldKey,
-      drawer: buildDrawer(context),
+      drawer: const MapDrawer(),
       body: Stack(
         children: [
           GoogleMap(
@@ -138,11 +142,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         "مرحبا بك",
                         style: TextStyle(fontSize: 12.0),
                       ),
-                      const Text(
-                        "Where to?",
-                        style: TextStyle(fontSize: 20.0, fontFamily: "Brand Bold"),
-                      ),
-                      const SizedBox(height: 20.0),
+
                       // GestureDetector(
                       //   onTap: () async {
                       //     var res =
@@ -471,20 +471,20 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20.0),
                         child: Row(
-                          children: [
-                            const Icon(
+                          children: const [
+                            Icon(
                               FontAwesomeIcons.moneyCheckAlt,
                               size: 18.0,
                               color: Colors.black54,
                             ),
-                            const SizedBox(
+                            SizedBox(
                               width: 16.0,
                             ),
-                            const Text("Cash"),
-                            const SizedBox(
+                            Text("Cash"),
+                            SizedBox(
                               width: 6.0,
                             ),
-                            const Icon(
+                            Icon(
                               Icons.keyboard_arrow_down,
                               color: Colors.black54,
                               size: 16.0,
@@ -676,13 +676,12 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                               padding: const EdgeInsets.all(17.0),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  const Text(
+                                children: const [
+                                  Text(
                                     "Call Driver   ",
-                                    style: const TextStyle(
-                                        fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.white),
+                                    style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.white),
                                   ),
-                                  const Icon(
+                                  Icon(
                                     Icons.call,
                                     color: Colors.white,
                                     size: 26.0,
@@ -718,25 +717,14 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
         },
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: kPRIMARY,
             borderRadius: BorderRadius.circular(22.0),
-            boxShadow: [
-              const BoxShadow(
-                color: Colors.black,
-                blurRadius: 6.0,
-                spreadRadius: 0.5,
-                offset: Offset(
-                  0.7,
-                  0.7,
-                ),
-              ),
-            ],
           ),
           child: CircleAvatar(
-            backgroundColor: Colors.white,
+            backgroundColor: kPRIMARY,
             child: Icon(
               (drawerOpen) ? Icons.menu : Icons.close,
-              color: Colors.black,
+              color: Colors.white,
             ),
             radius: 20.0,
           ),
