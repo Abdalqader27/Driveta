@@ -3,7 +3,7 @@ import 'package:rider/Models/address.dart';
 import 'package:rider/Models/history.dart';
 
 class AppData extends ChangeNotifier {
-  Address pickUpLocation, dropOffLocation;
+  Address? pickUpLocation, dropOffLocation;
 
   String earnings = "0";
   int countTrips = 0;

@@ -1,12 +1,12 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:rider/configMaps.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
 
 class RatingScreen extends StatefulWidget {
-  final String driverId;
+  final String? driverId;
 
-  RatingScreen({this.driverId});
+  const RatingScreen({this.driverId});
 
   @override
   _RatingScreenState createState() => _RatingScreenState();
@@ -23,7 +23,7 @@ class _RatingScreenState extends State<RatingScreen> {
         ),
         backgroundColor: Colors.transparent,
         child: Container(
-          margin: EdgeInsets.all(5.0),
+          margin: const EdgeInsets.all(5.0),
           width: double.infinity,
           decoration: BoxDecoration(
             color: Colors.white,
@@ -32,21 +32,21 @@ class _RatingScreenState extends State<RatingScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 22.0,
               ),
-              Text(
+              const Text(
                 "Rate this Driver",
                 style: TextStyle(fontSize: 20.0, fontFamily: "Brand Bold", color: Colors.black54),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 22.0,
               ),
-              Divider(
+              const Divider(
                 height: 2.0,
                 thickness: 2.0,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16.0,
               ),
               SmoothStarRating(
@@ -55,7 +55,7 @@ class _RatingScreenState extends State<RatingScreen> {
                 allowHalfRating: false,
                 starCount: 5,
                 size: 45,
-                onRated: (value) {
+                onRatingChanged: (value) {
                   starCounter = value;
 
                   if (starCounter == 1) {
@@ -85,25 +85,25 @@ class _RatingScreenState extends State<RatingScreen> {
                   }
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 14.0,
               ),
               Text(
                 title,
-                style: TextStyle(fontSize: 55.0, fontFamily: "Signatra", color: Colors.green),
+                style: const TextStyle(fontSize: 55.0, fontFamily: "Signatra", color: Colors.green),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16.0,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: RaisedButton(
-                  shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(24.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24.0),
                   ),
                   onPressed: () async {
                     DatabaseReference driverRatingRef =
-                        FirebaseDatabase.instance.reference().child("drivers").child(widget.driverId).child("ratings");
+                        FirebaseDatabase.instance.ref().child("drivers").child(widget.driverId!).child("ratings");
 
                     driverRatingRef.once().then((s) {
                       DataSnapshot snap = s.snapshot;
@@ -122,20 +122,20 @@ class _RatingScreenState extends State<RatingScreen> {
                   },
                   color: Colors.green,
                   child: Padding(
-                    padding: EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(
+                        const Text(
                           "Submit",
-                          style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.white),
+                          style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.white),
                         ),
                       ],
                     ),
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30.0,
               ),
             ],

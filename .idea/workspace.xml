@@ -4,7 +4,164 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ccd35d3-7e76-481c-8384-bf94ab9ac4ae" name="Default Changelist" comment="auth" />
+    <list default="true" id="6ccd35d3-7e76-481c-8384-bf94ab9ac4ae" name="Default Changelist" comment="auth">
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/flr/Loading_machine_theme.flr" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/flr/emoji1.flr" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/flr/loadingCloud.flr" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/fonts/sst_arabic_bold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/fonts/sst_arabic_light.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/fonts/sst_arabic_medium.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/fonts/sst_arabic_roman.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/icons/car_speed.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/icons/car_top.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/icons/carspeed.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/icons/disconnected.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/icons/fi_arrow_up.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/icons/group1.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/icons/group2.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/icons/group3.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/icons/group4.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/icons/group5.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/icons/group6.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/icons/group7.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/icons/group8.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/icons/ic_route.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/icons/menu.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/icons/money.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/icons/money2.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/icons/navi.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/icons/payment.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/icons/rate.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/icons/user.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/images/intro/walkthrough1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/images/intro/walkthrough2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/images/intro/walkthrough3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/images/login_bottom.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/images/main_bottom.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/images/main_top.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/images/pins/destination_map_marker.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/images/pins/driving_pin.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/images/pins/pin_user.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/images/signup_top.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/json/mapStyle.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/json/night_blue_mode.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/json/night_mode.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/lottie/boy.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/lottie/car_anim.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/lottie/carinfo.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/lottie/erorr.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/lottie/girl.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/lottie/login.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/lottie/new_loader.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/lottie/new_user.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/lottie/search.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/assets/lottie/team.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/Models/marker_config.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/animations/bouncing_animation.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/assistants/mapKitAssistant.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/assistants/requestAssistant.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/config/app/app_config.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/config/config.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/config/styles/card_styles.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/config/styles/container_styles.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/config/theme/colors.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/config/theme/text_theme.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/config/theme/theme.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/exceptions/network_exceptions/network_exceptions.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/exceptions/network_exceptions/network_exceptions.freezed.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/networks/api_result/api_result.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/networks/api_result/api_result.freezed.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/networks/dio_client.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/networks/interceptors/auth_interceptor.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/services/connectivity.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/services/preferences.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/utils/assets_to_bitmap_marker.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/utils/check_map_status.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/utils/config.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/utils/constant.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/utils/go_to.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/utils/google_api_key.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/utils/logs.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/utils/storage/shared_preferences.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/utils/storage/shared_prefernces_user.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/values/keys.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/widgets/background/primary_background.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/widgets/background/second_background.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/widgets/background/welcome_background.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/widgets/check_connection_state.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/widgets/check_internet.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/widgets/circle_button.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/widgets/classic_app_bar.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/widgets/close_widget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/widgets/image_network_cached.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/widgets/image_view.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/widgets/lottie_widget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/widgets/painter/app_bar_shape.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/widgets/progress_dialog.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/widgets/round_app_bar.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/widgets/show_more_widget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/generated/assets.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/config_app/app_config.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/config_app/easy_localization_config.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/config_app/theme_provider_config.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/configs_models.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/el_theme/app_theme.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/el_theme/colors.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/el_theme/styles/card_styles.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/el_theme/styles/container_styles.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/el_theme/text_theme.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/el_widgets/custom_text_field.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/el_widgets/el_widgets.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/el_widgets/widgets/material_text.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/el_widgets/widgets/responsive_padding.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/el_widgets/widgets/responsive_sized_box.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/flutter_screenutil/flutter_screenutil.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/flutter_screenutil/screen_util.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/flutter_screenutil/screenutil_init.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/flutter_screenutil/size_extension.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/init_app/initializers/easy_localization/easy_localization_initializer.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/init_app/initializers/flags.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/init_app/initializers/initializers.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/init_app/initializers/run_app/export_packages.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/init_app/initializers/run_app/init_app.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/init_app/initializers/theme_provider/theme_provider_initializer.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/init_app/run_app.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/notification_app/init_notification.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/notification_app/service/local_notification_service.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/notification_app/service/notifications_firebase.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/notification_app/util/strings.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/notification_app/widgets/notification_dialog.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/notification_app/widgets/notification_dialog_function.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/driveta.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/driveta.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/AllScreens/newRideScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/AllScreens/newRideScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/common/utils/assets_to_bitmap_marker.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/common/utils/assets_to_bitmap_marker.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/auth/presentation/pages/sgin_in/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/auth/presentation/pages/sgin_in/login_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/AllScreens/loginScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/AllScreens/loginScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/AllScreens/mainscreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/AllScreens/mainscreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/AllScreens/profileTabPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/AllScreens/profileTabPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/AllScreens/ratingScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/AllScreens/ratingScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/AllScreens/registerationScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/AllScreens/registerationScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/AllScreens/searchScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/AllScreens/searchScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/AllWidgets/CollectFareDialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/AllWidgets/CollectFareDialog.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/AllWidgets/HistoryItem.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/AllWidgets/HistoryItem.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/AllWidgets/progressDialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/AllWidgets/progressDialog.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/Assistants/assistantMethods.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/Assistants/assistantMethods.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/DataHandler/appData.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/DataHandler/appData.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/Models/address.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/Models/address.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/Models/allUsers.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/Models/allUsers.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/Models/directDetails.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/Models/directDetails.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/Models/history.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/Models/history.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/Models/nearbyAvailableDrivers.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/Models/nearbyAvailableDrivers.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/Models/placePredictions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/Models/placePredictions.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/configMaps.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/configMaps.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/pubspec.yaml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,6 +180,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="5" />
+  </component>
   <component name="ProjectId" id="28WCXlHOg1twe8MEGPqZ9DIip1Q" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -38,17 +198,17 @@
     <property name="cidr.known.project.marker" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/apps/driver/assets/lottie" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/apps/rider/assets/lottie" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/apps/driver/assets/lottie" />
-      <recent name="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/profile" />
-      <recent name="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages" />
-      <recent name="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/map_driver/widgets" />
-      <recent name="$PROJECT_DIR$/apps/driver/lib/features/map_driver/data/models" />
+      <recent name="$PROJECT_DIR$/apps/rider/assets/lottie" />
+      <recent name="$PROJECT_DIR$/apps/rider" />
+      <recent name="$PROJECT_DIR$/apps/rider/lib/Models" />
+      <recent name="$PROJECT_DIR$/apps/rider/lib" />
+      <recent name="$PROJECT_DIR$/apps/rider/lib/libraries/el_theme" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/apps/driver/lib/AllScreens" />
@@ -58,7 +218,7 @@
       <recent name="$PROJECT_DIR$/apps/driver" />
     </key>
   </component>
-  <component name="RunManager" selected="Flutter.main_driver">
+  <component name="RunManager" selected="Flutter.main_rider">
     <configuration name="main_driver" type="FlutterRunConfigurationType" factoryName="Flutter" temporary="true">
       <option name="filePath" value="$PROJECT_DIR$/apps/driver/lib/main.dart" />
       <method v="2" />
@@ -73,8 +233,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Flutter.main_driver" />
         <item itemvalue="Flutter.main_rider" />
+        <item itemvalue="Flutter.main_driver" />
       </list>
     </recent_temporary>
   </component>
@@ -135,6 +295,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />

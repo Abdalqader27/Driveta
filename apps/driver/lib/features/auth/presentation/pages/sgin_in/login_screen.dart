@@ -150,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
-          return ProgressDialog(
+          return const ProgressDialog(
             message: "جاري المزامنة ، يرجى الانتظار...",
           );
         });

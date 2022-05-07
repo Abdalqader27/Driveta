@@ -13,8 +13,8 @@ class ProfileTabPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              userCurrentInfo.name,
-              style: TextStyle(
+              "${userCurrentInfo?.name}",
+              style: const TextStyle(
                 fontSize: 65.0,
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -32,14 +32,14 @@ class ProfileTabPage extends StatelessWidget {
               height: 40.0,
             ),
             InfoCard(
-              text: userCurrentInfo.phone,
+              text: "${userCurrentInfo?.phone}",
               icon: Icons.phone,
               onPressed: () async {
                 print("this is phone.");
               },
             ),
             InfoCard(
-              text: userCurrentInfo.email,
+              text: "${userCurrentInfo?.email}",
               icon: Icons.email,
               onPressed: () async {
                 print("this is email.");
@@ -53,9 +53,9 @@ class ProfileTabPage extends StatelessWidget {
 }
 
 class InfoCard extends StatelessWidget {
-  final String text;
-  final IconData icon;
-  Function onPressed;
+  final String? text;
+  final IconData? icon;
+  Function()? onPressed;
 
   InfoCard({
     this.text,
@@ -76,7 +76,7 @@ class InfoCard extends StatelessWidget {
             color: Colors.black87,
           ),
           title: Text(
-            text,
+            "$text",
             style: TextStyle(
               color: Colors.black87,
               fontSize: 16.0,

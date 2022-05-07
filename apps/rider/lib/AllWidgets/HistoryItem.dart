@@ -3,7 +3,8 @@ import 'package:rider/Assistants/assistantMethods.dart';
 import 'package:rider/Models/history.dart';
 
 class HistoryItem extends StatelessWidget {
-  final History history;
+  final History? history;
+
   HistoryItem({this.history});
 
   @override
@@ -29,7 +30,7 @@ class HistoryItem extends StatelessWidget {
                     Expanded(
                         child: Container(
                             child: Text(
-                      history.pickup,
+                      "${history?.pickup}",
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(fontSize: 18),
                     ))),
@@ -37,7 +38,7 @@ class HistoryItem extends StatelessWidget {
                       width: 5,
                     ),
                     Text(
-                      '\$${history.fares}',
+                      '\$${history?.fares}',
                       style: TextStyle(fontFamily: 'Brand Bold', fontSize: 16, color: Colors.black87),
                     ),
                   ],
@@ -58,7 +59,7 @@ class HistoryItem extends StatelessWidget {
                     width: 18,
                   ),
                   Text(
-                    history.dropOff,
+                    "${history?.dropOff}",
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(fontSize: 18),
                   ),
@@ -68,7 +69,7 @@ class HistoryItem extends StatelessWidget {
                 height: 15,
               ),
               Text(
-                AssistantMethods.formatTripDate(history.createdAt),
+                AssistantMethods.formatTripDate(history!.createdAt!),
                 style: TextStyle(color: Colors.grey),
               ),
             ],

@@ -45,7 +45,7 @@ class AssistantMethods {
     return placeAddress;
   }
 
-  static Future<DirectionDetails> obtainPlaceDirectionDetails(LatLng initialPosition, LatLng finalPosition) async {
+  static Future<DirectionDetails?> obtainPlaceDirectionDetails(LatLng initialPosition, LatLng finalPosition) async {
     String directionUrl =
         "https://maps.googleapis.com/maps/api/directions/json?origin=${initialPosition.latitude},${initialPosition.longitude}&destination=${finalPosition.latitude},${finalPosition.longitude}&key=$mapKey";
 
@@ -70,8 +70,8 @@ class AssistantMethods {
 
   static int calculateFares(DirectionDetails directionDetails) {
     //in terms USD
-    double timeTraveledFare = (directionDetails.durationValue / 60) * 0.20;
-    double distancTraveledFare = (directionDetails.distanceValue / 1000) * 0.20;
+    double timeTraveledFare = (directionDetails.durationValue ?? 0 / 60) * 0.20;
+    double distancTraveledFare = (directionDetails.distanceValue ?? 0 / 1000) * 0.20;
     double totalFareAmount = timeTraveledFare + distancTraveledFare;
 
     //Local Currency
@@ -83,7 +83,7 @@ class AssistantMethods {
 
   static void getCurrentOnlineUserInfo() async {
     firebaseUser = FirebaseAuth.instance.currentUser;
-    String userId = firebaseUser.uid;
+    String userId = firebaseUser!.uid;
     DatabaseReference reference = FirebaseDatabase.instance.reference().child("users").child(userId);
 
     reference.once().then((s) {
@@ -107,7 +107,7 @@ class AssistantMethods {
       'Authorization': serverToken,
     };
 
-    Map notificationMap = {'body': 'DropOff Address, ${destionation.placeName}', 'title': 'New Ride Request'};
+    Map notificationMap = {'body': 'DropOff Address, ${destionation?.placeName}', 'title': 'New Ride Request'};
 
     Map dataMap = {
       'click_action': 'FLUTTER_NOTIFICATION_CLICK',
@@ -140,7 +140,7 @@ class AssistantMethods {
 
       if (dataSnapShot.value != null) {
         //update total number of trip counts to provider
-        Map<dynamic, dynamic> keys = dataSnapShot.value;
+        Map<dynamic, dynamic> keys = dataSnapShot.value as Map<String, dynamic>;
         int tripCounter = keys.length;
         Provider.of<AppData>(context, listen: false).updateTripsCounter(tripCounter);
 
@@ -165,7 +165,7 @@ class AssistantMethods {
           rideRequestRef.child(key).child("rider_name").once().then((s2) {
             DataSnapshot snap = s2.snapshot;
             String name = snap.value.toString();
-            if (name == userCurrentInfo.name) {
+            if (name == userCurrentInfo?.name) {
               var history = History.fromSnapshot(snapshot);
               Provider.of<AppData>(context, listen: false).updateTripHistoryData(history);
             }

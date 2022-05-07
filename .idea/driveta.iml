@@ -243,6 +243,30 @@
       <excludeFolder url="file://$MODULE_DIR$/apps/driver/windows/flutter/ephemeral/.plugin_symlinks/geolocator_windows/example/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/apps/driver/windows/flutter/ephemeral/.plugin_symlinks/geolocator_windows/example/build" />
       <excludeFolder url="file://$MODULE_DIR$/apps/driver/windows/flutter/ephemeral/.plugin_symlinks/geolocator_windows/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/driver/windows/flutter/ephemeral/.plugin_symlinks/package_info_plus_windows/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/driver/windows/flutter/ephemeral/.plugin_symlinks/package_info_plus_windows/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/driver/windows/flutter/ephemeral/.plugin_symlinks/package_info_plus_windows/build" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/driver/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/driver/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/driver/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/driver/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/build" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/driver/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/driver/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/build" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/windows/flutter/ephemeral/.plugin_symlinks/package_info_plus_windows/build" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/windows/flutter/ephemeral/.plugin_symlinks/package_info_plus_windows/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/windows/flutter/ephemeral/.plugin_symlinks/package_info_plus_windows/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/build" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/.dart_tool" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

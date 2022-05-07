@@ -21,7 +21,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String placeAddress = Provider.of<AppData>(context).pickUpLocation.placeName ?? "";
+    String placeAddress = Provider.of<AppData>(context).pickUpLocation?.placeName ?? "";
     pickUpTextEditingController.text = placeAddress;
 
     return Scaffold(
@@ -29,7 +29,7 @@ class _SearchScreenState extends State<SearchScreen> {
         children: [
           Container(
             height: 215.0,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
@@ -41,19 +41,19 @@ class _SearchScreenState extends State<SearchScreen> {
               ],
             ),
             child: Padding(
-              padding: EdgeInsets.only(left: 25.0, top: 25.0, right: 25.0, bottom: 20.0),
+              padding: const EdgeInsets.only(left: 25.0, top: 25.0, right: 25.0, bottom: 20.0),
               child: Column(
                 children: [
-                  SizedBox(height: 25.0),
+                  const SizedBox(height: 25.0),
                   Stack(
                     children: [
                       GestureDetector(
                         onTap: () {
                           Navigator.pop(context);
                         },
-                        child: Icon(Icons.arrow_back),
+                        child: const Icon(Icons.arrow_back),
                       ),
-                      Center(
+                      const Center(
                         child: Text(
                           "Set Drop Off",
                           style: TextStyle(fontSize: 18.0, fontFamily: "Brand Bold"),
@@ -61,7 +61,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                   Row(
                     children: [
                       Image.asset(
@@ -69,7 +69,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         height: 16.0,
                         width: 16.0,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 18.0,
                       ),
                       Expanded(
@@ -79,7 +79,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(3.0),
+                            padding: const EdgeInsets.all(3.0),
                             child: TextField(
                               controller: pickUpTextEditingController,
                               decoration: InputDecoration(
@@ -88,7 +88,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 filled: true,
                                 border: InputBorder.none,
                                 isDense: true,
-                                contentPadding: EdgeInsets.only(left: 11.0, top: 8.0, bottom: 8.0),
+                                contentPadding: const EdgeInsets.only(left: 11.0, top: 8.0, bottom: 8.0),
                               ),
                             ),
                           ),
@@ -96,7 +96,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 10.0),
+                  const SizedBox(height: 10.0),
                   Row(
                     children: [
                       Image.asset(
@@ -104,7 +104,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         height: 16.0,
                         width: 16.0,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 18.0,
                       ),
                       Expanded(
@@ -114,7 +114,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(3.0),
+                            padding: const EdgeInsets.all(3.0),
                             child: TextField(
                               onChanged: (val) {
                                 findPlace(val);
@@ -126,7 +126,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 filled: true,
                                 border: InputBorder.none,
                                 isDense: true,
-                                contentPadding: EdgeInsets.only(left: 11.0, top: 8.0, bottom: 8.0),
+                                contentPadding: const EdgeInsets.only(left: 11.0, top: 8.0, bottom: 8.0),
                               ),
                             ),
                           ),
@@ -140,15 +140,15 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
 
           //tile for predictions
-          SizedBox(
+          const SizedBox(
             height: 10.0,
           ),
           (placePredictionList.length > 0)
               ? Expanded(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                     child: ListView.separated(
-                      padding: EdgeInsets.all(0.0),
+                      padding: const EdgeInsets.all(0.0),
                       itemBuilder: (context, index) {
                         return PredictionTile(
                           placePredictions: placePredictionList[index],
@@ -157,7 +157,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       separatorBuilder: (BuildContext context, int index) => DividerWidget(),
                       itemCount: placePredictionList.length,
                       shrinkWrap: true,
-                      physics: ClampingScrollPhysics(),
+                      physics: const ClampingScrollPhysics(),
                     ),
                   ),
                 )
@@ -192,62 +192,60 @@ class _SearchScreenState extends State<SearchScreen> {
 }
 
 class PredictionTile extends StatelessWidget {
-  final PlacePredictions placePredictions;
+  final PlacePredictions? placePredictions;
 
-  PredictionTile({Key key, this.placePredictions}) : super(key: key);
+  const PredictionTile({Key? key, this.placePredictions}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FlatButton(
-      padding: EdgeInsets.all(0.0),
+      padding: const EdgeInsets.all(0.0),
       onPressed: () {
-        getPlaceAddressDetails(placePredictions.place_id, context);
+        getPlaceAddressDetails("${placePredictions?.place_id}", context);
       },
-      child: Container(
-        child: Column(
-          children: [
-            SizedBox(
-              width: 10.0,
-            ),
-            Row(
-              children: [
-                Icon(Icons.add_location),
-                SizedBox(
-                  width: 14.0,
+      child: Column(
+        children: [
+          const SizedBox(
+            width: 10.0,
+          ),
+          Row(
+            children: [
+              const Icon(Icons.add_location),
+              const SizedBox(
+                width: 14.0,
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 8.0,
+                    ),
+                    Text(
+                      "${placePredictions?.main_text}",
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontSize: 16.0),
+                    ),
+                    const SizedBox(
+                      height: 2.0,
+                    ),
+                    Text(
+                      "${placePredictions?.secondary_text}",
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontSize: 12.0, color: Colors.grey),
+                    ),
+                    const SizedBox(
+                      height: 8.0,
+                    ),
+                  ],
                 ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 8.0,
-                      ),
-                      Text(
-                        placePredictions.main_text,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 16.0),
-                      ),
-                      SizedBox(
-                        height: 2.0,
-                      ),
-                      Text(
-                        placePredictions.secondary_text,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 12.0, color: Colors.grey),
-                      ),
-                      SizedBox(
-                        height: 8.0,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              width: 10.0,
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            width: 10.0,
+          ),
+        ],
       ),
     );
   }
