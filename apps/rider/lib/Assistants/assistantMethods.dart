@@ -18,7 +18,7 @@ import 'package:intl/intl.dart';
 import 'package:rider/main.dart';
 
 class AssistantMethods {
-  static Future<String> searchCoordinateAddress(Position position, context) async {
+  static Future<String> searchCoordinateAddress(LatLng position, context) async {
     String placeAddress = "";
     String st1, st2, st3, st4;
     String url =
@@ -28,13 +28,7 @@ class AssistantMethods {
 
     if (response != 'failed') {
       placeAddress = response["results"][0]["formatted_address"];
-      // st1 = response["results"][0]["address_components"][4]["long_name"];
-      // st2 = response["results"][0]["address_components"][7]["long_name"];
-      // st3 = response["results"][0]["address_components"][6]["long_name"];
-      // st4 = response["results"][0]["address_components"][9]["long_name"];
-      // placeAddress = st1 + ", " + st2 + ", " + st3 + ", " + st4;
-
-      Address userPickUpAddress = new Address();
+      Address userPickUpAddress = Address();
       userPickUpAddress.longitude = position.longitude;
       userPickUpAddress.latitude = position.latitude;
       userPickUpAddress.placeName = placeAddress;

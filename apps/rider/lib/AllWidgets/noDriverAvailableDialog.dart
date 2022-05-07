@@ -1,6 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:rider/libraries/flutter_screenutil/flutter_screenutil.dart';
+
+import '../common/config/theme/colors.dart';
+import '../generated/assets.dart';
+import '../libraries/el_widgets/widgets/responsive_padding.dart';
+import '../libraries/el_widgets/widgets/responsive_sized_box.dart';
 
 class NoDriverAvailableDialog extends StatelessWidget {
+  const NoDriverAvailableDialog({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -10,51 +20,63 @@ class NoDriverAvailableDialog extends StatelessWidget {
       elevation: 0.0,
       backgroundColor: Colors.transparent,
       child: Container(
-        margin: EdgeInsets.all(0),
+        margin: const EdgeInsets.all(0),
         width: double.infinity,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(20),
         ),
         child: Padding(
-          padding:  EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: 10,),
-
-                Text('No driver found', style: TextStyle(fontSize: 22.0, fontFamily: 'Brand-Bold'),),
-
-                SizedBox(height: 25,),
-
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('No available driver found in the nearby, we suggest you try again shortly', textAlign: TextAlign.center,),
+                const SizedBox(
+                  height: 10,
                 ),
-
-                SizedBox(height: 30,),
-
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0),
-                  child: RaisedButton(
-                    onPressed: ()
-                    {
-                      Navigator.pop(context);
-                    },
-                    color: Theme.of(context).accentColor,
-                    child: Padding(
-                      padding: EdgeInsets.all(17.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Close", style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.white),),
-                          Icon(Icons.car_repair, color: Colors.white, size: 26.0,),
-                        ],
+                RPadding.all4(
+                  child: Lottie.asset(
+                    Assets.lottieCarAnim,
+                    width: 100.w,
+                  ),
+                ),
+                const Text(
+                  'غير متوفر حاليا',
+                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                const Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'لم يتم العثور على سائق متوفر في الجوار ، نقترح عليك المحاولة مرة أخرى بعد قليل',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                CupertinoButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Center(
+                    child: Card(
+                      color: kPRIMARY,
+                      child: Center(
+                        child: RPadding(
+                          padding: EdgeInsets.symmetric(horizontal: 30.r, vertical: 10.r),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const RSizedBox.h16(),
+                              Text("اغلاق", style: Theme.of(context).textTheme.button!.copyWith(color: kWhite)),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 ),
-
               ],
             ),
           ),

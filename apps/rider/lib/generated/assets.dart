@@ -53,4 +53,20 @@ class Assets {
   static const String pinsDestinationMapMarker = 'assets/images/pins/destination_map_marker.png';
   static const String pinsDrivingPin = 'assets/images/pins/driving_pin.png';
   static const String pinsPinUser = 'assets/images/pins/pin_user.png';
+
+  static const String iconsAccess = 'assets/icons/access.png';
+  static const String iconsEco = 'assets/icons/eco.png';
+  static const String iconsElectric = 'assets/icons/electric.png';
+  static const String iconsExec = 'assets/icons/exec.png';
+
+  static const String iconsIcPick = 'assets/icons/ic_pick.svg';
+  static const String iconsIcSetloc = 'assets/icons/ic_setloc.svg';
+  static const String iconsLoader = 'assets/icons/loader.svg';
+  static const String iconsMotoTop = 'assets/icons/moto_top.png';
+  static const String iconsScooter = 'assets/icons/scooter.png';
+  static const String iconsStandard = 'assets/icons/standard.png';
+  static const String iconsVan = 'assets/icons/van.png';
+  static const String iconsVip = 'assets/icons/vip.png';
+
+  static const String jsonUberMode = 'assets/json/uber_mode.json';
 }
