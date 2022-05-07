@@ -1,23 +1,15 @@
 import 'package:dotted_line/dotted_line.dart';
-import 'package:driver/libraries/flutter_screenutil/flutter_screenutil.dart';
-// import 'package:driveta_customer/common/utils/check_map_status.dart';
-// import 'package:driveta_customer/common/widgets/tab_bar_switch/tab_bar_views.dart';
-// import 'package:driveta_customer/features/map_deilvery/infrastructure/models/map_state.dart';
-// import 'package:driveta_customer/features/map_deilvery/presentation/blocs/map_bloc.dart';
-// import 'package:driveta_customer/generated/assets.dart';
-// import 'package:driveta_customer/libraries/el_widgets/el_widgets.dart';
-// import 'package:driveta_customer/libraries/flutter_screenutil/flutter_screenutil.dart';
-// import 'package:driveta_customer/libraries/init_app/run_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:rider/libraries/flutter_screenutil/flutter_screenutil.dart';
 
 import '../../Models/map_state.dart';
 import '../../blocs/map_bloc.dart';
+import '../../common/utils/check_map_status.dart';
 import '../../generated/assets.dart';
 import '../../libraries/el_widgets/widgets/responsive_padding.dart';
 import '../../libraries/init_app/run_app.dart';
-import '../utils/check_map_status.dart';
 import 'header_item.dart';
 
 class HeaderLocDes extends StatefulWidget {

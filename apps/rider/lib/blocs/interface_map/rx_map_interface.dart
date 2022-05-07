@@ -1,4 +1,3 @@
-import 'package:driver/Models/route_data.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -6,6 +5,7 @@ import '../../Models/driver_data.dart';
 import '../../Models/location_data.dart';
 import '../../Models/map_state.dart';
 import '../../Models/payment.dart';
+import '../../Models/route_data.dart';
 import '../../Models/suggestion.dart';
 import 'stream_sink_interface.dart';
 

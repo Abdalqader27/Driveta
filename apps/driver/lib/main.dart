@@ -13,14 +13,12 @@ import 'package:driver/features/auth/presentation/pages/sgin_in/login_screen.dar
 import 'package:driver/features/auth/presentation/pages/sgin_up/registeration_screen.dart';
 import 'package:driver/DataHandler/appData.dart';
 
-import '_injections.dart';
 import 'common/config/theme/theme.dart';
 import 'libraries/flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await init();
 
   currentfirebaseUser = FirebaseAuth.instance.currentUser;
 

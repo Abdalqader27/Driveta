@@ -10,12 +10,15 @@ import 'package:rider/AllScreens/mainscreen.dart';
 import 'package:rider/AllScreens/registerationScreen.dart';
 import 'package:rider/DataHandler/appData.dart';
 
+import '_injections.dart';
 import 'libraries/el_theme/app_theme.dart';
 import 'libraries/flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await init();
+
   runApp(MyApp());
 }
 
