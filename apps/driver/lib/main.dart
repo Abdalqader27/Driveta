@@ -13,12 +13,14 @@ import 'package:driver/features/auth/presentation/pages/sgin_in/login_screen.dar
 import 'package:driver/features/auth/presentation/pages/sgin_up/registeration_screen.dart';
 import 'package:driver/DataHandler/appData.dart';
 
+import '_injections.dart';
 import 'common/config/theme/theme.dart';
 import 'libraries/flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await init();
 
   currentfirebaseUser = FirebaseAuth.instance.currentUser;
 
@@ -33,13 +35,9 @@ void main() async {
 
 DatabaseReference usersRef = FirebaseDatabase.instance.ref().child("users");
 DatabaseReference driversRef = FirebaseDatabase.instance.ref().child("drivers");
-DatabaseReference newRequestsRef =
-    FirebaseDatabase.instance.ref().child("Ride Requests");
-DatabaseReference? rideRequestRef = FirebaseDatabase.instance
-    .ref()
-    .child("drivers")
-    .child(currentfirebaseUser!.uid)
-    .child("newRide");
+DatabaseReference newRequestsRef = FirebaseDatabase.instance.ref().child("Ride Requests");
+DatabaseReference? rideRequestRef =
+    FirebaseDatabase.instance.ref().child("drivers").child(currentfirebaseUser!.uid).child("newRide");
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -59,9 +57,7 @@ class MyApp extends StatelessWidget {
           return child;
         },
         navigatorObservers: [BotToastNavigatorObserver()],
-        initialRoute: FirebaseAuth.instance.currentUser == null
-            ? LoginScreen.idScreen
-            : MapDriverScreen.idScreen,
+        initialRoute: FirebaseAuth.instance.currentUser == null ? LoginScreen.idScreen : MapDriverScreen.idScreen,
         routes: {
           RegisterationScreen.idScreen: (context) => RegisterationScreen(),
           LoginScreen.idScreen: (context) => const LoginScreen(),

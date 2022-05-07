@@ -4,27 +4,33 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ccd35d3-7e76-481c-8384-bf94ab9ac4ae" name="Default Changelist" comment="migrate rider to nullsafety &#10;redesign login and sgin up">
-      <change afterPath="$PROJECT_DIR$/apps/rider/lib/AllScreens/about_app/about_app_page.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/rider/lib/AllScreens/about_app/pub_spec.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/rider/lib/AllScreens/orders_history/order_history_page.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/rider/lib/AllScreens/orders_history/widget/chip_item.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/rider/lib/AllScreens/orders_history/widget/header_item.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/rider/lib/AllScreens/orders_history/widget/order_history_app_bar.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/rider/lib/AllScreens/orders_history/widget/order_history_body.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/rider/lib/AllScreens/orders_history/widget/order_history_item.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/rider/lib/AllScreens/profile/profile_page.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/rider/lib/AllScreens/settings/settings_page.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/rider/lib/AllScreens/support/support_page.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/rider/lib/AllScreens/widgets/map_drawer.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/rider/lib/AllScreens/widgets/map_drawer_item.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/widgets/drawer_header.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/widgets/painter/header_cliper.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/widgets/tab_bar_switch/app_bar_shape.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/widgets/tab_bar_switch/tab_bar_views.dart" afterDir="false" />
+    <list default="true" id="6ccd35d3-7e76-481c-8384-bf94ab9ac4ae" name="Default Changelist" comment="add drawer">
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/Models/direction_details.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/Models/discount.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/Models/driver_data.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/Models/location_data.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/Models/map_state.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/Models/marker_config.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/Models/nearby_available_drivers.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/Models/payment.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/Models/place_predictions.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/Models/polyline_config.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/Models/route_data.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/Models/suggestion.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/Models/user_model.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/blocs/base_bloc.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/blocs/container_map_bloc.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/blocs/geo_position_bloc.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/blocs/interface_map/map_interface.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/blocs/interface_map/rx_map_interface.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/blocs/interface_map/stream_sink_interface.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/blocs/map_bloc.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/blocs/map_theme_bloc.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/common/widgets/header_item.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/common/widgets/header_location_destination.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/injections/map_injection.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/rider/lib/AllScreens/mainscreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/AllScreens/mainscreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/rider/lib/AllScreens/registerationScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/AllScreens/registerationScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/common/utils/check_map_status.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/common/utils/check_map_status.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,19 +66,18 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="cidr.known.project.marker" value="true" />
-    <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/apps/rider/lib/AllScreens" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/apps/driver/lib/Models" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/apps/driver/lib/Models" />
+      <recent name="$PROJECT_DIR$/apps/driver/lib" />
+      <recent name="$PROJECT_DIR$/apps/driver/lib/common/widgets" />
       <recent name="$PROJECT_DIR$/apps/rider/lib/AllScreens" />
       <recent name="$PROJECT_DIR$/apps/rider/lib/common/widgets" />
-      <recent name="$PROJECT_DIR$/apps/rider/lib/AllScreens/widgets" />
-      <recent name="$PROJECT_DIR$/apps/rider/assets/lottie" />
-      <recent name="$PROJECT_DIR$/apps/rider" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/apps/driver/lib/AllScreens" />
@@ -153,7 +158,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651913923820</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="add drawer">
+      <created>1651914822931</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1651914822931</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -174,7 +186,8 @@
     <MESSAGE value="history item" />
     <MESSAGE value="auth" />
     <MESSAGE value="migrate rider to nullsafety &#10;redesign login and sgin up" />
-    <option name="LAST_COMMIT_MESSAGE" value="migrate rider to nullsafety &#10;redesign login and sgin up" />
+    <MESSAGE value="add drawer" />
+    <option name="LAST_COMMIT_MESSAGE" value="add drawer" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
