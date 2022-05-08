@@ -12,15 +12,17 @@ import 'package:rider/Models/address.dart';
 import 'package:rider/Models/allUsers.dart';
 import 'package:rider/Models/directDetails.dart';
 import 'package:rider/Models/history.dart';
+import 'package:rider/Models/map_state.dart';
 import 'package:rider/configMaps.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:rider/main.dart';
 
+import '../libraries/init_app/run_app.dart';
+
 class AssistantMethods {
   static Future<String> searchCoordinateAddress(LatLng position, context) async {
     String placeAddress = "";
-    String st1, st2, st3, st4;
     String url =
         "https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.latitude},${position.longitude}&key=$mapKey";
 
@@ -33,7 +35,7 @@ class AssistantMethods {
       userPickUpAddress.latitude = position.latitude;
       userPickUpAddress.placeName = placeAddress;
 
-      Provider.of<AppData>(context, listen: false).updatePickUpLocationAddress(userPickUpAddress);
+      // Provider.of<AppData>(context, listen: false).updatePickUpLocationAddress(userPickUpAddress);
     }
 
     return placeAddress;
@@ -70,9 +72,9 @@ class AssistantMethods {
 
     //Local Currency
     //1$ = 160 RS
-    //double totalLocalAmount = totalFareAmount * 160;
+    double totalLocalAmount = totalFareAmount * 30;
 
-    return totalFareAmount.truncate();
+    return totalLocalAmount.truncate();
   }
 
   static void getCurrentOnlineUserInfo() async {
@@ -95,13 +97,15 @@ class AssistantMethods {
   }
 
   static sendNotificationToDriver(String token, context, String ride_request_id) async {
-    var destionation = Provider.of<AppData>(context, listen: false).dropOffLocation;
+    //var destionation = Provider.of<AppData>(context, listen: false).dropOffLocation;
+    var destionation = inj<MapState>().pinData.destinationPoint;
+    var placeName = inj<MapState>().pinData.destinationAddress;
     Map<String, String> headerMap = {
       'Content-Type': 'application/json',
       'Authorization': serverToken,
     };
 
-    Map notificationMap = {'body': 'DropOff Address, ${destionation?.placeName}', 'title': 'New Ride Request'};
+    Map notificationMap = {'body': 'DropOff Address, $placeName', 'title': 'New Ride Request'};
 
     Map dataMap = {
       'click_action': 'FLUTTER_NOTIFICATION_CLICK',

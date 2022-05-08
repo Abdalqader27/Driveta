@@ -33,6 +33,7 @@ import 'package:rider/Models/history.dart';
 import 'package:rider/Models/nearbyAvailableDrivers.dart';
 import 'package:rider/common/config/theme/colors.dart';
 import 'package:rider/configMaps.dart';
+import 'package:rider/libraries/el_widgets/widgets/material_text.dart';
 import 'package:rider/main.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -136,11 +137,12 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                 //HamburgerButton for Drawer
                 drawerButton(),
 
+                /// this for location and destination
                 Positioned(
                   left: 0.0,
                   right: 0.0,
                   bottom: 0.0,
-                  child: Container(
+                  child: SizedBox(
                     height: searchContainerHeight,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -161,253 +163,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   bottom: 0.0,
                   left: 0.0,
                   right: 0.0,
-                  child: AnimatedSize(
-                    vsync: this,
-                    curve: Curves.bounceIn,
-                    duration: const Duration(milliseconds: 160),
-                    child: Container(
-                      height: rideDetailsContainerHeight,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(16.0),
-                          topRight: Radius.circular(16.0),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 17.0),
-                        child: Column(
-                          children: [
-                            //bike ride
-                            GestureDetector(
-                              onTap: () {
-                                displayToastMessage("searching Bike...", context);
-
-                                setState(() {
-                                  state = "requesting";
-                                  carRideType = "bike";
-                                });
-                                displayRequestRideContainer();
-                                availableDrivers = GeoFireAssistant.nearByAvailableDriversList;
-                                searchNearestDriver();
-                              },
-                              child: SizedBox(
-                                width: double.infinity,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                                  child: Row(
-                                    children: [
-                                      Image.asset(
-                                        "images/bike.png",
-                                        height: 70.0,
-                                        width: 80.0,
-                                      ),
-                                      const SizedBox(
-                                        width: 16.0,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          const Text(
-                                            "Bike",
-                                            style: TextStyle(
-                                              fontSize: 18.0,
-                                              fontFamily: "Brand Bold",
-                                            ),
-                                          ),
-                                          Text(
-                                            ((tripDirectionDetails != null)
-                                                ? "${tripDirectionDetails?.distanceText}"
-                                                : ''),
-                                            style: const TextStyle(
-                                              fontSize: 16.0,
-                                              color: Colors.grey,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Expanded(child: Container()),
-                                      Text(
-                                        ((tripDirectionDetails != null)
-                                            ? '\$${(AssistantMethods.calculateFares(tripDirectionDetails!)) / 2}'
-                                            : ''),
-                                        style: const TextStyle(),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-
-                            const SizedBox(height: 10.0),
-                            const Divider(height: 2.0),
-                            const SizedBox(height: 10.0),
-
-                            //uber-go ride
-                            GestureDetector(
-                              onTap: () {
-                                displayToastMessage("searching Uber-Go...", context);
-
-                                setState(() {
-                                  state = "requesting";
-                                  carRideType = "uber-go";
-                                });
-                                displayRequestRideContainer();
-                                availableDrivers = GeoFireAssistant.nearByAvailableDriversList;
-                                searchNearestDriver();
-                              },
-                              child: Container(
-                                width: double.infinity,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                                  child: Row(
-                                    children: [
-                                      Image.asset(
-                                        "images/ubergo.png",
-                                        height: 70.0,
-                                        width: 80.0,
-                                      ),
-                                      const SizedBox(width: 16.0),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          const Text(
-                                            "Uber-Go",
-                                            style: TextStyle(
-                                              fontSize: 18.0,
-                                              fontFamily: "Brand Bold",
-                                            ),
-                                          ),
-                                          Text(
-                                            ((tripDirectionDetails != null)
-                                                ? "${tripDirectionDetails?.distanceText}"
-                                                : ''),
-                                            style: const TextStyle(
-                                              fontSize: 16.0,
-                                              color: Colors.grey,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Expanded(child: Container()),
-                                      Text(
-                                        ((tripDirectionDetails != null)
-                                            ? '\$${AssistantMethods.calculateFares(tripDirectionDetails!)}'
-                                            : ''),
-                                        style: const TextStyle(
-                                          fontFamily: "Brand Bold",
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-
-                            const SizedBox(height: 10.0),
-                            const Divider(height: 2.0),
-                            const SizedBox(height: 10.0),
-
-                            //uber-x ride
-                            GestureDetector(
-                              onTap: () {
-                                displayToastMessage("searching Uber-X...", context);
-
-                                setState(() {
-                                  state = "requesting";
-                                  carRideType = "uber-x";
-                                });
-                                displayRequestRideContainer();
-                                availableDrivers = GeoFireAssistant.nearByAvailableDriversList;
-                                searchNearestDriver();
-                              },
-                              child: Container(
-                                width: double.infinity,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                                  child: Row(
-                                    children: [
-                                      Image.asset(
-                                        "images/uberx.png",
-                                        height: 70.0,
-                                        width: 80.0,
-                                      ),
-                                      const SizedBox(
-                                        width: 16.0,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          const Text(
-                                            "Uber-X",
-                                            style: TextStyle(
-                                              fontSize: 18.0,
-                                              fontFamily: "Brand Bold",
-                                            ),
-                                          ),
-                                          Text(
-                                            ((tripDirectionDetails != null)
-                                                ? "${tripDirectionDetails?.distanceText}"
-                                                : ''),
-                                            style: const TextStyle(
-                                              fontSize: 16.0,
-                                              color: Colors.grey,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Expanded(child: Container()),
-                                      Text(
-                                        ((tripDirectionDetails != null)
-                                            ? '\$${(AssistantMethods.calculateFares(tripDirectionDetails!)) * 2}'
-                                            : ''),
-                                        style: const TextStyle(
-                                          fontFamily: "Brand Bold",
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-
-                            const SizedBox(
-                              height: 10.0,
-                            ),
-
-                            const SizedBox(
-                              height: 10.0,
-                            ),
-
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                              child: Row(
-                                children: const [
-                                  Icon(
-                                    FontAwesomeIcons.moneyCheckAlt,
-                                    size: 18.0,
-                                    color: Colors.black54,
-                                  ),
-                                  SizedBox(
-                                    width: 16.0,
-                                  ),
-                                  Text("Cash"),
-                                  SizedBox(
-                                    width: 6.0,
-                                  ),
-                                  Icon(
-                                    Icons.keyboard_arrow_down,
-                                    color: Colors.black54,
-                                    size: 16.0,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+                  child: chooseCarWidget(context),
                 ),
 
                 //Cancel Ui
@@ -415,90 +171,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   bottom: 0.0,
                   left: 0.0,
                   right: 0.0,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(16.0),
-                        topRight: Radius.circular(16.0),
-                      ),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          spreadRadius: 0.5,
-                          blurRadius: 16.0,
-                          color: Colors.black54,
-                          offset: const Offset(0.7, 0.7),
-                        ),
-                      ],
-                    ),
-                    height: requestRideContainerHeight,
-                    child: Padding(
-                      padding: const EdgeInsets.all(30.0),
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 12.0,
-                          ),
-                          SizedBox(
-                            width: double.infinity,
-                            child: ColorizeAnimatedTextKit(
-                              onTap: () {
-                                print("Tap Event");
-                              },
-                              text: const [
-                                "Requesting a Ride...",
-                                "Please wait...",
-                                "Finding a Driver...",
-                              ],
-                              textStyle: const TextStyle(fontSize: 55.0, fontFamily: "Signatra"),
-                              colors: const [
-                                Colors.green,
-                                Colors.purple,
-                                Colors.pink,
-                                Colors.blue,
-                                Colors.yellow,
-                                Colors.red,
-                              ],
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 22.0,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              cancelRideRequest();
-                              resetApp();
-                            },
-                            child: Container(
-                              height: 60.0,
-                              width: 60.0,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(26.0),
-                                border: Border.all(width: 2.0, color: Colors.grey[300]!),
-                              ),
-                              child: const Icon(
-                                Icons.close,
-                                size: 26.0,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10.0,
-                          ),
-                          Container(
-                            width: double.infinity,
-                            child: const Text(
-                              "Cancel Ride",
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(fontSize: 12.0),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  child: searchingWidgets(),
                 ),
 
                 //Display Assisned Driver Info
@@ -510,17 +183,9 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(16.0),
-                        topRight: const Radius.circular(16.0),
+                        topRight: Radius.circular(16.0),
                       ),
                       color: Colors.white,
-                      boxShadow: [
-                        const BoxShadow(
-                          spreadRadius: 0.5,
-                          blurRadius: 16.0,
-                          color: Colors.black54,
-                          offset: Offset(0.7, 0.7),
-                        ),
-                      ],
                     ),
                     height: driverDetailsContainerHeight,
                     child: Padding(
@@ -559,13 +224,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                             driverName,
                             style: const TextStyle(fontSize: 20.0),
                           ),
-                          const SizedBox(
-                            height: 22.0,
-                          ),
-                          const Divider(
-                            height: 2.0,
-                            thickness: 2.0,
-                          ),
+                          const SizedBox(height: 22.0),
+                          const Divider(height: 2.0, thickness: 2.0),
                           const SizedBox(
                             height: 22.0,
                           ),
@@ -623,19 +283,85 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
             locationTap: () {
               goToLocation(LatLng(currentPosition?.latitude ?? 0, currentPosition?.longitude ?? 0));
             },
-            themeTap: () async {
-              // Get.to(() => const MapTripLive());
-              // ThemeProvider.controllerOf(context).nextTheme();
-              // if (Theme.of(context).brightness == Brightness.dark) {
-              //   inj<MapThemeBloc>().changeMapMode('night_mode');
-              // } else {
-              //   inj<MapThemeBloc>().changeMapMode('uber_mode');
-              // }
-              // if (mapMode.data!.isNotEmpty) {
-              //   mapController.setMapStyle(mapMode.data);
-              // }
-            },
+            themeTap: () async {},
           )),
+    );
+  }
+
+  Container searchingWidgets() {
+    return Container(
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16.0),
+          topRight: Radius.circular(16.0),
+        ),
+        color: Colors.white,
+      ),
+      height: requestRideContainerHeight,
+      child: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 12.0,
+            ),
+            SizedBox(
+              width: double.infinity,
+              child: ColorizeAnimatedTextKit(
+                onTap: () {},
+                text: const [
+                  "Requesting a Ride...",
+                  "Please wait...",
+                  "Finding a Driver...",
+                ],
+                textStyle: const TextStyle(fontSize: 55.0, fontFamily: "Signatra"),
+                colors: const [
+                  Colors.green,
+                  Colors.purple,
+                  Colors.pink,
+                  Colors.blue,
+                  Colors.yellow,
+                  Colors.red,
+                ],
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const SizedBox(
+              height: 22.0,
+            ),
+            GestureDetector(
+              onTap: () {
+                cancelRideRequest();
+                resetApp();
+              },
+              child: Container(
+                height: 60.0,
+                width: 60.0,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(26.0),
+                  border: Border.all(width: 2.0, color: Colors.grey[300]!),
+                ),
+                child: const Icon(
+                  Icons.close,
+                  size: 26.0,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 10.0,
+            ),
+            Container(
+              width: double.infinity,
+              child: const Text(
+                "Cancel Ride",
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 12.0),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -664,7 +390,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
           await AssistantMethods.searchCoordinateAddress(inj<MapState>().pinData.currentPoint, context);
 
       inj<MapState>().isCurrentLoading = false;
-      inj<MapState>().pinData.currentAddress = currentAddress ?? "حدث خطا ما ";
+      inj<MapState>().pinData.currentAddress = currentAddress;
       inj<MapBloc>().rxSetMapState(inj<MapState>());
     } else if (CheckMapStatus.checkState(
       preState: StatusMap.selectLocation,
@@ -676,7 +402,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
           await AssistantMethods.searchCoordinateAddress(inj<MapState>().pinData.destinationPoint, context);
 
       inj<MapState>().isDestinationLoading = false;
-      inj<MapState>().pinData.destinationAddress = currentAddress ?? "حدث خطا ما ";
+      inj<MapState>().pinData.destinationAddress = currentAddress;
       inj<MapBloc>().rxSetMapState(inj<MapState>());
     }
   }
@@ -861,17 +587,21 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   void saveRideRequest() {
     rideRequestRef = FirebaseDatabase.instance.ref().child("Ride Requests").push();
 
-    var pickUp = Provider.of<AppData>(context, listen: false).pickUpLocation;
-    var dropOff = Provider.of<AppData>(context, listen: false).dropOffLocation;
+    // var pickUp = Provider.of<AppData>(context, listen: false).pickUpLocation;
+    // var dropOff = Provider.of<AppData>(context, listen: false).dropOffLocation;
+    var pickUp = inj<MapState>().pinData.currentPoint;
+    var pickUpName = inj<MapState>().pinData.currentAddress;
+    var dropOff = inj<MapState>().pinData.destinationPoint;
+    var dropOffName = inj<MapState>().pinData.destinationAddress;
 
     Map pickUpLocMap = {
-      "latitude": pickUp?.latitude.toString(),
-      "longitude": pickUp?.longitude.toString(),
+      "latitude": pickUp.latitude.toString(),
+      "longitude": pickUp.longitude.toString(),
     };
 
     Map dropOffLocMap = {
-      "latitude": dropOff?.latitude.toString(),
-      "longitude": dropOff?.longitude.toString(),
+      "latitude": dropOff.latitude.toString(),
+      "longitude": dropOff.longitude.toString(),
     };
 
     Map rideInfoMap = {
@@ -882,8 +612,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       "created_at": DateTime.now().toString(),
       "rider_name": userCurrentInfo?.name,
       "rider_phone": userCurrentInfo?.phone,
-      "pickup_address": pickUp?.placeName,
-      "dropoff_address": dropOff?.placeName,
+      "pickup_address": pickUpName,
+      "dropoff_address": dropOffName,
       "ride_type": carRideType,
     };
 
@@ -990,8 +720,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     if (isRequestingPositionDetails == false) {
       isRequestingPositionDetails = true;
 
-      var dropOff = Provider.of<AppData>(context, listen: false).dropOffLocation;
-      var dropOffUserLatLng = LatLng(dropOff?.latitude ?? 0, dropOff?.longitude ?? 0);
+      var dropOff = inj<MapState>().pinData.destinationPoint;
+      var dropOffUserLatLng = LatLng(dropOff.latitude , dropOff.longitude );
 
       var details = await AssistantMethods.obtainPlaceDirectionDetails(driverCurrentLocation, dropOffUserLatLng);
       if (details == null) {
@@ -1059,8 +789,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
     setState(() {
       searchContainerHeight = 0;
-      rideDetailsContainerHeight = 340.0;
-      bottomPaddingOfMap = 360.0;
+      rideDetailsContainerHeight = 300.0;
+      bottomPaddingOfMap = 300.0;
       drawerOpen = false;
     });
   }
@@ -1073,7 +803,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
     LatLng latLatPosition = LatLng(position.latitude, position.longitude);
 
-    CameraPosition cameraPosition = CameraPosition(target: latLatPosition, zoom: 20);
+    CameraPosition cameraPosition = CameraPosition(target: latLatPosition, zoom: 18, bearing: 0, tilt: 0);
     newGoogleMapController.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
 
     String address =
@@ -1087,10 +817,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     AssistantMethods.retrieveHistoryInfo(context);
   }
 
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
+  static const CameraPosition _kGooglePlex =
+      CameraPosition(target: LatLng(37.42796133580664, -122.085749655962), zoom: 18, bearing: 0, tilt: 0);
 
   Future<void> getPlaceDirection() async {
     var initialPos = inj<MapState>().pinData.currentPoint;
@@ -1108,7 +836,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   void initGeoFireListner() {
     Geofire.initialize("availableDrivers");
     //comment
-    Geofire.queryAtLocation(currentPosition?.latitude ?? 0, currentPosition?.longitude ?? 0, 15)?.listen((map) {
+    Geofire.queryAtLocation(currentPosition?.latitude ?? 0, currentPosition?.longitude ?? 0, 50)?.listen((map) {
       if (map != null) {
         var callBack = map['callBack'];
 
@@ -1150,24 +878,11 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   }
 
   void updateAvailableDriversOnMap() {
-    inj<MapBloc>().clearMarkers();
-
-    // setState(() {
-    //   markersSet.clear();
-    // });
+    // inj<MapBloc>().clearMarkers();
 
     for (NearbyAvailableDrivers driver in GeoFireAssistant.nearByAvailableDriversList) {
       LatLng driverAvaiablePosition = LatLng(driver.latitude ?? 0, driver.longitude ?? 0);
       inj<MapBloc>().setMarker(kDriverMarker(driverAvaiablePosition));
-    }
-  }
-
-  void createIconMarker() {
-    if (nearByIcon == null) {
-      ImageConfiguration imageConfiguration = createLocalImageConfiguration(context, size: const Size(2, 2));
-      BitmapDescriptor.fromAssetImage(imageConfiguration, "images/car_ios.png").then((value) {
-        nearByIcon = value;
-      });
     }
   }
 
@@ -1244,5 +959,204 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
         }
       });
     });
+  }
+
+  AnimatedSize chooseCarWidget(BuildContext context) {
+    return AnimatedSize(
+      vsync: this,
+      curve: Curves.bounceIn,
+      duration: const Duration(milliseconds: 160),
+      child: Container(
+        height: rideDetailsContainerHeight,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16.0),
+            topRight: Radius.circular(16.0),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 17.0),
+          child: Column(
+            children: [
+              MaterialText.subTitle1('اختر السيارة التي تريدها '),
+
+              SizedBox(height: 30),
+              //bike ride
+              GestureDetector(
+                onTap: () {
+                  displayToastMessage("searching Bike...", context);
+
+                  setState(() {
+                    state = "requesting";
+                    carRideType = "bike";
+                  });
+                  displayRequestRideContainer();
+                  availableDrivers = GeoFireAssistant.nearByAvailableDriversList;
+                  searchNearestDriver();
+                },
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          "images/bike.png",
+                          height: 70.0,
+                          width: 80.0,
+                        ),
+                        const SizedBox(
+                          width: 16.0,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "دراجة",
+                              style: TextStyle(
+                                fontSize: 18.0,
+                              ),
+                            ),
+                            Text(
+                              ((tripDirectionDetails != null) ? "${tripDirectionDetails?.distanceText}" : ''),
+                              style: const TextStyle(
+                                fontSize: 16.0,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Expanded(child: Container()),
+                        Text(
+                          ((tripDirectionDetails != null)
+                              ? ' ${(AssistantMethods.calculateFares(tripDirectionDetails!)) / 2} ل.س'
+                              : ''),
+                          style: const TextStyle(),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+
+              //uber-go ride
+              GestureDetector(
+                onTap: () {
+                  displayToastMessage("searching Uber-Go...", context);
+
+                  setState(() {
+                    state = "requesting";
+                    carRideType = "uber-go";
+                  });
+                  displayRequestRideContainer();
+                  availableDrivers = GeoFireAssistant.nearByAvailableDriversList;
+                  searchNearestDriver();
+                },
+                child: Container(
+                  width: double.infinity,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          "images/ubergo.png",
+                          height: 70.0,
+                          width: 80.0,
+                        ),
+                        const SizedBox(width: 16.0),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "اوبر - غو",
+                              style: TextStyle(
+                                fontSize: 18.0,
+                              ),
+                            ),
+                            Text(
+                              ((tripDirectionDetails != null) ? "${tripDirectionDetails?.distanceText}" : ''),
+                              style: const TextStyle(
+                                fontSize: 16.0,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Expanded(child: Container()),
+                        Text(
+                          ((tripDirectionDetails != null)
+                              ? '${AssistantMethods.calculateFares(tripDirectionDetails!)} ل.س'
+                              : ''),
+                          style: const TextStyle(),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+
+              //uber-x ride
+              GestureDetector(
+                onTap: () {
+                  displayToastMessage("searching Uber-X...", context);
+
+                  setState(() {
+                    state = "requesting";
+                    carRideType = "uber-x";
+                  });
+                  displayRequestRideContainer();
+                  availableDrivers = GeoFireAssistant.nearByAvailableDriversList;
+                  searchNearestDriver();
+                },
+                child: Container(
+                  width: double.infinity,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          "images/uberx.png",
+                          height: 70.0,
+                          width: 80.0,
+                        ),
+                        const SizedBox(
+                          width: 16.0,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "اوبر -اكس",
+                              style: TextStyle(
+                                fontSize: 18.0,
+                              ),
+                            ),
+                            Text(
+                              ((tripDirectionDetails != null) ? "${tripDirectionDetails?.distanceText}" : ''),
+                              style: const TextStyle(
+                                fontSize: 16.0,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Expanded(child: Container()),
+                        Text(
+                          ((tripDirectionDetails != null)
+                              ? '${AssistantMethods.calculateFares(tripDirectionDetails!)} ل.س'
+                              : ''),
+                          style: const TextStyle(),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

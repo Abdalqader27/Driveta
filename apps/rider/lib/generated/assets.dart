@@ -52,7 +52,7 @@ class Assets {
   static const String carInfo = 'assets/lottie/carinfo.json';
   static const String pinsDestinationMapMarker = 'assets/images/pins/destination_map_marker.png';
   static const String pinsDrivingPin = 'assets/images/pins/driving_pin.png';
-  static const String pinsPinUser = 'assets/images/pins/pin_user.png';
+  static const String pinsPinUser = 'assets/images/photo_user.png';
 
   static const String iconsAccess = 'assets/icons/access.png';
   static const String iconsEco = 'assets/icons/eco.png';

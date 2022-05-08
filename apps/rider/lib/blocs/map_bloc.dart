@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bot_toast/bot_toast.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -183,11 +184,12 @@ class MapBloc extends RxMap with MapInterface, GoogleApiKey {
       required String title,
       required String snippet}) async {
     return Marker(
-      // icon: await BitmapDescriptor.fromAssetImage(
-      //   const ImageConfiguration(size: Size(200, 200)),
-      //   pinPath,
-      // ),
-      icon: BitmapDescriptor.defaultMarker,
+      icon: await BitmapDescriptor.fromAssetImage(
+        const ImageConfiguration(size: Size(78, 78)),
+        pinPath,
+      ),
+
+      // icon: BitmapDescriptor.defaultMarker,
       markerId: markerId,
       position: point,
       infoWindow: InfoWindow(title: title, snippet: snippet),
