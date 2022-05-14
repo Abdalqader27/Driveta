@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:rider/libraries/el_theme/styles/card_styles.dart';
 import 'package:rider/libraries/el_theme/text_theme.dart';
 import 'package:theme_provider/theme_provider.dart';
@@ -63,6 +62,7 @@ final kLightMod = ThemeData(
   brightness: Brightness.light,
   backgroundColor: kWhite,
   scaffoldBackgroundColor: kWhite,
+  useMaterial3: true,
   textTheme: textTheme,
   fontFamily: 'sst-arabic',
   iconTheme: const IconThemeData(color: kPRIMARY),

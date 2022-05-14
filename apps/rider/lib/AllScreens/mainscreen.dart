@@ -1,22 +1,19 @@
 import 'dart:async';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_geofire/flutter_geofire.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:rider/AllScreens/HistoryScreen.dart';
 import 'package:rider/AllScreens/aboutScreen.dart';
 import 'package:rider/AllScreens/loginScreen.dart';
 import 'package:rider/AllScreens/profileTabPage.dart';
 import 'package:rider/AllScreens/ratingScreen.dart';
 import 'package:rider/AllScreens/registerationScreen.dart';
-import 'package:rider/AllScreens/searchScreen.dart';
 import 'package:rider/AllScreens/widgets/float_actions_buttons.dart';
 import 'package:rider/AllScreens/widgets/header_location_destination.dart';
 import 'package:rider/AllScreens/widgets/map_drawer.dart';
@@ -24,12 +21,9 @@ import 'package:rider/AllScreens/widgets/map_next_button.dart';
 import 'package:rider/AllWidgets/CollectFareDialog.dart';
 import 'package:rider/AllWidgets/Divider.dart';
 import 'package:rider/AllWidgets/noDriverAvailableDialog.dart';
-import 'package:rider/AllWidgets/progressDialog.dart';
 import 'package:rider/Assistants/assistantMethods.dart';
 import 'package:rider/Assistants/geoFireAssistant.dart';
-import 'package:rider/DataHandler/appData.dart';
 import 'package:rider/Models/directDetails.dart';
-import 'package:rider/Models/history.dart';
 import 'package:rider/Models/nearbyAvailableDrivers.dart';
 import 'package:rider/common/config/theme/colors.dart';
 import 'package:rider/configMaps.dart';
@@ -721,14 +715,14 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       isRequestingPositionDetails = true;
 
       var dropOff = inj<MapState>().pinData.destinationPoint;
-      var dropOffUserLatLng = LatLng(dropOff.latitude , dropOff.longitude );
+      var dropOffUserLatLng = LatLng(dropOff.latitude, dropOff.longitude);
 
       var details = await AssistantMethods.obtainPlaceDirectionDetails(driverCurrentLocation, dropOffUserLatLng);
       if (details == null) {
         return;
       }
       setState(() {
-        rideStatus = "Going to Destination - " + "${details.durationText}";
+        rideStatus = "Going to Destination - " "${details.durationText}";
       });
 
       isRequestingPositionDetails = false;
@@ -742,9 +736,9 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   void displayRequestRideContainer() {
     setState(() {
-      requestRideContainerHeight = 250.0;
+      requestRideContainerHeight = 270.0;
       rideDetailsContainerHeight = 0;
-      bottomPaddingOfMap = 230.0;
+      bottomPaddingOfMap = 260.0;
       drawerOpen = true;
     });
 

@@ -28,7 +28,7 @@ const kDestinationMarkerId = MarkerId('Destination');
 
 MarkerConfig kCurrentMarker(LatLng point) => MarkerConfig(
       point: point,
-      pinPath: Assets.iconsCarTop,
+      // pinPath: Assets.iconsCarTop,
       markerId: kCurrentMarkerId,
       snippet: 'المكان الحالي',
       title: 'أنا',
@@ -36,7 +36,7 @@ MarkerConfig kCurrentMarker(LatLng point) => MarkerConfig(
 
 MarkerConfig kDestinationMarker(LatLng point) => MarkerConfig(
       point: point,
-      pinPath: Assets.pinsDestinationMapMarker,
+      // pinPath: Assets.pinsDestinationMapMarker,
       markerId: kDestinationMarkerId,
       snippet: 'الوجهة',
       title: 'المكان المستهدف',

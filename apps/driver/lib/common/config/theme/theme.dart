@@ -10,6 +10,7 @@ final kLightMod = ThemeData(
   primaryColor: kPRIMARY,
   brightness: Brightness.light,
   backgroundColor: kWhite,
+  useMaterial3: true,
   scaffoldBackgroundColor: kWhite,
   textTheme: textTheme,
   fontFamily: 'sst-arabic',
@@ -36,10 +37,8 @@ final kDarkMod = ThemeData(
       ),
 );
 
-final appDarkTheme =
-    AppTheme(id: 'dark_id', data: kDarkMod, description: 'dark mode');
-final appLightTheme =
-    AppTheme(id: 'light_id', data: kLightMod, description: 'dark mode');
+final appDarkTheme = AppTheme(id: 'dark_id', data: kDarkMod, description: 'dark mode');
+final appLightTheme = AppTheme(id: 'light_id', data: kLightMod, description: 'dark mode');
 
 final List<AppTheme> themes = [
   appDarkTheme,

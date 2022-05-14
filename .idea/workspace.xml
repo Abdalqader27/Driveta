@@ -5,17 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ccd35d3-7e76-481c-8384-bf94ab9ac4ae" name="Default Changelist" comment="seaarch">
-      <change afterPath="$PROJECT_DIR$/apps/rider/assets/images/destination_map_marker.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/rider/assets/images/driving_pin.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/rider/assets/images/photo_user.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/utils/bit_map_marker.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/AllScreens/newRideScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/AllScreens/newRideScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/common/config/theme/theme.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/common/config/theme/theme.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/map_driver/map_driver.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/map_driver/map_driver.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/windows/flutter/generated_plugins.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/rider/lib/AllScreens/mainscreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/AllScreens/mainscreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/rider/lib/Assistants/assistantMethods.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/Assistants/assistantMethods.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/rider/lib/DataHandler/appData.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/DataHandler/appData.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/Models/marker_config.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/Models/marker_config.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/rider/lib/blocs/map_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/blocs/map_bloc.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/rider/lib/common/utils/config.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/common/utils/config.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/rider/lib/generated/assets.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/generated/assets.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/libraries/el_theme/app_theme.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/el_theme/app_theme.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/windows/flutter/generated_plugins.cmake" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +76,7 @@
       <recent name="$PROJECT_DIR$/apps/driver/lib/features/auth/presentation/pages/sgin_in" />
     </key>
   </component>
-  <component name="RunManager" selected="Flutter.main_rider">
+  <component name="RunManager" selected="Flutter.main_driver">
     <configuration name="main_driver" type="FlutterRunConfigurationType" factoryName="Flutter" temporary="true">
       <option name="filePath" value="$PROJECT_DIR$/apps/driver/lib/main.dart" />
       <method v="2" />
@@ -85,8 +91,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Flutter.main_rider" />
         <item itemvalue="Flutter.main_driver" />
+        <item itemvalue="Flutter.main_rider" />
       </list>
     </recent_temporary>
   </component>
@@ -183,7 +189,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651933080650</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="seaarch">
+      <created>1652022019449</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1652022019449</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'dart:math';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:rider/AllScreens/registerationScreen.dart';
 import 'package:rider/Assistants/requestAssistant.dart';
 import 'package:rider/DataHandler/appData.dart';
 import 'package:rider/Models/address.dart';
@@ -14,8 +15,6 @@ import 'package:rider/Models/directDetails.dart';
 import 'package:rider/Models/history.dart';
 import 'package:rider/Models/map_state.dart';
 import 'package:rider/configMaps.dart';
-import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
 import 'package:rider/main.dart';
 
 import '../libraries/init_app/run_app.dart';
@@ -34,8 +33,6 @@ class AssistantMethods {
       userPickUpAddress.longitude = position.longitude;
       userPickUpAddress.latitude = position.latitude;
       userPickUpAddress.placeName = placeAddress;
-
-      // Provider.of<AppData>(context, listen: false).updatePickUpLocationAddress(userPickUpAddress);
     }
 
     return placeAddress;
