@@ -19,7 +19,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../common/utils/config.dart';
-import '../features/map_driver/presentation/pages/order_book/widgets/header_item.dart';
+import '../features/history/presentation/widgets/header_item.dart';
 import '../generated/assets.dart';
 
 class NewRideScreen extends StatefulWidget {

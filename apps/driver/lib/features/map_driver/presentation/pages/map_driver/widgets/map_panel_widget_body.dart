@@ -12,8 +12,7 @@ import '../../../../../../libraries/el_widgets/el_widgets.dart';
 import '../../../../../balance/presentation/pages/balance_screen.dart';
 import '../../../../../balance/presentation/widgets/balance_item.dart';
 import '../../../../../balance/presentation/widgets/balance_transaction.dart';
-import '../../order_book/order_book_screen.dart';
-import '../../order_book/widgets/order_book_item.dart';
+import '../../../../../history/presentation/pages/order_book_screen.dart';
 
 class MapPanelWidgetBody extends StatelessWidget {
   final PanelController panelController;

@@ -8,7 +8,6 @@ import 'package:driver/generated/assets.dart';
 import 'package:driver/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_geofire/flutter_geofire.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
@@ -74,7 +73,7 @@ class ProfilePage extends StatelessWidget {
                         height: 40.0,
                       ),
                       InfoCard(
-                        text: data.phoneNumber ?? '',
+                        text: data.phoneNumber,
                         icon: Icons.phone,
                         onPressed: () async {
                           print("this is phone.");

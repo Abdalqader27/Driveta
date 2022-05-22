@@ -6,6 +6,7 @@ import 'package:core/core.dart';
 import 'package:design/design.dart';
 import 'package:driver/AllScreens/carInfoScreen.dart';
 import 'package:driver/configMaps.dart';
+import 'package:driver/features/history/presentation/manager/history/bloc.dart';
 import 'package:driver/features/map_driver/presentation/pages/map_driver/map_driver.dart';
 import 'package:driver/features/map_driver/presentation/pages/map_driver/provider/panel_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -35,6 +36,7 @@ void main() async {
       providers: [
         BlocProvider(create: (_) => si<AuthBloc>()),
         BlocProvider(create: (_) => si<ProfileBloc>()),
+        BlocProvider(create: (_) => si<HistoryBloc>()),
       ],
       child: const MyApp(),
     ));

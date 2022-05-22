@@ -1,0 +1,1 @@
+import 'package:network/network.dart';import '../../../auth/domain/entities/driver_info.dart';abstract class IHistoryRepository {  Future<ApiResult<dynamic>> getHistories();}

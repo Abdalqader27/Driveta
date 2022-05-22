@@ -4,58 +4,33 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ccd35d3-7e76-481c-8384-bf94ab9ac4ae" name="Default Changelist" comment="Link Login Screen">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/driver/lib/features/profile/injection/profile_injection.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/driver/lib/features/profile/presentation/manager/profile/bloc.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/driver/lib/features/profile/presentation/manager/profile/container.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/driver/lib/features/profile/presentation/manager/profile/event.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/driver/lib/features/profile/presentation/manager/profile/state.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/driveta.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/driveta.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+    <list default="true" id="6ccd35d3-7e76-481c-8384-bf94ab9ac4ae" name="Default Changelist" comment="Link Profile">
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/features/history/data/data_sources/history_api.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/features/history/data/repositories/history_repositories.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/features/history/domain/repositories/i_history_repository.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/features/history/domain/use_cases/history_usecase.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/features/history/injections/history_injection.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/features/history/presentation/manager/history/bloc.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/features/history/presentation/manager/history/container.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/features/history/presentation/manager/history/event.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/features/history/presentation/manager/history/state.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/features/history/presentation/widgets/order_book_body.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/AllScreens/carInfoScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/AllScreens/carInfoScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/driver/lib/AllScreens/newRideScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/AllScreens/newRideScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/driver/lib/app_injection.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/app_injection.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/common/widgets/check_connection_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/common/widgets/check_connection_state.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/common/widgets/circle_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/common/widgets/circle_button.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/common/widgets/classic_app_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/common/widgets/classic_app_bar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/common/widgets/close_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/common/widgets/close_widget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/common/widgets/image_network_cached.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/common/widgets/image_network_cached.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/common/widgets/image_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/common/widgets/image_view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/common/widgets/lottie_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/common/widgets/lottie_widget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/common/widgets/progress_dialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/common/widgets/progress_dialog.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/common/widgets/round_app_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/common/widgets/round_app_bar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/common/widgets/show_more_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/common/widgets/show_more_widget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/auth/presentation/pages/sgin_in/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/auth/presentation/pages/sgin_in/login_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/auth/presentation/pages/sgin_up/registeration_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/auth/presentation/pages/sgin_up/registeration_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/balance/presentation/widgets/balance_body.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/balance/presentation/widgets/balance_body.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/balance/presentation/widgets/balance_transaction.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/balance/presentation/widgets/balance_transaction.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/map_driver/map_driver.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/map_driver/map_driver.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/balance/presentation/pages/balance_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/balance/presentation/pages/balance_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/map_driver/widgets/map_drawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/map_driver/widgets/map_drawer.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/map_driver/widgets/map_drawer_item.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/map_driver/widgets/map_drawer_item.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/map_driver/widgets/map_panel_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/map_driver/widgets/map_panel_widget.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/map_driver/widgets/map_panel_widget_body.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/map_driver/widgets/map_panel_widget_body.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/order_book/widgets/chip_item.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/order_book/widgets/chip_item.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/order_book/widgets/order_book_item.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/order_book/widgets/order_book_item.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/profile/data/data_sources/profile_api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/profile/data/data_sources/profile_api.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/profile/data/models/profile_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/profile/data/models/profile_model.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/order_book/order_book_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/history/presentation/pages/order_book_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/order_book/widgets/chip_item.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/history/presentation/widgets/chip_item.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/order_book/widgets/header_item.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/history/presentation/widgets/header_item.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/order_book/widgets/order_book_app_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/history/presentation/widgets/order_book_app_bar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/order_book/widgets/order_book_body.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/history/data/models/history_model.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/order_book/widgets/order_book_item.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/history/presentation/widgets/order_book_item.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/profile/data/repositories/profile_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/profile/data/repositories/profile_repository.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/profile/domain/entities/profile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/profile/domain/entities/profile.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/profile/domain/use_cases/profile_usecase.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/profile/domain/use_cases/profile_usecase.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/profile/injection/profile_injection.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/profile/injection/profile_injection.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/profile/presentation/pages/profile_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/profile/presentation/pages/profile_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/libraries/el_widgets/custom_text_field.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/libraries/el_widgets/custom_text_field.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/libraries/el_widgets/el_widgets.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/libraries/el_widgets/el_widgets.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/libraries/el_widgets/widgets/responsive_padding.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/libraries/el_widgets/widgets/responsive_sized_box.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/libraries/flutter_screenutil/flutter_screenutil.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/libraries/flutter_screenutil/screen_util.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/libraries/flutter_screenutil/screenutil_init.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/libraries/flutter_screenutil/size_extension.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/libraries/init_app/initializers/theme_provider/theme_provider_initializer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/libraries/init_app/initializers/theme_provider/theme_provider_initializer.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/libraries/notification_app/widgets/notification_dialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/libraries/notification_app/widgets/notification_dialog.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/driver/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/packages/design/lib/src/widgets/src/s_image_network_cache.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/packages/design/lib/src/widgets/src/s_image_network_cache.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,6 +43,9 @@
         <option value="Dart File" />
       </list>
     </option>
+  </component>
+  <component name="FindBugs-IDEA-Workspace">
+    <toolWindowEditorPreview>false</toolWindowEditorPreview>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -112,6 +90,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
@@ -120,17 +99,17 @@
     <property name="cidr.known.project.marker" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/apps/driver/lib/features/app/injections" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/apps/driver/lib/features/history/presentation/pages" />
     <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/apps/driver/lib/features/history/presentation/pages" />
+      <recent name="$PROJECT_DIR$/apps/driver/lib/features/history/presentation" />
       <recent name="$PROJECT_DIR$/apps/driver/lib/features/app/injections" />
       <recent name="$PROJECT_DIR$/apps/driver/lib" />
       <recent name="$PROJECT_DIR$/apps/driver/lib/features/balance/presentation/pages" />
-      <recent name="$PROJECT_DIR$/apps/driver/lib/features/balance/presentation/widgets" />
-      <recent name="$PROJECT_DIR$/apps/driver/lib/features/balance/presentation" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/apps/driver/lib/features/auth/data/repositories" />
@@ -281,7 +260,14 @@
       <option name="project" value="LOCAL" />
       <updated>1653208582021</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Link Profile">
+      <created>1653213720184</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1653213720184</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -297,6 +283,7 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
@@ -311,7 +298,8 @@
     <MESSAGE value="seaarch" />
     <MESSAGE value="fix bugs" />
     <MESSAGE value="Link Login Screen" />
-    <option name="LAST_COMMIT_MESSAGE" value="Link Login Screen" />
+    <MESSAGE value="Link Profile" />
+    <option name="LAST_COMMIT_MESSAGE" value="Link Profile" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
