@@ -66,7 +66,7 @@ class MapDrawer extends StatelessWidget {
                             icon: Icons.help,
                             title: 'الدعم والشكوى',
                             leadingText: const SizedBox.shrink(),
-                            onTap: () => Get.to(() => const SupportComplaintScreen())),
+                            onTap: () => Get.to(() => const SupportScreen())),
                         MapDrawerItem(
                           icon: Icons.logout,
                           title: 'تسجيل الخروج',

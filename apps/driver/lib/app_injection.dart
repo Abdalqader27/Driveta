@@ -7,6 +7,7 @@ import 'features/app/injections/injection_network.dart';
 import 'features/app/injections/injection_services.dart';
 import 'features/history/injections/history_injection.dart';
 import 'features/profile/injection/profile_injection.dart';
+import 'features/support/injection/support_injection.dart';
 
 final si = GetIt.instance;
 
@@ -15,8 +16,8 @@ class Injections {
     NetworkInjection.dependencies();
     await InjectionServices.dependencies();
     AuthInjection.dependencies();
-
     ProfileInjection.dependencies();
     HistoryInjection.dependencies();
+    SupportInjection.dependencies();
   }
 }

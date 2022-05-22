@@ -1,0 +1,1 @@
+import 'package:network/network.dart';abstract class ISupportRepository {  Future<ApiResult<dynamic>> addSupport(String text);}

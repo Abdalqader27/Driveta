@@ -8,15 +8,13 @@ import 'package:driver/AllScreens/carInfoScreen.dart';
 import 'package:driver/configMaps.dart';
 import 'package:driver/features/history/presentation/manager/history/bloc.dart';
 import 'package:driver/features/map_driver/presentation/pages/map_driver/map_driver.dart';
-import 'package:driver/features/map_driver/presentation/pages/map_driver/provider/panel_provider.dart';
+import 'package:driver/features/support/presentation/manager/support/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 import 'package:driver/features/auth/presentation/pages/sgin_in/login_screen.dart';
 import 'package:driver/features/auth/presentation/pages/sgin_up/registeration_screen.dart';
-import 'package:driver/DataHandler/appData.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:responsive_framework/utils/scroll_behavior.dart';
 import 'app_injection.dart';
@@ -37,6 +35,7 @@ void main() async {
         BlocProvider(create: (_) => si<AuthBloc>()),
         BlocProvider(create: (_) => si<ProfileBloc>()),
         BlocProvider(create: (_) => si<HistoryBloc>()),
+        BlocProvider(create: (_) => si<SupportBloc>()),
       ],
       child: const MyApp(),
     ));
@@ -54,7 +53,6 @@ DatabaseReference? rideRequestRef =
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     final botToastBuilder = BotToastInit(); //1. call BotToastInit

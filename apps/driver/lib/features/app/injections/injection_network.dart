@@ -8,7 +8,7 @@ import 'package:dio_refresh_bot/dio_refresh_bot.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:network/network.dart';
 import 'package:retry_bot/retry_bot.dart';
-import 'package:driver/common/utils/connectivity.dart' as c;
+import 'package:driver/common/utils/connectivity.dart';
 
 import '../../../app_injection.dart';
 
@@ -20,8 +20,8 @@ class NetworkInjection {
       InternetConnectionChecker.new,
     );
 
-    si.registerLazySingleton(
-      () => c.Connectivity(
+    si.registerSingleton(
+      SConnectivity(
         internetChecker: si<InternetConnectionChecker>(),
       ),
     );
