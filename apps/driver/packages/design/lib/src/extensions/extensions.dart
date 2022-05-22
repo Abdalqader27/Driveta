@@ -1,0 +1,1 @@
+/// File created by/// Abed <Abed-supy-io>/// on 5 /May/2022library extensions;import 'package:flutter/material.dart';part 'src/s_context.dart';part 'src/s_center.dart';part 'src/s_list.dart';part 'src/s_gesture_detector.dart';

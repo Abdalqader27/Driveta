@@ -1,0 +1,1 @@
+part of '../network.dart';final sLogInterceptor = LogInterceptor(  responseBody: true,  error: true,  requestHeader: true,  responseHeader: true,  request: true,  requestBody: true,);

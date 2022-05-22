@@ -124,8 +124,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   },
                 ),
                 RPadding(
-                  child: const MapPin(),
                   padding: EdgeInsets.only(bottom: bottomPaddingOfMap),
+                  child: const MapPin(),
                 ),
 
                 //HamburgerButton for Drawer
@@ -187,9 +187,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const SizedBox(
-                            height: 6.0,
-                          ),
+                          const SizedBox(height: 6.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [

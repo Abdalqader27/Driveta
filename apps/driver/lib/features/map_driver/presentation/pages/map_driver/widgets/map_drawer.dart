@@ -1,4 +1,3 @@
-import 'package:driver/features/map_driver/presentation/pages/profile/profile_page.dart';
 import 'package:driver/libraries/flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -11,10 +10,11 @@ import '../../../../../../configMaps.dart';
 import '../../../../../../libraries/el_widgets/widgets/responsive_padding.dart';
 import '../../../../../../libraries/el_widgets/widgets/responsive_sized_box.dart';
 import '../../../../../../main.dart';
+import '../../../../../balance/presentation/pages/balance_screen.dart';
+import '../../../../../profile/presentation/pages/profile_page.dart';
 import '../../about_app/about_app_screen.dart';
-import '../../balance/balance_screen.dart';
 import '../../order_book/order_book_screen.dart';
-import '../../support_complaint /support_complaint_screen.dart';
+import '../../../../../support/presentation/pages/support_complaint_screen.dart';
 import 'map_drawer_item.dart';
 
 class MapDrawer extends StatelessWidget {

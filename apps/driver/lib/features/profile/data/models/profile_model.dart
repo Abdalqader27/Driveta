@@ -1,0 +1,1 @@
+import '../../domain/entities/profile.dart';class ProfileModels extends Profile {}

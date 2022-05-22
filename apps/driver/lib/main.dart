@@ -1,4 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:core/core.dart';
 import 'package:driver/AllScreens/carInfoScreen.dart';
 import 'package:driver/configMaps.dart';
 import 'package:driver/features/map_driver/presentation/pages/map_driver/map_driver.dart';
@@ -13,22 +14,29 @@ import 'package:driver/features/auth/presentation/pages/sgin_in/login_screen.dar
 import 'package:driver/features/auth/presentation/pages/sgin_up/registeration_screen.dart';
 import 'package:driver/DataHandler/appData.dart';
 
+import 'app_injection.dart';
 import 'common/config/theme/theme.dart';
+import 'features/auth/presentation/manager/auth/bloc.dart';
 import 'libraries/flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await Injections.init();
 
   currentfirebaseUser = FirebaseAuth.instance.currentUser;
 
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(create: (context) => PanelProvider()),
-      ChangeNotifierProvider(create: (context) => AppData())
-    ],
-    child: const MyApp(),
-  ));
+  runApp(MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => si<AuthBloc>()),
+      ],
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => PanelProvider()),
+          ChangeNotifierProvider(create: (context) => AppData())
+        ],
+        child: const MyApp(),
+      )));
 }
 
 DatabaseReference usersRef = FirebaseDatabase.instance.ref().child("users");
@@ -55,12 +63,14 @@ class MyApp extends StatelessWidget {
           return child;
         },
         navigatorObservers: [BotToastNavigatorObserver()],
-        initialRoute: FirebaseAuth.instance.currentUser == null ? LoginScreen.idScreen : MapDriverScreen.idScreen,
+        initialRoute: si<SStorage>().get(key: kAccessToken, type: ValueType.string).toString().isEmpty
+            ? LoginScreen.idScreen
+            : MapDriverScreen.idScreen,
         routes: {
           RegisterationScreen.idScreen: (context) => RegisterationScreen(),
           LoginScreen.idScreen: (context) => const LoginScreen(),
           MapDriverScreen.idScreen: (context) => const MapDriverScreen(),
-          CarInfoScreen.idScreen: (context) => CarInfoScreen(),
+          CarInfoScreen.idScreen: (context) => const CarInfoScreen(),
         },
         debugShowCheckedModeBanner: false,
       );

@@ -1,0 +1,1 @@
+import 'package:driver/features/profile/data/data_sources/profile_api.dart';import '../../../../common/utils/connectivity.dart';class ProfileRepository {  final ProfileApi _remote;  final Connectivity _connectivity;  ProfileRepository({required ProfileApi remote, required Connectivity connectivity})      : _remote = remote,        _connectivity = connectivity;}

@@ -6,13 +6,12 @@ import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../../../../../../common/config/theme/colors.dart';
-import '../../../../../../common/networks/api_result/api_result.dart';
 import '../../../../../../common/widgets/show_more_widget.dart';
 import '../../../../../../generated/assets.dart';
 import '../../../../../../libraries/el_widgets/el_widgets.dart';
-import '../../balance/balance_screen.dart';
-import '../../balance/widgets/balance_item.dart';
-import '../../balance/widgets/balance_transaction.dart';
+import '../../../../../balance/presentation/pages/balance_screen.dart';
+import '../../../../../balance/presentation/widgets/balance_item.dart';
+import '../../../../../balance/presentation/widgets/balance_transaction.dart';
 import '../../order_book/order_book_screen.dart';
 import '../../order_book/widgets/order_book_item.dart';
 

@@ -1,0 +1,1 @@
+/// File created by/// Abed <Abed-supy-io>/// on 5 /May/2022part of '../extensions.dart';extension SCenter on Widget {  Center toCenter() {    return Center(child: this);  }}

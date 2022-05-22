@@ -1,0 +1,1 @@
+import 'package:network/network.dart';abstract class IProfileRepository {  Future<ApiResult<dynamic>> getProfile();}

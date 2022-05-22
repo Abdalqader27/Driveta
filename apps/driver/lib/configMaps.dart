@@ -5,7 +5,6 @@ import 'package:driver/Models/drivers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:driver/Models/allUsers.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 String mapKey = "AIzaSyCeL6NXSWQJcyl0SjF3CZ0-3vN3q90aGc8";
 

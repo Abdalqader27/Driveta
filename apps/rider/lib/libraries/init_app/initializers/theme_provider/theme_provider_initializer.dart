@@ -85,8 +85,8 @@ class ThemeProviderInitializer extends StatelessWidget {
       if (defaultTheme != null) {
         controller.setTheme(defaultTheme.id);
       } else {
-        Brightness? platformBrightness = SchedulerBinding.instance?.window.platformBrightness;
-        controller.setTheme(_getBrightnessTheme(platformBrightness ?? Brightness.light));
+        Brightness? platformBrightness = SchedulerBinding.instance.window.platformBrightness;
+        controller.setTheme(_getBrightnessTheme(platformBrightness));
       }
       // Forget the saved theme(which were saved just now by previous lines)
       controller.forgetSavedTheme();

@@ -267,6 +267,18 @@
       <excludeFolder url="file://$MODULE_DIR$/apps/rider/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/apps/rider/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/build" />
       <excludeFolder url="file://$MODULE_DIR$/apps/rider/windows/flutter/ephemeral/.plugin_symlinks/shared_preferences_windows/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/packages/design/build" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/packages/design/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/packages/design/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/packages/bootstrap/build" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/packages/bootstrap/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/packages/bootstrap/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/packages/network/build" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/packages/network/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/packages/network/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/packages/core/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/packages/core/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/packages/core/build" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

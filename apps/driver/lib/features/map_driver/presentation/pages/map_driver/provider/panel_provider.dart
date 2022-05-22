@@ -1,5 +1,5 @@
-import 'package:driver/common/networks/api_result/api_result.dart';
 import 'package:flutter/material.dart';
+import 'package:network/network.dart';
 
 import '../../../../../../Assistants/requestAssistant.dart';
 import '../../../../domain/entities/driver_panel.dart';

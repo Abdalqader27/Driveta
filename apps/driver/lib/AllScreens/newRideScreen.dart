@@ -42,8 +42,8 @@ class _NewRideScreenState extends State<NewRideScreen> {
   final Completer<GoogleMapController> _controllerGoogleMap = Completer();
   late GoogleMapController newRideGoogleMapController;
   final Map<MarkerId, Marker> _markers = {};
-  Set<Circle> circleSet = Set<Circle>();
-  Set<Polyline> polyLineSet = Set<Polyline>();
+  Set<Circle> circleSet = <Circle>{};
+  Set<Polyline> polyLineSet = <Polyline>{};
   List<LatLng> polylineCorOrdinates = [];
   PolylinePoints polylinePoints = PolylinePoints();
   double mapPaddingFromBottom = 0;
