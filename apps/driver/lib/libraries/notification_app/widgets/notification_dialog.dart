@@ -1,4 +1,3 @@
-import 'package:driver/libraries/flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 class NotificationDialog extends StatelessWidget {
@@ -31,14 +30,14 @@ class NotificationDialog extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 3.0.h,
+                height: 3.0,
               ),
               Text(
                 subTitle,
                 style: Theme.of(context).textTheme.subtitle2,
               ),
               SizedBox(
-                height: 20.0.h,
+                height: 20.0,
               ),
               ElevatedButton(
                 onPressed: onConfirm,
@@ -46,7 +45,7 @@ class NotificationDialog extends StatelessWidget {
               )
             ],
           ),
-          padding: EdgeInsets.all(15.0.sp),
+          padding: EdgeInsets.all(15.0),
           decoration: BoxDecoration(
             color: Theme.of(context).cardColor,
             // border: Border.all(

@@ -1,4 +1,4 @@
-import 'package:driver/libraries/flutter_screenutil/flutter_screenutil.dart';
+import 'package:design/design.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -40,25 +40,25 @@ class MapPanelWidgetBody extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                const RSizedBox.v4(),
-                const RSizedBox.v4(),
+                const SSizedBox.v4(),
+                const SSizedBox.v4(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                      width: 30.w,
-                      height: 5.h,
-                      decoration: BoxDecoration(
-                          color: Colors.grey[300], borderRadius: BorderRadius.all(Radius.circular(12.0.r))),
+                      width: 30,
+                      height: 5,
+                      decoration:
+                          BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.all(Radius.circular(12.0))),
                     ),
                   ],
                 ),
-                const RSizedBox.v12(),
+                const SSizedBox.v12(),
               ],
             ),
           ),
         ),
-        RPadding.all8(
+        SPadding.all8(
           child: Row(
             children: <Widget>[
               _PanelItem(
@@ -168,28 +168,28 @@ class _PanelItem extends StatelessWidget {
       child: Card(
         elevation: 0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0.r),
+          borderRadius: BorderRadius.circular(10.0),
         ),
-        child: RPadding.all8(
+        child: SPadding.all8(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               SvgPicture.asset(
                 path,
-                width: 35.r,
-                height: 35.r,
+                width: 35,
+                height: 35,
                 color: kPRIMARY,
               ),
               Center(
                 child: Padding(
-                  padding: EdgeInsets.only(top: 5.0.h),
+                  padding: EdgeInsets.only(top: 5.0),
                   child: MaterialText.bodyText2(title, textAlign: TextAlign.center),
                 ),
               ),
               const Divider(),
               Center(
                 child: Padding(
-                  padding: EdgeInsets.only(top: 5.0.h),
+                  padding: EdgeInsets.only(top: 5.0),
                   child: MaterialText.bodyText2(subtitle, textAlign: TextAlign.center),
                 ),
               ),

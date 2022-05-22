@@ -1,7 +1,6 @@
 import 'package:driver/common/animations/bouncing_animation.dart';
 import 'package:driver/common/config/styles/container_styles.dart';
 import 'package:driver/common/config/theme/colors.dart';
-import 'package:driver/libraries/flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 class CircleButton extends StatelessWidget {
@@ -27,9 +26,9 @@ class CircleButton extends StatelessWidget {
       onPressed: onTap,
       child: Container(
         // decoration: kBoxRoundRec,
-        padding: EdgeInsets.all(contentPadding.sp),
-        height: height.w,
-        width: width.w,
+        padding: EdgeInsets.all(contentPadding),
+        height: height,
+        width: width,
         child: Icon(
           iconData,
           color: kPRIMARY,

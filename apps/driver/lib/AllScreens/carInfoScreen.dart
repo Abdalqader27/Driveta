@@ -1,16 +1,16 @@
+import 'package:design/design.dart';
 import 'package:driver/features/auth/presentation/pages/sgin_up/registeration_screen.dart';
 import 'package:driver/configMaps.dart';
 import 'package:driver/features/map_driver/presentation/pages/map_driver/map_driver.dart';
 import 'package:driver/libraries/el_widgets/widgets/material_text.dart';
-import 'package:driver/libraries/flutter_screenutil/flutter_screenutil.dart';
 import 'package:driver/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 import '../common/config/theme/colors.dart';
 import '../generated/assets.dart';
-import '../libraries/el_widgets/widgets/responsive_padding.dart';
 
 class CarInfoScreen extends StatefulWidget {
   static const String idScreen = "carinfo";
@@ -42,10 +42,10 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
               const SizedBox(
                 height: 35.0,
               ),
-              RPadding.all4(
+              SPadding.all4(
                 child: Lottie.asset(
                   Assets.carInfo,
-                  width: 1.sw,
+                  width: context.width,
                 ),
               ),
               Padding(
@@ -115,10 +115,10 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
                     Center(
                         child: CupertinoButton(
                       color: kPRIMARY,
-                      borderRadius: BorderRadius.circular(30.r),
+                      borderRadius: BorderRadius.circular(30),
                       child: MaterialText.button(
                         'التالي',
-                        style: Theme.of(context).textTheme.button!.copyWith(color: kWhite),
+                        style: Theme.of(context).textTheme.button!.copyWith(color: Colors.white),
                       ),
                       onPressed: () {
                         if (carModelTextEditingController.text.isEmpty) {

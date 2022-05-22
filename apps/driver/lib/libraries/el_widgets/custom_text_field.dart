@@ -1,4 +1,3 @@
-import 'package:driver/libraries/flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -82,8 +81,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
             hintStyle: themeData.inputDecorationTheme.hintStyle,
             border: themeData.inputDecorationTheme.border,
             errorStyle: themeData.inputDecorationTheme.errorStyle,
-            contentPadding: themeData.inputDecorationTheme.contentPadding ??
-                EdgeInsets.symmetric(horizontal: 20.h, vertical: 5.h),
+            contentPadding:
+                themeData.inputDecorationTheme.contentPadding ?? EdgeInsets.symmetric(horizontal: 20, vertical: 5),
             label: Text(widget.hintText),
             suffixIcon: _obscureText != null
                 ? IconButton(
@@ -98,9 +97,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                         ),
                       ),
                       child: Icon(
-                        _obscureText!
-                            ? Icons.visibility_off_outlined
-                            : Icons.visibility_outlined,
+                        _obscureText! ? Icons.visibility_off_outlined : Icons.visibility_outlined,
                         key: Key(
                           _obscureText.toString(),
                         ),
@@ -115,7 +112,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     color: widget.iconColor,
                   )
                 : null,
-            prefixIconConstraints: BoxConstraints(minWidth: 40.w)),
+            prefixIconConstraints: BoxConstraints(minWidth: 40)),
       ),
     );
   }

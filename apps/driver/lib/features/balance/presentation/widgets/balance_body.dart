@@ -1,3 +1,4 @@
+import 'package:design/design.dart';
 import 'package:driver/libraries/el_widgets/el_widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -13,8 +14,8 @@ class BalanceBodyWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const RSizedBox.v16(),
-          const RPadding.all12(
+          const SSizedBox.v16(),
+          const SPadding.all12(
             child: MaterialText.bodyText1('الفواتير'),
           ),
           Expanded(

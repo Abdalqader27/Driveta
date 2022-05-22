@@ -1,8 +1,8 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:design/design.dart';
 import 'package:driver/AllScreens/carInfoScreen.dart';
 import 'package:driver/common/widgets/background/primary_background.dart';
 import 'package:driver/configMaps.dart';
-import 'package:driver/libraries/flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,6 @@ import 'package:lottie/lottie.dart';
 import '../../../../../common/config/theme/colors.dart';
 import '../../../../../generated/assets.dart';
 import '../../../../../libraries/el_widgets/widgets/material_text.dart';
-import '../../../../../libraries/el_widgets/widgets/responsive_padding.dart';
 
 class RegisterationScreen extends StatelessWidget {
   static const String idScreen = "register";
@@ -41,10 +40,10 @@ class RegisterationScreen extends StatelessWidget {
                   const SizedBox(
                     height: 20.0,
                   ),
-                  RPadding.all4(
+                  SPadding.all4(
                     child: Lottie.asset(
                       Assets.newUser,
-                      width: 200.w,
+                      width: 200,
                     ),
                   ),
                   const SizedBox(
@@ -119,10 +118,10 @@ class RegisterationScreen extends StatelessWidget {
                         Center(
                             child: CupertinoButton(
                           color: kPRIMARY,
-                          borderRadius: BorderRadius.circular(30.r),
+                          borderRadius: BorderRadius.circular(30),
                           child: MaterialText.button(
                             'انشاء حساب',
-                            style: Theme.of(context).textTheme.button!.copyWith(color: kWhite),
+                            style: Theme.of(context).textTheme.button!.copyWith(color: Colors.white),
                           ),
                           onPressed: () {
                             if (nameTextEditingController.text.length < 3) {

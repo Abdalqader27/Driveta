@@ -1,14 +1,11 @@
-import 'package:driver/libraries/flutter_screenutil/flutter_screenutil.dart';
+import 'package:design/design.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_geofire/flutter_geofire.dart';
 import 'package:get/get.dart';
 
-import '../../../../../auth/presentation/pages/sgin_in/login_screen.dart';
 import '../../../../../../common/config/theme/colors.dart';
+import '../../../../../auth/presentation/pages/sgin_in/login_screen.dart';
 import '../../../../../../configMaps.dart';
-import '../../../../../../libraries/el_widgets/widgets/responsive_padding.dart';
-import '../../../../../../libraries/el_widgets/widgets/responsive_sized_box.dart';
 import '../../../../../../main.dart';
 import '../../../../../balance/presentation/pages/balance_screen.dart';
 import '../../../../../profile/presentation/pages/profile_page.dart';
@@ -24,33 +21,33 @@ class MapDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RPadding.all8(
+    return SPadding.all8(
       child: Column(
         children: [
           Expanded(
-            child: RSizedBox(
-              width: .7.sw,
+            child: SSizedBox(
+              width: .7 * context.width,
               child: ListView(
                 reverse: false,
                 children: [
                   Card(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.r),
+                      borderRadius: BorderRadius.circular(15),
                     ),
                     color: kPRIMARY,
                     child: MapDrawerItem(
                       icon: Icons.account_circle_outlined,
                       title: 'الملف الشخصي ',
                       leadingText: const SizedBox.shrink(),
-                      color: kWhite,
-                      textColor: kWhite,
+                      color: Colors.white,
+                      textColor: Colors.white,
                       onTap: () => Get.to(() => const ProfilePage()),
                     ),
                   ),
-                  const RSizedBox.v4(),
+                  const SSizedBox.v4(),
                   Card(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.r),
+                      borderRadius: BorderRadius.circular(15),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,22 +72,23 @@ class MapDrawer extends StatelessWidget {
                           title: 'تسجيل الخروج',
                           leadingText: const Text(''),
                           onTap: () {
-                            Geofire.removeLocation(currentfirebaseUser!.uid);
-                            rideRequestRef?.onDisconnect();
-                            rideRequestRef?.remove();
-                            rideRequestRef = null;
-
-                            FirebaseAuth.instance.signOut();
+                            try {
+                              Geofire.removeLocation(currentfirebaseUser!.uid);
+                              rideRequestRef?.onDisconnect();
+                              rideRequestRef?.remove();
+                              rideRequestRef = null;
+                              FirebaseAuth.instance.signOut();
+                            } catch (_) {}
                             Navigator.pushNamedAndRemoveUntil(context, LoginScreen.idScreen, (route) => false);
                           },
                         ),
                       ],
                     ),
                   ),
-                  const RSizedBox.v4(),
+                  const SSizedBox.v4(),
                   Card(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.r),
+                      borderRadius: BorderRadius.circular(15),
                     ),
                     child: MapDrawerItem(
                         icon: Icons.info,
@@ -102,7 +100,7 @@ class MapDrawer extends StatelessWidget {
               ),
             ),
           ),
-          RPadding.all8(
+          SPadding.all8(
             child: FloatingActionButton(
               elevation: 0,
               backgroundColor: kPRIMARY,

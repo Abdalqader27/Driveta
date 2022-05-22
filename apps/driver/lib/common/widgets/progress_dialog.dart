@@ -1,4 +1,3 @@
-import 'package:driver/libraries/flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 class ProgressDialog extends StatelessWidget {
@@ -30,7 +29,7 @@ class ProgressDialog extends StatelessWidget {
               ),
               Text(
                 message,
-                style: TextStyle(color: Colors.black, fontSize: 13.0.r),
+                style: TextStyle(color: Colors.black, fontSize: 13.0),
               ),
             ],
           ),

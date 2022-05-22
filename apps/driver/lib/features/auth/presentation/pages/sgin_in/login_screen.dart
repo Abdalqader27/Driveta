@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
+import 'package:design/design.dart';
 import 'package:driver/features/auth/presentation/manager/auth/event.dart';
-import 'package:driver/libraries/flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +11,6 @@ import '../../../../../common/config/theme/colors.dart';
 import '../../../../../common/widgets/background/primary_background.dart';
 import '../../../../../generated/assets.dart';
 import '../../../../../libraries/el_widgets/widgets/material_text.dart';
-import '../../../../../libraries/el_widgets/widgets/responsive_padding.dart';
 import '../../manager/auth/bloc.dart';
 import '../../manager/auth/container.dart';
 
@@ -43,10 +42,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const SizedBox(height: 35.0),
-                  RPadding.all4(
+                  SPadding.all4(
                     child: Lottie.asset(
                       Assets.lottieCarAnim,
-                      width: 200.w,
+                      width: 200,
                     ),
                   ),
                   const SizedBox(height: 1.0),
@@ -115,10 +114,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               Center(
                                   child: CupertinoButton(
                                 color: kPRIMARY,
-                                borderRadius: BorderRadius.circular(30.r),
+                                borderRadius: BorderRadius.circular(30),
                                 child: MaterialText.button(
                                   'تسجيل الدخول',
-                                  style: Theme.of(context).textTheme.button!.copyWith(color: kWhite),
+                                  style: Theme.of(context).textTheme.button!.copyWith(color: Colors.white),
                                 ),
                                 onPressed: () async {
                                   if (formKey.currentState!.validate()) {

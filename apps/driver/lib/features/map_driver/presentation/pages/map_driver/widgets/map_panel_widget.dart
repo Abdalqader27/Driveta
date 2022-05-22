@@ -1,5 +1,5 @@
-import 'package:driver/libraries/flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import 'map_panel_widget_body.dart';
@@ -27,10 +27,10 @@ class _MapPanelWidgetState extends State<MapPanelWidget> {
         controller: panelController,
         slideDirection: SlideDirection.DOWN,
         backdropEnabled: true,
-        maxHeight: 0.85.sh,
-        minHeight: 30.h,
+        maxHeight: 0.85 * context.height,
+        minHeight: 30,
         panel: MapPanelWidgetBody(panelController: panelController),
-        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15.r), bottomRight: Radius.circular(15.0.r)),
+        borderRadius: BorderRadius.only(bottomLeft: const Radius.circular(15), bottomRight: Radius.circular(15.0)),
       ),
     );
   }

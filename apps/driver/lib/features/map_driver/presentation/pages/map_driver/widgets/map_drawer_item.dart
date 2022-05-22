@@ -1,4 +1,3 @@
-import 'package:driver/libraries/flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../common/config/theme/colors.dart';
@@ -25,7 +24,7 @@ class MapDrawerItem extends StatelessWidget {
       ),
       title: MaterialText.subTitle2(
         title,
-        style: Theme.of(context).textTheme.subtitle2!.copyWith(fontSize: 13.sp, color: textColor),
+        style: Theme.of(context).textTheme.subtitle2!.copyWith(fontSize: 13, color: textColor),
       ),
       onTap: onTap,
       trailing: leadingText,

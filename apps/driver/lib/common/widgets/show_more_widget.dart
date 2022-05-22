@@ -1,9 +1,8 @@
-import 'package:driver/libraries/flutter_screenutil/flutter_screenutil.dart';
+import 'package:design/design.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../libraries/el_widgets/widgets/material_text.dart';
-import '../../libraries/el_widgets/widgets/responsive_padding.dart';
 import '../config/theme/colors.dart';
 
 class ShowMoreWidget extends StatelessWidget {
@@ -20,8 +19,8 @@ class ShowMoreWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RPadding(
-        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
+    return SPadding(
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -30,11 +29,11 @@ class ShowMoreWidget extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
                 borderRadius: BorderRadius.circular(30),
                 color: kPRIMARY.withOpacity(.1),
+                onPressed: onPressed,
                 child: MaterialText.button(
                   buttonText,
                   style: Theme.of(context).textTheme.button!.copyWith(color: kPRIMARY),
-                ),
-                onPressed: onPressed)
+                ))
           ],
         ));
   }

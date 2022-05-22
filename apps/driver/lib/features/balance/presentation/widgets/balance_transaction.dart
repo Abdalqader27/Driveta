@@ -1,4 +1,4 @@
-import 'package:driver/libraries/flutter_screenutil/flutter_screenutil.dart';
+import 'package:design/design.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../common/config/theme/colors.dart';
@@ -22,14 +22,14 @@ class BalanceTransactionWidget extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const MaterialText.headLine6('الإجمالي'),
-                  const RSizedBox.v8(),
+                  const SSizedBox.v8(),
                   MaterialText.bodyText2(total.toString())
                 ],
               ),
             ),
             Container(
-              width: 1.w,
-              height: 50.h,
+              width: 1,
+              height: 50,
               color: kGREY,
             ),
             Expanded(
@@ -37,7 +37,7 @@ class BalanceTransactionWidget extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const MaterialText.headLine6('رصيدك  '),
-                  const RSizedBox.v8(),
+                  const SSizedBox.v8(),
                   MaterialText.bodyText2(salary.toString())
                 ],
               ),

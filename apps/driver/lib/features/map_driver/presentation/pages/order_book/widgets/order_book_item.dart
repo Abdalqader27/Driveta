@@ -1,8 +1,8 @@
+import 'package:design/design.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:driver/Models/history.dart';
 import 'package:driver/generated/assets.dart';
 import 'package:driver/libraries/el_widgets/el_widgets.dart';
-import 'package:driver/libraries/flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -26,10 +26,10 @@ class OrderBookItem extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              RPadding.all16(
+              SPadding.all16(
                 child: SvgPicture.asset(
                   Assets.iconsIcRoute,
-                  height: 80.r,
+                  height: 80,
                 ),
               ),
               Expanded(
@@ -63,7 +63,7 @@ class OrderBookItem extends StatelessWidget {
               ),
             ],
           ),
-          const RSizedBox.v12(),
+          const SSizedBox.v12(),
         ],
       ),
     );

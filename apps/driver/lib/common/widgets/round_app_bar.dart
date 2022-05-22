@@ -1,6 +1,6 @@
+import 'package:design/design.dart';
 import 'package:driver/generated/assets.dart';
 import 'package:driver/libraries/el_widgets/el_widgets.dart';
-import 'package:driver/libraries/flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -27,14 +27,14 @@ class RoundedAppBar extends StatelessWidget {
     return Stack(
       children: [
         CustomPaint(
-          size: Size(1.sw, 105.5.h),
+          size: Size(context.width, 105.5),
           painter: AppBarCustomPainterShape(colors.primary),
         ),
         CustomPaint(
-          size: Size(1.sw, 100.0.h),
+          size: Size(context.width, 100.0),
           painter: AppBarCustomPainterShape(themeData.scaffoldBackgroundColor),
         ),
-        RPadding.all8(
+        SPadding.all8(
           child: Align(
             alignment: Alignment.center,
             child: Row(
@@ -46,10 +46,7 @@ class RoundedAppBar extends StatelessWidget {
                       child: ListTile(
                     title: MaterialText.bodyText1(
                       title,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(fontSize: 15.sp),
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
                     ),
                     subtitle: MaterialText.subTitle2(
                       subTitle ?? "",

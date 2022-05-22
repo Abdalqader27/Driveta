@@ -279,6 +279,21 @@
       <excludeFolder url="file://$MODULE_DIR$/apps/rider/packages/core/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/apps/rider/packages/core/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/apps/rider/packages/core/build" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/driver/windows/flutter/ephemeral/.plugin_symlinks/connectivity_plus_windows/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/driver/windows/flutter/ephemeral/.plugin_symlinks/connectivity_plus_windows/build" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/driver/windows/flutter/ephemeral/.plugin_symlinks/connectivity_plus_windows/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/driver/packages/design/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/driver/packages/design/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/driver/packages/design/build" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/driver/packages/core/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/driver/packages/core/build" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/driver/packages/core/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/driver/packages/bootstrap/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/driver/packages/bootstrap/build" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/driver/packages/bootstrap/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/driver/packages/network/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/driver/packages/network/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/driver/packages/network/build" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

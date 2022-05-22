@@ -1,5 +1,4 @@
 import 'package:driver/generated/assets.dart';
-import 'package:driver/libraries/flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:lottie/lottie.dart';
 
@@ -24,7 +23,7 @@ class LottieWidget extends StatelessWidget {
     return Center(
       child: Lottie.asset(
         path,
-        width: width.r,
+        width: width,
       ),
     );
   }

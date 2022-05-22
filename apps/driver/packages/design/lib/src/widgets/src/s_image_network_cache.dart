@@ -6,11 +6,13 @@ part of widgets;
 class SImageNetworkCache extends StatelessWidget {
   final String path;
   final Size progressSize;
+  final Widget? errorWidget;
 
   const SImageNetworkCache({
     Key? key,
     required this.path,
     this.progressSize = const Size(60, 60),
+    this.errorWidget,
   }) : super(key: key);
 
   @override
@@ -18,16 +20,17 @@ class SImageNetworkCache extends StatelessWidget {
     return CachedNetworkImage(
       fit: BoxFit.cover,
       imageUrl: path,
+      width: progressSize.width,
+      height: progressSize.height,
       progressIndicatorBuilder: (context, url, downloadProgress) {
         return _ProgressIndicator(
           downloadProgress: downloadProgress,
         );
       },
       errorWidget: (context, url, error) {
-        return const Icon(Icons.error);
+        return errorWidget ??
+            SizedBox(width: progressSize.width, height: progressSize.height, child: const Icon(Icons.error));
       },
-      width: progressSize.width,
-      height: progressSize.height,
     );
   }
 }

@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:driver/libraries/flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,8 +9,7 @@ class ImageNetwork extends StatelessWidget {
   final BoxFit? fit;
   final Widget? placeHolder;
 
-  const ImageNetwork({Key? key, required this.path, this.fit, this.placeHolder})
-      : super(key: key);
+  const ImageNetwork({Key? key, required this.path, this.fit, this.placeHolder}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +21,7 @@ class ImageNetwork extends StatelessWidget {
               fit: fit ?? BoxFit.cover,
               imageUrl: path,
               errorWidget: (context, _, error) {
-                return Center(
-                    child: Icon(Icons.error_outline_rounded, size: 6.0.w));
+                return Center(child: Icon(Icons.error_outline_rounded, size: 6.0));
               },
             )),
         onTap: () {

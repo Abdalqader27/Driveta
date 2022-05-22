@@ -3,7 +3,6 @@ import 'package:flutter/scheduler.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import '../../../configs_models.dart';
-import '../../../flutter_screenutil/flutter_screenutil.dart';
 
 ///  Which is similar to [WidgetBuilder] but also takes an [ThemeData].
 typedef WidgetThemeBuilder = Widget Function(BuildContext context, ThemeData theme);
@@ -58,19 +57,19 @@ class ThemeProviderInitializer extends StatelessWidget {
     final caption = textTheme.caption;
     final overline = textTheme.overline;
     return textTheme.copyWith(
-      headline1: headline1?.copyWith(fontSize: headline1.fontSize?.sp),
-      headline2: headline2?.copyWith(fontSize: headline2.fontSize?.sp),
-      headline3: headline3?.copyWith(fontSize: headline3.fontSize?.sp),
-      headline4: headline4?.copyWith(fontSize: headline4.fontSize?.sp),
-      headline5: headline5?.copyWith(fontSize: headline5.fontSize?.sp),
-      headline6: headline6?.copyWith(fontSize: headline6.fontSize?.sp),
-      bodyText1: bodyText1?.copyWith(fontSize: bodyText1.fontSize?.sp),
-      bodyText2: bodyText2?.copyWith(fontSize: bodyText2.fontSize?.sp),
-      subtitle1: subtitle1?.copyWith(fontSize: subtitle1.fontSize?.sp),
-      subtitle2: subtitle2?.copyWith(fontSize: subtitle2.fontSize?.sp),
-      caption: caption?.copyWith(fontSize: caption.fontSize?.sp),
-      button: button?.copyWith(fontSize: button.fontSize?.sp),
-      overline: overline?.copyWith(fontSize: overline.fontSize?.sp),
+      headline1: headline1?.copyWith(fontSize: headline1.fontSize),
+      headline2: headline2?.copyWith(fontSize: headline2.fontSize),
+      headline3: headline3?.copyWith(fontSize: headline3.fontSize),
+      headline4: headline4?.copyWith(fontSize: headline4.fontSize),
+      headline5: headline5?.copyWith(fontSize: headline5.fontSize),
+      headline6: headline6?.copyWith(fontSize: headline6.fontSize),
+      bodyText1: bodyText1?.copyWith(fontSize: bodyText1.fontSize),
+      bodyText2: bodyText2?.copyWith(fontSize: bodyText2.fontSize),
+      subtitle1: subtitle1?.copyWith(fontSize: subtitle1.fontSize),
+      subtitle2: subtitle2?.copyWith(fontSize: subtitle2.fontSize),
+      caption: caption?.copyWith(fontSize: caption.fontSize),
+      button: button?.copyWith(fontSize: button.fontSize),
+      overline: overline?.copyWith(fontSize: overline.fontSize),
     );
   }
 

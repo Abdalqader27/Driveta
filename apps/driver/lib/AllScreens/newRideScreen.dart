@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:design/design.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:driver/AllWidgets/CollectFareDialog.dart';
 import 'package:driver/Assistants/assistantMethods.dart';
@@ -8,7 +9,6 @@ import 'package:driver/common/config/theme/colors.dart';
 import 'package:driver/common/widgets/progress_dialog.dart';
 import 'package:driver/configMaps.dart';
 import 'package:driver/libraries/el_widgets/widgets/material_text.dart';
-import 'package:driver/libraries/flutter_screenutil/flutter_screenutil.dart';
 import 'package:driver/main.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,8 +21,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../common/utils/config.dart';
 import '../features/map_driver/presentation/pages/order_book/widgets/header_item.dart';
 import '../generated/assets.dart';
-import '../libraries/el_widgets/widgets/responsive_padding.dart';
-import '../libraries/el_widgets/widgets/responsive_sized_box.dart';
 
 class NewRideScreen extends StatefulWidget {
   final RideDetails rideDetails;
@@ -194,10 +192,10 @@ class _NewRideScreenState extends State<NewRideScreen> {
               children: [
                 Column(
                   children: [
-                    RPadding.all16(
+                    SPadding.all16(
                       child: SvgPicture.asset(
                         Assets.iconsIcRoute,
-                        height: 80.r,
+                        height: 80,
                       ),
                     ),
                   ],
@@ -227,7 +225,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
             SizedBox(
               child: CupertinoButton(
                 padding: EdgeInsets.zero,
-                borderRadius: BorderRadius.circular(30.r),
+                borderRadius: BorderRadius.circular(30),
                 onPressed: () async {
                   if (status == "accepted") {
                     status = "arrived";
@@ -272,18 +270,18 @@ class _NewRideScreenState extends State<NewRideScreen> {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      RSizedBox.h12(),
+                      const SSizedBox.h12(),
                       MaterialText.button(
                         btnTitle,
                         style: const TextStyle(color: Colors.white),
                       ),
-                      RSizedBox.h12(),
+                      const SSizedBox.h12(),
                       const Icon(
                         Icons.directions_car,
                         color: Colors.white,
                         size: 26.0,
                       ),
-                      RSizedBox.h12(),
+                      const SSizedBox.h12(),
                     ],
                   ),
                 ),
