@@ -20,6 +20,7 @@ import 'package:responsive_framework/utils/scroll_behavior.dart';
 import 'app_injection.dart';
 import 'common/config/theme/theme.dart';
 import 'features/auth/presentation/manager/auth/bloc.dart';
+import 'features/invoice/presentation/manager/invoice/bloc.dart';
 import 'features/profile/presentation/manager/profile/bloc.dart';
 
 void main() async {
@@ -36,6 +37,7 @@ void main() async {
         BlocProvider(create: (_) => si<ProfileBloc>()),
         BlocProvider(create: (_) => si<HistoryBloc>()),
         BlocProvider(create: (_) => si<SupportBloc>()),
+        BlocProvider(create: (_) => si<InvoiceBloc>()),
       ],
       child: const MyApp(),
     ));

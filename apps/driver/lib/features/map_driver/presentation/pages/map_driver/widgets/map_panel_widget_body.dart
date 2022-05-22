@@ -1,5 +1,6 @@
 import 'package:design/design.dart';
-import 'package:flutter/material.dart';
+import 'package:driver/features/invoice/presentation/widgets/balance_item.dart';
+import 'package:driver/features/invoice/presentation/widgets/balance_transaction.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -9,10 +10,8 @@ import '../../../../../../common/config/theme/colors.dart';
 import '../../../../../../common/widgets/show_more_widget.dart';
 import '../../../../../../generated/assets.dart';
 import '../../../../../../libraries/el_widgets/el_widgets.dart';
-import '../../../../../balance/presentation/pages/balance_screen.dart';
-import '../../../../../balance/presentation/widgets/balance_item.dart';
-import '../../../../../balance/presentation/widgets/balance_transaction.dart';
 import '../../../../../history/presentation/pages/order_book_screen.dart';
+import '../../../../../invoice/presentation/pages/balance_screen.dart';
 
 class MapPanelWidgetBody extends StatelessWidget {
   final PanelController panelController;

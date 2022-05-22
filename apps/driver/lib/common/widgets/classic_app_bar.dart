@@ -1,6 +1,5 @@
 import 'package:design/design.dart';
 import 'package:driver/libraries/el_widgets/widgets/material_text.dart';
-import 'package:flutter/material.dart';
 
 import 'close_widget.dart';
 

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:driver/features/auth/injection/auth_injection.dart';
+import 'package:driver/features/invoice/injection/invoice_injection.dart';
 import 'package:get_it/get_it.dart';
 
 import 'features/app/injections/injection_network.dart';
@@ -19,5 +20,6 @@ class Injections {
     ProfileInjection.dependencies();
     HistoryInjection.dependencies();
     SupportInjection.dependencies();
+    InvoiceInjection.dependencies();
   }
 }
