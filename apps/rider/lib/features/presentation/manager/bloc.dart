@@ -21,25 +21,25 @@ class RiderBloc extends SMixinBloc<RiderEvent, RiderState> {
   }
 
   FutureOr<void> _addSupportEvent(PostSupportEvent event, Emitter<RiderState> emit) async {
-    emit(_state = _state.copyWith(supportState: const SBlocState.loading()));
+    emit(_state = _state.copyWith(supportState: const BlocLoading()));
 
     final result = await _useCase.addSupport(event.text);
     emit(await result.when(
       success: (user) {
-        _state = _state.copyWith(supportState: SBlocState.success(data: user));
+        _state = _state.copyWith(supportState: BlocSuccess(data: user));
         BotToast.showText(text: 'تم الارسال بنجاح');
 
         return _state;
       },
       failure: (dynamic error) {
-        _state = _state.copyWith(supportState: SBlocState.error(error));
+        _state = _state.copyWith(supportState: BlocError(error));
         return _state;
       },
     ));
   }
 
   FutureOr<void> _login(LoginEvent event, Emitter<RiderState> emit) async {
-    emit(_state = _state.copyWith(loginState: const SBlocState.loading()));
+    emit(_state = _state.copyWith(loginState: const BlocLoading()));
 
     final result = await _useCase.login(
       deviceToken: event.deviceToken,
@@ -49,25 +49,85 @@ class RiderBloc extends SMixinBloc<RiderEvent, RiderState> {
     );
     emit(await result.when(
       success: (user) {
-        _state = _state.copyWith(loginState: SBlocState.success(data: user));
+        _state = _state.copyWith(loginState: BlocSuccess(data: user));
         // Navigator.pushNamedAndRemoveUntil(event.context, MapDriverScreen.idScreen, (route) => false);
         // displayToastMessage("انت مسجل دخول الان", event.context);
         return _state;
       },
       failure: (dynamic error) {
-        _state = _state.copyWith(loginState: SBlocState.error(error));
+        _state = _state.copyWith(loginState: BlocError(error));
         return _state;
       },
     ));
   }
 
-  FutureOr<void> _endDelivery(EndDeliveryEvent event, Emitter<RiderState> emit) {}
+  FutureOr<void> _endDelivery(EndDeliveryEvent event, Emitter<RiderState> emit) async {
+    emit(_state = _state.copyWith(endDeliveryState: const BlocLoading()));
+    final result = await _useCase.endDelivery(event.text);
+    emit(await result.when(
+      success: (data) {
+        BotToast.showText(text: 'تم  بنجاح');
+        return _state = _state.copyWith(endDeliveryState: BlocSuccess(data: data));
+      },
+      failure: (dynamic error) {
+        return _state = _state.copyWith(endDeliveryState: BlocError(error));
+      },
+    ));
+  }
 
-  FutureOr<void> _removeDelivery(RemoveDeliveryEvent event, Emitter<RiderState> emit) {}
+  FutureOr<void> _removeDelivery(RemoveDeliveryEvent event, Emitter<RiderState> emit) async {
+    emit(_state = _state.copyWith(removeDeliveryState: const BlocLoading()));
+    final result = await _useCase.removeDelivery();
+    emit(await result.when(
+      success: (data) {
+        BotToast.showText(text: 'تم  بنجاح');
+        return _state = _state.copyWith(removeDeliveryState: BlocSuccess(data: data));
+      },
+      failure: (dynamic error) {
+        return _state = _state.copyWith(removeDeliveryState: BlocError(error));
+      },
+    ));
+  }
 
-  FutureOr<void> _getVehicleTypes(GetVehicleTypesEvent event, Emitter<RiderState> emit) {}
+  FutureOr<void> _getVehicleTypes(GetVehicleTypesEvent event, Emitter<RiderState> emit) async {
+    emit(_state = _state.copyWith(getVehicleTypesState: const BlocLoading()));
+    final result = await _useCase.getVehicleTypes();
+    emit(await result.when(
+      success: (data) {
+        BotToast.showText(text: 'تم  بنجاح');
+        return _state = _state.copyWith(getVehicleTypesState: BlocSuccess(data: data));
+      },
+      failure: (dynamic error) {
+        return _state = _state.copyWith(getVehicleTypesState: BlocError(error));
+      },
+    ));
+  }
 
-  FutureOr<void> _getProfileEvent(GetProfileEvent event, Emitter<RiderState> emit) {}
+  FutureOr<void> _getProfileEvent(GetProfileEvent event, Emitter<RiderState> emit) async {
+    emit(_state = _state.copyWith(getProfileState: const BlocLoading()));
+    final result = await _useCase.profile();
+    emit(await result.when(
+      success: (data) {
+        BotToast.showText(text: 'تم  بنجاح');
+        return _state = _state.copyWith(getProfileState: BlocSuccess(data: data));
+      },
+      failure: (dynamic error) {
+        return _state = _state.copyWith(getProfileState: BlocError(error));
+      },
+    ));
+  }
 
-  FutureOr<void> _getDeliveries(GetDeliveriesEvent event, Emitter<RiderState> emit) {}
+  FutureOr<void> _getDeliveries(GetDeliveriesEvent event, Emitter<RiderState> emit) async {
+    emit(_state = _state.copyWith(getDeliveriesState: const BlocLoading()));
+    final result = await _useCase.getDeliveries();
+    emit(await result.when(
+      success: (data) {
+        BotToast.showText(text: 'تم  بنجاح');
+        return _state = _state.copyWith(getDeliveriesState: BlocSuccess(data: data));
+      },
+      failure: (dynamic error) {
+        return _state = _state.copyWith(getDeliveriesState: BlocError(error));
+      },
+    ));
+  }
 }
