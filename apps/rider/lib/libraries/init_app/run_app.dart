@@ -9,7 +9,7 @@ import 'initializers/run_app/init_app.dart';
 /// 2- easy localization
 /// 3- catcher
 ///  Config = > { moor inspector - color - logs  . .... . .}
-final inj = GetIt.instance;
+final si = GetIt.instance;
 
 runApplication({
   required Widget app,
@@ -26,8 +26,6 @@ runApplication({
   }
 
   runApp(app);
-
-
 }
 
 // Widget _devicePreview(
@@ -44,4 +42,3 @@ Widget _easyLocalization({required Widget app, required EasyLocalizationConfig c
     app: app,
   );
 }
-

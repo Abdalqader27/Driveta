@@ -15,8 +15,8 @@ class MapPin extends StatelessWidget {
   Widget build(BuildContext context) {
     return IgnorePointer(
       child: StreamBuilder<MapState>(
-          stream: inj<MapBloc>().rxMapState,
-          initialData: inj<MapState>(),
+          stream: si<MapBloc>().rxMapState,
+          initialData: si<MapState>(),
           builder: (context, snapshot) {
             print("ssss" + (snapshot.data).toString());
             if (CheckMapStatus.checkState(preState: StatusMap.init, nextState: StatusMap.selectLocation) ||

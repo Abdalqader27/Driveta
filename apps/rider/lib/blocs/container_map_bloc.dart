@@ -24,7 +24,7 @@ class ContainerMapBloc extends StatelessWidget {
     // marker
     return StreamBuilder<Map<MarkerId, Marker>>(
         initialData: const <MarkerId, Marker>{},
-        stream: inj<MapBloc>().rxMarkerList,
+        stream: si<MapBloc>().rxMarkerList,
         builder: (
           BuildContext context,
           AsyncSnapshot<Map<MarkerId, Marker>> marker,
@@ -32,14 +32,14 @@ class ContainerMapBloc extends StatelessWidget {
           //polyline
           return StreamBuilder<Map<PolylineId, Polyline>>(
               initialData: const <PolylineId, Polyline>{},
-              stream: inj<MapBloc>().rxPolylineList,
+              stream: si<MapBloc>().rxPolylineList,
               builder: (
                 BuildContext context,
                 AsyncSnapshot<Map<PolylineId, Polyline>> polyline,
               ) {
                 //route data
                 return StreamBuilder<RouteData>(
-                    stream: inj<MapBloc>().rxRouteData,
+                    stream: si<MapBloc>().rxRouteData,
                     builder: (
                       BuildContext context,
                       AsyncSnapshot<RouteData> routeData,
@@ -47,7 +47,7 @@ class ContainerMapBloc extends StatelessWidget {
                       //map mode
                       return StreamBuilder<String>(
                           initialData: '',
-                          stream: inj<MapThemeBloc>().mapMode,
+                          stream: si<MapThemeBloc>().mapMode,
                           builder: (
                             BuildContext context,
                             AsyncSnapshot<String> mapMode,

@@ -4,7 +4,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:rider/AllScreens/mainscreen.dart';
+import 'package:rider/mainscreen.dart';
 
 import '../../../../common/utils/google_api_key.dart';
 import '../Models/driver_data.dart';

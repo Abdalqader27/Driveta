@@ -1,1 +1,1 @@
-import 'package:network/network.dart';abstract class IInvoiceRepository {  Future<ApiResult<dynamic>> getInvoices();}
+import 'package:network/network.dart';abstract class IInvoiceRepository {  Future<ApiResult<dynamic>> getInvoices();  Future<ApiResult<dynamic>> getStatistics();}

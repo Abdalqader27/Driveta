@@ -1,5 +1,5 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:rider/AllScreens/mainscreen.dart';
+import 'package:rider/mainscreen.dart';
 
 void goToLocation(LatLng point) {
   newGoogleMapController.animateCamera(

@@ -8,17 +8,6 @@ class AppData extends ChangeNotifier {
   List<String> tripHistoryKeys = [];
   List<History> tripHistoryDataList = [];
 
-  // void updatePickUpLocationAddress(Address pickUpAddress) {
-  //   pickUpLocation = pickUpAddress;
-  //   notifyListeners();
-  // }
-  //
-  // void updateDropOffLocationAddress(Address dropOffAddress) {
-  //   dropOffLocation = dropOffAddress;
-  //   notifyListeners();
-  // }
-
-  //history
   void updateEarnings(String updatedEarnings) {
     earnings = updatedEarnings;
     notifyListeners();

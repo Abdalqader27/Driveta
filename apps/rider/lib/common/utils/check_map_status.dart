@@ -6,18 +6,18 @@ class CheckMapStatus {
     required StatusMap preState,
     required StatusMap nextState,
   }) {
-    return (inj<MapState>().pre == preState && inj<MapState>().next == nextState);
+    return (si<MapState>().pre == preState && si<MapState>().next == nextState);
   }
 
   static bool checkCompleteState({
     required StatusMap preState,
     required StatusMap nextState,
   }) {
-    if (inj<MapState>().pre == preState && inj<MapState>().next == nextState) {
+    if (si<MapState>().pre == preState && si<MapState>().next == nextState) {
       return true;
-    } else if (inj<MapState>().pre == StatusMap.selectDestination && inj<MapState>().next == StatusMap.path) {
+    } else if (si<MapState>().pre == StatusMap.selectDestination && si<MapState>().next == StatusMap.path) {
       return true;
-    } else if (inj<MapState>().pre == StatusMap.path && inj<MapState>().next == StatusMap.startTrip) {
+    } else if (si<MapState>().pre == StatusMap.path && si<MapState>().next == StatusMap.startTrip) {
       return true;
     }
     return false;
