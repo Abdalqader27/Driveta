@@ -2,7 +2,10 @@ import 'dart:async';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:core/core.dart';
+import 'package:flutter/material.dart';
 import 'package:rider/features/domain/use_cases/rider_usecase.dart';
+import '../../../mainscreen.dart';
+import '../pages/sgin_up/registeration_screen.dart';
 import 'event.dart';
 import 'state.dart';
 
@@ -50,8 +53,8 @@ class RiderBloc extends SMixinBloc<RiderEvent, RiderState> {
     emit(await result.when(
       success: (user) {
         _state = _state.copyWith(loginState: BlocSuccess(data: user));
-        // Navigator.pushNamedAndRemoveUntil(event.context, MapDriverScreen.idScreen, (route) => false);
-        // displayToastMessage("انت مسجل دخول الان", event.context);
+        Navigator.pushNamedAndRemoveUntil(event.context, MainScreen.idScreen, (route) => false);
+        displayToastMessage("انت مسجل دخول الان", event.context);
         return _state;
       },
       failure: (dynamic error) {

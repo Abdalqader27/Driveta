@@ -3,7 +3,7 @@ import 'package:driver/generated/assets.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../features/map_driver/data/models/marker_config.dart';
+import '../../features/data/models/marker_config.dart';
 
 // final kPolylineConfig = PolyLineConfig(
 //   polylineId: const PolylineId("poly"),

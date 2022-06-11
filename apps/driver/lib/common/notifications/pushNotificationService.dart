@@ -6,7 +6,7 @@ import 'dart:io' show Platform;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:logger/logger.dart';
 
-import '../../Models/rideDetails.dart';
+import '../../features/data/models/rideDetails.dart';
 import '../../configMaps.dart';
 import '../../main.dart';
 import '../utils/logs.dart';

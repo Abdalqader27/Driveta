@@ -294,6 +294,9 @@
       <excludeFolder url="file://$MODULE_DIR$/apps/driver/packages/network/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/apps/driver/packages/network/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/apps/driver/packages/network/build" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/windows/flutter/ephemeral/.plugin_symlinks/connectivity_plus_windows/build" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/windows/flutter/ephemeral/.plugin_symlinks/connectivity_plus_windows/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/rider/windows/flutter/ephemeral/.plugin_symlinks/connectivity_plus_windows/.dart_tool" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

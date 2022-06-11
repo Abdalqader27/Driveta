@@ -6,22 +6,18 @@ import 'package:core/core.dart';
 import 'package:design/design.dart';
 import 'package:driver/AllScreens/carInfoScreen.dart';
 import 'package:driver/configMaps.dart';
-import 'package:driver/features/history/presentation/manager/history/bloc.dart';
-import 'package:driver/features/map_driver/presentation/pages/map_driver/map_driver.dart';
-import 'package:driver/features/support/presentation/manager/support/bloc.dart';
+import 'package:driver/features/presentation/manager/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
-import 'package:driver/features/auth/presentation/pages/sgin_in/login_screen.dart';
-import 'package:driver/features/auth/presentation/pages/sgin_up/registeration_screen.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:responsive_framework/utils/scroll_behavior.dart';
 import 'app_injection.dart';
 import 'common/config/theme/theme.dart';
-import 'features/auth/presentation/manager/auth/bloc.dart';
-import 'features/invoice/presentation/manager/invoice/bloc.dart';
-import 'features/profile/presentation/manager/profile/bloc.dart';
+import 'features/presentation/pages/map_driver/map_driver.dart';
+import 'features/presentation/pages/sgin_in/login_screen.dart';
+import 'features/presentation/pages/sgin_up/registeration_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,11 +29,7 @@ void main() async {
   await runZonedGuarded(() async {
     runApp(MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => si<AuthBloc>()),
-        BlocProvider(create: (_) => si<ProfileBloc>()),
-        BlocProvider(create: (_) => si<HistoryBloc>()),
-        BlocProvider(create: (_) => si<SupportBloc>()),
-        BlocProvider(create: (_) => si<InvoiceBloc>()),
+        BlocProvider(create: (_) => si<DriverBloc>()),
       ],
       child: const MyApp(),
     ));

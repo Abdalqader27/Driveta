@@ -2,8 +2,6 @@ import 'package:bot_toast/bot_toast.dart';
 
 import 'package:design/design.dart';
 
-import '../widgets/src/material_text.dart';
-
 void showSnack({required BuildContext context, required String text, Color? color}) {
   //popup a attachments toast
   BotToast.showCustomText(
@@ -16,7 +14,7 @@ void showSnack({required BuildContext context, required String text, Color? colo
           ),
           margin: const EdgeInsets.all(20.0),
           padding: const EdgeInsets.all(10),
-          child: MaterialText(
+          child: Text(
             text,
             style: const TextStyle(color: kWhite, fontSize: 15),
           ),

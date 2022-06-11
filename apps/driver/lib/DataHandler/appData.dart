@@ -1,6 +1,6 @@
-import 'package:driver/Models/history.dart';
+import 'package:driver/features/data/models/history.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:driver/Models/address.dart';
+import 'package:driver/features/data/models/address.dart';
 
 class AppData extends ChangeNotifier {
   String earnings = "0";

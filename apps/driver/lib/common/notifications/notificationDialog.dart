@@ -2,7 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
-import '../../Models/rideDetails.dart';
+import '../../features/data/models/rideDetails.dart';
 import '../../main.dart';
 
 class NotificationDialog extends StatelessWidget {

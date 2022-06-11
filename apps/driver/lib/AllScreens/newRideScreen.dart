@@ -2,24 +2,22 @@ import 'dart:async';
 
 import 'package:design/design.dart';
 import 'package:dotted_line/dotted_line.dart';
-import 'package:driver/AllWidgets/CollectFareDialog.dart';
-import 'package:driver/Assistants/assistantMethods.dart';
-import 'package:driver/Models/rideDetails.dart';
+import 'package:driver/features/presentation/widgets/CollectFareDialog.dart';
+import 'package:driver/common/assistants/assistantMethods.dart';
+import 'package:driver/features/data/models/rideDetails.dart';
 import 'package:driver/common/config/theme/colors.dart';
-import 'package:driver/common/widgets/progress_dialog.dart';
+import 'package:driver/features/presentation/widgets/progress_dialog.dart';
 import 'package:driver/configMaps.dart';
-import 'package:driver/libraries/el_widgets/widgets/material_text.dart';
 import 'package:driver/main.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../common/utils/config.dart';
-import '../features/history/presentation/widgets/header_item.dart';
+import '../features/presentation/pages/history/widgets/header_item.dart';
 import '../generated/assets.dart';
 
 class NewRideScreen extends StatefulWidget {
@@ -271,7 +269,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const SSizedBox.h12(),
-                      MaterialText.button(
+                      Text(
                         btnTitle,
                         style: const TextStyle(color: Colors.white),
                       ),

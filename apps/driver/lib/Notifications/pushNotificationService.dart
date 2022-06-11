@@ -1,5 +1,5 @@
 // import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:driver/Models/rideDetails.dart';
+import 'package:driver/features/data/models/rideDetails.dart';
 import 'package:driver/Notifications/notificationDialog.dart';
 import 'package:driver/configMaps.dart';
 import 'package:driver/main.dart';

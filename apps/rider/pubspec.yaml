@@ -90,7 +90,8 @@ dependencies:
   google_place: ^0.4.3
   about: ^2.1.0
   sliding_up_panel: ^2.0.0+1
-  signalr_netcore: ^1.2.3+1
+  signalr_core: ^1.1.1
+  logging: ^1.0.2
   # Locale Packages
   bootstrap:
     path: packages/bootstrap

@@ -1,11 +1,12 @@
 import 'package:driver/AllScreens/newRideScreen.dart';
-import 'package:driver/features/auth/presentation/pages/sgin_up/registeration_screen.dart';
-import 'package:driver/Assistants/assistantMethods.dart';
-import 'package:driver/Models/rideDetails.dart';
+import 'package:driver/common/assistants/assistantMethods.dart';
+import 'package:driver/features/data/models/rideDetails.dart';
 import 'package:driver/configMaps.dart';
 import 'package:driver/main.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+
+import '../features/presentation/pages/sgin_up/registeration_screen.dart';
 
 class NotificationDialog extends StatelessWidget {
   final RideDetails rideDetails;

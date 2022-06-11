@@ -924,6 +924,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  msgpack_dart:
+    dependency: transitive
+    description:
+      name: msgpack_dart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   nested:
     dependency: transitive
     description:
@@ -1148,6 +1155,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
+  quiver:
+    dependency: transitive
+    description:
+      name: quiver
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.0"
   responsive_framework:
     dependency: "direct main"
     description:
@@ -1239,6 +1253,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+  signalr_netcore:
+    dependency: "direct main"
+    description:
+      name: signalr_netcore
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.3.0"
   simple_mustache:
     dependency: transitive
     description:
@@ -1293,6 +1314,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.1+1"
+  sse_client:
+    dependency: transitive
+    description:
+      name: sse_client
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   stack_trace:
     dependency: transitive
     description:
@@ -1363,6 +1391,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  tuple:
+    dependency: transitive
+    description:
+      name: tuple
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   typed_data:
     dependency: transitive
     description:
