@@ -157,7 +157,7 @@ class NotificationDialog extends StatelessWidget {
       if (theRideId == rideDetails.ride_request_id) {
         rideRequestRef?.set("accepted");
         AssistantMethods.disableHomeTabLiveLocationUpdates();
-        Navigator.push(context, MaterialPageRoute(builder: (context) => NewRideScreen(rideDetails: rideDetails)));
+        // Navigator.push(context, MaterialPageRoute(builder: (context) => NewRideScreen(rideDetails: rideDetails)));
       } else if (theRideId == "cancelled") {
         displayToastMessage("Ride has been Cancelled.", context);
       } else if (theRideId == "timeout") {

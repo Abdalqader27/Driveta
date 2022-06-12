@@ -1,7 +1,6 @@
 import 'package:design/design.dart';
 import 'package:driver/features/presentation/pages/support/support_complaint_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_geofire/flutter_geofire.dart';
 import 'package:get/get.dart';
 
 import '../../../../../../common/config/theme/colors.dart';
@@ -73,7 +72,7 @@ class MapDrawer extends StatelessWidget {
                           leadingText: const Text(''),
                           onTap: () {
                             try {
-                              Geofire.removeLocation(currentfirebaseUser!.uid);
+                              //   Geofire.removeLocation(currentfirebaseUser!.uid);
                               rideRequestRef?.onDisconnect();
                               rideRequestRef?.remove();
                               rideRequestRef = null;

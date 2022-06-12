@@ -20,6 +20,7 @@ class DriverBloc extends SMixinBloc<DriverEvent, DriverState> {
     on<GetInvoicesEvent>(_getInvoices);
     on<GetStatisticsEvent>(_getStatistics);
     on<GetHistoriesEvent>(_getHistory);
+    on<GetAvailableDeliveries>(_getAvailableDeliveries);
     on<LoginEvent>(_login);
   }
 
@@ -100,6 +101,23 @@ class DriverBloc extends SMixinBloc<DriverEvent, DriverState> {
       },
       failure: (dynamic error) {
         _state = _state.copyWith(historyState: SBlocState.error(error));
+        return _state;
+      },
+    ));
+  }
+
+  void _getAvailableDeliveries(GetAvailableDeliveries event, Emitter<DriverState> emit) async {
+    emit(_state = _state.copyWith(getAvailableDeliveriesState: const SBlocState.loading()));
+
+    final result = await _useCase.getAvailableDeliveries();
+    emit(await result.when(
+      success: (data) {
+        _state = _state.copyWith(getAvailableDeliveriesState: SBlocState.success(data: data));
+
+        return _state;
+      },
+      failure: (dynamic error) {
+        _state = _state.copyWith(getAvailableDeliveriesState: SBlocState.error(error));
         return _state;
       },
     ));

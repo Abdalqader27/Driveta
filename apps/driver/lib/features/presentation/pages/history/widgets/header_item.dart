@@ -5,12 +5,7 @@ class HeaderItem extends StatelessWidget {
   final String title;
   final String subtitle;
 
-  const HeaderItem(
-      {Key? key,
-      required this.context,
-      required this.title,
-      required this.subtitle})
-      : super(key: key);
+  const HeaderItem({Key? key, required this.context, required this.title, required this.subtitle}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +19,7 @@ class HeaderItem extends StatelessWidget {
             maxLines: 2,
             text: TextSpan(
               text: '$title :',
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(fontWeight: FontWeight.w600),
               children: [
                 TextSpan(
                   text: subtitle,

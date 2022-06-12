@@ -14,7 +14,7 @@ class PushNotificationService {
   final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
 
   Future initialize(context) async {
-    await FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print("msss " + message.data.toString());
       retrieveRideRequestInfo(getRideRequestId(message.data), context);
     });

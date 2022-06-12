@@ -11,9 +11,10 @@ class PostSupportEvent extends InitEvent {
 }
 
 class EndDeliveryEvent extends InitEvent {
-  final String text;
+  final String rate;
+  final String id;
 
-  EndDeliveryEvent(this.text);
+  EndDeliveryEvent({required this.rate, required this.id});
 }
 
 class RemoveDeliveryEvent extends InitEvent {}

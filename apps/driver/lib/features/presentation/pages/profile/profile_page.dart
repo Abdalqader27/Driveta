@@ -6,7 +6,6 @@ import 'package:driver/generated/assets.dart';
 import 'package:driver/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_geofire/flutter_geofire.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
 
@@ -96,7 +95,7 @@ class ProfilePage extends StatelessWidget {
                       CupertinoButton(
                         onPressed: () {
                           try {
-                            Geofire.removeLocation(currentfirebaseUser!.uid);
+                            //Geofire.removeLocation(currentfirebaseUser!.uid);
                             rideRequestRef?.onDisconnect();
                             rideRequestRef?.remove();
                             rideRequestRef = null;

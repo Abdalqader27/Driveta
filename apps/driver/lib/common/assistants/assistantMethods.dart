@@ -2,7 +2,6 @@ import 'package:driver/common/assistants/requestAssistant.dart';
 import 'package:driver/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter_geofire/flutter_geofire.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
@@ -22,6 +21,7 @@ class AssistantMethods {
 
     var res = await RequestAssistant.getRequest(directionUrl);
 
+    print(res);
     if (res == "failed") {
       return null;
     }
@@ -63,12 +63,12 @@ class AssistantMethods {
 
   static void disableHomeTabLiveLocationUpdates() {
     homeTabPageStreamSubscription.pause();
-    Geofire.removeLocation(currentfirebaseUser!.uid);
+    //Geofire.removeLocation(currentfirebaseUser!.uid);
   }
 
   static void enableHomeTabLiveLocationUpdates() {
     homeTabPageStreamSubscription.resume();
-    Geofire.setLocation(currentfirebaseUser!.uid, currentPosition.latitude, currentPosition.longitude);
+    //Geofire.setLocation(currentfirebaseUser!.uid, currentPosition.latitude, currentPosition.longitude);
   }
 
   static void retrieveHistoryInfo(context) {

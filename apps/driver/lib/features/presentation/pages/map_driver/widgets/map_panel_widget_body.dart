@@ -72,7 +72,7 @@ class MapPanelWidgetBody extends StatelessWidget {
               _PanelItem(
                 title: 'اجمالي الرحلات',
                 subtitle: '123',
-                path: Assets.iconsCarspeed,
+                path: Assets.iconsRate,
               ),
             ],
           ),

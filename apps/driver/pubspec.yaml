@@ -14,13 +14,12 @@ dependencies:
   firebase_core: ^1.17.0
   firebase_auth: ^3.3.18
   firebase_database: ^9.0.14
-  fluttertoast: ^8.0.9
   google_maps_flutter: ^2.1.5
   geolocator: ^8.2.1
   http: ^0.13.4
   provider: ^6.0.2
   flutter_polyline_points: ^1.0.0
-  flutter_geofire: ^2.0.1
+#  flutter_geofire: ^2.0.1
   url_launcher: ^6.1.2
   flutter_animarker: ^3.2.0
   intl: ^0.17.0
@@ -59,7 +58,7 @@ dependencies:
   sliding_up_panel: ^2.0.0+1
   image_picker: ^0.8.4+11
   http_parser: ^4.0.1
-
+  units_converter: ^2.0.0
 
   smooth_star_rating_null_safety: ^1.0.4+2
   responsive_framework: ^0.2.0

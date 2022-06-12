@@ -18,6 +18,8 @@ class GetStatisticsEvent extends DriverEvent {}
 
 class GetHistoriesEvent extends DriverEvent {}
 
+class GetAvailableDeliveries extends DriverEvent {}
+
 class LoadingEvent extends DriverEvent {}
 
 class LoginEvent extends DriverEvent {

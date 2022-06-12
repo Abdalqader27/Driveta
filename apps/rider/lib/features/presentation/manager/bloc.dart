@@ -66,7 +66,7 @@ class RiderBloc extends SMixinBloc<RiderEvent, RiderState> {
 
   FutureOr<void> _endDelivery(EndDeliveryEvent event, Emitter<RiderState> emit) async {
     emit(_state = _state.copyWith(endDeliveryState: const BlocLoading()));
-    final result = await _useCase.endDelivery(event.text);
+    final result = await _useCase.endDelivery(rate: event.rate, id: event.id);
     emit(await result.when(
       success: (data) {
         BotToast.showText(text: 'تم  بنجاح');

@@ -69,7 +69,6 @@ class MyApp extends StatelessWidget {
         navigator = ResponsiveWrapper.builder(
           ClampingScrollWrapper.builder(context, navigator!),
           mediaQueryData: context.mq,
-          debugLog: true,
           maxWidth: 1200,
           minWidth: 480,
           defaultScale: true,

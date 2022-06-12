@@ -5,6 +5,8 @@ import 'package:driver/features/data/models/drivers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:driver/features/data/models/allUsers.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 
 String mapKey = "AIzaSyCeL6NXSWQJcyl0SjF3CZ0-3vN3q90aGc8";
 
@@ -19,8 +21,6 @@ late StreamSubscription<Position> homeTabPageStreamSubscription;
 late StreamSubscription<Position> rideStreamSubscription;
 
 // final assetsAudioPlayer = AssetsAudioPlayer();
-
-late Position currentPosition;
 
 late Drivers driversInformation;
 

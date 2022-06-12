@@ -5,12 +5,14 @@ class DriverState extends Equatable {
   final SBlocState? infoState;
   final SBlocState? invoiceState;
   final SBlocState? statisticsSate;
+  final SBlocState? getAvailableDeliveriesState;
   final SBlocState? supportState;
   final SBlocState? historyState;
   final SBlocState? loginState;
   final SBlocState? signState;
   const DriverState({
     this.supportState = const BlocInitial(),
+    this.getAvailableDeliveriesState = const BlocInitial(),
     this.infoState = const BlocInitial(),
     this.statisticsSate = const BlocInitial(),
     this.invoiceState = const BlocInitial(),
@@ -21,6 +23,7 @@ class DriverState extends Equatable {
 
   DriverState copyWith({
     SBlocState? supportState,
+    SBlocState? getAvailableDeliveriesState,
     SBlocState? infoState,
     SBlocState? invoiceState,
     SBlocState? statisticsSate,
@@ -30,6 +33,7 @@ class DriverState extends Equatable {
   }) {
     return DriverState(
       supportState: supportState ?? this.supportState,
+      getAvailableDeliveriesState: getAvailableDeliveriesState ?? this.getAvailableDeliveriesState,
       infoState: infoState ?? this.infoState,
       invoiceState: invoiceState ?? this.invoiceState,
       statisticsSate: statisticsSate ?? this.statisticsSate,
@@ -42,6 +46,7 @@ class DriverState extends Equatable {
   @override
   List<Object?> get props => [
         supportState,
+        getAvailableDeliveriesState,
         infoState,
         invoiceState,
         statisticsSate,
