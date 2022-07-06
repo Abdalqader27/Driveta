@@ -54,10 +54,10 @@ class _HeaderLocDesState extends State<HeaderLocDes> {
                             HeaderItem(
                                 context: context,
                                 title: 'المكان الحالي',
-                                subtitle: data!.pinData.currentAddress,
+                                subtitle: data!.pinData.pickUpAddress,
                                 checkValue: CheckMapStatus.checkCompleteState(
-                                  nextState: StatusMap.selectLocation,
-                                  preState: StatusMap.init,
+                                  nextState: StatusTripMap.selectLocation,
+                                  preState: StatusTripMap.init,
                                 ),
                                 loading: data.isCurrentLoading),
                             DottedLine(
@@ -66,10 +66,10 @@ class _HeaderLocDesState extends State<HeaderLocDes> {
                             HeaderItem(
                                 context: context,
                                 title: ' الوجهة',
-                                subtitle: data.pinData.destinationAddress,
+                                subtitle: data.pinData.dropOffAddress,
                                 checkValue: CheckMapStatus.checkCompleteState(
-                                  nextState: StatusMap.selectDestination,
-                                  preState: StatusMap.selectLocation,
+                                  nextState: StatusTripMap.selectDestination,
+                                  preState: StatusTripMap.selectLocation,
                                 ),
                                 loading: data.isDestinationLoading),
                           ],

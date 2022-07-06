@@ -5,39 +5,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ccd35d3-7e76-481c-8384-bf94ab9ac4ae" name="Default Changelist" comment="add customer function">
-      <change afterPath="$PROJECT_DIR$/apps/driver/ios/Podfile.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/driver/ios/Runner/GoogleService-Info.plist" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/rider/ios/Runner/GoogleService-Info.plist" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/rider/lib/common/utils/signal_r.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/given.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/features/data/models/delivers.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/recieved" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/features/data/models/driver.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/features/data/models/user.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/ios/Podfile" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/ios/Podfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/ios/Runner.xcworkspace/contents.xcworkspacedata" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/ios/Runner.xcworkspace/contents.xcworkspacedata" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/ios/Runner/AppDelegate.swift" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/ios/Runner/AppDelegate.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/ios/Runner/Info.plist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/Notifications/pushNotificationService.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/Notifications/pushNotificationService.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/common/assistants/assistantMethods.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/common/assistants/assistantMethods.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/AllScreens/newRideScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/AllScreens/newRideScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/driver/lib/common/utils/signal_r_config.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/common/utils/signal_r_config.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/data/data_sources/driver_api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/data/data_sources/driver_api.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/data/repositories/driver_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/data/repositories/driver_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/domain/use_cases/driver_usecase.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/domain/use_cases/driver_usecase.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/presentation/manager/bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/presentation/manager/bloc.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/presentation/manager/container.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/presentation/manager/container.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/presentation/manager/event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/presentation/manager/event.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/presentation/pages/map_driver/available_deliver.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/presentation/pages/map_driver/available_deliver.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/presentation/pages/map_driver/map_driver.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/presentation/pages/map_driver/map_driver.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/presentation/pages/map_driver/widgets/available_delevieries_item.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/presentation/pages/map_driver/widgets/available_delevieries_item.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/presentation/pages/map_driver/widgets/map_drawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/presentation/pages/map_driver/widgets/map_drawer.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/presentation/pages/map_driver/widgets/map_panel_widget_body.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/presentation/pages/map_driver/widgets/map_panel_widget_body.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/presentation/pages/profile/profile_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/presentation/pages/profile/profile_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/rider/ios/Podfile" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/ios/Podfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/rider/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/rider/ios/Runner.xcworkspace/contents.xcworkspacedata" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/ios/Runner.xcworkspace/contents.xcworkspacedata" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/rider/ios/Runner/AppDelegate.swift" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/ios/Runner/AppDelegate.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/rider/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/ios/Runner/Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/presentation/widgets/CollectFareDialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/presentation/widgets/CollectFareDialog.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/Models/address.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/Models/address.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/Models/directDetails.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/Models/directDetails.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/Models/drivers.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/Models/location_data.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/Models/location_data.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/blocs/map_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/blocs/map_bloc.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/common/assistants/assistantMethods.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/common/assistants/assistantMethods.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/common/utils/helper_method.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/common/utils/helper_method.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/common/utils/signal_r.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/common/utils/signal_r.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/common/widgets/check_internet.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/common/widgets/check_internet.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/rider/lib/features/data/data_sources/rider_api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/features/data/data_sources/rider_api.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/rider/lib/features/data/repositories/rider_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/features/data/repositories/rider_repository.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/rider/lib/features/domain/use_cases/rider_usecase.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/features/domain/use_cases/rider_usecase.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/rider/lib/features/presentation/manager/bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/features/presentation/manager/bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/rider/lib/features/presentation/manager/event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/features/presentation/manager/event.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/rider/packages/design/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/packages/design/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/features/presentation/pages/search/searchScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/features/presentation/pages/search/searchScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/features/presentation/widgets/header_location_destination.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/features/presentation/widgets/header_location_destination.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/features/presentation/widgets/map_next_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/features/presentation/widgets/map_next_button.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/libraries/init_app/run_app.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/init_app/run_app.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/mainscreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/mainscreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/rider/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/rider/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/pubspec.yaml" afterDir="false" />
     </list>
@@ -131,7 +135,7 @@
       <recent name="$PROJECT_DIR$/apps/driver/lib/features1/injections" />
     </key>
   </component>
-  <component name="RunManager" selected="Flutter.main_driver">
+  <component name="RunManager" selected="Flutter.main_rider">
     <configuration name="main_driver" type="FlutterRunConfigurationType" factoryName="Flutter" temporary="true">
       <option name="filePath" value="$PROJECT_DIR$/apps/driver/lib/main.dart" />
       <method v="2" />
@@ -146,8 +150,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Flutter.main_driver" />
         <item itemvalue="Flutter.main_rider" />
+        <item itemvalue="Flutter.main_driver" />
       </list>
     </recent_temporary>
   </component>
@@ -364,8 +368,23 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/apps/driver/lib/features/presentation/pages/map_driver/map_driver.dart</url>
-          <line>217</line>
+          <line>223</line>
           <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/apps/rider/lib/common/utils/signal_r.dart</url>
+          <line>21</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/apps/driver/lib/common/utils/signal_r_config.dart</url>
+          <line>54</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/apps/rider/lib/blocs/map_bloc.dart</url>
+          <line>31</line>
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

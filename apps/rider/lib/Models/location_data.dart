@@ -1,17 +1,21 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class PinData {
+import 'directDetails.dart';
+
+class TripData {
   LatLng currentPoint;
   LatLng destinationPoint;
-  String currentAddress;
-  String destinationAddress;
+  String pickUpAddress;
+  String dropOffAddress;
+  DirectionDetails? directionDetails;
   String city;
 
-  PinData(
+  TripData(
       {this.currentPoint = const LatLng(0, 0),
       this.destinationPoint = const LatLng(0, 0),
-      this.currentAddress = ' لم يتم التحديد بعد',
-      this.destinationAddress = 'لم يتم التحديد بعد ',
+      this.directionDetails,
+      this.pickUpAddress = ' لم يتم التحديد بعد',
+      this.dropOffAddress = 'لم يتم التحديد بعد ',
       this.city = 'لم يتم التحديد بعد'});
 }
 

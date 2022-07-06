@@ -6,12 +6,12 @@ class MapState {
   final bool showDriverBtn;
   final String title;
   final String subtitle;
-  PinData pinData;
+  TripData pinData;
   bool isCurrentLoading;
   bool isDestinationLoading;
   bool hideHeader;
-  StatusMap pre;
-  StatusMap next;
+  StatusTripMap pre;
+  StatusTripMap next;
 
   MapState({
     this.showLocationBtn = true,
@@ -23,8 +23,8 @@ class MapState {
     this.isCurrentLoading = false,
     this.isDestinationLoading = false,
     required this.pinData,
-    this.pre = StatusMap.init,
-    this.next = StatusMap.selectLocation,
+    this.pre = StatusTripMap.init,
+    this.next = StatusTripMap.selectLocation,
   });
 
   void swapState() {
@@ -32,7 +32,7 @@ class MapState {
   }
 }
 
-enum StatusMap {
+enum StatusTripMap {
   init,
   selectLocation,
   selectDestination,

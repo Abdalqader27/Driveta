@@ -39,8 +39,7 @@ class _CheckInternetWidgetState extends State<CheckInternetWidget> {
               stream: appHasInternetConnection.stream,
               builder: (context, appHasInternetConnection) {
                 return ConnectStateWidget(
-                  isConnected:
-                      (appHasInternetConnection.data! && appIsConnected.data!),
+                  isConnected: (appHasInternetConnection.data! && appIsConnected.data!),
                 );
               });
         });
@@ -49,18 +48,15 @@ class _CheckInternetWidgetState extends State<CheckInternetWidget> {
   _listenToNetworkConnection() {
     _connectivityListener = Connectivity().onConnectivityChanged.listen(
       (ConnectivityResult result) {
-        if (result == ConnectivityResult.mobile ||
-            result == ConnectivityResult.wifi) {
+        if (result == ConnectivityResult.mobile || result == ConnectivityResult.wifi) {
           appIsConnected.sink.add(true);
         } else {
           appIsConnected.sink.add(false);
         }
       },
     );
-    final dataConnectionChecker = InternetConnectionChecker()
-      ..checkInterval = const Duration(seconds: 4);
-    _dataConnectionListener =
-        dataConnectionChecker.onStatusChange.listen((status) {
+    final dataConnectionChecker = InternetConnectionChecker();
+    _dataConnectionListener = dataConnectionChecker.onStatusChange.listen((status) {
       switch (status) {
         case InternetConnectionStatus.connected:
           appHasInternetConnection.sink.add(true);

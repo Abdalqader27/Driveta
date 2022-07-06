@@ -16,9 +16,6 @@ runApplication({
   AppConfig appConfig = const AppConfig(),
 }) async {
   await InitApp.init(appConfig: appConfig);
-  // Widget app =
-  //     _devicePreview(builder: builder, enable: appConfig.enableDevicePreview);
-
   final easyLocalizationConfig = appConfig.easyLocalizationConfig;
 
   if (easyLocalizationConfig != null) {
@@ -27,14 +24,6 @@ runApplication({
 
   runApp(app);
 }
-
-// Widget _devicePreview(
-//     {required Widget Function() builder, required bool enable}) {
-//   return DevicePreview(
-//     builder: (context) => builder(),
-//     enabled: enable,
-//   );
-// }
 
 Widget _easyLocalization({required Widget app, required EasyLocalizationConfig config}) {
   return EasyLocalizationInitializer(

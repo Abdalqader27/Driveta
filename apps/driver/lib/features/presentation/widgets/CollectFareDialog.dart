@@ -67,8 +67,6 @@ class CollectFareDialog extends StatelessWidget {
                 onPressed: () async {
                   Navigator.pop(context);
                   Navigator.pop(context);
-
-                  AssistantMethods.enableHomeTabLiveLocationUpdates();
                 },
                 color: Colors.deepPurpleAccent,
                 child: Padding(
@@ -78,7 +76,10 @@ class CollectFareDialog extends StatelessWidget {
                     children: const [
                       Text(
                         "Collect Cash",
-                        style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.white),
+                        style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       ),
                       Icon(
                         Icons.attach_money,

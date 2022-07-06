@@ -1,41 +1,36 @@
 import 'dart:async';
+import 'dart:convert';
 
-import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_geofire/flutter_geofire.dart';
+import 'package:flutter_animarker/widgets/animarker.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:rider/features/presentation/pages/sgin_up/registeration_screen.dart';
-import 'package:rider/features/presentation/widgets/CollectFareDialog.dart';
-import 'package:rider/features/presentation/widgets/noDriverAvailableDialog.dart';
-import 'package:rider/common/assistants/assistantMethods.dart';
-import 'package:rider/common/assistants/geoFireAssistant.dart';
 import 'package:rider/Models/directDetails.dart';
 import 'package:rider/Models/nearbyAvailableDrivers.dart';
+import 'package:rider/common/assistants/assistantMethods.dart';
+import 'package:rider/common/assistants/geoFireAssistant.dart';
 import 'package:rider/common/config/theme/colors.dart';
 import 'package:rider/configMaps.dart';
-import 'package:rider/libraries/el_widgets/widgets/material_text.dart';
-import 'package:rider/main.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:rider/features/presentation/widgets/noDriverAvailableDialog.dart';
 
 import 'Models/map_state.dart';
-import 'Models/route_data.dart';
 import 'blocs/container_map_bloc.dart';
 import 'blocs/map_bloc.dart';
 import 'common/utils/check_map_status.dart';
 import 'common/utils/config.dart';
 import 'common/utils/go_to.dart';
+import 'common/utils/signal_r.dart';
 import 'common/widgets/map_pin.dart';
-import 'features/presentation/widgets/divider_widget.dart';
+import 'features/presentation/pages/map/map_trip_live.dart';
+import 'features/presentation/pages/map/widgets/choice_cars.dart';
+import 'features/presentation/pages/map/widgets/searching_on_driver.dart';
 import 'features/presentation/widgets/float_actions_buttons.dart';
 import 'features/presentation/widgets/header_location_destination.dart';
 import 'features/presentation/widgets/map_drawer.dart';
 import 'features/presentation/widgets/map_next_button.dart';
-import 'features/presentation/widgets/rating_dailog.dart';
-import 'libraries/el_widgets/widgets/responsive_padding.dart';
 import 'libraries/init_app/run_app.dart';
 
 late GoogleMapController newGoogleMapController;
@@ -46,43 +41,27 @@ class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 
   @override
-  _MainScreenState createState() => _MainScreenState();
+  MainScreenState createState() => MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
+class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   final Completer<GoogleMapController> _controllerGoogleMap = Completer();
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  DirectionDetails? tripDirectionDetails;
-
+  DirectionDetails? directionDetails;
   Position? currentPosition;
-  var geoLocator = Geolocator();
-  double bottomPaddingOfMap = 0;
+  double bottomPadding = 0;
   double rideDetailsContainerHeight = 0;
   double requestRideContainerHeight = 0;
   double searchContainerHeight = 220.0;
   double driverDetailsContainerHeight = 0;
 
   bool drawerOpen = true;
-  bool nearbyAvailableDriverKeysLoaded = false;
-
-  DatabaseReference? rideRequestRef;
-
-  BitmapDescriptor? nearByIcon;
-
-  List<NearbyAvailableDrivers>? availableDrivers;
-
-  String state = "normal";
-
-  StreamSubscription<dynamic>? rideStreamSubscription;
-
   bool isRequestingPositionDetails = false;
-
-  String? uName = "";
 
   @override
   void initState() {
     super.initState();
-    AssistantMethods.getCurrentOnlineUserInfo();
+    SignalRRider.openConnection();
   }
 
   @override
@@ -95,39 +74,46 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
           body: ContainerMapBloc(builder: (
             AsyncSnapshot<Map<MarkerId, Marker>> marker,
             AsyncSnapshot<Map<PolylineId, Polyline>> polyline,
-            AsyncSnapshot<RouteData> routeData,
-            AsyncSnapshot<String> mapMode,
           ) {
             return Stack(
               children: [
-                GoogleMap(
-                  padding: EdgeInsets.only(bottom: bottomPaddingOfMap, top: 25.0),
-                  mapType: MapType.normal,
-                  myLocationButtonEnabled: false,
-                  initialCameraPosition: _kGooglePlex,
-                  myLocationEnabled: true,
-                  zoomGesturesEnabled: true,
-                  zoomControlsEnabled: true,
-                  polylines: Set.of(polyline.data?.values ?? {}),
-                  onCameraIdle: _onCameraIdle,
-                  onCameraMove: _onCameraMove,
-                  markers: Set.of(marker.data?.values ?? {}),
-                  onMapCreated: (GoogleMapController controller) {
-                    _controllerGoogleMap.complete(controller);
-                    newGoogleMapController = controller;
-                    setState(() => bottomPaddingOfMap = 220.0);
-                    locatePosition();
-                  },
+                Animarker(
+                  curve: Curves.linear,
+                  useRotation: true,
+                  shouldAnimateCamera: false,
+                  angleThreshold: 0,
+                  zoom: 20,
+                  rippleColor: kPRIMARY,
+                  rippleRadius: 0.8,
+                  mapId: _controllerGoogleMap.future
+                      .then<int>((value) => value.mapId),
+                  child: GoogleMap(
+                    padding: EdgeInsets.only(bottom: bottomPadding, top: 25.0),
+                    mapType: MapType.normal,
+                    myLocationButtonEnabled: false,
+                    initialCameraPosition: _kGooglePlex,
+                    myLocationEnabled: true,
+                    zoomGesturesEnabled: true,
+                    zoomControlsEnabled: true,
+                    polylines: Set.of(polyline.data?.values ?? {}),
+                    onCameraIdle: _onCameraIdle,
+                    onCameraMove: _onCameraMove,
+                    markers: Set.of(marker.data?.values ?? {}),
+                    onMapCreated: (GoogleMapController controller) {
+                      _controllerGoogleMap.complete(controller);
+                      newGoogleMapController = controller;
+                      setState(() => bottomPadding = 220.0);
+                      locatePosition();
+                    },
+                  ),
                 ),
-                RPadding(
-                  padding: EdgeInsets.only(bottom: bottomPaddingOfMap),
-                  child: const MapPin(),
-                ),
+
+                MapPin(bottom: bottomPadding),
 
                 //HamburgerButton for Drawer
                 drawerButton(),
 
-                /// this for location and destination
+                /// this for location and destination #1
                 Positioned(
                   left: 0.0,
                   right: 0.0,
@@ -148,115 +134,21 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   ),
                 ),
 
-                //Ride Details Ui
-                Positioned(
-                  bottom: 0.0,
-                  left: 0.0,
-                  right: 0.0,
-                  child: chooseCarWidget(context),
+                ///Ride Details Ui #2
+                ChoiceCarsWidget(
+                  height: rideDetailsContainerHeight,
+                  directionDetails: directionDetails,
+                  onTap: (carDetails) {
+                    directionDetails?.type = carDetails.type;
+                    si<MapState>().pinData.directionDetails = directionDetails;
+                    displayRequestRideContainer(polyline);
+                  },
                 ),
 
-                //Cancel Ui
-                Positioned(
-                  bottom: 0.0,
-                  left: 0.0,
-                  right: 0.0,
-                  child: searchingWidgets(),
-                ),
-
-                //Display Assisned Driver Info
-                Positioned(
-                  bottom: 0.0,
-                  left: 0.0,
-                  right: 0.0,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(16.0),
-                        topRight: Radius.circular(16.0),
-                      ),
-                      color: Colors.white,
-                    ),
-                    height: driverDetailsContainerHeight,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 18.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 6.0),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                rideStatus,
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(fontSize: 20.0, fontFamily: "Brand Bold"),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 22.0,
-                          ),
-                          const Divider(
-                            height: 2.0,
-                            thickness: 2.0,
-                          ),
-                          const SizedBox(
-                            height: 22.0,
-                          ),
-                          Text(
-                            carDetailsDriver,
-                            style: const TextStyle(color: Colors.grey),
-                          ),
-                          Text(
-                            driverName,
-                            style: const TextStyle(fontSize: 20.0),
-                          ),
-                          const SizedBox(height: 22.0),
-                          const Divider(height: 2.0, thickness: 2.0),
-                          const SizedBox(
-                            height: 22.0,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              //call button
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                                child: RaisedButton(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(24.0),
-                                  ),
-                                  onPressed: () async {
-                                    launch(('tel://$driverphone'));
-                                  },
-                                  color: Colors.black87,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(17.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: const [
-                                        Text(
-                                          "Call Driver   ",
-                                          style: TextStyle(
-                                              fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.white),
-                                        ),
-                                        Icon(
-                                          Icons.call,
-                                          color: Colors.white,
-                                          size: 26.0,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                /// Searching on Driver #3
+                SearchingOnDriverWidget(
+                  height: requestRideContainerHeight,
+                  onTap: () => resetApp(),
                 ),
               ],
             );
@@ -265,103 +157,28 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
           floatingActionButton: MapFloatActionsButton(
             //mapState: mapState.data!,
             directionTap: () {
+              Get.to(() => const MapTripLive());
               //inj<RealTime>().openConnection();
-              goToLocation(si<MapState>().pinData.destinationPoint);
+              // goToLocation(si<MapState>().pinData.destinationPoint);
             },
             locationTap: () {
-              goToLocation(LatLng(currentPosition?.latitude ?? 0, currentPosition?.longitude ?? 0));
+              goToLocation(LatLng(currentPosition?.latitude ?? 0,
+                  currentPosition?.longitude ?? 0));
             },
             themeTap: () async {},
           )),
     );
   }
 
-  Container searchingWidgets() {
-    return Container(
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(16.0),
-          topRight: Radius.circular(16.0),
-        ),
-        color: Colors.white,
-      ),
-      height: requestRideContainerHeight,
-      child: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 12.0,
-            ),
-            SizedBox(
-              width: double.infinity,
-              child: ColorizeAnimatedTextKit(
-                onTap: () {},
-                text: const [
-                  "Requesting a Ride...",
-                  "Please wait...",
-                  "Finding a Driver...",
-                ],
-                textStyle: const TextStyle(fontSize: 55.0, fontFamily: "Signatra"),
-                colors: const [
-                  Colors.green,
-                  Colors.purple,
-                  Colors.pink,
-                  Colors.blue,
-                  Colors.yellow,
-                  Colors.red,
-                ],
-                textAlign: TextAlign.center,
-              ),
-            ),
-            const SizedBox(
-              height: 22.0,
-            ),
-            GestureDetector(
-              onTap: () {
-                cancelRideRequest();
-                resetApp();
-              },
-              child: Container(
-                height: 60.0,
-                width: 60.0,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(26.0),
-                  border: Border.all(width: 2.0, color: Colors.grey[300]!),
-                ),
-                child: const Icon(
-                  Icons.close,
-                  size: 26.0,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 10.0,
-            ),
-            Container(
-              width: double.infinity,
-              child: const Text(
-                "Cancel Ride",
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 12.0),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   void _onCameraMove(CameraPosition position) {
     if (CheckMapStatus.checkState(
-      preState: StatusMap.init,
-      nextState: StatusMap.selectLocation,
+      preState: StatusTripMap.init,
+      nextState: StatusTripMap.selectLocation,
     )) {
       si<MapState>().pinData.currentPoint = position.target;
     } else if (CheckMapStatus.checkState(
-      preState: StatusMap.selectLocation,
-      nextState: StatusMap.selectDestination,
+      preState: StatusTripMap.selectLocation,
+      nextState: StatusTripMap.selectDestination,
     )) {
       si<MapState>().pinData.destinationPoint = position.target;
     }
@@ -369,62 +186,68 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   void _onCameraIdle() async {
     if (CheckMapStatus.checkState(
-      preState: StatusMap.init,
-      nextState: StatusMap.selectLocation,
+      preState: StatusTripMap.init,
+      nextState: StatusTripMap.selectLocation,
     )) {
       si<MapState>().isCurrentLoading = true;
-      si<MapBloc>().rxSetMapState(si<MapState>());
-      String currentAddress =
-          await AssistantMethods.searchCoordinateAddress(si<MapState>().pinData.currentPoint, context);
-
+      si<MapBloc>().sinkSetMapState(si<MapState>());
+      String currentAddress = await AssistantMethods.searchCoordinateAddress(
+          si<MapState>().pinData.currentPoint, context);
       si<MapState>().isCurrentLoading = false;
-      si<MapState>().pinData.currentAddress = currentAddress;
-      si<MapBloc>().rxSetMapState(si<MapState>());
+      si<MapState>().pinData.pickUpAddress = currentAddress;
+      si<MapBloc>().sinkSetMapState(si<MapState>());
     } else if (CheckMapStatus.checkState(
-      preState: StatusMap.selectLocation,
-      nextState: StatusMap.selectDestination,
+      preState: StatusTripMap.selectLocation,
+      nextState: StatusTripMap.selectDestination,
     )) {
       si<MapState>().isDestinationLoading = true;
-      si<MapBloc>().rxSetMapState(si<MapState>());
-      String currentAddress =
-          await AssistantMethods.searchCoordinateAddress(si<MapState>().pinData.destinationPoint, context);
+      si<MapBloc>().sinkSetMapState(si<MapState>());
+      String currentAddress = await AssistantMethods.searchCoordinateAddress(
+        si<MapState>().pinData.destinationPoint,
+        context,
+      );
 
       si<MapState>().isDestinationLoading = false;
-      si<MapState>().pinData.destinationAddress = currentAddress;
-      si<MapBloc>().rxSetMapState(si<MapState>());
+      si<MapState>().pinData.dropOffAddress = currentAddress;
+      si<MapBloc>().sinkSetMapState(si<MapState>());
     }
   }
 
   Future<bool> onWillpop() async {
     switch (si<MapState>().next) {
-      case StatusMap.selectLocation:
+      case StatusTripMap.selectLocation:
         {
           return true;
         }
-      case StatusMap.selectDestination:
+      case StatusTripMap.selectDestination:
         {
-          si<MapState>().next = StatusMap.selectLocation;
-          si<MapState>().pre = StatusMap.init;
-          si<MapState>().pinData.destinationAddress = 'لم يتم التحديد بعد';
-          si<MapBloc>().rxSetMapState(si<MapState>());
+          si<MapState>().next = StatusTripMap.selectLocation;
+          si<MapState>().pre = StatusTripMap.init;
+          si<MapState>().pinData.dropOffAddress = 'لم يتم التحديد بعد';
+          si<MapBloc>().sinkSetMapState(si<MapState>());
           si<MapBloc>().deleteMarker(kCurrentMarkerId);
+          resetApp();
+          setState(() {});
         }
         break;
-      case StatusMap.path:
+      case StatusTripMap.path:
         {
-          si<MapState>().pre = StatusMap.selectLocation;
-          si<MapState>().next = StatusMap.selectDestination;
+          si<MapState>().pre = StatusTripMap.selectLocation;
+          si<MapState>().next = StatusTripMap.selectDestination;
+          si<MapState>().pinData.dropOffAddress = 'لم يتم التحديد بعد';
+          si<MapBloc>().sinkSetMapState(si<MapState>());
           si<MapBloc>().deleteMarker(kDestinationMarkerId);
-          si<MapState>().pinData.destinationAddress = 'لم يتم التحديد بعد';
-          si<MapBloc>().rxSetMapState(si<MapState>());
+          resetApp();
+          setState(() {});
         }
         break;
-      case StatusMap.routeData:
+      case StatusTripMap.routeData:
         {
-          si<MapState>().pre = StatusMap.selectDestination;
-          si<MapState>().next = StatusMap.path;
-          si<MapBloc>().rxSetMapState(si<MapState>());
+          si<MapState>().pre = StatusTripMap.selectDestination;
+          si<MapState>().next = StatusTripMap.path;
+          si<MapBloc>().sinkSetMapState(si<MapState>());
           si<MapBloc>().clearPolyline();
+          setState(() {});
         }
         break;
 
@@ -466,128 +289,165 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     );
   }
 
+  void addDelivery() async {
+    // print("addDelivery "
+    //     "\n pickUp: ${si<MapState>().pinData.pickUpAddress}"
+    //     "\n dropOff: ${si<MapState>().pinData.dropOffAddress}"
+    //     "\n startLat: ${si<MapState>().pinData.currentPoint.latitude.toString()} "
+    //     "\n startLong: ${si<MapState>().pinData.currentPoint.longitude.toString()}"
+    //     "\n endLat: ${si<MapState>().pinData.destinationPoint.longitude.toString()}"
+    //     "\n endLong: ${si<MapState>().pinData.destinationPoint.longitude.toString()}"
+    //     "\n expectedTime: ${si<MapState>().pinData.directionDetails?.durationText}"
+    //     "\n distance: ${si<MapState>().pinData.directionDetails?.distanceValue} ");
 
-  void saveRideRequest() {
-    rideRequestRef = FirebaseDatabase.instance.ref().child("Ride Requests").push();
+    print("addDelivery \n${json.encode({
+          "pickUp": si<MapState>().pinData.pickUpAddress,
+          "dropOff": si<MapState>().pinData.dropOffAddress,
+          "startLat": si<MapState>().pinData.currentPoint.latitude.toString(),
+          "startLong": si<MapState>().pinData.currentPoint.longitude.toString(),
+          "endLat":
+              si<MapState>().pinData.destinationPoint.longitude.toString(),
+          "endLong":
+              si<MapState>().pinData.destinationPoint.longitude.toString(),
+          "expectedTime": si<MapState>().pinData.directionDetails?.durationText,
+          "distance": si<MapState>().pinData.directionDetails?.distanceValue
+        })}");
 
-    // var pickUp = Provider.of<AppData>(context, listen: false).pickUpLocation;
-    // var dropOff = Provider.of<AppData>(context, listen: false).dropOffLocation;
-    var pickUp = si<MapState>().pinData.currentPoint;
-    var pickUpName = si<MapState>().pinData.currentAddress;
-    var dropOff = si<MapState>().pinData.destinationPoint;
-    var dropOffName = si<MapState>().pinData.destinationAddress;
-
-    Map pickUpLocMap = {
-      "latitude": pickUp.latitude.toString(),
-      "longitude": pickUp.longitude.toString(),
-    };
-
-    Map dropOffLocMap = {
-      "latitude": dropOff.latitude.toString(),
-      "longitude": dropOff.longitude.toString(),
-    };
-
-    Map rideInfoMap = {
-      "driver_id": "waiting",
-      "payment_method": "cash",
-      "pickup": pickUpLocMap,
-      "dropoff": dropOffLocMap,
-      "created_at": DateTime.now().toString(),
-      "rider_name": userCurrentInfo?.name,
-      "rider_phone": userCurrentInfo?.phone,
-      "pickup_address": pickUpName,
-      "dropoff_address": dropOffName,
-      "ride_type": carRideType,
-    };
-
-    rideRequestRef?.set(rideInfoMap);
-
-    rideStreamSubscription = rideRequestRef?.onValue.listen((event) async {
-      if (event.snapshot.value == null) {
-        return;
-      }
-
-      if ((event.snapshot.value as Map)["car_details"] != null) {
-        setState(() {
-          carDetailsDriver = (event.snapshot.value as Map)["car_details"].toString();
-        });
-      }
-      if ((event.snapshot.value as Map)["driver_name"] != null) {
-        setState(() {
-          driverName = (event.snapshot.value as Map)["driver_name"].toString();
-        });
-      }
-      if ((event.snapshot.value as Map)["driver_phone"] != null) {
-        setState(() {
-          driverphone = (event.snapshot.value as Map)["driver_phone"].toString();
-        });
-      }
-
-      if ((event.snapshot.value as Map)["driver_location"] != null) {
-        double driverLat = double.parse((event.snapshot.value as Map)["driver_location"]["latitude"].toString());
-        double driverLng = double.parse((event.snapshot.value as Map)["driver_location"]["longitude"].toString());
-        LatLng driverCurrentLocation = LatLng(driverLat, driverLng);
-
-        if (statusRide == "accepted") {
-          updateRideTimeToPickUpLoc(driverCurrentLocation);
-        } else if (statusRide == "onride") {
-          updateRideTimeToDropOffLoc(driverCurrentLocation);
-        } else if (statusRide == "arrived") {
-          setState(() {
-            rideStatus = "Driver has Arrived.";
-          });
-        }
-      }
-
-      if ((event.snapshot.value as Map)["status"] != null) {
-        statusRide = (event.snapshot.value as Map)["status"].toString();
-      }
-      if (statusRide == "accepted") {
-        displayDriverDetailsContainer();
-        Geofire.stopListener();
-        deleteGeofileMarkers();
-      }
-      if (statusRide == "ended") {
-        if ((event.snapshot.value as Map)["fares"] != null) {
-          int fare = int.parse((event.snapshot.value as Map)["fares"].toString());
-          var res = await showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (BuildContext context) => CollectFareDialog(
-              paymentMethod: "cash",
-              fareAmount: fare,
-            ),
-          );
-
-          String driverId = "";
-          if (res == "close") {
-            if ((event.snapshot.value as Map)["driver_id"] != null) {
-              driverId = (event.snapshot.value as Map)["driver_id"].toString();
-            }
-
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => RatingScreen(driverId: driverId)));
-
-            rideRequestRef?.onDisconnect();
-            rideRequestRef = null;
-            rideStreamSubscription?.cancel();
-            rideStreamSubscription = null;
-            resetApp();
-          }
-        }
-      }
-    });
+    await SignalRRider.addDelivery(
+      pickUp: si<MapState>().pinData.pickUpAddress,
+      startLat: si<MapState>().pinData.currentPoint.latitude.toString(),
+      price: (AssistantMethods.calculateFares(directionDetails!)),
+      dropOff: si<MapState>().pinData.dropOffAddress,
+      endLat: si<MapState>().pinData.destinationPoint.latitude.toString(),
+      distance: si<MapState>().pinData.directionDetails?.distanceValue ?? 0,
+      startLong: si<MapState>().pinData.currentPoint.longitude.toString(),
+      endLong: si<MapState>().pinData.destinationPoint.longitude.toString(),
+      expectedTime: si<MapState>().pinData.directionDetails?.durationText ?? '',
+    );
   }
 
-  void deleteGeofileMarkers() {
-    si<MapBloc>().deleteMarker(kDriverMarkerId);
-  }
+  // void saveRideRequest() {
+  //   rideRequestRef = FirebaseDatabase.instance.ref().child("Ride Requests").push();
+  //
+  //   // var pickUp = Provider.of<AppData>(context, listen: false).pickUpLocation;
+  //   // var dropOff = Provider.of<AppData>(context, listen: false).dropOffLocation;
+  //   var pickUp = si<MapState>().pinData.currentPoint;
+  //   var pickUpName = si<MapState>().pinData.pickUpAddress;
+  //   var dropOff = si<MapState>().pinData.destinationPoint;
+  //   var dropOffName = si<MapState>().pinData.dropOffAddress;
+  //
+  //   Map pickUpLocMap = {
+  //     "latitude": pickUp.latitude.toString(),
+  //     "longitude": pickUp.longitude.toString(),
+  //   };
+  //
+  //   Map dropOffLocMap = {
+  //     "latitude": dropOff.latitude.toString(),
+  //     "longitude": dropOff.longitude.toString(),
+  //   };
+  //
+  //   Map rideInfoMap = {
+  //     "driver_id": "waiting",
+  //     "payment_method": "cash",
+  //     "pickup": pickUpLocMap,
+  //     "dropoff": dropOffLocMap,
+  //     "created_at": DateTime.now().toString(),
+  //     "rider_name": userCurrentInfo?.name,
+  //     "rider_phone": userCurrentInfo?.phone,
+  //     "pickup_address": pickUpName,
+  //     "dropoff_address": dropOffName,
+  //     "ride_type": carRideType,
+  //   };
+  //
+  //   rideRequestRef?.set(rideInfoMap);
+  //
+  //   rideStreamSubscription = rideRequestRef?.onValue.listen((event) async {
+  //     if (event.snapshot.value == null) {
+  //       return;
+  //     }
+  //
+  //     if ((event.snapshot.value as Map)["car_details"] != null) {
+  //       setState(() {
+  //         carDetailsDriver = (event.snapshot.value as Map)["car_details"].toString();
+  //       });
+  //     }
+  //     if ((event.snapshot.value as Map)["driver_name"] != null) {
+  //       setState(() {
+  //         driverName = (event.snapshot.value as Map)["driver_name"].toString();
+  //       });
+  //     }
+  //     if ((event.snapshot.value as Map)["driver_phone"] != null) {
+  //       setState(() {
+  //         driverphone = (event.snapshot.value as Map)["driver_phone"].toString();
+  //       });
+  //     }
+  //
+  //     if ((event.snapshot.value as Map)["driver_location"] != null) {
+  //       double driverLat =
+  //           double.parse((event.snapshot.value as Map)["driver_location"]["latitude"].toString());
+  //       double driverLng =
+  //           double.parse((event.snapshot.value as Map)["driver_location"]["longitude"].toString());
+  //       LatLng driverCurrentLocation = LatLng(driverLat, driverLng);
+  //
+  //       if (statusRide == "accepted") {
+  //         updateRideTimeToPickUpLoc(driverCurrentLocation);
+  //       } else if (statusRide == "onride") {
+  //         updateRideTimeToDropOffLoc(driverCurrentLocation);
+  //       } else if (statusRide == "arrived") {
+  //         setState(() {
+  //           rideStatus = "Driver has Arrived.";
+  //         });
+  //       }
+  //     }
+  //
+  //     if ((event.snapshot.value as Map)["status"] != null) {
+  //       statusRide = (event.snapshot.value as Map)["status"].toString();
+  //     }
+  //     if (statusRide == "accepted") {
+  //       displayDriverDetailsContainer();
+  //       Geofire.stopListener();
+  //       deleteGeofileMarkers();
+  //     }
+  //     if (statusRide == "ended") {
+  //       if ((event.snapshot.value as Map)["fares"] != null) {
+  //         int fare = int.parse((event.snapshot.value as Map)["fares"].toString());
+  //         var res = await showDialog(
+  //           context: context,
+  //           barrierDismissible: false,
+  //           builder: (BuildContext context) => CollectFareDialog(
+  //             paymentMethod: "cash",
+  //             fareAmount: fare,
+  //           ),
+  //         );
+  //
+  //         String driverId = "";
+  //         if (res == "close") {
+  //           if ((event.snapshot.value as Map)["driver_id"] != null) {
+  //             driverId = (event.snapshot.value as Map)["driver_id"].toString();
+  //           }
+  //
+  //           Navigator.of(context)
+  //               .push(MaterialPageRoute(builder: (context) => RatingScreen(driverId: driverId)));
+  //
+  //           rideRequestRef?.onDisconnect();
+  //           rideRequestRef = null;
+  //           rideStreamSubscription?.cancel();
+  //           rideStreamSubscription = null;
+  //           resetApp();
+  //         }
+  //       }
+  //     }
+  //   });
+  // }
 
   void updateRideTimeToPickUpLoc(LatLng driverCurrentLocation) async {
     if (isRequestingPositionDetails == false) {
       isRequestingPositionDetails = true;
 
-      var positionUserLatLng = LatLng(currentPosition?.latitude ?? 0, currentPosition?.longitude ?? 0);
-      var details = await AssistantMethods.obtainPlaceDirectionDetails(driverCurrentLocation, positionUserLatLng);
+      var positionUserLatLng = LatLng(
+          currentPosition?.latitude ?? 0, currentPosition?.longitude ?? 0);
+      var details = await AssistantMethods.obtainPlaceDirectionDetails(
+          driverCurrentLocation, positionUserLatLng);
       if (details == null) {
         return;
       }
@@ -606,7 +466,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       var dropOff = si<MapState>().pinData.destinationPoint;
       var dropOffUserLatLng = LatLng(dropOff.latitude, dropOff.longitude);
 
-      var details = await AssistantMethods.obtainPlaceDirectionDetails(driverCurrentLocation, dropOffUserLatLng);
+      var details = await AssistantMethods.obtainPlaceDirectionDetails(
+          driverCurrentLocation, dropOffUserLatLng);
       if (details == null) {
         return;
       }
@@ -618,27 +479,22 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     }
   }
 
-  void cancelRideRequest() {
-    rideRequestRef?.remove();
-    setState(() => state = "normal");
-  }
-
-  void displayRequestRideContainer() {
+  void displayRequestRideContainer(polyline) {
     setState(() {
-      requestRideContainerHeight = 270.0;
+      requestRideContainerHeight = 400.0;
       rideDetailsContainerHeight = 0;
-      bottomPaddingOfMap = 260.0;
-      drawerOpen = true;
+      bottomPadding = 420.0;
+      drawerOpen = false;
     });
-
-    saveRideRequest();
+    si<MapBloc>().setMapFitToTour(Set.of(polyline.data?.values ?? {}));
+    addDelivery();
   }
 
   void displayDriverDetailsContainer() {
     setState(() {
       requestRideContainerHeight = 0.0;
       rideDetailsContainerHeight = 0.0;
-      bottomPaddingOfMap = 295.0;
+      bottomPadding = 295.0;
       driverDetailsContainerHeight = 285.0;
     });
   }
@@ -649,59 +505,52 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       searchContainerHeight = 220.0;
       rideDetailsContainerHeight = 0;
       requestRideContainerHeight = 0;
-      bottomPaddingOfMap = 230.0;
+      bottomPadding = 230.0;
       si<MapBloc>().clearPolyline();
       si<MapBloc>().clearMarkers();
-      si<MapState>().pre = StatusMap.init;
-      si<MapState>().next = StatusMap.selectLocation;
-      si<MapState>().pinData.destinationAddress = 'لم يتم التحديد بعد';
+      si<MapState>().pre = StatusTripMap.init;
+      si<MapState>().next = StatusTripMap.selectLocation;
+      si<MapState>().pinData.dropOffAddress = 'لم يتم التحديد بعد';
 
-      statusRide = "";
-      driverName = "";
-      driverphone = "";
-      carDetailsDriver = "";
-      rideStatus = "Driver is Coming";
       driverDetailsContainerHeight = 0.0;
     });
-
     locatePosition();
   }
 
   void displayRideDetailsContainer() async {
     await getPlaceDirection();
-
     setState(() {
       searchContainerHeight = 0;
-      rideDetailsContainerHeight = 300.0;
-      bottomPaddingOfMap = 300.0;
+      rideDetailsContainerHeight = 290.0;
+      bottomPadding = 290.0;
       drawerOpen = false;
     });
   }
 
   void locatePosition() async {
-    await Geolocator.requestPermission();
+    // await Geolocator.requestPermission();
 
-    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
     currentPosition = position;
 
     LatLng latLatPosition = LatLng(position.latitude, position.longitude);
 
-    CameraPosition cameraPosition = CameraPosition(target: latLatPosition, zoom: 18, bearing: 0, tilt: 0);
-    newGoogleMapController.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+    CameraPosition cameraPosition =
+        CameraPosition(target: latLatPosition, zoom: 18, bearing: 0, tilt: 0);
+    newGoogleMapController
+        .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
 
-    String address =
-        await AssistantMethods.searchCoordinateAddress(LatLng(position.latitude, position.longitude), context);
-    print("This is your Address :: " + address);
-
-    initGeoFireListner();
-
-    uName = userCurrentInfo?.name;
-
-    AssistantMethods.retrieveHistoryInfo(context);
+    String address = await AssistantMethods.searchCoordinateAddress(
+        LatLng(position.latitude, position.longitude), context);
+    print("This is your Address :: $address");
   }
 
-  static const CameraPosition _kGooglePlex =
-      CameraPosition(target: LatLng(37.42796133580664, -122.085749655962), zoom: 18, bearing: 0, tilt: 0);
+  static const CameraPosition _kGooglePlex = CameraPosition(
+      target: LatLng(37.42796133580664, -122.085749655962),
+      zoom: 18,
+      bearing: 0,
+      tilt: 0);
 
   Future<void> getPlaceDirection() async {
     var initialPos = si<MapState>().pinData.currentPoint;
@@ -710,336 +559,30 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     var pickUpLatLng = LatLng(initialPos.latitude, initialPos.longitude);
     var dropOffLatLng = LatLng(finalPos.latitude, finalPos.longitude);
 
-    var details = await AssistantMethods.obtainPlaceDirectionDetails(pickUpLatLng, dropOffLatLng);
+    var details = await AssistantMethods.obtainPlaceDirectionDetails(
+        pickUpLatLng, dropOffLatLng);
+
+    si<MapState>().pinData.directionDetails = details;
     setState(() {
-      tripDirectionDetails = details;
+      directionDetails = details;
     });
-  }
-
-  void initGeoFireListner() {
-    Geofire.initialize("availableDrivers");
-    //comment
-    Geofire.queryAtLocation(currentPosition?.latitude ?? 0, currentPosition?.longitude ?? 0, 50)?.listen((map) {
-      if (map != null) {
-        var callBack = map['callBack'];
-
-        switch (callBack) {
-          case Geofire.onKeyEntered:
-            NearbyAvailableDrivers nearbyAvailableDrivers = NearbyAvailableDrivers();
-            nearbyAvailableDrivers.key = map['key'];
-            nearbyAvailableDrivers.latitude = map['latitude'];
-            nearbyAvailableDrivers.longitude = map['longitude'];
-            GeoFireAssistant.nearByAvailableDriversList.add(nearbyAvailableDrivers);
-            if (nearbyAvailableDriverKeysLoaded == true) {
-              updateAvailableDriversOnMap();
-            }
-            break;
-
-          case Geofire.onKeyExited:
-            GeoFireAssistant.removeDriverFromList(map['key']);
-            updateAvailableDriversOnMap();
-            break;
-
-          case Geofire.onKeyMoved:
-            NearbyAvailableDrivers nearbyAvailableDrivers = NearbyAvailableDrivers();
-            nearbyAvailableDrivers.key = map['key'];
-            nearbyAvailableDrivers.latitude = map['latitude'];
-            nearbyAvailableDrivers.longitude = map['longitude'];
-            GeoFireAssistant.updateDriverNearbyLocation(nearbyAvailableDrivers);
-            updateAvailableDriversOnMap();
-            break;
-
-          case Geofire.onGeoQueryReady:
-            updateAvailableDriversOnMap();
-            break;
-        }
-      }
-
-      setState(() {});
-    });
-    //comment
   }
 
   void updateAvailableDriversOnMap() {
     // inj<MapBloc>().clearMarkers();
 
-    for (NearbyAvailableDrivers driver in GeoFireAssistant.nearByAvailableDriversList) {
-      LatLng driverAvaiablePosition = LatLng(driver.latitude ?? 0, driver.longitude ?? 0);
+    for (NearbyAvailableDrivers driver
+        in GeoFireAssistant.nearByAvailableDriversList) {
+      LatLng driverAvaiablePosition =
+          LatLng(driver.latitude ?? 0, driver.longitude ?? 0);
       si<MapBloc>().setMarker(kDriverMarker(driverAvaiablePosition));
     }
   }
 
   void noDriverFound() {
     showDialog(
-        context: context, barrierDismissible: false, builder: (BuildContext context) => NoDriverAvailableDialog());
-  }
-
-  void searchNearestDriver() {
-    if (availableDrivers!.isEmpty) {
-      cancelRideRequest();
-      resetApp();
-      noDriverFound();
-      return;
-    }
-
-    var driver = availableDrivers![0];
-
-    driversRef.child(driver.key!).child("car_details").child("type").once().then((s) async {
-      DataSnapshot snap = s.snapshot;
-      if (snap.value != null) {
-        String carType = snap.value.toString();
-        if (carType == carRideType) {
-          notifyDriver(driver);
-          availableDrivers?.removeAt(0);
-        } else {
-          displayToastMessage(carRideType + " drivers not available. Try again.", context);
-        }
-      } else {
-        displayToastMessage("No car found. Try again.", context);
-      }
-    });
-  }
-
-  void notifyDriver(NearbyAvailableDrivers driver) {
-    driversRef.child(driver.key!).child("newRide").set(rideRequestRef!.key);
-
-    driversRef.child(driver.key!).child("token").once().then((s) {
-      DataSnapshot snap = s.snapshot;
-
-      if (snap.value != null) {
-        String token = snap.value.toString();
-        AssistantMethods.sendNotificationToDriver(token, context, rideRequestRef!.key!);
-      } else {
-        return;
-      }
-
-      const oneSecondPassed = Duration(seconds: 1);
-      Timer.periodic(oneSecondPassed, (timer) {
-        if (state != "requesting") {
-          driversRef.child(driver.key!).child("newRide").set("cancelled");
-          driversRef.child(driver.key!).child("newRide").onDisconnect();
-          driverRequestTimeOut = 40;
-          timer.cancel();
-        }
-
-        driverRequestTimeOut = driverRequestTimeOut - 1;
-
-        driversRef.child(driver.key!).child("newRide").onValue.listen((event) {
-          if (event.snapshot.value.toString() == "accepted") {
-            driversRef.child(driver.key!).child("newRide").onDisconnect();
-            driverRequestTimeOut = 40;
-            timer.cancel();
-          }
-        });
-
-        if (driverRequestTimeOut == 0) {
-          driversRef.child(driver.key!).child("newRide").set("timeout");
-          driversRef.child(driver.key!).child("newRide").onDisconnect();
-          driverRequestTimeOut = 40;
-          timer.cancel();
-
-          searchNearestDriver();
-        }
-      });
-    });
-  }
-
-  AnimatedSize chooseCarWidget(BuildContext context) {
-    return AnimatedSize(
-      vsync: this,
-      curve: Curves.bounceIn,
-      duration: const Duration(milliseconds: 160),
-      child: Container(
-        height: rideDetailsContainerHeight,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(16.0),
-            topRight: Radius.circular(16.0),
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 17.0),
-          child: Column(
-            children: [
-              MaterialText.subTitle1('اختر السيارة التي تريدها '),
-
-              SizedBox(height: 30),
-              //bike ride
-              GestureDetector(
-                onTap: () {
-                  displayToastMessage("searching Bike...", context);
-
-                  setState(() {
-                    state = "requesting";
-                    carRideType = "bike";
-                  });
-                  displayRequestRideContainer();
-                  availableDrivers = GeoFireAssistant.nearByAvailableDriversList;
-                  searchNearestDriver();
-                },
-                child: SizedBox(
-                  width: double.infinity,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          "images/bike.png",
-                          height: 70.0,
-                          width: 80.0,
-                        ),
-                        const SizedBox(
-                          width: 16.0,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "دراجة",
-                              style: TextStyle(
-                                fontSize: 18.0,
-                              ),
-                            ),
-                            Text(
-                              ((tripDirectionDetails != null) ? "${tripDirectionDetails?.distanceText}" : ''),
-                              style: const TextStyle(
-                                fontSize: 16.0,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Expanded(child: Container()),
-                        Text(
-                          ((tripDirectionDetails != null)
-                              ? ' ${(AssistantMethods.calculateFares(tripDirectionDetails!)) / 2} ل.س'
-                              : ''),
-                          style: const TextStyle(),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-
-              //uber-go ride
-              GestureDetector(
-                onTap: () {
-                  displayToastMessage("searching Uber-Go...", context);
-
-                  setState(() {
-                    state = "requesting";
-                    carRideType = "uber-go";
-                  });
-                  displayRequestRideContainer();
-                  availableDrivers = GeoFireAssistant.nearByAvailableDriversList;
-                  searchNearestDriver();
-                },
-                child: Container(
-                  width: double.infinity,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          "images/ubergo.png",
-                          height: 70.0,
-                          width: 80.0,
-                        ),
-                        const SizedBox(width: 16.0),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "اوبر - غو",
-                              style: TextStyle(
-                                fontSize: 18.0,
-                              ),
-                            ),
-                            Text(
-                              ((tripDirectionDetails != null) ? "${tripDirectionDetails?.distanceText}" : ''),
-                              style: const TextStyle(
-                                fontSize: 16.0,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Expanded(child: Container()),
-                        Text(
-                          ((tripDirectionDetails != null)
-                              ? '${AssistantMethods.calculateFares(tripDirectionDetails!)} ل.س'
-                              : ''),
-                          style: const TextStyle(),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-
-              //uber-x ride
-              GestureDetector(
-                onTap: () {
-                  displayToastMessage("searching Uber-X...", context);
-
-                  setState(() {
-                    state = "requesting";
-                    carRideType = "uber-x";
-                  });
-                  displayRequestRideContainer();
-                  availableDrivers = GeoFireAssistant.nearByAvailableDriversList;
-                  searchNearestDriver();
-                },
-                child: Container(
-                  width: double.infinity,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          "images/uberx.png",
-                          height: 70.0,
-                          width: 80.0,
-                        ),
-                        const SizedBox(
-                          width: 16.0,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "اوبر -اكس",
-                              style: TextStyle(
-                                fontSize: 18.0,
-                              ),
-                            ),
-                            Text(
-                              ((tripDirectionDetails != null) ? "${tripDirectionDetails?.distanceText}" : ''),
-                              style: const TextStyle(
-                                fontSize: 16.0,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Expanded(child: Container()),
-                        Text(
-                          ((tripDirectionDetails != null)
-                              ? '${AssistantMethods.calculateFares(tripDirectionDetails!)} ل.س'
-                              : ''),
-                          style: const TextStyle(),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) => const NoDriverAvailableDialog());
   }
 }

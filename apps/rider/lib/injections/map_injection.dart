@@ -7,9 +7,9 @@ import '../libraries/init_app/run_app.dart';
 Future<void> mapInjection() async {
   si.registerLazySingleton(() => MapBloc());
   si.registerLazySingleton(() => MapThemeBloc());
-  si.registerLazySingleton(() => PinData());
+  si.registerLazySingleton(() => TripData());
   si.registerLazySingleton(() => MapState(
-        pinData: si<PinData>(),
+        pinData: si<TripData>(),
       ));
   // inj.registerLazySingleton(() => RealTime());
 }

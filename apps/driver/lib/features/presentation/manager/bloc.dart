@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:core/core.dart';
 import 'package:design/design.dart';
+import 'package:driver/features/data/models/delivers.dart';
 import 'package:driver/features/domain/use_cases/driver_usecase.dart';
 import 'package:driver/features/presentation/pages/sgin_up/registeration_screen.dart';
 
 import '../pages/map_driver/map_driver.dart';
+import 'package:rxdart/rxdart.dart';
 import 'event.dart';
 import 'state.dart';
 
@@ -24,7 +26,8 @@ class DriverBloc extends SMixinBloc<DriverEvent, DriverState> {
     on<LoginEvent>(_login);
   }
 
-  FutureOr<void> _addSupportEvent(PostSupportEvent event, Emitter<DriverState> emit) async {
+  FutureOr<void> _addSupportEvent(
+      PostSupportEvent event, Emitter<DriverState> emit) async {
     emit(_state = _state.copyWith(supportState: const BlocLoading()));
 
     final result = await _useCase.addSupport(event.text);
@@ -73,13 +76,15 @@ class DriverBloc extends SMixinBloc<DriverEvent, DriverState> {
     ));
   }
 
-  void _getStatistics(GetStatisticsEvent event, Emitter<DriverState> emit) async {
+  void _getStatistics(
+      GetStatisticsEvent event, Emitter<DriverState> emit) async {
     emit(_state = _state.copyWith(statisticsSate: const SBlocState.loading()));
 
     final result = await _useCase.getStatistics();
     emit(await result.when(
       success: (data) {
-        _state = _state.copyWith(statisticsSate: SBlocState.success(data: data));
+        _state =
+            _state.copyWith(statisticsSate: SBlocState.success(data: data));
         return _state;
       },
       failure: (error) {
@@ -106,21 +111,24 @@ class DriverBloc extends SMixinBloc<DriverEvent, DriverState> {
     ));
   }
 
-  void _getAvailableDeliveries(GetAvailableDeliveries event, Emitter<DriverState> emit) async {
-    emit(_state = _state.copyWith(getAvailableDeliveriesState: const SBlocState.loading()));
+  void _getAvailableDeliveries(
+      GetAvailableDeliveries event, Emitter<DriverState> emit) async {
+    final list = event.list;
 
-    final result = await _useCase.getAvailableDeliveries();
-    emit(await result.when(
-      success: (data) {
-        _state = _state.copyWith(getAvailableDeliveriesState: SBlocState.success(data: data));
+    //final result = await _useCase.getAvailableDeliveries();
+    emit(_state = _state.copyWith(
+        getAvailableDeliveriesState: SBlocState.success(data: list)));
+    // emit(await result.when(
+    //   success: (data) {
+    //     _state = _state.copyWith(getAvailableDeliveriesState: SBlocState.success(data: data));
 
-        return _state;
-      },
-      failure: (dynamic error) {
-        _state = _state.copyWith(getAvailableDeliveriesState: SBlocState.error(error));
-        return _state;
-      },
-    ));
+    //     return _state;
+    //   },
+    //   failure: (dynamic error) {
+    //     _state = _state.copyWith(getAvailableDeliveriesState: SBlocState.error(error));
+    //     return _state;
+    //   },
+    // ));
   }
 
   void _login(LoginEvent event, Emitter<DriverState> emit) async {
@@ -135,7 +143,8 @@ class DriverBloc extends SMixinBloc<DriverEvent, DriverState> {
     emit(await result.when(
       success: (user) {
         _state = _state.copyWith(loginState: SBlocState.success(data: user));
-        Navigator.pushNamedAndRemoveUntil(event.context, MapDriverScreen.idScreen, (route) => false);
+        Navigator.pushNamedAndRemoveUntil(
+            event.context, MapDriverScreen.idScreen, (route) => false);
         displayToastMessage("انت مسجل دخول الان", event.context);
         return _state;
       },

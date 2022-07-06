@@ -4,6 +4,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:rider/features/domain/use_cases/rider_usecase.dart';
+
 import '../../../mainscreen.dart';
 import '../pages/sgin_up/registeration_screen.dart';
 import 'event.dart';
@@ -25,25 +26,21 @@ class RiderBloc extends SMixinBloc<RiderEvent, RiderState> {
 
   FutureOr<void> _addSupportEvent(PostSupportEvent event, Emitter<RiderState> emit) async {
     emit(_state = _state.copyWith(supportState: const BlocLoading()));
-
     final result = await _useCase.addSupport(event.text);
     emit(await result.when(
       success: (user) {
         _state = _state.copyWith(supportState: BlocSuccess(data: user));
         BotToast.showText(text: 'تم الارسال بنجاح');
-
         return _state;
       },
-      failure: (dynamic error) {
-        _state = _state.copyWith(supportState: BlocError(error));
-        return _state;
+      failure: (error) {
+        return _state = _state.copyWith(supportState: BlocError(error));
       },
     ));
   }
 
   FutureOr<void> _login(LoginEvent event, Emitter<RiderState> emit) async {
     emit(_state = _state.copyWith(loginState: const BlocLoading()));
-
     final result = await _useCase.login(
       deviceToken: event.deviceToken,
       rememberMe: event.rememberMe,
@@ -72,7 +69,7 @@ class RiderBloc extends SMixinBloc<RiderEvent, RiderState> {
         BotToast.showText(text: 'تم  بنجاح');
         return _state = _state.copyWith(endDeliveryState: BlocSuccess(data: data));
       },
-      failure: (dynamic error) {
+      failure: (error) {
         return _state = _state.copyWith(endDeliveryState: BlocError(error));
       },
     ));
@@ -100,7 +97,7 @@ class RiderBloc extends SMixinBloc<RiderEvent, RiderState> {
         BotToast.showText(text: 'تم  بنجاح');
         return _state = _state.copyWith(getVehicleTypesState: BlocSuccess(data: data));
       },
-      failure: (dynamic error) {
+      failure: (error) {
         return _state = _state.copyWith(getVehicleTypesState: BlocError(error));
       },
     ));
@@ -128,7 +125,7 @@ class RiderBloc extends SMixinBloc<RiderEvent, RiderState> {
         BotToast.showText(text: 'تم  بنجاح');
         return _state = _state.copyWith(getDeliveriesState: BlocSuccess(data: data));
       },
-      failure: (dynamic error) {
+      failure: (error) {
         return _state = _state.copyWith(getDeliveriesState: BlocError(error));
       },
     ));

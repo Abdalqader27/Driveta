@@ -15,12 +15,11 @@ import '../../../../../../../../generated/assets.dart';
 import '../../../../../../../../libraries/el_widgets/widgets/material_text.dart';
 import '../../../../../../../../libraries/el_widgets/widgets/responsive_padding.dart';
 import '../../../../../../../../libraries/init_app/run_app.dart';
-
 import '../../../../../blocs/map_bloc.dart';
-import '../../../../common/assistants/requestAssistant.dart';
 import '../../../../Models/address.dart';
 import '../../../../Models/map_state.dart';
 import '../../../../Models/placePredictions.dart';
+import '../../../../common/assistants/requestAssistant.dart';
 import '../../../../common/config/theme/colors.dart';
 import '../../../../common/utils/constant.dart';
 
@@ -57,7 +56,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 if (snapshot.data == null || snapshot.data!.hideHeader) {
                   return const FadeInAnimation(curve: Curves.bounceInOut, child: SizedBox.shrink());
                 }
-                pickUpTextEditingController.text = data?.pinData.currentAddress ?? '';
+                pickUpTextEditingController.text = data?.pinData.pickUpAddress ?? '';
                 // dropOffTextEditingController.text = data?.pinData.destinationAddress ?? '';
 
                 return Container(
@@ -86,7 +85,8 @@ class _SearchScreenState extends State<SearchScreen> {
                       ),
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 25.0, top: 25.0, right: 25.0, bottom: 20.0),
+                          padding: const EdgeInsets.only(
+                              left: 25.0, top: 25.0, right: 25.0, bottom: 20.0),
                           child: Column(
                             children: [
                               Row(
@@ -108,7 +108,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                             filled: true,
                                             border: InputBorder.none,
                                             isDense: true,
-                                            contentPadding: const EdgeInsets.only(left: 11.0, top: 8.0, bottom: 8.0),
+                                            contentPadding: const EdgeInsets.only(
+                                                left: 11.0, top: 8.0, bottom: 8.0),
                                           ),
                                         ),
                                       ),
@@ -138,7 +139,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                             filled: true,
                                             border: InputBorder.none,
                                             isDense: true,
-                                            contentPadding: const EdgeInsets.only(left: 11.0, top: 8.0, bottom: 8.0),
+                                            contentPadding: const EdgeInsets.only(
+                                                left: 11.0, top: 8.0, bottom: 8.0),
                                           ),
                                         ),
                                       ),
@@ -148,10 +150,10 @@ class _SearchScreenState extends State<SearchScreen> {
                                       onPressed: () {
                                         findPlace('');
                                         si<MapState>().isDestinationLoading = true;
-                                        si<MapBloc>().rxSetMapState(si<MapState>());
+                                        si<MapBloc>().sinkSetMapState(si<MapState>());
                                         si<MapState>().isDestinationLoading = false;
-                                        si<MapState>().pinData.destinationAddress = '';
-                                        si<MapBloc>().rxSetMapState(si<MapState>());
+                                        si<MapState>().pinData.dropOffAddress = '';
+                                        si<MapBloc>().sinkSetMapState(si<MapState>());
                                         setState(() {
                                           placePredictionList = [];
                                         });
@@ -182,18 +184,19 @@ class _SearchScreenState extends State<SearchScreen> {
                             placePredictions: placePredictionList[index],
                             onTap: () async {
                               si<MapState>().isDestinationLoading = true;
-                              si<MapBloc>().rxSetMapState(si<MapState>());
+                              si<MapBloc>().sinkSetMapState(si<MapState>());
                               var destinationAddress =
-                                  placePredictionList[index].mainText! + "${placePredictionList[index].secondaryText}";
+                                  "${placePredictionList[index].mainText!}${placePredictionList[index].secondaryText}";
                               si<MapState>().isDestinationLoading = false;
-                              si<MapState>().pinData.destinationAddress = destinationAddress;
-                              final response =
-                                  await getPlaceAddressDetails(placePredictionList[index].placeId!, context);
-                              final point = LatLng(response?.latitude ?? 0, response?.longitude ?? 0);
+                              si<MapState>().pinData.dropOffAddress = destinationAddress;
+                              final response = await getPlaceAddressDetails(
+                                  placePredictionList[index].placeId!, context);
+                              final point =
+                                  LatLng(response?.latitude ?? 0, response?.longitude ?? 0);
                               si<MapState>().pinData.destinationPoint = point;
                               si<MapState>().swapState();
-                              si<MapState>().next = StatusMap.path;
-                              si<MapBloc>().rxSetMapState(si<MapState>());
+                              si<MapState>().next = StatusTripMap.path;
+                              si<MapBloc>().sinkSetMapState(si<MapState>());
                               si<MapBloc>().setMarker(
                                 kDestinationMarker(si<MapState>().pinData.destinationPoint),
                               );
@@ -279,7 +282,8 @@ class PredictionTile extends StatelessWidget {
   final PlacePredictions placePredictions;
   final Function() onTap;
 
-  const PredictionTile({Key? key, required this.placePredictions, required this.onTap}) : super(key: key);
+  const PredictionTile({Key? key, required this.placePredictions, required this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

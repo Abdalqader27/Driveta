@@ -1,4 +1,5 @@
 import 'package:design/design.dart';
+import 'package:driver/features/presentation/pages/map_driver/available_deliver.dart';
 import 'package:driver/features/presentation/pages/support/support_complaint_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -57,6 +58,12 @@ class MapDrawer extends StatelessWidget {
                             leadingText: const SizedBox.shrink(),
                             onTap: () => Get.to(() => const OrderBookScreen())),
                         MapDrawerItem(
+                            icon: Icons.event_available,
+                            title: 'الطلبات المتاحة ',
+                            leadingText: const SizedBox.shrink(),
+                            onTap: () =>
+                                Get.to(() => const AvailableDeliveries())),
+                        MapDrawerItem(
                             icon: Icons.account_balance_wallet,
                             title: 'الرصيد',
                             leadingText: const SizedBox.shrink(),
@@ -78,7 +85,8 @@ class MapDrawer extends StatelessWidget {
                               rideRequestRef = null;
                               FirebaseAuth.instance.signOut();
                             } catch (_) {}
-                            Navigator.pushNamedAndRemoveUntil(context, LoginScreen.idScreen, (route) => false);
+                            Navigator.pushNamedAndRemoveUntil(context,
+                                LoginScreen.idScreen, (route) => false);
                           },
                         ),
                       ],

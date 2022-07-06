@@ -4,6 +4,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:design/design.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:driver/app_injection.dart';
+import 'package:driver/features/data/models/delivers.dart';
 import 'package:driver/features/domain/use_cases/driver_usecase.dart';
 import 'package:driver/features/presentation/widgets/CollectFareDialog.dart';
 import 'package:driver/common/assistants/assistantMethods.dart';
@@ -25,6 +26,7 @@ import '../common/utils/signal_r_config.dart';
 import '../features/presentation/pages/history/widgets/header_item.dart';
 import '../features/presentation/widgets/location_granted_widget.dart';
 import '../generated/assets.dart';
+import 'package:driver/features/data/models/delivers.dart';
 
 class NewRideScreen extends StatefulWidget {
   final Delivers rideDetails;
@@ -45,8 +47,6 @@ class _NewRideScreenState extends State<NewRideScreen> {
   final Map<MarkerId, Marker> _markers = {};
   Set<Circle> circleSet = <Circle>{};
   Set<Polyline> polyLineSet = <Polyline>{};
-  List<LatLng> polylineCorOrdinates = [];
-  PolylinePoints polylinePoints = PolylinePoints();
   double mapPaddingFromBottom = 0;
   var geoLocator = Geolocator();
   late BitmapDescriptor animatingMarkerIcon;
@@ -58,13 +58,9 @@ class _NewRideScreenState extends State<NewRideScreen> {
   Color btnColor = kPRIMARY;
   late Timer timer;
   int durationCounter = 0;
-
-  //
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   acceptRideRequest();
-  // }
+  final PolylinePoints polylinePoints = PolylinePoints();
+  final Map<PolylineId, Polyline> _polyLines = <PolylineId, Polyline>{};
+  final List<LatLng> polylineCoordinates = [];
 
   void getRideLiveLocationUpdates() async {
     LatLng oldPos = const LatLng(0, 0);
@@ -80,10 +76,12 @@ class _NewRideScreenState extends State<NewRideScreen> {
         title: markerConfig.title,
         snippet: markerConfig.snippet,
       );
-      CameraPosition cameraPosition = CameraPosition(target: mPostion, zoom: 17, bearing: position.heading!);
+      CameraPosition cameraPosition = CameraPosition(
+          target: mPostion, zoom: 17, bearing: position.heading!);
       _markers[markerConfig.markerId] = marker;
 
-      newRideGoogleMapController.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+      newRideGoogleMapController
+          .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
 
       oldPos = mPostion;
       updateRideDetails();
@@ -97,7 +95,8 @@ class _NewRideScreenState extends State<NewRideScreen> {
       required String title,
       required String snippet}) async {
     return Marker(
-      icon: await BitmapDescriptor.fromAssetImage(const ImageConfiguration(size: Size(200, 200)), pinPath),
+      icon: await BitmapDescriptor.fromAssetImage(
+          const ImageConfiguration(size: Size(200, 200)), pinPath),
       markerId: markerId,
       position: point,
       infoWindow: InfoWindow(title: title, snippet: snippet),
@@ -155,7 +154,8 @@ class _NewRideScreenState extends State<NewRideScreen> {
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
       ),
       height: 310.0,
       child: Padding(
@@ -165,7 +165,10 @@ class _NewRideScreenState extends State<NewRideScreen> {
           children: [
             Text(
               durationRide,
-              style: const TextStyle(fontSize: 14.0, fontFamily: "Brand Bold", color: Colors.deepPurple),
+              style: const TextStyle(
+                  fontSize: 14.0,
+                  fontFamily: "Brand Bold",
+                  color: Colors.deepPurple),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -176,7 +179,8 @@ class _NewRideScreenState extends State<NewRideScreen> {
                 ),
                 Text(
                   widget.rideDetails.customerName,
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 const Padding(
                   padding: EdgeInsets.only(right: 10.0),
@@ -200,7 +204,10 @@ class _NewRideScreenState extends State<NewRideScreen> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      HeaderItem(context: context, title: 'المكان الحالي', subtitle: widget.rideDetails.pickUp),
+                      HeaderItem(
+                          context: context,
+                          title: 'المكان الحالي',
+                          subtitle: widget.rideDetails.pickUp),
                       DottedLine(
                         dashColor: Colors.grey.withOpacity(.5),
                       ),
@@ -229,23 +236,25 @@ class _NewRideScreenState extends State<NewRideScreen> {
                       btnColor = Colors.green;
                     });
 
-                    var pickup =
-                        LatLng(double.parse(widget.rideDetails.startLat), double.parse(widget.rideDetails.startLong));
-                    var dropoff =
-                        LatLng(double.parse(widget.rideDetails.endLat), double.parse(widget.rideDetails.endLong));
+                    var pickup = LatLng(
+                        double.parse(widget.rideDetails.startLat),
+                        double.parse(widget.rideDetails.startLong));
+                    var dropoff = LatLng(
+                        double.parse(widget.rideDetails.endLat),
+                        double.parse(widget.rideDetails.endLong));
 
                     await getPlaceDirection(pickup, dropoff, true);
                   } else if (status == "ArrivedToUser") {
                     BotToast.showLoading();
-                    await si<DriverUseCase>().changeDeliveryStatue(id: widget.rideDetails.id, statue: 'ArrivedToUser');
+                    await si<DriverUseCase>().changeDeliveryStatue(
+                        id: widget.rideDetails.id, statue: 'ArrivedToUser');
                     BotToast.closeAllLoading();
                     status = "StartTrip";
                     setState(() {
                       btnTitle = "انهااء الرحلة";
                       btnColor = Colors.redAccent;
+                      flagOpenPage = false;
                     });
-
-                    initTimer();
                   } else if (status == "StartTrip") {
                     endTheTrip();
                   }
@@ -280,7 +289,8 @@ class _NewRideScreenState extends State<NewRideScreen> {
     );
   }
 
-  Future<void> setMapFitToTour(Set<Polyline> p, GoogleMapController controller) async {
+  Future<void> setMapFitToTour(
+      Set<Polyline> p, GoogleMapController controller) async {
     double minLat = p.first.points.first.latitude;
     double minLong = p.first.points.first.longitude;
     double maxLat = p.first.points.first.latitude;
@@ -296,23 +306,34 @@ class _NewRideScreenState extends State<NewRideScreen> {
     }
 
     controller.animateCamera(CameraUpdate.newLatLngBounds(
-        LatLngBounds(southwest: LatLng(minLat, minLong), northeast: LatLng(maxLat, maxLong)), 100));
+        LatLngBounds(
+            southwest: LatLng(minLat, minLong),
+            northeast: LatLng(maxLat, maxLong)),
+        100));
   }
 
-  Future<void> getPlaceDirection(LatLng pickUpLatLng, LatLng dropOffLatLng, bool isArrived) async {
+  Future<void> getPlaceDirection(
+      LatLng pickUpLatLng, LatLng dropOffLatLng, bool isArrived) async {
     BotToast.showLoading();
+    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+      "AIzaSyCeL6NXSWQJcyl0SjF3CZ0-3vN3q90aGc8",
+      PointLatLng(
+        pickUpLatLng.latitude,
+        pickUpLatLng.longitude,
+      ),
+      PointLatLng(
+        dropOffLatLng.latitude,
+        dropOffLatLng.longitude,
+      ),
+      travelMode: TravelMode.driving,
+    );
 
-    var details = await AssistantMethods.obtainPlaceDirectionDetails(pickUpLatLng, dropOffLatLng);
     BotToast.closeAllLoading();
 
-    PolylinePoints polylinePoints = PolylinePoints();
-    List<PointLatLng> decodedPolyLinePointsResult = polylinePoints.decodePolyline(details!.encodedPoints!);
-
-    polylineCorOrdinates.clear();
-
-    if (decodedPolyLinePointsResult.isNotEmpty) {
-      for (var pointLatLng in decodedPolyLinePointsResult) {
-        polylineCorOrdinates.add(LatLng(pointLatLng.latitude, pointLatLng.longitude));
+    if (result.points.isNotEmpty) {
+      polylineCoordinates.clear();
+      for (var point in result.points) {
+        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
       }
     }
 
@@ -323,7 +344,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
         color: kPRIMARY,
         polylineId: const PolylineId("PolylineID"),
         jointType: JointType.round,
-        points: polylineCorOrdinates,
+        points: polylineCoordinates,
         width: 5,
         startCap: Cap.roundCap,
         endCap: Cap.roundCap,
@@ -390,13 +411,15 @@ class _NewRideScreenState extends State<NewRideScreen> {
       LatLng destinationLatLng;
 
       if (status == "accepted") {
-        destinationLatLng =
-            LatLng(double.parse(widget.rideDetails.startLat), double.parse(widget.rideDetails.startLong));
+        destinationLatLng = LatLng(double.parse(widget.rideDetails.startLat),
+            double.parse(widget.rideDetails.startLong));
       } else {
-        destinationLatLng = LatLng(double.parse(widget.rideDetails.endLat), double.parse(widget.rideDetails.endLong));
+        destinationLatLng = LatLng(double.parse(widget.rideDetails.endLat),
+            double.parse(widget.rideDetails.endLong));
       }
 
-      var directionDetails = await AssistantMethods.obtainPlaceDirectionDetails(posLatLng, destinationLatLng);
+      var directionDetails = await AssistantMethods.obtainPlaceDirectionDetails(
+          posLatLng, destinationLatLng);
       if (directionDetails != null) {
         setState(() {
           durationRide = directionDetails.durationText!;
@@ -407,24 +430,19 @@ class _NewRideScreenState extends State<NewRideScreen> {
     }
   }
 
-  void initTimer() {
-    const interval = Duration(seconds: 1);
-    timer = Timer.periodic(interval, (timer) {
-      durationCounter = durationCounter + 1;
-    });
-  }
-
   endTheTrip() async {
-    timer.cancel();
+    BotToast.showLoading();
 
     var currentLatLng = LatLng(myPostion.latitude!, myPostion.longitude!);
 
     var directionalDetails = await AssistantMethods.obtainPlaceDirectionDetails(
-        LatLng(double.parse(widget.rideDetails.startLat), double.parse(widget.rideDetails.startLong)), currentLatLng);
+        LatLng(double.parse(widget.rideDetails.startLat),
+            double.parse(widget.rideDetails.startLong)),
+        currentLatLng);
 
     int fareAmount = AssistantMethods.calculateFares(directionalDetails!);
-    BotToast.showLoading();
-    await si<DriverUseCase>().endDelivery(id: widget.rideDetails.id, payingValue: fareAmount);
+    await si<DriverUseCase>()
+        .endDelivery(id: widget.rideDetails.id, payingValue: fareAmount);
     BotToast.closeAllLoading();
     // String? rideRequestId = widget.rideDetails.customerId;
     // newRequestsRef.child(rideRequestId).child("fares").set(fareAmount.toString());
@@ -439,23 +457,5 @@ class _NewRideScreenState extends State<NewRideScreen> {
         fareAmount: fareAmount,
       ),
     );
-
-    // saveEarnings(fareAmount);
   }
-
-  // void saveEarnings(int fareAmount) {
-  //   driversRef.child(currentfirebaseUser!.uid).child("earnings").once().then((s) {
-  //     DataSnapshot dataSnapShot = s.snapshot;
-  //
-  //     if (dataSnapShot.value != null) {
-  //       double oldEarnings = double.parse(dataSnapShot.value.toString());
-  //       double totalEarnings = fareAmount + oldEarnings;
-  //
-  //       driversRef.child(currentfirebaseUser!.uid).child("earnings").set(totalEarnings.toStringAsFixed(2));
-  //     } else {
-  //       double totalEarnings = fareAmount.toDouble();
-  //       driversRef.child(currentfirebaseUser!.uid).child("earnings").set(totalEarnings.toStringAsFixed(2));
-  //     }
-  //   });
-  // }
 }

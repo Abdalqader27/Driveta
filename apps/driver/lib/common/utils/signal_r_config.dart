@@ -1,1 +1,109 @@
-import 'dart:convert';import 'package:core/core.dart';import 'package:google_maps_flutter/google_maps_flutter.dart';import 'package:logging/logging.dart';import 'package:signalr_netcore/http_connection_options.dart';import 'package:signalr_netcore/hub_connection.dart';import 'package:signalr_netcore/hub_connection_builder.dart';import '../../app_injection.dart';import '../../features/injections/injection_network.dart';class SignalRDriver {  static late HubConnection? _hubConnection;  static bool _connectionIsOpen = false;  static const String connectionIsOpenPropName = "connectionIsOpen";  static bool get connectionIsOpen => _connectionIsOpen;  /// For open and close signal R  static Future<bool> openConnection() async {    try {      _hubConnection = HubConnectionBuilder().withUrl('http://driveta2-001-site1.itempurl.com/deliveryHub/',          options: HttpConnectionOptions(        accessTokenFactory: () async {          return si<SStorage>().get(key: kAccessToken, type: ValueType.string);        },      )).build();      if (_hubConnection!.state != HubConnectionState.Connected) {        await _hubConnection!.start();        _connectionIsOpen = true;        _hubConnection!.on("ReceiveDeliveries", onReceiveDeliveries);        print("SignalR_is_hasConnection is $_connectionIsOpen");      } else {        print("Signal R is Connected");      }      return true;    } catch (e) {      print("$e");      return false;    }  }  static Future<void> stopConnection() async {    if (_hubConnection!.state == HubConnectionState.Connected) {      await _hubConnection!.stop();      _hubConnection = null;      _connectionIsOpen = false;      print("SignalR is has$_connectionIsOpen");    }  }  static Future<void> sendLocation({LatLng? point}) async {    try {      if (connectionIsOpen == false || _hubConnection!.state != HubConnectionState.Connected) await openConnection();      if (point != null) {        _hubConnection!.invoke(          "SendLocation",          args: <Object>[point.longitude.toString(), point.longitude.toString()],        );        //  print("SendLocation $point");      }    } catch (_) {}  }  static void onReceiveDeliveries(List<Object>? arguments) {    if (arguments != null) {      List<Delivers> delivers = [];      for (var item in arguments[0] as List) {        delivers.add(Delivers.fromJson(item));      }      // print("ReceiveDeliveries: ${arguments[0]}");      // list      // // List<Delivers> list = List.from((arguments[0] as List).map((dynamic i) => Delivers.fromJson(i)));      // print("deliveryId ${(arguments[0] as List).first['id']}");      //acceptDelivery(id: (arguments[0] as List).first['id']);    }  }  ///AcceptDelivery(Guid id) (invoke) (Driver) (deliveryId)  static Future<void> acceptDelivery({required String id}) async {    try {      if (connectionIsOpen == false || _hubConnection!.state != HubConnectionState.Connected) await openConnection();      _hubConnection!.invoke(        "AcceptDelivery",        args: <Object>[id],      );    } catch (_) {}  }}List<Delivers> deliversFromJson(String str) => List<Delivers>.from(json.decode(str).map((x) => Delivers.fromJson(x)));String deliversToJson(List<Delivers> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));class Delivers {  Delivers({    required this.id,    required this.customerId,    required this.customerName,    required this.startLat,    required this.startLong,    required this.endLat,    required this.endLong,    required this.distance,    required this.expectedTime,    required this.price,    required this.pickUp,    required this.dropOff,  });  final String id;  final String customerId;  final String customerName;  final String startLat;  final String startLong;  final String endLat;  final String endLong;  final String? expectedTime;  final int distance;  final int price;  final String pickUp;  final String dropOff;  factory Delivers.fromJson(Map<String, dynamic> json) => Delivers(        id: json["id"],        customerId: json["customerId"],        customerName: json["customerName"],        startLat: json["startLat"],        startLong: json["startLong"],        endLat: json["endLat"],        expectedTime: json["expectedTime"],        endLong: json["endLong"],        distance: json["distance"],        price: json["price"],        pickUp: json["pickUp"],        dropOff: json["dropOff"],      );  Map<String, dynamic> toJson() => {        "id": id,        "customerId": customerId,        "customerName": customerName,        "startLat": startLat,        "startLong": startLong,        "endLat": endLat,        "expectedTime": expectedTime,        "endLong": endLong,        "distance": distance,        "price": price,        "pickUp": pickUp,        "dropOff": dropOff,      };}
+import 'dart:convert';
+
+import 'package:core/core.dart';
+import 'package:driver/features/presentation/manager/bloc.dart';
+import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:driver/features/data/models/delivers.dart';
+
+import 'package:logging/logging.dart';
+import 'package:signalr_netcore/http_connection_options.dart';
+import 'package:signalr_netcore/hub_connection.dart';
+import 'package:signalr_netcore/hub_connection_builder.dart';
+
+import '../../app_injection.dart';
+import '../../features/injections/injection_network.dart';
+import '../../features/presentation/manager/event.dart';
+import '../../features/presentation/pages/map_driver/available_deliver.dart';
+
+bool flagOpenPage = false;
+
+class SignalRDriver {
+  static late HubConnection? _hubConnection;
+  static bool _connectionIsOpen = false;
+  static const String connectionIsOpenPropName = "connectionIsOpen";
+
+  static bool get connectionIsOpen => _connectionIsOpen;
+
+  /// For open and close signal R
+  static Future<bool> openConnection() async {
+    try {
+      _hubConnection = HubConnectionBuilder()
+          .withUrl('http://driveta2-001-site1.itempurl.com/deliveryHub/',
+              options: HttpConnectionOptions(
+        accessTokenFactory: () async {
+          return si<SStorage>().get(key: kAccessToken, type: ValueType.string);
+        },
+      )).build();
+
+      if (_hubConnection!.state != HubConnectionState.Connected) {
+        await _hubConnection!.start();
+        _connectionIsOpen = true;
+        _hubConnection!.on("ReceiveDeliveries", onReceiveDeliveries);
+
+        print("SignalR_is_hasConnection is $_connectionIsOpen");
+      } else {
+        print("Signal R is Connected");
+      }
+      return true;
+    } catch (e) {
+      print("$e");
+      return false;
+    }
+  }
+
+  static Future<void> stopConnection() async {
+    if (_hubConnection!.state == HubConnectionState.Connected) {
+      await _hubConnection!.stop();
+      _hubConnection = null;
+      _connectionIsOpen = false;
+      print("SignalR is has$_connectionIsOpen");
+    }
+  }
+
+  static Future<void> sendLocation({LatLng? point}) async {
+    try {
+      if (connectionIsOpen == false ||
+          _hubConnection!.state != HubConnectionState.Connected) {
+        await openConnection();
+      }
+      if (point != null) {
+        _hubConnection!.invoke(
+          "SendLocation",
+          args: <Object>[point.longitude.toString(), point.latitude.toString()],
+        );
+        //  print("SendLocation $point");
+      }
+    } catch (_) {}
+  }
+
+  static void onReceiveDeliveries(List<Object>? arguments) {
+    if (arguments != null) {
+      List<Delivers> delivers = [];
+      for (var item in arguments[0] as List) {
+        delivers.add(Delivers.fromJson(item));
+      }
+      // need to call bloc to update the list of delivers
+      // si<DriverBloc>().add(GetAvailableDeliveries(delivers));
+      deliversStream.sink.add(delivers);
+      if (flagOpenPage == false) {
+        Get.to(() => const AvailableDeliveries());
+        flagOpenPage = true;
+      }
+    }
+  }
+
+  ///AcceptDelivery(Guid id) (invoke) (Driver) (deliveryId)
+  static Future<void> acceptDelivery({required String id}) async {
+    try {
+      if (connectionIsOpen == false ||
+          _hubConnection!.state != HubConnectionState.Connected) {
+        await openConnection();
+      }
+      _hubConnection!.invoke(
+        "AcceptDelivery",
+        args: <Object>[id],
+      );
+    } catch (_) {}
+  }
+}

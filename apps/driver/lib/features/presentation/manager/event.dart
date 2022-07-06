@@ -1,4 +1,5 @@
 import 'package:design/design.dart';
+import 'package:driver/features/data/models/delivers.dart';
 
 abstract class DriverEvent {}
 
@@ -18,7 +19,11 @@ class GetStatisticsEvent extends DriverEvent {}
 
 class GetHistoriesEvent extends DriverEvent {}
 
-class GetAvailableDeliveries extends DriverEvent {}
+class GetAvailableDeliveries extends DriverEvent {
+  final List<Delivers> list;
+
+  GetAvailableDeliveries(this.list);
+}
 
 class LoadingEvent extends DriverEvent {}
 

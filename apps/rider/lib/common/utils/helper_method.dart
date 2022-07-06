@@ -9,7 +9,7 @@ Future<ApiResult<T>> onResult<T>(
   bool popup = false,
 }) async {
   return result.when(
-    success: (dynamic data) {
+    success: (data) {
       if (onData != null) {
         onData(data);
       }

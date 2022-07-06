@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rider/libraries/flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../common/assistants/assistantMethods.dart';
 import '../../../Models/directDetails.dart';
 import '../../../Models/map_state.dart';
 import '../../../blocs/map_bloc.dart';
@@ -30,7 +29,7 @@ class MapNextButton extends StatelessWidget {
         stream: si<MapBloc>().rxMapState,
         builder: (context, snapshot) {
           return CupertinoButton(
-            onPressed: () => _nextTap(context),
+            onPressed: () async => await _nextTap(context),
             child: Center(
               child: Card(
                 color: kPRIMARY,
@@ -57,14 +56,14 @@ class MapNextButton extends StatelessWidget {
         });
   }
 
-  VoidCallback? _nextTap(BuildContext context) {
+  Future<VoidCallback?> _nextTap(BuildContext context) async {
     if (CheckMapStatus.checkState(
-      preState: StatusMap.init,
-      nextState: StatusMap.selectLocation,
+      preState: StatusTripMap.init,
+      nextState: StatusTripMap.selectLocation,
     )) {
       si<MapState>().swapState();
-      si<MapState>().next = StatusMap.selectDestination;
-      si<MapBloc>().rxSetMapState(si<MapState>());
+      si<MapState>().next = StatusTripMap.selectDestination;
+      si<MapBloc>().sinkSetMapState(si<MapState>());
       si<MapBloc>().setMarker(
         kCurrentMarker(si<MapState>().pinData.currentPoint),
       );
@@ -72,36 +71,33 @@ class MapNextButton extends StatelessWidget {
           si<MapState>().pinData.currentPoint.longitude + 0.0009);
       goToLocation(customCurrentPoint);
     } else if (CheckMapStatus.checkState(
-      preState: StatusMap.selectLocation,
-      nextState: StatusMap.selectDestination,
+      preState: StatusTripMap.selectLocation,
+      nextState: StatusTripMap.selectDestination,
     )) {
       si<MapState>().swapState();
-      si<MapState>().next = StatusMap.path;
-      si<MapBloc>().rxSetMapState(si<MapState>());
+      si<MapState>().next = StatusTripMap.path;
+      si<MapBloc>().sinkSetMapState(si<MapState>());
       si<MapBloc>().setMarker(
         kDestinationMarker(si<MapState>().pinData.destinationPoint),
       );
     } else if (CheckMapStatus.checkState(
-      preState: StatusMap.selectDestination,
-      nextState: StatusMap.path,
+      preState: StatusTripMap.selectDestination,
+      nextState: StatusTripMap.path,
     )) {
       si<MapState>().swapState();
-      si<MapState>().next = StatusMap.routeData;
-      si<MapBloc>().rxSetMapState(si<MapState>());
+      si<MapState>().next = StatusTripMap.routeData;
+      si<MapBloc>().sinkSetMapState(si<MapState>());
       onTap();
       si<MapBloc>().setPolyline(si<MapState>().pinData, kPolylineConfigWalk);
     } else if (CheckMapStatus.checkState(
-      preState: StatusMap.path,
-      nextState: StatusMap.routeData,
+      preState: StatusTripMap.path,
+      nextState: StatusTripMap.routeData,
     )) {
-      placeDirectionDetailsFuture = AssistantMethods.obtainPlaceDirectionDetails(
-        si<MapState>().pinData.currentPoint,
-        si<MapState>().pinData.destinationPoint,
-      );
-      // showCupertinoModalBottomSheet(
-      //   context: context,
-      //   builder: (context) => const DistanceTimeWidget(),
+      // placeDirectionDetailsFuture = AssistantMethods.obtainPlaceDirectionDetails(
+      //   si<MapState>().pinData.currentPoint,
+      //   si<MapState>().pinData.destinationPoint,
       // );
+      // print((await placeDirectionDetailsFuture)?.distanceText);
     }
   }
 }
