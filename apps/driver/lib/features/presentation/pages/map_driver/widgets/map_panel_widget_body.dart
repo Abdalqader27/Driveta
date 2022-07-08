@@ -1,5 +1,6 @@
 import 'package:design/design.dart';
 import 'package:driver/features/presentation/manager/container.dart';
+import 'package:driver/features/presentation/pages/history/widgets/order_book_item.dart';
 
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -66,78 +67,35 @@ class MapPanelWidgetBody extends StatelessWidget {
               ),
             ),
             SPadding.all8(
-              child: Row(
-                children: <Widget>[
-                  _PanelItem(
-                    title: 'الإيرادات',
-                    subtitle: '1000',
-                    path: Assets.iconsMoney,
-                  ),
-                  _PanelItem(
-                    title: 'تقييمك',
-                    subtitle: '1000',
-                    path: Assets.iconsRate,
-                  ),
-                  _PanelItem(
-                    title: 'اجمالي الرحلات',
-                    subtitle: '123',
-                    path: Assets.iconsRate,
-                  ),
-                ],
-              ),
-
-              // Consumer<PanelProvider>(
-              //   builder: (context, provider, child) {
-              //     return FutureBuilder<ApiResult<DriverPanel>>(
-              //         future: provider.future,
-              //         builder: (context, snapshot) {
-              //           if (snapshot.data == null || !snapshot.hasData || snapshot.connectionState != ConnectionState.done) {
-              //             return RPadding.all16(
-              //               child: Center(
-              //                 child: SizedBox(width: 35.r, height: 35.r, child: const CircularProgressIndicator()),
-              //               ),
-              //             );
-              //           }
-              //           return snapshot.data!.when(success: (data) {
-              //             return Row(
-              //               children: <Widget>[
-              //                 _PanelItem(
-              //                   title: 'الإيرادات',
-              //                   subtitle: data.result.revenues.toString(),
-              //                   path: Assets.iconsMoney,
-              //                 ),
-              //                 _PanelItem(
-              //                   title: 'تقييمك',
-              //                   subtitle: data.result.rateAvg.toString(),
-              //                   path: Assets.iconsRate,
-              //                 ),
-              //                 _PanelItem(
-              //                   title: 'اجمالي الرحلات',
-              //                   subtitle: data.result.deliveryCount.toString(),
-              //                   path: Assets.iconsCarspeed,
-              //                 ),
-              //               ],
-              //             );
-              //           }, failure: (error) {
-              //             return MaterialText.subTitle2(error.toString());
-              //           }, empty: () {
-              //             return const MaterialText.subTitle2('لايوجد بيانات ');
-              //           }, loading: () {
-              //             return RPadding.all16(
-              //               child: Center(
-              //                 child: SizedBox(width: 35.r, height: 35.r, child: const CircularProgressIndicator()),
-              //               ),
-              //             );
-              //           });
-              //         });
-              //   },
-              // ),
+              child: StatisticsContainer(builder: (context, data) {
+                return Row(
+                  children: <Widget>[
+                    _PanelItem(
+                      title: 'الإيرادات',
+                      subtitle: data.totalAmount.toString(),
+                      path: Assets.iconsMoney,
+                    ),
+                    _PanelItem(
+                      title: 'تقييمك',
+                      subtitle: data.rateAvg.toString(),
+                      path: Assets.iconsRate,
+                    ),
+                    _PanelItem(
+                      title: 'اجمالي الرحلات',
+                      subtitle: data.deliveryCount.toString(),
+                      path: Assets.iconsRate,
+                    ),
+                  ],
+                );
+              }),
             ),
-            const BalanceItem(
-              index: 10,
-              invoiceMoney: '12000',
-              invoiceNumber: '#123213',
-            ),
+            InvoiceContainer(builder: (context, data) {
+              return BalanceItem(
+                index: 1,
+                invoiceMoney: data.invoices?.first.total.toString() ?? '0',
+                invoiceNumber: data.invoices?.first.invoiceNumber ?? '',
+              );
+            }),
             ShowMoreWidget(
               onPressed: () {
                 Get.to(() => const BalanceScreen());
@@ -145,7 +103,12 @@ class MapPanelWidgetBody extends StatelessWidget {
               title: 'اخر المعاملات',
               buttonText: 'عرض الكل',
             ),
-            //const OrderBookItem(),
+            HistoryContainer(builder: (context, data) {
+              return OrderBookItem(
+                index: 0,
+                history: data.first,
+              );
+            }),
             ShowMoreWidget(
               onPressed: () {
                 Get.to(() => const OrderBookScreen());
@@ -153,14 +116,12 @@ class MapPanelWidgetBody extends StatelessWidget {
               title: 'اخر التوصيلات',
               buttonText: 'عرض الكل',
             ),
-            InvoiceContainer(
-              builder: (context,data) {
-                return BalanceTransactionWidget(
-                  salary: data.totalAmount.toString(),
-                  total: 222222.toString(),
-                );
-              }
-            ),
+            InvoiceContainer(builder: (context, data) {
+              return BalanceTransactionWidget(
+                salary: data.totalAmount.toString(),
+                total: data.monthAmount.toString(),
+              );
+            }),
           ]),
     );
   }
