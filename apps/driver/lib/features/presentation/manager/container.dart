@@ -6,6 +6,7 @@ import 'package:driver/features/presentation/manager/state.dart';
 import '../../../../../common/utils/bloc_wrapper.dart';
 import '../../data/models/delivers.dart';
 import '../../data/models/invoices.dart';
+import '../../data/models/statistics.dart';
 import 'event.dart';
 
 class SupportContainer extends StatelessWidget {
@@ -58,14 +59,14 @@ class InvoiceContainer extends StatelessWidget {
 }
 
 class StatisticsContainer extends StatelessWidget {
-  final ViewModelBuilder<dynamic> builder;
+  final ViewModelBuilder<Statistics> builder;
   const StatisticsContainer({Key? key, required this.builder})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
       context.read<DriverBloc>().add(GetStatisticsEvent());
-      return BlocSelectorWrapper<dynamic, DriverBloc, DriverState>(
+      return BlocSelectorWrapper<Statistics, DriverBloc, DriverState>(
         onInit: () {
           context.read<DriverBloc>().add(GetStatisticsEvent());
         },

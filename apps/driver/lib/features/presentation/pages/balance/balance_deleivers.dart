@@ -18,7 +18,7 @@ class BalanceDelivers extends StatelessWidget {
         body: Column(
           children: [
             RoundedAppBar(
-              title: 'سجل الطلبات',
+              title: 'سجل الفاتورة',
               subTitle: '${invoice.deliveries?.length ?? 0}',
             ),
             Expanded(

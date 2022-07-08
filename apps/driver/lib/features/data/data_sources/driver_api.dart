@@ -13,6 +13,7 @@ import '../../../common/utils/helper_method.dart';
 import '../models/delivers.dart';
 import '../models/driver_info.dart';
 import '../models/profile.dart';
+import '../models/statistics.dart';
 
 class DriverApi {
   DriverApi({required SHttpClient api}) : _api = api;
@@ -50,13 +51,13 @@ class DriverApi {
     });
   }
 
-  Future<Either<SResponseException, dynamic>> getStatistics() {
+  Future<Either<SResponseException, Statistics>> getStatistics() {
     return fetch(call: () async {
-      final response = await _api.get<dynamic>(
+      final response = await _api.get(
         'api/DriverApp/GetStatistics',
       );
       (json.encode(response.data)).log();
-      return response.data;
+      return Statistics.fromJson(response.data);
       // return DriverProfile.fromJson(response.data);
     });
   }

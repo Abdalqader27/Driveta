@@ -7,6 +7,7 @@ import '../../../app_injection.dart';
 import '../../../common/utils/helper_method.dart';
 import '../../data/models/driver_info.dart';
 import '../../data/models/invoices.dart';
+import '../../data/models/statistics.dart';
 
 class DriverUseCase {
   DriverUseCase({required DriverRepository repository})
@@ -51,8 +52,8 @@ class DriverUseCase {
     );
   }
 
-  Future<ApiResult<dynamic>> getStatistics() async {
-    return onResult<dynamic>(
+  Future<ApiResult<Statistics>> getStatistics() async {
+    return onResult<Statistics>(
       await _repository.getStatistics(),
       onData: (data) {},
     );

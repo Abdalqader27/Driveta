@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import '../../../../../../common/config/theme/colors.dart';
 
 class BalanceTransactionWidget extends StatelessWidget {
-  const BalanceTransactionWidget({Key? key, required this.total, required this.salary}) : super(key: key);
+  const BalanceTransactionWidget(
+      {Key? key, required this.total, required this.salary})
+      : super(key: key);
   final String total;
   final String salary;
 
@@ -20,9 +22,9 @@ class BalanceTransactionWidget extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const SText.labelMedium('الإجمالي'),
+                  const SText.labelLarge('الشهري الاجمالي    '),
                   const SSizedBox.v8(),
-                  SText.bodyMedium(total.toString())
+                  SText.titleMedium(total.toString())
                 ],
               ),
             ),

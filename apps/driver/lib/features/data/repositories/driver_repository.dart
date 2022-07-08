@@ -5,6 +5,7 @@ import 'package:network/network.dart';
 import '../../../common/utils/connectivity.dart';
 import '../../../common/utils/helper_method.dart';
 import '../models/invoices.dart';
+import '../models/statistics.dart';
 
 class DriverRepository {
   final SConnectivity _connectivity;
@@ -53,8 +54,8 @@ class DriverRepository {
     );
   }
 
-  Future<ApiResult> getStatistics() async {
-    return await fetchApiResult<dynamic>(
+  Future<ApiResult<Statistics>> getStatistics() async {
+    return await fetchApiResult<Statistics>(
       isConnected: _connectivity.isConnected,
       fetch: _remote.getStatistics(),
     );
