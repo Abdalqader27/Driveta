@@ -1,4 +1,5 @@
 import 'package:design/design.dart';
+import 'package:driver/features/presentation/manager/container.dart';
 
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -152,9 +153,13 @@ class MapPanelWidgetBody extends StatelessWidget {
               title: 'اخر التوصيلات',
               buttonText: 'عرض الكل',
             ),
-            BalanceTransactionWidget(
-              salary: 12.31232.toString(),
-              total: 222222.toString(),
+            InvoiceContainer(
+              builder: (context,data) {
+                return BalanceTransactionWidget(
+                  salary: data.totalAmount.toString(),
+                  total: 222222.toString(),
+                );
+              }
             ),
           ]),
     );

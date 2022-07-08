@@ -3,7 +3,8 @@ import 'package:driver/common/config/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class ChipItem extends StatelessWidget {
-  const ChipItem({Key? key, required this.title, required this.iconData}) : super(key: key);
+  const ChipItem({Key? key, required this.title, required this.iconData})
+      : super(key: key);
   final String title;
   final IconData iconData;
 
@@ -15,14 +16,17 @@ class ChipItem extends StatelessWidget {
           child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const SSizedBox.h4(),
+          const SSizedBox.h8(),
           Icon(iconData),
-          const SSizedBox.h4(),
+          const SSizedBox.h8(),
           SText.titleMedium(
             title,
-            style: Theme.of(context).textTheme.caption!.copyWith(fontWeight: FontWeight.bold, color: kPRIMARY),
+            style: Theme.of(context)
+                .textTheme
+                .caption!
+                .copyWith(fontWeight: FontWeight.bold, color: kPRIMARY),
           ),
-          const SSizedBox.h4(),
+          const SSizedBox.h8(),
         ],
       )),
     );

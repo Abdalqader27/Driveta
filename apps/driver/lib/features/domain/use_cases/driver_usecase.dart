@@ -1,10 +1,12 @@
 import 'package:core/core.dart';
+import 'package:driver/features/data/models/delivers.dart';
 import 'package:driver/features/data/repositories/driver_repository.dart';
 import 'package:network/network.dart';
 
 import '../../../app_injection.dart';
 import '../../../common/utils/helper_method.dart';
 import '../../data/models/driver_info.dart';
+import '../../data/models/invoices.dart';
 
 class DriverUseCase {
   DriverUseCase({required DriverRepository repository})
@@ -42,15 +44,8 @@ class DriverUseCase {
     );
   }
 
-  // Future<ApiResult<dynamic>> getAvailableDeliveries() async {
-  //   return onResult<dynamic>(
-  //     await _repository.getAvailableDeliveries(),
-  //     onData: (data) {},
-  //   );
-  // }
-
-  Future<ApiResult<dynamic>> getInvoices() async {
-    return onResult<dynamic>(
+  Future<ApiResult<Invoices>> getInvoices() async {
+    return onResult<Invoices>(
       await _repository.getInvoices(),
       onData: (data) {},
     );
@@ -63,8 +58,8 @@ class DriverUseCase {
     );
   }
 
-  Future<ApiResult<dynamic>> getHistories() async {
-    return onResult<dynamic>(
+  Future<ApiResult<List<Delivers>>> getHistories() async {
+    return onResult<List<Delivers>>(
       await _repository.getHistories(),
       onData: (data) {},
     );

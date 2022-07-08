@@ -1,10 +1,12 @@
+import 'package:driver/features/data/models/delivers.dart';
 import 'package:driver/features/presentation/pages/history/widgets/order_book_item.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../DataHandler/appData.dart';
 import '../../widgets/round_app_bar.dart';
 import '../../manager/container.dart';
+import 'order_book_screen_details.dart';
 
 class OrderBookScreen extends StatelessWidget {
   const OrderBookScreen({Key? key}) : super(key: key);
@@ -13,7 +15,7 @@ class OrderBookScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: HistoryContainer(builder: (context, data) {
+        body: HistoryContainer(builder: (context, List<Delivers> data) {
           return Column(
             children: [
               const RoundedAppBar(
@@ -23,10 +25,17 @@ class OrderBookScreen extends StatelessWidget {
               Expanded(
                   child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
-                itemCount: 9,
-                itemBuilder: (context, index) {
-                  return OrderBookItem(
-                    history: Provider.of<AppData>(context, listen: false).tripHistoryDataList[index],
+                itemCount: data.length,
+                itemBuilder: (context, i) {
+                  final history = data[i];
+                  return GestureDetector(
+                    onTap: () => Get.to(() => OrderBookScreenDetails(
+                          delivers: history,
+                        )),
+                    child: OrderBookItem(
+                      index: i,
+                      history: history,
+                    ),
                   );
                 },
               ))

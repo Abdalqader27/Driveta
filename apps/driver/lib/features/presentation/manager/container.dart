@@ -4,6 +4,8 @@ import 'package:driver/features/data/models/profile.dart';
 import 'package:driver/features/presentation/manager/bloc.dart';
 import 'package:driver/features/presentation/manager/state.dart';
 import '../../../../../common/utils/bloc_wrapper.dart';
+import '../../data/models/delivers.dart';
+import '../../data/models/invoices.dart';
 import 'event.dart';
 
 class SupportContainer extends StatelessWidget {
@@ -37,13 +39,13 @@ class ProfileContainer extends StatelessWidget {
 }
 
 class InvoiceContainer extends StatelessWidget {
-  final ViewModelBuilder<dynamic> builder;
+  final ViewModelBuilder<Invoices> builder;
   const InvoiceContainer({Key? key, required this.builder}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
       context.read<DriverBloc>().add(GetInvoicesEvent());
-      return BlocSelectorWrapper<dynamic, DriverBloc, DriverState>(
+      return BlocSelectorWrapper<Invoices, DriverBloc, DriverState>(
         onInit: () {
           context.read<DriverBloc>().add(GetInvoicesEvent());
         },
@@ -76,11 +78,11 @@ class StatisticsContainer extends StatelessWidget {
 }
 
 class HistoryContainer extends StatelessWidget {
-  final ViewModelBuilder<dynamic> builder;
+  final ViewModelBuilder<List<Delivers>> builder;
   const HistoryContainer({Key? key, required this.builder}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return BlocSelectorWrapper<dynamic, DriverBloc, DriverState>(
+    return BlocSelectorWrapper<List<Delivers>, DriverBloc, DriverState>(
       onInit: () {
         context.read<DriverBloc>().add(GetHistoriesEvent());
       },

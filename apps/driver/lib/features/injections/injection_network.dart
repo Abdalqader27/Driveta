@@ -45,7 +45,9 @@ class NetworkInjection {
       () => OnRetryConnection(
         request: si<DioConnectivityRequest>(),
         onTimeOut: () {
-          BotToast.showText(text: 'Your connection timed-out. Please make sure you have good internet.');
+          BotToast.showText(
+              text:
+                  'Your connection timed-out. Please make sure you have good internet.');
         },
       ),
     );
@@ -86,14 +88,16 @@ class NetworkInjection {
         dio: si<Dio>(),
         tokenStorage: si<BotMemoryTokenStorage>(),
         refreshToken: (token, tokenDio) async {
-          final response = await tokenDio.post(
-            '/auth/refresh-token',
-            data: {'refreshToken': token.refreshToken},
-          );
+          // final response = await tokenDio.post(
+          //   '/auth/refresh-token',
+          //   data: {'refreshToken': token.refreshToken},
+          // );
 
           return AuthToken(
-            accessToken: response.data['accessToken'],
-            refreshToken: response.data['refreshToken'],
+            accessToken:
+                si<SStorage>().get(key: kAccessToken, type: ValueType.string),
+            refreshToken:
+                si<SStorage>().get(key: kRefreshToken, type: ValueType.string),
           );
         },
       ),

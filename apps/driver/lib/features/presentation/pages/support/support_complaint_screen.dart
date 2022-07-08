@@ -44,7 +44,7 @@ class _StateSupportScreen extends State<SupportScreen> {
                       padding: const EdgeInsets.only(left: 16, right: 16),
                       child: SvgPicture.asset(
                         Assets.iconsGroup5,
-                        width: 300,
+                        width: 200,
                       ),
                     ),
                     const Padding(
@@ -66,11 +66,15 @@ class _StateSupportScreen extends State<SupportScreen> {
                         textInputAction: TextInputAction.done,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(
-                              borderSide: BorderSide(color: kPRIMARY, width: 1.0),
-                              borderRadius: BorderRadius.all(Radius.circular(12))),
+                              borderSide:
+                                  BorderSide(color: kPRIMARY, width: 1.0),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(12))),
                           focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                              borderRadius: BorderRadius.all(Radius.circular(12))),
+                              borderSide:
+                                  BorderSide(color: Colors.grey, width: 1.0),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(12))),
                         ),
                         maxLines: null,
                       ),
@@ -82,11 +86,16 @@ class _StateSupportScreen extends State<SupportScreen> {
                       borderRadius: BorderRadius.circular(30),
                       child: MaterialText.button(
                         'ارسال',
-                        style: Theme.of(context).textTheme.button!.copyWith(color: Colors.white),
+                        style: Theme.of(context)
+                            .textTheme
+                            .button!
+                            .copyWith(color: Colors.white),
                       ),
                       onPressed: () async {
                         if (_reportController.text.isNotEmpty) {
-                          context.read<DriverBloc>().add(PostSupportEvent(_reportController.text));
+                          context
+                              .read<DriverBloc>()
+                              .add(PostSupportEvent(_reportController.text));
                         } else {
                           BotToast.showText(text: 'الحقل فارغ');
                         }

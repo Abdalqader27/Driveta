@@ -300,18 +300,18 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     //     "\n expectedTime: ${si<MapState>().pinData.directionDetails?.durationText}"
     //     "\n distance: ${si<MapState>().pinData.directionDetails?.distanceValue} ");
 
-    print("addDelivery \n${json.encode({
-          "pickUp": si<MapState>().pinData.pickUpAddress,
-          "dropOff": si<MapState>().pinData.dropOffAddress,
-          "startLat": si<MapState>().pinData.currentPoint.latitude.toString(),
-          "startLong": si<MapState>().pinData.currentPoint.longitude.toString(),
-          "endLat":
-              si<MapState>().pinData.destinationPoint.longitude.toString(),
-          "endLong":
-              si<MapState>().pinData.destinationPoint.longitude.toString(),
-          "expectedTime": si<MapState>().pinData.directionDetails?.durationText,
-          "distance": si<MapState>().pinData.directionDetails?.distanceValue
-        })}");
+    // print("addDelivery \n${json.encode({
+    //       "pickUp": si<MapState>().pinData.pickUpAddress,
+    //       "dropOff": si<MapState>().pinData.dropOffAddress,
+    //       "startLat": si<MapState>().pinData.currentPoint.latitude.toString(),
+    //       "startLong": si<MapState>().pinData.currentPoint.longitude.toString(),
+    //       "endLat":
+    //           si<MapState>().pinData.destinationPoint.longitude.toString(),
+    //       "endLong":
+    //           si<MapState>().pinData.destinationPoint.longitude.toString(),
+    //       "expectedTime": si<MapState>().pinData.directionDetails?.durationText,
+    //       "distance": si<MapState>().pinData.directionDetails?.distanceValue
+    //     })}");
 
     await SignalRRider.addDelivery(
       pickUp: si<MapState>().pinData.pickUpAddress,
@@ -324,6 +324,19 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       endLong: si<MapState>().pinData.destinationPoint.longitude.toString(),
       expectedTime: si<MapState>().pinData.directionDetails?.durationText ?? '',
     );
+    print("addDelivery \n${json.encode({
+          "pickUp": si<MapState>().pinData.pickUpAddress,
+          "dropOff": si<MapState>().pinData.dropOffAddress,
+          "startLat": si<MapState>().pinData.currentPoint.latitude.toString(),
+          "startLong": si<MapState>().pinData.currentPoint.longitude.toString(),
+          "endLat":
+              si<MapState>().pinData.destinationPoint.longitude.toString(),
+          "price": AssistantMethods.calculateFares(directionDetails!),
+          "endLong":
+              si<MapState>().pinData.destinationPoint.longitude.toString(),
+          "expectedTime": si<MapState>().pinData.directionDetails?.durationText,
+          "distance": si<MapState>().pinData.directionDetails?.distanceValue
+        })}");
   }
 
   // void saveRideRequest() {

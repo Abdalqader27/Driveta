@@ -1,6 +1,6 @@
 import 'package:design/design.dart';
 import 'package:dotted_line/dotted_line.dart';
-import 'package:driver/features/data/models/history.dart';
+import 'package:driver/features/data/models/delivers.dart';
 import 'package:driver/generated/assets.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -8,10 +8,13 @@ import 'chip_item.dart';
 import 'header_item.dart';
 
 class OrderBookItem extends StatelessWidget {
-  final History history;
+  final Delivers history;
+  final int index;
   final GestureTapCallback? onTap;
 
-  const OrderBookItem({Key? key, this.onTap, required this.history}) : super(key: key);
+  const OrderBookItem(
+      {Key? key, this.onTap, required this.history, required this.index})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +24,28 @@ class OrderBookItem extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          ListTile(
+            title: RichText(
+              softWrap: true,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+              text: TextSpan(
+                text: 'اسم الزبون :',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(fontWeight: FontWeight.w600),
+                children: [
+                  TextSpan(
+                    text: history.customerName,
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                ],
+              ),
+            ),
+            subtitle: Text(history.id),
+            leading: CircleAvatar(child: Center(child: Text('${index + 1}'))),
+          ),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -34,11 +59,17 @@ class OrderBookItem extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    HeaderItem(context: context, title: 'المكان الانطلاق', subtitle: '${history.pickup}'),
+                    HeaderItem(
+                        context: context,
+                        title: 'المكان الانطلاق',
+                        subtitle: '${history.pickUp}'),
                     DottedLine(
                       dashColor: Colors.grey.withOpacity(.5),
                     ),
-                    HeaderItem(context: context, title: ' الوجهة', subtitle: '${history.dropOff} '),
+                    HeaderItem(
+                        context: context,
+                        title: ' الوجهة',
+                        subtitle: '${history.dropOff} '),
                   ],
                 ),
               ),
@@ -47,17 +78,17 @@ class OrderBookItem extends StatelessWidget {
           Wrap(
             children: [
               // TODO add time and distance and money
-              const ChipItem(
+              ChipItem(
                 iconData: Icons.access_time,
-                title: '30 min',
+                title: '${history.expectedTime}',
               ),
-              const ChipItem(
+              ChipItem(
                 iconData: Icons.add_road_rounded,
-                title: '30 KM',
+                title: '${history.distance}',
               ),
               ChipItem(
                 iconData: Icons.account_balance_wallet_outlined,
-                title: '${history.paymentMethod}',
+                title: '${history.price}',
               ),
             ],
           ),

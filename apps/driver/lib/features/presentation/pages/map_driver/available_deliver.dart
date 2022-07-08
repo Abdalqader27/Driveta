@@ -1,9 +1,11 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:design/design.dart';
+import 'package:driver/common/exceptions/network_exceptions/network_exceptions.dart';
 import 'package:driver/common/utils/signal_r_config.dart';
 import 'package:driver/features/domain/use_cases/driver_usecase.dart';
 import 'package:driver/features/presentation/manager/container.dart';
 import 'package:driver/features/presentation/pages/map_driver/widgets/available_delevieries_item.dart';
+import 'package:driver/features/presentation/widgets/lottie_widget.dart';
 import 'package:get/get.dart';
 import 'package:rxdart/rxdart.dart';
 import '../../../../AllScreens/newRideScreen.dart';
@@ -32,6 +34,10 @@ class AvailableDeliveries extends StatelessWidget {
                   stream: deliversStream.stream,
                   initialData: [],
                   builder: (context, AsyncSnapshot<List<Delivers>> snap) {
+                    if (snap.data!.isEmpty) {
+                      return LottieWidget.notFound2();
+                    }
+
                     return ListView.builder(
                         itemCount: snap.data!.length,
                         itemBuilder: (context, i) {

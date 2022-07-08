@@ -228,7 +228,6 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
     pushNotificationService.initialize(context);
     pushNotificationService.getToken();
 
-    AssistantMethods.retrieveHistoryInfo(context);
     getRatings();
     getRideType();
   }

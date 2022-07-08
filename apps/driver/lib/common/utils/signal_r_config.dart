@@ -78,6 +78,7 @@ class SignalRDriver {
   }
 
   static void onReceiveDeliveries(List<Object>? arguments) {
+    print("onReceiveDeliveries $arguments");
     if (arguments != null) {
       List<Delivers> delivers = [];
       for (var item in arguments[0] as List) {

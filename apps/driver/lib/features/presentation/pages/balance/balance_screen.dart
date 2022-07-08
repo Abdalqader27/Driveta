@@ -3,7 +3,6 @@ import 'package:driver/features/presentation/pages/balance/widgets/balance_body.
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../DataHandler/appData.dart';
 import '../../widgets/round_app_bar.dart';
 import '../../../../../generated/assets.dart';
 import '../history/order_book_screen.dart';
@@ -39,8 +38,11 @@ class BalanceScreen extends StatelessWidget {
                               style: TextStyle(color: kPRIMARY),
                             ),
                             Text(
-                              "\$${data['totalAmount']}",
-                              style: TextStyle(color: kPRIMARY, fontSize: 50, fontFamily: 'Brand Bold'),
+                              "${data.totalAmount}",
+                              style: TextStyle(
+                                  color: kPRIMARY,
+                                  fontSize: 50,
+                                  fontFamily: 'Brand Bold'),
                             )
                           ],
                         ),
@@ -50,10 +52,15 @@ class BalanceScreen extends StatelessWidget {
                       // margin: EdgeInsets.symmetric(horizontal: 20),
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const OrderBookScreen()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const OrderBookScreen()));
                         },
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 18),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 18),
                           child: Row(
                             children: [
                               Image.asset(
@@ -68,19 +75,14 @@ class BalanceScreen extends StatelessWidget {
                                 'الرحلات الكلية',
                                 style: TextStyle(fontSize: 16),
                               ),
-                              // Expanded(
-                              //     child: Container(
-                              //         child: Text(
-                              //   Provider.of<AppData>(context, listen: false).countTrips.toString(),
-                              //   textAlign: TextAlign.end,
-                              //   style: TextStyle(fontSize: 18),
-                              // ))),
                             ],
                           ),
                         ),
                       ),
                     ),
-                    BalanceBodyWidget(),
+                    BalanceBodyWidget(
+                      invoices: data,
+                    ),
                   ],
                 );
               }),

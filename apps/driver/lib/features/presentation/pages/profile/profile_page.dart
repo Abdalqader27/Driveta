@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:design/design.dart';
 import 'package:driver/common/config/theme/colors.dart';
 import 'package:driver/features/presentation/widgets/round_app_bar.dart';
@@ -26,7 +28,7 @@ class ProfilePage extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               RoundedAppBar(
-                title: data.name,
+                title: 'الملف الشخصي',
               ),
               Expanded(
                 child: SingleChildScrollView(
@@ -63,7 +65,10 @@ class ProfilePage extends StatelessWidget {
                       ),
                       Text(
                         data.name,
-                        style: const TextStyle(fontSize: 55.0, fontFamily: "Signatra", color: kPRIMARY),
+                        style: const TextStyle(
+                            fontSize: 35.0,
+                            fontFamily: "Signatra",
+                            color: kPRIMARY),
                       ),
                       const SizedBox(
                         height: 16.0,
@@ -72,7 +77,8 @@ class ProfilePage extends StatelessWidget {
                         height: 40.0,
                       ),
                       InfoCard(
-                        text: data.phoneNumber,
+                        text: (json.decode(data.phoneNumber)
+                            as Map)['formatInternational'],
                         icon: Icons.phone,
                         onPressed: () async {
                           print("this is phone.");
@@ -86,7 +92,8 @@ class ProfilePage extends StatelessWidget {
                       //   },
                       // ),
                       InfoCard(
-                        text: "${data.vehicleColor} - ${data.vehicleModelName} - ${data.vehicleNumber}",
+                        text:
+                            "${data.vehicleColor} - ${data.vehicleModelName} - ${data.vehicleNumber}",
                         icon: Icons.car_repair,
                         onPressed: () async {
                           print("this is car info.");
@@ -102,11 +109,13 @@ class ProfilePage extends StatelessWidget {
 
                             FirebaseAuth.instance.signOut();
                           } catch (_) {}
-                          Navigator.pushNamedAndRemoveUntil(context, LoginScreen.idScreen, (route) => false);
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, LoginScreen.idScreen, (route) => false);
                         },
                         child: const Card(
                           color: kPRIMARY,
-                          margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 110.0),
+                          margin: EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 110.0),
                           child: ListTile(
                             trailing: Icon(
                               Icons.follow_the_signs_outlined,
@@ -159,12 +168,15 @@ class InfoCard extends StatelessWidget {
             icon,
             color: Colors.black87,
           ),
-          title: Text(
-            text,
-            style: const TextStyle(
-              color: Colors.black87,
-              fontSize: 16.0,
-              fontFamily: 'Brand Bold',
+          title: Directionality(
+            textDirection: TextDirection.ltr,
+            child: Text(
+              text,
+              textAlign: TextAlign.right,
+              style: const TextStyle(
+                color: Colors.black87,
+                fontSize: 16.0,
+              ),
             ),
           ),
         ),

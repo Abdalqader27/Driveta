@@ -3,12 +3,14 @@ import 'dart:convert';
 import 'package:core/core.dart';
 import 'package:dio/dio.dart';
 import 'package:driver/common/utils/signal_r_config.dart';
+import 'package:driver/features/data/models/invoices.dart';
 import 'package:either_dart/either.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:network/network.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../common/utils/helper_method.dart';
+import '../models/delivers.dart';
 import '../models/driver_info.dart';
 import '../models/profile.dart';
 
@@ -37,13 +39,13 @@ class DriverApi {
     });
   }
 
-  Future<Either<SResponseException, dynamic>> getInvoices() {
+  Future<Either<SResponseException, Invoices>> getInvoices() {
     return fetch(call: () async {
       final response = await _api.get<dynamic>(
         'api/DriverApp/GetInvoices',
       );
       (json.encode(response.data)).log();
-      return response.data;
+      return Invoices.fromJson(response.data);
       // return DriverProfile.fromJson(response.data);
     });
   }
@@ -59,13 +61,17 @@ class DriverApi {
     });
   }
 
-  Future<Either<SResponseException, dynamic>> getHistories() {
+  Future<Either<SResponseException, List<Delivers>>> getHistories() {
     return fetch(call: () async {
-      final response = await _api.get<dynamic>(
+      final response = await _api.get(
         'api/DriverApp/GetDeliveries',
       );
       (json.encode(response.data)).log();
 
+      final List<Delivers> list =
+          List.from((response.data).map((i) => Delivers.fromJson(i)));
+
+      return List.from(list);
       // return DriverProfile.fromJson(response.data);
     });
   }

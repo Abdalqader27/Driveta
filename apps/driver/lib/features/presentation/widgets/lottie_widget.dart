@@ -6,7 +6,8 @@ class LottieWidget extends StatelessWidget {
   final double width;
   final String path;
 
-  const LottieWidget({Key? key, required this.path, required this.width}) : super(key: key);
+  const LottieWidget({Key? key, required this.path, required this.width})
+      : super(key: key);
 
   const factory LottieWidget.loading({
     double width,
@@ -17,7 +18,10 @@ class LottieWidget extends StatelessWidget {
     double width,
     String path,
   }) = _NotFound;
-
+  const factory LottieWidget.notFound2({
+    double width,
+    String path,
+  }) = _NotFound2;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -40,5 +44,12 @@ class _NotFound extends LottieWidget {
   const _NotFound({
     double width = 300,
     String path = Assets.lottieErorr,
+  }) : super(path: path, width: width);
+}
+
+class _NotFound2 extends LottieWidget {
+  const _NotFound2({
+    double width = 300,
+    String path = Assets.lottieTeam,
   }) : super(path: path, width: width);
 }

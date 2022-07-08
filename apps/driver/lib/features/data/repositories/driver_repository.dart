@@ -1,8 +1,10 @@
 import 'package:driver/features/data/data_sources/driver_api.dart';
+import 'package:driver/features/data/models/delivers.dart';
 import 'package:network/network.dart';
 
 import '../../../common/utils/connectivity.dart';
 import '../../../common/utils/helper_method.dart';
+import '../models/invoices.dart';
 
 class DriverRepository {
   final SConnectivity _connectivity;
@@ -44,8 +46,8 @@ class DriverRepository {
     );
   }
 
-  Future<ApiResult> getInvoices() async {
-    return await fetchApiResult<dynamic>(
+  Future<ApiResult<Invoices>> getInvoices() async {
+    return await fetchApiResult<Invoices>(
       isConnected: _connectivity.isConnected,
       fetch: _remote.getInvoices(),
     );
@@ -65,8 +67,8 @@ class DriverRepository {
   //   );
   // }
 
-  Future<ApiResult<dynamic>> getHistories() async {
-    return await fetchApiResult<dynamic>(
+  Future<ApiResult<List<Delivers>>> getHistories() async {
+    return await fetchApiResult<List<Delivers>>(
       isConnected: _connectivity.isConnected,
       fetch: _remote.getHistories(),
     );

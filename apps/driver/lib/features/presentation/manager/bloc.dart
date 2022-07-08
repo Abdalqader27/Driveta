@@ -99,8 +99,8 @@ class DriverBloc extends SMixinBloc<DriverEvent, DriverState> {
 
     final result = await _useCase.getHistories();
     emit(await result.when(
-      success: (user) {
-        _state = _state.copyWith(historyState: SBlocState.success(data: user));
+      success: (data) {
+        _state = _state.copyWith(historyState: SBlocState.success(data: data));
 
         return _state;
       },
