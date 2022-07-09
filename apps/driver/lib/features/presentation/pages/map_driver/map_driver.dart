@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:driver/Notifications/pushNotificationService.dart';
 import 'package:driver/common/assistants/assistantMethods.dart';
 import 'package:driver/configMaps.dart';
@@ -12,6 +13,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animarker/core/ripple_marker.dart';
+import 'package:flutter_animarker/widgets/animarker.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -19,6 +21,7 @@ import 'package:location/location.dart';
 import '../../../../../common/utils/config.dart';
 import '../../../../../common/utils/signal_r_config.dart';
 import '../../../../../features/presentation/pages/sgin_up/registeration_screen.dart';
+import '../../../../common/config/theme/colors.dart';
 import 'widgets/map_app_bar.dart';
 
 late BuildContext context;
@@ -65,8 +68,10 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
               onChanged: (value) async {
                 if (value) {
                   // await si<DriverUseCase>().getAvailableDeliveries();
+                  BotToast.showLoading();
                   await SignalRDriver.openConnection();
                   await makeDriverOnlineNow();
+                  BotToast.closeAllLoading();
                   getLocationLiveUpdates();
                   // Get.to(AvailableDeliveries());
                   displayToastMessage("you are Online Now.", context);
@@ -88,42 +93,43 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
             Expanded(
               child: Stack(
                 children: [
-                  GoogleMap(
-                    mapType: MapType.normal,
-                    padding: const EdgeInsets.only(top: 30),
-                    markers: _markers.values.toSet(),
-                    initialCameraPosition: MapDriverScreen._kGooglePlex,
-                    onMapCreated: (GoogleMapController controller) {
-                      _controllerGoogleMap.complete(controller);
-                      newGoogleMapController = controller;
-                      locatePosition();
-                    },
-                  ),
-                  // Animarker(
-                  //     curve: Curves.linear,
-                  //     // duration: const Duration(milliseconds: 2000),
-                  //     useRotation: true,
-                  //     shouldAnimateCamera: false,
-                  //     angleThreshold: 0,
-                  //     zoom: 20,
-                  //     rippleColor: kPRIMARY,
-                  //     rippleRadius: 0.8,
-                  //     // rippleDuration: const Duration(milliseconds: 3000),
-                  //     markers: _markers.values.toSet(),
-                  //     mapId: _controllerGoogleMap.future.then<int>((value) => value.mapId),
-                  //     child: GoogleMap(
-                  //       mapType: MapType.normal,
-                  //       padding: const EdgeInsets.only(top: 30),
-                  //       buildingsEnabled: true,
-                  //       myLocationEnabled: false,
-                  //       markers: _markers.values.toSet(),
-                  //       initialCameraPosition: MapDriverScreen._kGooglePlex,
-                  //       onMapCreated: (GoogleMapController controller) {
-                  //         _controllerGoogleMap.complete(controller);
-                  //         newGoogleMapController = controller;
-                  //         locatePosition();
-                  //       },
-                  //     )),
+                  // GoogleMap(
+                  //   mapType: MapType.normal,
+                  //   padding: const EdgeInsets.only(top: 30),
+                  //   markers: _markers.values.toSet(),
+                  //   initialCameraPosition: MapDriverScreen._kGooglePlex,
+                  //   onMapCreated: (GoogleMapController controller) {
+                  //     _controllerGoogleMap.complete(controller);
+                  //     newGoogleMapController = controller;
+                  //     locatePosition();
+                  //   },
+                  // ),
+                  Animarker(
+                      curve: Curves.linear,
+                      // duration: const Duration(milliseconds: 2000),
+                      useRotation: true,
+                      shouldAnimateCamera: false,
+                      angleThreshold: 0,
+                      zoom: 20,
+                      rippleColor: kPRIMARY,
+                      rippleRadius: 0.8,
+                      // rippleDuration: const Duration(milliseconds: 3000),
+                      markers: _markers.values.toSet(),
+                      mapId: _controllerGoogleMap.future
+                          .then<int>((value) => value.mapId),
+                      child: GoogleMap(
+                        mapType: MapType.normal,
+                        padding: const EdgeInsets.only(top: 30),
+                        buildingsEnabled: true,
+                        myLocationEnabled: false,
+                        markers: _markers.values.toSet(),
+                        initialCameraPosition: MapDriverScreen._kGooglePlex,
+                        onMapCreated: (GoogleMapController controller) {
+                          _controllerGoogleMap.complete(controller);
+                          newGoogleMapController = controller;
+                          locatePosition();
+                        },
+                      )),
                   const MapPanelWidget(),
                 ],
               ),
@@ -294,11 +300,11 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
       ripple: true,
       //Ripple state
 
-      // icon: await BitmapDescriptor.fromAssetImage(
-      //   const ImageConfiguration(size: Size(50, 50)),
-      //   pinPath,
-      // ),
-      icon: BitmapDescriptor.defaultMarker,
+      icon: await BitmapDescriptor.fromAssetImage(
+        const ImageConfiguration(size: Size(50, 50)),
+        pinPath,
+      ),
+      // icon: BitmapDescriptor.defaultMarker,
       markerId: markerId,
       position: point,
       infoWindow: InfoWindow(title: title, snippet: snippet),

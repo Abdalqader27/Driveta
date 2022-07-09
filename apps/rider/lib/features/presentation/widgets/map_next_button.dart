@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rider/libraries/flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../Models/directDetails.dart';
-import '../../../Models/map_state.dart';
 import '../../../blocs/map_bloc.dart';
 import '../../../common/config/theme/colors.dart';
 import '../../../common/utils/check_map_status.dart';
@@ -13,7 +11,9 @@ import '../../../common/utils/go_to.dart';
 import '../../../libraries/el_widgets/widgets/material_text.dart';
 import '../../../libraries/el_widgets/widgets/responsive_padding.dart';
 import '../../../libraries/el_widgets/widgets/responsive_sized_box.dart';
-import '../../../libraries/init_app/run_app.dart';
+import '../../../main.dart';
+import '../../data/models/direct_details.dart';
+import '../../data/models/map_state.dart';
 
 late Future<DirectionDetails?> placeDirectionDetailsFuture;
 
@@ -35,13 +35,17 @@ class MapNextButton extends StatelessWidget {
                 color: kPRIMARY,
                 child: Center(
                   child: RPadding(
-                    padding: EdgeInsets.symmetric(horizontal: 30.r, vertical: 10.r),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 30.r, vertical: 10.r),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         const RSizedBox.h16(),
                         MaterialText.button(CheckMapStatus.getStatusName(),
-                            style: Theme.of(context).textTheme.button!.copyWith(color: kWhite)),
+                            style: Theme.of(context)
+                                .textTheme
+                                .button!
+                                .copyWith(color: kWhite)),
                         const Icon(
                           Icons.arrow_forward_ios,
                           color: Colors.white,
@@ -67,7 +71,8 @@ class MapNextButton extends StatelessWidget {
       si<MapBloc>().setMarker(
         kCurrentMarker(si<MapState>().pinData.currentPoint),
       );
-      LatLng customCurrentPoint = LatLng(si<MapState>().pinData.currentPoint.latitude + 0.00009,
+      LatLng customCurrentPoint = LatLng(
+          si<MapState>().pinData.currentPoint.latitude + 0.00009,
           si<MapState>().pinData.currentPoint.longitude + 0.0009);
       goToLocation(customCurrentPoint);
     } else if (CheckMapStatus.checkState(

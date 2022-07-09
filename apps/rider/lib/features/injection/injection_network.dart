@@ -10,7 +10,7 @@ import 'package:network/network.dart';
 import 'package:retry_bot/retry_bot.dart';
 
 import '../../common/utils/connectivity.dart';
-import '../../libraries/init_app/run_app.dart';
+import '../../main.dart';
 
 ///
 class NetworkInjection {
@@ -43,7 +43,9 @@ class NetworkInjection {
       () => OnRetryConnection(
         request: si<DioConnectivityRequest>(),
         onTimeOut: () {
-          BotToast.showText(text: 'Your connection timed-out. Please make sure you have good internet.');
+          BotToast.showText(
+              text:
+                  'Your connection timed-out. Please make sure you have good internet.');
         },
       ),
     );
@@ -90,8 +92,14 @@ class NetworkInjection {
           );
 
           return AuthToken(
-            accessToken: response.data['accessToken'],
-            refreshToken: response.data['refreshToken'],
+            accessToken: si<SStorage>().get(
+              key: kAccessToken,
+              type: ValueType.string,
+            ),
+            refreshToken: si<SStorage>().get(
+              key: kRefreshToken,
+              type: ValueType.string,
+            ),
           );
         },
       ),

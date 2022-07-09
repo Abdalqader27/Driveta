@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:core/core.dart';
-import 'package:package_info/package_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../libraries/init_app/run_app.dart';
+
+import '../../main.dart';
 
 class InjectionServices {
   static Future<void> dependencies() async {

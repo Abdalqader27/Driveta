@@ -1,11 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:rider/Models/allUsers.dart';
 
 String mapKey = "AIzaSyCeL6NXSWQJcyl0SjF3CZ0-3vN3q90aGc8";
 
 User? firebaseUser;
-
-Users? userCurrentInfo;
 
 int driverRequestTimeOut = 40;
 String statusRide = "";

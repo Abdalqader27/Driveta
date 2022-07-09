@@ -1,4 +1,4 @@
-import 'location_data.dart';
+import 'trip_data.dart';
 
 class MapState {
   final bool showLocationBtn;

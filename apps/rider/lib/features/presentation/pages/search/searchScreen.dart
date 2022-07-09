@@ -14,14 +14,14 @@ import '../../../../../../../../common/widgets/progress_dialog.dart';
 import '../../../../../../../../generated/assets.dart';
 import '../../../../../../../../libraries/el_widgets/widgets/material_text.dart';
 import '../../../../../../../../libraries/el_widgets/widgets/responsive_padding.dart';
-import '../../../../../../../../libraries/init_app/run_app.dart';
 import '../../../../../blocs/map_bloc.dart';
-import '../../../../Models/address.dart';
-import '../../../../Models/map_state.dart';
-import '../../../../Models/placePredictions.dart';
 import '../../../../common/assistants/requestAssistant.dart';
 import '../../../../common/config/theme/colors.dart';
 import '../../../../common/utils/constant.dart';
+import '../../../../main.dart';
+import '../../../data/models/address.dart';
+import '../../../data/models/map_state.dart';
+import '../../../data/models/place_predictions.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -42,7 +42,8 @@ class _SearchScreenState extends State<SearchScreen> {
         title: Center(
           child: MaterialText.bodyText1(
             "حدد وجهة ",
-            style: Theme.of(context).textTheme.bodyText1!.copyWith(color: kWhite),
+            style:
+                Theme.of(context).textTheme.bodyText1!.copyWith(color: kWhite),
           ),
         ),
       ),
@@ -54,9 +55,11 @@ class _SearchScreenState extends State<SearchScreen> {
               builder: (context, snapshot) {
                 final data = snapshot.data;
                 if (snapshot.data == null || snapshot.data!.hideHeader) {
-                  return const FadeInAnimation(curve: Curves.bounceInOut, child: SizedBox.shrink());
+                  return const FadeInAnimation(
+                      curve: Curves.bounceInOut, child: SizedBox.shrink());
                 }
-                pickUpTextEditingController.text = data?.pinData.pickUpAddress ?? '';
+                pickUpTextEditingController.text =
+                    data?.pinData.pickUpAddress ?? '';
                 // dropOffTextEditingController.text = data?.pinData.destinationAddress ?? '';
 
                 return Container(
@@ -95,12 +98,14 @@ class _SearchScreenState extends State<SearchScreen> {
                                     child: Container(
                                       decoration: BoxDecoration(
                                         color: Colors.grey[200],
-                                        borderRadius: BorderRadius.circular(5.0),
+                                        borderRadius:
+                                            BorderRadius.circular(5.0),
                                       ),
                                       child: Padding(
                                         padding: const EdgeInsets.all(3.0),
                                         child: TextField(
-                                          controller: pickUpTextEditingController,
+                                          controller:
+                                              pickUpTextEditingController,
                                           readOnly: true,
                                           decoration: InputDecoration(
                                             hintText: " الموقع الحالي ",
@@ -108,8 +113,11 @@ class _SearchScreenState extends State<SearchScreen> {
                                             filled: true,
                                             border: InputBorder.none,
                                             isDense: true,
-                                            contentPadding: const EdgeInsets.only(
-                                                left: 11.0, top: 8.0, bottom: 8.0),
+                                            contentPadding:
+                                                const EdgeInsets.only(
+                                                    left: 11.0,
+                                                    top: 8.0,
+                                                    bottom: 8.0),
                                           ),
                                         ),
                                       ),
@@ -124,7 +132,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                     child: Container(
                                       decoration: BoxDecoration(
                                         color: Colors.grey[100],
-                                        borderRadius: BorderRadius.circular(5.0),
+                                        borderRadius:
+                                            BorderRadius.circular(5.0),
                                       ),
                                       child: Padding(
                                         padding: const EdgeInsets.all(3.0),
@@ -132,15 +141,19 @@ class _SearchScreenState extends State<SearchScreen> {
                                           onChanged: (val) {
                                             findPlace(val);
                                           },
-                                          controller: dropOffTextEditingController,
+                                          controller:
+                                              dropOffTextEditingController,
                                           decoration: InputDecoration(
                                             hintText: "  الى أين",
                                             fillColor: Colors.grey[100],
                                             filled: true,
                                             border: InputBorder.none,
                                             isDense: true,
-                                            contentPadding: const EdgeInsets.only(
-                                                left: 11.0, top: 8.0, bottom: 8.0),
+                                            contentPadding:
+                                                const EdgeInsets.only(
+                                                    left: 11.0,
+                                                    top: 8.0,
+                                                    bottom: 8.0),
                                           ),
                                         ),
                                       ),
@@ -149,11 +162,16 @@ class _SearchScreenState extends State<SearchScreen> {
                                   IconButton(
                                       onPressed: () {
                                         findPlace('');
-                                        si<MapState>().isDestinationLoading = true;
-                                        si<MapBloc>().sinkSetMapState(si<MapState>());
-                                        si<MapState>().isDestinationLoading = false;
-                                        si<MapState>().pinData.dropOffAddress = '';
-                                        si<MapBloc>().sinkSetMapState(si<MapState>());
+                                        si<MapState>().isDestinationLoading =
+                                            true;
+                                        si<MapBloc>()
+                                            .sinkSetMapState(si<MapState>());
+                                        si<MapState>().isDestinationLoading =
+                                            false;
+                                        si<MapState>().pinData.dropOffAddress =
+                                            '';
+                                        si<MapBloc>()
+                                            .sinkSetMapState(si<MapState>());
                                         setState(() {
                                           placePredictionList = [];
                                         });
@@ -175,7 +193,8 @@ class _SearchScreenState extends State<SearchScreen> {
           (placePredictionList.isNotEmpty)
               ? Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 16.0),
                     child: ListView.builder(
                       padding: const EdgeInsets.all(0.0),
                       itemBuilder: (context, index) {
@@ -186,19 +205,21 @@ class _SearchScreenState extends State<SearchScreen> {
                               si<MapState>().isDestinationLoading = true;
                               si<MapBloc>().sinkSetMapState(si<MapState>());
                               var destinationAddress =
-                                  "${placePredictionList[index].mainText!}${placePredictionList[index].secondaryText}";
+                                  "${placePredictionList[index].mainText}${placePredictionList[index].secondaryText}";
                               si<MapState>().isDestinationLoading = false;
-                              si<MapState>().pinData.dropOffAddress = destinationAddress;
+                              si<MapState>().pinData.dropOffAddress =
+                                  destinationAddress;
                               final response = await getPlaceAddressDetails(
-                                  placePredictionList[index].placeId!, context);
-                              final point =
-                                  LatLng(response?.latitude ?? 0, response?.longitude ?? 0);
+                                  placePredictionList[index].placeId, context);
+                              final point = LatLng(response?.latitude ?? 0,
+                                  response?.longitude ?? 0);
                               si<MapState>().pinData.destinationPoint = point;
                               si<MapState>().swapState();
                               si<MapState>().next = StatusTripMap.path;
                               si<MapBloc>().sinkSetMapState(si<MapState>());
                               si<MapBloc>().setMarker(
-                                kDestinationMarker(si<MapState>().pinData.destinationPoint),
+                                kDestinationMarker(
+                                    si<MapState>().pinData.destinationPoint),
                               );
                               goToLocation(point);
                               Get.back();
@@ -232,7 +253,9 @@ class _SearchScreenState extends State<SearchScreen> {
       if (res["status"] == "OK") {
         var predictions = res["predictions"];
 
-        var placesList = (predictions as List).map((e) => PlacePredictions.fromJson(e)).toList();
+        var placesList = (predictions as List)
+            .map((e) => PlacePredictions.fromJson(e))
+            .toList();
 
         setState(() {
           placePredictionList = placesList;
@@ -282,7 +305,8 @@ class PredictionTile extends StatelessWidget {
   final PlacePredictions placePredictions;
   final Function() onTap;
 
-  const PredictionTile({Key? key, required this.placePredictions, required this.onTap})
+  const PredictionTile(
+      {Key? key, required this.placePredictions, required this.onTap})
       : super(key: key);
 
   @override
@@ -319,7 +343,8 @@ class PredictionTile extends StatelessWidget {
                     Text(
                       "${placePredictions.secondaryText}",
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(fontSize: 12.0, color: Colors.grey),
+                      style:
+                          const TextStyle(fontSize: 12.0, color: Colors.grey),
                     ),
                     const SizedBox(
                       height: 8.0,

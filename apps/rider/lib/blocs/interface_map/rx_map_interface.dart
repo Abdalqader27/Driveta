@@ -1,8 +1,8 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../Models/location_data.dart';
-import '../../Models/map_state.dart';
+import '../../features/data/models/map_state.dart';
+import '../../features/data/models/trip_data.dart';
 import 'stream_sink_interface.dart';
 
 class RxMap with RxMapSink, RxMapStream {
@@ -50,5 +50,6 @@ class RxMap with RxMapSink, RxMapStream {
   Function(Map<MarkerId, Marker>) get sinkSetMarkerList => _markerList.sink.add;
 
   @override
-  Function(Map<PolylineId, Polyline>) get sinkSetPolylineList => _polylineList.sink.add;
+  Function(Map<PolylineId, Polyline>) get sinkSetPolylineList =>
+      _polylineList.sink.add;
 }

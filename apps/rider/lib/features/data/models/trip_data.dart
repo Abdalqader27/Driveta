@@ -1,6 +1,6 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import 'directDetails.dart';
+import 'direct_details.dart';
 
 class TripData {
   LatLng currentPoint;

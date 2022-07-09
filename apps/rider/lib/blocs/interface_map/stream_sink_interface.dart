@@ -1,6 +1,6 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../Models/location_data.dart';
+import '../../features/data/models/trip_data.dart';
 
 mixin RxMapStream {
   Stream<Map<MarkerId, Marker>> get streamMarker;

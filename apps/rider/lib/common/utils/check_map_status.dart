@@ -1,5 +1,6 @@
-import '../../Models/map_state.dart';
-import '../../libraries/init_app/run_app.dart';
+import 'package:rider/main.dart';
+
+import '../../features/data/models/map_state.dart';
 
 class CheckMapStatus {
   static bool checkState({
@@ -26,15 +27,20 @@ class CheckMapStatus {
   }
 
   static String getStatusName() {
-    if (checkState(preState: StatusTripMap.init, nextState: StatusTripMap.selectLocation)) {
+    if (checkState(
+        preState: StatusTripMap.init,
+        nextState: StatusTripMap.selectLocation)) {
       return 'تحديد الموقع';
     } else if (checkState(
-        preState: StatusTripMap.selectLocation, nextState: StatusTripMap.selectDestination)) {
+        preState: StatusTripMap.selectLocation,
+        nextState: StatusTripMap.selectDestination)) {
       return 'تحديد الوجهة';
     } else if (checkState(
-        preState: StatusTripMap.selectDestination, nextState: StatusTripMap.path)) {
+        preState: StatusTripMap.selectDestination,
+        nextState: StatusTripMap.path)) {
       return 'تحديد المسار ';
-    } else if (checkState(preState: StatusTripMap.path, nextState: StatusTripMap.routeData)) {
+    } else if (checkState(
+        preState: StatusTripMap.path, nextState: StatusTripMap.routeData)) {
       return 'عرض التفاصيل';
     }
     return 'التالي ';

@@ -1,9 +1,9 @@
 import 'package:design/design.dart';
 import 'package:rider/common/config/theme/colors.dart';
 
-import '../../../../../Models/directDetails.dart';
 import '../../../../../common/assistants/assistantMethods.dart';
 import '../../../../../libraries/el_widgets/widgets/material_text.dart';
+import '../../../../data/models/direct_details.dart';
 
 class ChoiceCarsWidget extends StatelessWidget {
   final double height;
@@ -170,7 +170,11 @@ class _PanelItem extends StatelessWidget {
   final String subtitle;
   final IconData iconData;
 
-  const _PanelItem({Key? key, required this.title, required this.subtitle, required this.iconData})
+  const _PanelItem(
+      {Key? key,
+      required this.title,
+      required this.subtitle,
+      required this.iconData})
       : super(key: key);
 
   @override

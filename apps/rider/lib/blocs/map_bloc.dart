@@ -4,12 +4,12 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:rider/mainscreen.dart';
+import 'package:rider/features/presentation/pages/map/main_screen/mainscreen.dart';
 
 import '../../../../common/utils/google_api_key.dart';
-import '../Models/location_data.dart';
-import '../Models/marker_config.dart';
-import '../Models/polyline_config.dart';
+import '../features/data/models/marker_config.dart';
+import '../features/data/models/polyline_config.dart';
+import '../features/data/models/trip_data.dart';
 import 'interface_map/map_interface.dart';
 import 'interface_map/rx_map_interface.dart';
 
@@ -44,7 +44,8 @@ class MapBloc extends RxMap with MapInterface, GoogleApiKey {
   }
 
   @override
-  Future<bool> setPolyline(TripData locationData, PolyLineConfig polylineConfig) async {
+  Future<bool> setPolyline(
+      TripData locationData, PolyLineConfig polylineConfig) async {
     BotToast.showLoading();
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       getApiKey(),
@@ -89,7 +90,8 @@ class MapBloc extends RxMap with MapInterface, GoogleApiKey {
   }
 
   @override
-  Future<void> setMapFitToTour(Set<Polyline> p, {GoogleMapController? controller}) async {
+  Future<void> setMapFitToTour(Set<Polyline> p,
+      {GoogleMapController? controller}) async {
     double minLat = p.first.points.first.latitude;
     double minLong = p.first.points.first.longitude;
     double maxLat = p.first.points.first.latitude;
@@ -105,11 +107,15 @@ class MapBloc extends RxMap with MapInterface, GoogleApiKey {
     }
     if (controller == null) {
       newGoogleMapController.animateCamera(CameraUpdate.newLatLngBounds(
-          LatLngBounds(southwest: LatLng(minLat, minLong), northeast: LatLng(maxLat, maxLong)),
+          LatLngBounds(
+              southwest: LatLng(minLat, minLong),
+              northeast: LatLng(maxLat, maxLong)),
           100));
     } else {
       controller.animateCamera(CameraUpdate.newLatLngBounds(
-          LatLngBounds(southwest: LatLng(minLat, minLong), northeast: LatLng(maxLat, maxLong)),
+          LatLngBounds(
+              southwest: LatLng(minLat, minLong),
+              northeast: LatLng(maxLat, maxLong)),
           100));
     }
   }

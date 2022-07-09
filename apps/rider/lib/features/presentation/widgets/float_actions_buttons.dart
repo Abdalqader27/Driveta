@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rider/libraries/flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../Models/map_state.dart';
 import '../../../blocs/map_bloc.dart';
 import '../../../common/config/theme/colors.dart';
 import '../../../libraries/el_widgets/widgets/responsive_padding.dart';
-import '../../../libraries/init_app/run_app.dart';
+import '../../../main.dart';
+import '../../data/models/map_state.dart';
 import '../pages/search/searchScreen.dart';
 
 class MapFloatActionsButton extends StatelessWidget {
@@ -16,7 +16,10 @@ class MapFloatActionsButton extends StatelessWidget {
   final VoidCallback themeTap;
 
   const MapFloatActionsButton(
-      {Key? key, required this.locationTap, required this.directionTap, required this.themeTap})
+      {Key? key,
+      required this.locationTap,
+      required this.directionTap,
+      required this.themeTap})
       : super(key: key);
 
   @override
@@ -93,8 +96,9 @@ class MapFloatActionsButton extends StatelessWidget {
                   ),
                 ),
                 Visibility(
-                  visible: snapshot.data!.pre == StatusTripMap.selectDestination ||
-                      snapshot.data!.pre == StatusTripMap.path,
+                  visible:
+                      snapshot.data!.pre == StatusTripMap.selectDestination ||
+                          snapshot.data!.pre == StatusTripMap.path,
                   child: CupertinoButton(
                     padding: EdgeInsets.zero,
                     onPressed: directionTap,

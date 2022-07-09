@@ -77,6 +77,63 @@ class SignalRDriver {
     } catch (_) {}
   }
 
+  ///AcceptDelivery(Guid id) (invoke) (Driver) (deliveryId)
+  static Future<void> acceptDelivery({required String id}) async {
+    try {
+      if (connectionIsOpen == false ||
+          _hubConnection!.state != HubConnectionState.Connected) {
+        await openConnection();
+      }
+      _hubConnection!.invoke(
+        "AcceptDelivery",
+        args: <Object>[id],
+      );
+    } catch (_) {}
+  }
+
+  static Future<void> startDelivery({required String id}) async {
+    try {
+      if (connectionIsOpen == false ||
+          _hubConnection!.state != HubConnectionState.Connected) {
+        await openConnection();
+      }
+      _hubConnection!.invoke(
+        "StartDelivery",
+        args: <Object>[id],
+      );
+    } catch (_) {}
+  }
+
+  static Future<void> endDeliveryDriver(
+      {required num price,
+      required String id,
+      required String endLat,
+      required String endLong,
+      required num distance,
+      required String dropOff,
+      required String expectedTime}) async {
+    try {
+      if (connectionIsOpen == false ||
+          _hubConnection!.state != HubConnectionState.Connected) {
+        await openConnection();
+      }
+      _hubConnection!.invoke(
+        "EndDeliveryDriver",
+        args: <Object>[
+          {
+            'price': price,
+            'id': id,
+            'endLat': endLat,
+            'endLong': endLong,
+            'distance': distance,
+            'expectedTime': expectedTime,
+            'dropOff': dropOff
+          }
+        ],
+      );
+    } catch (_) {}
+  }
+
   static void onReceiveDeliveries(List<Object>? arguments) {
     print("onReceiveDeliveries $arguments");
     if (arguments != null) {
@@ -92,19 +149,5 @@ class SignalRDriver {
         flagOpenPage = true;
       }
     }
-  }
-
-  ///AcceptDelivery(Guid id) (invoke) (Driver) (deliveryId)
-  static Future<void> acceptDelivery({required String id}) async {
-    try {
-      if (connectionIsOpen == false ||
-          _hubConnection!.state != HubConnectionState.Connected) {
-        await openConnection();
-      }
-      _hubConnection!.invoke(
-        "AcceptDelivery",
-        args: <Object>[id],
-      );
-    } catch (_) {}
   }
 }

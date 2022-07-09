@@ -8,30 +8,28 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:rider/Models/directDetails.dart';
-import 'package:rider/Models/nearbyAvailableDrivers.dart';
 import 'package:rider/common/assistants/assistantMethods.dart';
-import 'package:rider/common/assistants/geoFireAssistant.dart';
 import 'package:rider/common/config/theme/colors.dart';
 import 'package:rider/configMaps.dart';
 import 'package:rider/features/presentation/widgets/noDriverAvailableDialog.dart';
 
-import 'Models/map_state.dart';
-import 'blocs/container_map_bloc.dart';
-import 'blocs/map_bloc.dart';
-import 'common/utils/check_map_status.dart';
-import 'common/utils/config.dart';
-import 'common/utils/go_to.dart';
-import 'common/utils/signal_r.dart';
-import 'common/widgets/map_pin.dart';
-import 'features/presentation/pages/map/map_trip_live.dart';
-import 'features/presentation/pages/map/widgets/choice_cars.dart';
-import 'features/presentation/pages/map/widgets/searching_on_driver.dart';
-import 'features/presentation/widgets/float_actions_buttons.dart';
-import 'features/presentation/widgets/header_location_destination.dart';
-import 'features/presentation/widgets/map_drawer.dart';
-import 'features/presentation/widgets/map_next_button.dart';
-import 'libraries/init_app/run_app.dart';
+import '../../../../../blocs/container_map_bloc.dart';
+import '../../../../../blocs/map_bloc.dart';
+import '../../../../../common/utils/check_map_status.dart';
+import '../../../../../common/utils/config.dart';
+import '../../../../../common/utils/go_to.dart';
+import '../../../../../common/utils/signal_r.dart';
+import '../../../../../common/widgets/map_pin.dart';
+import '../../../../../main.dart';
+import '../../../../data/models/direct_details.dart';
+import '../../../../data/models/map_state.dart';
+import '../../../widgets/float_actions_buttons.dart';
+import '../../../widgets/header_location_destination.dart';
+import '../../../widgets/map_drawer.dart';
+import '../../../widgets/map_next_button.dart';
+import '../map_trip_live/map_trip_live.dart';
+import '../widgets/choice_cars.dart';
+import '../widgets/searching_on_driver.dart';
 
 late GoogleMapController newGoogleMapController;
 
@@ -579,17 +577,6 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     setState(() {
       directionDetails = details;
     });
-  }
-
-  void updateAvailableDriversOnMap() {
-    // inj<MapBloc>().clearMarkers();
-
-    for (NearbyAvailableDrivers driver
-        in GeoFireAssistant.nearByAvailableDriversList) {
-      LatLng driverAvaiablePosition =
-          LatLng(driver.latitude ?? 0, driver.longitude ?? 0);
-      si<MapBloc>().setMarker(kDriverMarker(driverAvaiablePosition));
-    }
   }
 
   void noDriverFound() {

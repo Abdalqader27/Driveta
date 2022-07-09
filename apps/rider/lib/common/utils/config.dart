@@ -1,10 +1,10 @@
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../Models/marker_config.dart';
-import '../../Models/polyline_config.dart';
+import '../../features/data/models/marker_config.dart';
+import '../../features/data/models/polyline_config.dart';
 import '../../generated/assets.dart';
-import '../../libraries/el_theme/colors.dart';
+import '../config/theme/colors.dart';
 
 final kPolylineConfigWalk = PolyLineConfig(
   polylineId: const PolylineId("poly"),

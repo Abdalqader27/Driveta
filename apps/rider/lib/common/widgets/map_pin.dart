@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rider/libraries/flutter_screenutil/flutter_screenutil.dart';
 
-import '../../Models/map_state.dart';
 import '../../blocs/map_bloc.dart';
+import '../../features/data/models/map_state.dart';
 import '../../generated/assets.dart';
 import '../../libraries/el_widgets/widgets/responsive_padding.dart';
-import '../../libraries/init_app/run_app.dart';
+import '../../main.dart';
 import '../utils/check_map_status.dart';
 
 class MapPin extends StatelessWidget {
@@ -24,7 +24,8 @@ class MapPin extends StatelessWidget {
             initialData: si<MapState>(),
             builder: (context, snapshot) {
               if (CheckMapStatus.checkState(
-                      preState: StatusTripMap.init, nextState: StatusTripMap.selectLocation) ||
+                      preState: StatusTripMap.init,
+                      nextState: StatusTripMap.selectLocation) ||
                   CheckMapStatus.checkState(
                       preState: StatusTripMap.selectLocation,
                       nextState: StatusTripMap.selectDestination)) {

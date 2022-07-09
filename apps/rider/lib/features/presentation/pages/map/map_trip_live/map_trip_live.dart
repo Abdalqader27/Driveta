@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../../../../common/utils/google_api_key.dart';
-import '../../../../../generated/assets.dart';
-import '../../../../Models/map_state.dart';
-import '../../../../blocs/container_map_bloc.dart';
-import '../../../../blocs/map_bloc.dart';
-import '../../../../common/config/theme/colors.dart';
-import '../../../../libraries/el_widgets/widgets/material_text.dart';
-import '../../../../libraries/el_widgets/widgets/responsive_padding.dart';
-import '../../../../libraries/el_widgets/widgets/responsive_sized_box.dart';
-import '../../../../libraries/init_app/run_app.dart';
-import 'map_trip_live/widget/location_granted_widget.dart';
-import 'map_trip_live/widget/map_body_container.dart';
+import '../../../../../../common/utils/google_api_key.dart';
+import '../../../../../../generated/assets.dart';
+import '../../../../../blocs/container_map_bloc.dart';
+import '../../../../../blocs/map_bloc.dart';
+import '../../../../../common/config/theme/colors.dart';
+import '../../../../../libraries/el_widgets/widgets/material_text.dart';
+import '../../../../../libraries/el_widgets/widgets/responsive_padding.dart';
+import '../../../../../libraries/el_widgets/widgets/responsive_sized_box.dart';
+import '../../../../../main.dart';
+import '../../../../data/models/map_state.dart';
+import 'widget/location_granted_widget.dart';
+import 'widget/map_body_container.dart';
 
 late GoogleMapController tripLiveMapController;
 
@@ -25,7 +25,8 @@ class MapTripLive extends StatefulWidget {
   State<MapTripLive> createState() => _MapTripLiveState();
 }
 
-class _MapTripLiveState extends State<MapTripLive> with WidgetsBindingObserver, GoogleApiKey {
+class _MapTripLiveState extends State<MapTripLive>
+    with WidgetsBindingObserver, GoogleApiKey {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -33,7 +34,8 @@ class _MapTripLiveState extends State<MapTripLive> with WidgetsBindingObserver, 
         onWillPop: () async {
           return true;
         },
-        child: LocationGrantedWidget(builder: (BuildContext context, location, Widget? child) {
+        child: LocationGrantedWidget(
+            builder: (BuildContext context, location, Widget? child) {
           return ContainerMapBloc(builder: (
             AsyncSnapshot<Map<MarkerId, Marker>> marker,
             AsyncSnapshot<Map<PolylineId, Polyline>> polyline,
@@ -59,7 +61,8 @@ class _MapTripLiveState extends State<MapTripLive> with WidgetsBindingObserver, 
                     top: 0,
                     child: Container(
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(), gradient: linearGradient(context)),
+                          borderRadius: BorderRadius.only(),
+                          gradient: linearGradient(context)),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [titleCaptainOnHisWay(context)],
@@ -83,17 +86,21 @@ class _MapTripLiveState extends State<MapTripLive> with WidgetsBindingObserver, 
   }
 
   LinearGradient linearGradient(context) {
-    return LinearGradient(colors: [
-      Color(0xfffbfbfb),
-      Color(0xfffbfbfb),
-      Theme.of(context).brightness == Brightness.dark
-          ? Theme.of(context).primaryColor
-          : Color(0xfffbfbfb),
+    return LinearGradient(
+        colors: [
+          Color(0xfffbfbfb),
+          Color(0xfffbfbfb),
+          Theme.of(context).brightness == Brightness.dark
+              ? Theme.of(context).primaryColor
+              : Color(0xfffbfbfb),
 //                                              Colors.white30,
-      Theme.of(context).brightness == Brightness.dark
-          ? Theme.of(context).primaryColor.withOpacity(.0001)
-          : Color(0xfffbfbfb).withOpacity(.2),
-    ], begin: Alignment.center, end: Alignment.bottomCenter, tileMode: TileMode.clamp);
+          Theme.of(context).brightness == Brightness.dark
+              ? Theme.of(context).primaryColor.withOpacity(.0001)
+              : Color(0xfffbfbfb).withOpacity(.2),
+        ],
+        begin: Alignment.center,
+        end: Alignment.bottomCenter,
+        tileMode: TileMode.clamp);
   }
 
   Widget titleCaptainOnHisWay(context) {
@@ -138,7 +145,8 @@ class _MapTripLiveState extends State<MapTripLive> with WidgetsBindingObserver, 
           ),
           MaterialText.subTitle2(
             "${si<MapState>().pinData.directionDetails?.durationText}",
-            style: TextStyle(color: kBlack, fontWeight: FontWeight.bold, fontSize: 20),
+            style: TextStyle(
+                color: kBlack, fontWeight: FontWeight.bold, fontSize: 20),
           ),
           Column(
             mainAxisSize: MainAxisSize.min,
@@ -153,7 +161,9 @@ class _MapTripLiveState extends State<MapTripLive> with WidgetsBindingObserver, 
                   width: 60,
                   child: ClipOval(
                     child: SizedBox(
-                        width: 50.0, height: 50.0, child: SvgPicture.asset(Assets.iconsUser)),
+                        width: 50.0,
+                        height: 50.0,
+                        child: SvgPicture.asset(Assets.iconsUser)),
                   ),
                 ),
                 title: Text(

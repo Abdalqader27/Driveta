@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:rider/features/presentation/pages/map/map_trip_live.dart';
+import 'package:rider/features/presentation/pages/map/map_trip_live/map_trip_live.dart';
 
 import 'map_body.dart';
 

@@ -1,25 +1,18 @@
 import 'package:core/core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rider/common/widgets/background/second_background.dart';
-import 'package:rider/common/widgets/background/welcome_background.dart';
 import 'package:rider/features/presentation/manager/bloc.dart';
 import 'package:rider/libraries/flutter_screenutil/flutter_screenutil.dart';
-import 'package:rider/main.dart';
 
 import '../../../../../../../../libraries/el_widgets/widgets/material_text.dart';
 import '../../../../../../../../libraries/el_widgets/widgets/responsive_padding.dart';
+import '../../../../common/config/theme/colors.dart';
+import '../../../../generated/assets.dart';
 import '../../manager/container.dart';
 import '../../manager/event.dart';
-import '../../widgets/progressDialog.dart';
-import '../../../../common/config/theme/colors.dart';
-import '../../../../common/widgets/background/primary_background.dart';
-import '../../../../generated/assets.dart';
-import '../../../../mainscreen.dart';
 import '../sgin_up/registeration_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -124,7 +117,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   borderRadius: BorderRadius.circular(30.r),
                                   child: MaterialText.button(
                                     'تسجيل الدخول',
-                                    style: Theme.of(context).textTheme.button!.copyWith(color: kWhite),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .button!
+                                        .copyWith(color: kWhite),
                                   ),
                                   onPressed: () async {
                                     if (formKey.currentState!.validate()) {
@@ -133,11 +129,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                               context,
                                               email: email.text,
                                               password: password.text,
-                                              deviceToken: await FirebaseMessaging.instance.getToken() ?? '',
+                                              deviceToken:
+                                                  await FirebaseMessaging
+                                                          .instance
+                                                          .getToken() ??
+                                                      '',
                                               rememberMe: true,
                                             ),
                                           );
-                                      loginAndAuthenticateUser(context);
                                     }
 
                                     // if (!emailTextEditingController.text.contains("@")) {
@@ -155,7 +154,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           TextButton(
                             onPressed: () {
                               Navigator.pushNamedAndRemoveUntil(
-                                  context, RegisterationScreen.idScreen, (route) => false);
+                                  context,
+                                  RegisterationScreen.idScreen,
+                                  (route) => false);
                             },
                             child: const Text(
                               "ليس لديك حساب ؟ قم بتسجيل من هنا ",
@@ -172,28 +173,5 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
-  }
-
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-
-  void loginAndAuthenticateUser(BuildContext context) async {
-    final User? firebaseUser =
-        (await _firebaseAuth.signInWithEmailAndPassword(email: 'abed@supy.io', password: '123456').catchError((errMsg) {
-      displayToastMessage("Error: " + errMsg.toString(), context);
-    }))
-            .user;
-
-    if (firebaseUser != null) {
-      usersRef.child(firebaseUser.uid).once().then((s) {
-        DataSnapshot snap = s.snapshot;
-        if (snap.value != null) {
-        } else {
-          _firebaseAuth.signOut();
-          displayToastMessage(" لايوجد حساب ، يرجى انشاء حساب جديد", context);
-        }
-      });
-    } else {
-      displayToastMessage("حدث خطآ ما ", context);
-    }
   }
 }

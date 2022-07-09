@@ -1,21 +1,19 @@
 import 'dart:convert';
 
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:rider/Models/address.dart';
-import 'package:rider/Models/allUsers.dart';
-import 'package:rider/Models/directDetails.dart';
-import 'package:rider/Models/map_state.dart';
 import 'package:rider/common/assistants/requestAssistant.dart';
 import 'package:rider/configMaps.dart';
+import 'package:rider/features/data/models/address.dart';
+import 'package:rider/features/data/models/map_state.dart';
 
-import '../../libraries/init_app/run_app.dart';
+import '../../features/data/models/direct_details.dart';
+import '../../main.dart';
 
 class AssistantMethods {
-  static Future<String> searchCoordinateAddress(LatLng position, context) async {
+  static Future<String> searchCoordinateAddress(
+      LatLng position, context) async {
     String placeAddress = "";
     String url =
         "https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.latitude},${position.longitude}&key=$mapKey";
@@ -46,13 +44,18 @@ class AssistantMethods {
 
     DirectionDetails directionDetails = DirectionDetails();
 
-    directionDetails.encodedPoints = res["routes"][0]["overview_polyline"]["points"];
+    directionDetails.encodedPoints =
+        res["routes"][0]["overview_polyline"]["points"];
 
-    directionDetails.distanceText = res["routes"][0]["legs"][0]["distance"]["text"];
-    directionDetails.distanceValue = res["routes"][0]["legs"][0]["distance"]["value"];
+    directionDetails.distanceText =
+        res["routes"][0]["legs"][0]["distance"]["text"];
+    directionDetails.distanceValue =
+        res["routes"][0]["legs"][0]["distance"]["value"];
 
-    directionDetails.durationText = res["routes"][0]["legs"][0]["duration"]["text"];
-    directionDetails.durationValue = res["routes"][0]["legs"][0]["duration"]["value"];
+    directionDetails.durationText =
+        res["routes"][0]["legs"][0]["duration"]["text"];
+    directionDetails.durationValue =
+        res["routes"][0]["legs"][0]["duration"]["value"];
 
     return directionDetails;
   }
@@ -60,7 +63,8 @@ class AssistantMethods {
   static int calculateFares(DirectionDetails directionDetails) {
     //in terms USD
     double timeTraveledFare = (directionDetails.durationValue ?? 0 / 60) * 0.20;
-    double distancTraveledFare = (directionDetails.distanceValue ?? 0 / 200) * 0.20;
+    double distancTraveledFare =
+        (directionDetails.distanceValue ?? 0 / 200) * 0.20;
     double totalFareAmount = timeTraveledFare + distancTraveledFare;
 
     //Local Currency
@@ -69,21 +73,8 @@ class AssistantMethods {
     return totalFareAmount.truncate();
   }
 
-  static void getCurrentOnlineUserInfo() async {
-    firebaseUser = FirebaseAuth.instance.currentUser;
-    String userId = firebaseUser!.uid;
-    DatabaseReference reference =
-        FirebaseDatabase.instance.reference().child("users").child(userId);
-
-    reference.once().then((s) {
-      DataSnapshot dataSnapShot = s.snapshot;
-      if (dataSnapShot.value != null) {
-        userCurrentInfo = Users.fromSnapshot(dataSnapShot);
-      }
-    });
-  }
-
-  static sendNotificationToDriver(String token, context, String ride_request_id) async {
+  static sendNotificationToDriver(
+      String token, context, String ride_request_id) async {
     //var destionation = Provider.of<AppData>(context, listen: false).dropOffLocation;
     var destionation = si<MapState>().pinData.destinationPoint;
     var placeName = si<MapState>().pinData.dropOffAddress;
@@ -92,7 +83,10 @@ class AssistantMethods {
       'Authorization': serverToken,
     };
 
-    Map notificationMap = {'body': 'DropOff Address, $placeName', 'title': 'New Ride Request'};
+    Map notificationMap = {
+      'body': 'DropOff Address, $placeName',
+      'title': 'New Ride Request'
+    };
 
     Map dataMap = {
       'click_action': 'FLUTTER_NOTIFICATION_CLICK',

@@ -4,12 +4,12 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rider/libraries/flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../Models/map_state.dart';
 import '../../../blocs/map_bloc.dart';
 import '../../../common/utils/check_map_status.dart';
 import '../../../generated/assets.dart';
 import '../../../libraries/el_widgets/widgets/responsive_padding.dart';
-import '../../../libraries/init_app/run_app.dart';
+import '../../../main.dart';
+import '../../data/models/map_state.dart';
 import 'header_item.dart';
 
 class HeaderLocDes extends StatefulWidget {

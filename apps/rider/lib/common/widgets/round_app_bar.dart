@@ -47,7 +47,10 @@ class RoundedAppBar extends StatelessWidget {
                       child: ListTile(
                     title: MaterialText.bodyText1(
                       title,
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 15.sp),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .copyWith(fontSize: 15.sp),
                     ),
                     subtitle: MaterialText.subTitle2(
                       subTitle ?? "",

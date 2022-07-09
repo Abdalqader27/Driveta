@@ -1,18 +1,20 @@
+import 'package:design/design.dart';
 import 'package:dotted_line/dotted_line.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:rider/libraries/flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../../generated/assets.dart';
-import '../../../../../../libraries/el_widgets/widgets/responsive_padding.dart';
-import '../../../../../../libraries/el_widgets/widgets/responsive_sized_box.dart';
+import '../../../../../generated/assets.dart';
+import '../../../../data/models/delivers.dart';
 import 'chip_item.dart';
 import 'header_item.dart';
 
-class OrderHistoryItem extends StatelessWidget {
+class OrderBookItem extends StatelessWidget {
+  final Delivers history;
+  final int index;
   final GestureTapCallback? onTap;
 
-  const OrderHistoryItem({Key? key, this.onTap}) : super(key: key);
+  const OrderBookItem(
+      {Key? key, this.onTap, required this.history, required this.index})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +24,29 @@ class OrderHistoryItem extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          ListTile(
+            title: RichText(
+              softWrap: true,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+              text: TextSpan(
+                text: 'رقم الرحلة :',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(fontWeight: FontWeight.w600),
+              ),
+            ),
+            subtitle: Text(history.id),
+            leading: CircleAvatar(child: Center(child: Text('${index + 1}'))),
+          ),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              RPadding.all16(
+              SPadding.all16(
                 child: SvgPicture.asset(
                   Assets.iconsIcRoute,
-                  height: 80.r,
+                  height: 80,
                 ),
               ),
               Expanded(
@@ -37,35 +55,38 @@ class OrderHistoryItem extends StatelessWidget {
                   children: [
                     HeaderItem(
                         context: context,
-                        title: 'المكان الحالي',
-                        subtitle:
-                            'حلب - الميرديانالميرديانالميرديانالميرديانالميرديانالميرديانالميرديانالميرديانالميرديان'),
+                        title: 'المكان الانطلاق',
+                        subtitle: '${history.pickUp}'),
                     DottedLine(
                       dashColor: Colors.grey.withOpacity(.5),
                     ),
-                    HeaderItem(context: context, title: ' الوجهة', subtitle: 'المحافظة '),
+                    HeaderItem(
+                        context: context,
+                        title: ' الوجهة',
+                        subtitle: '${history.dropOff} '),
                   ],
                 ),
               ),
             ],
           ),
           Wrap(
-            children: const [
+            children: [
+              // TODO add time and distance and money
               ChipItem(
                 iconData: Icons.access_time,
-                title: '30 min',
+                title: '${history.expectedTime}',
               ),
               ChipItem(
                 iconData: Icons.add_road_rounded,
-                title: '30 KM',
+                title: '${history.distance}',
               ),
               ChipItem(
                 iconData: Icons.account_balance_wallet_outlined,
-                title: '10000 SP',
+                title: '${history.price}',
               ),
             ],
           ),
-          const RSizedBox.v12(),
+          const SSizedBox.v12(),
         ],
       ),
     );
