@@ -23,8 +23,8 @@ class User {
   });
 
   final String id;
-  final String token;
-  final String refreshToken;
+  final String? token;
+  final String? refreshToken;
   final String? personalImage;
   final int? balance;
   final String? userName;

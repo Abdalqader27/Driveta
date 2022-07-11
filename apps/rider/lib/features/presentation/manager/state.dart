@@ -10,6 +10,8 @@ class RiderState extends Equatable {
   final SBlocState? getVehicleTypesState;
   final SBlocState? getProfileState;
   final SBlocState? getDeliveriesState;
+  final SBlocState? getStoresState;
+  final SBlocState? getStoreDetailsState;
 
   const RiderState({
     this.loginState = const SBlocState.init(),
@@ -20,6 +22,8 @@ class RiderState extends Equatable {
     this.getVehicleTypesState = const SBlocState.init(),
     this.getProfileState = const SBlocState.init(),
     this.getDeliveriesState = const SBlocState.init(),
+    this.getStoresState = const SBlocState.init(),
+    this.getStoreDetailsState = const SBlocState.init(),
   });
 
   RiderState copyWith({
@@ -31,6 +35,8 @@ class RiderState extends Equatable {
     SBlocState? getVehicleTypesState,
     SBlocState? getProfileState,
     SBlocState? getDeliveriesState,
+    SBlocState? getStoresState,
+    SBlocState? getStoreDetailsState,
   }) {
     return RiderState(
       loginState: loginState ?? this.loginState,
@@ -41,6 +47,8 @@ class RiderState extends Equatable {
       getVehicleTypesState: getVehicleTypesState ?? this.getVehicleTypesState,
       getProfileState: getProfileState ?? this.getProfileState,
       getDeliveriesState: getDeliveriesState ?? this.getDeliveriesState,
+      getStoresState: getStoresState ?? this.getStoresState,
+      getStoreDetailsState: getStoreDetailsState ?? this.getStoreDetailsState,
     );
   }
 
@@ -54,5 +62,7 @@ class RiderState extends Equatable {
         getVehicleTypesState,
         getProfileState,
         getDeliveriesState,
+        getStoreDetailsState,
+        getStoresState,
       ];
 }

@@ -12,12 +12,12 @@ import '../../../../../../../../common/utils/config.dart';
 import '../../../../../../../../common/utils/go_to.dart';
 import '../../../../../../../../common/widgets/progress_dialog.dart';
 import '../../../../../../../../generated/assets.dart';
-import '../../../../../../../../libraries/el_widgets/widgets/material_text.dart';
 import '../../../../../../../../libraries/el_widgets/widgets/responsive_padding.dart';
 import '../../../../../blocs/map_bloc.dart';
 import '../../../../common/assistants/requestAssistant.dart';
 import '../../../../common/config/theme/colors.dart';
 import '../../../../common/utils/constant.dart';
+import '../../../../common/widgets/round_app_bar.dart';
 import '../../../../main.dart';
 import '../../../data/models/address.dart';
 import '../../../data/models/map_state.dart';
@@ -38,17 +38,13 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Center(
-          child: MaterialText.bodyText1(
-            "حدد وجهة ",
-            style:
-                Theme.of(context).textTheme.bodyText1!.copyWith(color: kWhite),
-          ),
-        ),
-      ),
       body: Column(
         children: [
+          SizedBox(
+            height: 20,
+          ),
+          RoundedAppBar(title: 'البحث', subTitle: 'قم بلبحث عن وجهتك'),
+
           StreamBuilder<MapState>(
               stream: si<MapBloc>().rxMapState,
               initialData: si<MapState>(),

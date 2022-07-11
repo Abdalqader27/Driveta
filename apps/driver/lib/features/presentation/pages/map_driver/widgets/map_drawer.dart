@@ -80,9 +80,9 @@ class MapDrawer extends StatelessWidget {
                           onTap: () {
                             try {
                               //   Geofire.removeLocation(currentfirebaseUser!.uid);
-                              rideRequestRef?.onDisconnect();
-                              rideRequestRef?.remove();
-                              rideRequestRef = null;
+                              // rideRequestRef?.onDisconnect();
+                              // rideRequestRef?.remove();
+                              // rideRequestRef = null;
                               FirebaseAuth.instance.signOut();
                             } catch (_) {}
                             Navigator.pushNamedAndRemoveUntil(context,

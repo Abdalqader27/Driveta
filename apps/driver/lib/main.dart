@@ -10,7 +10,9 @@ import 'package:driver/features/presentation/manager/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:responsive_framework/utils/scroll_behavior.dart';
 import 'app_injection.dart';
@@ -20,6 +22,10 @@ import 'features/presentation/pages/sgin_in/login_screen.dart';
 import 'features/presentation/pages/sgin_up/registeration_screen.dart';
 
 void main() async {
+  if (defaultTargetPlatform == TargetPlatform.android) {
+  AndroidGoogleMapsFlutter.useAndroidViewSurface = true;
+}
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await Injections.init();
@@ -38,11 +44,6 @@ void main() async {
   });
 }
 
-DatabaseReference usersRef = FirebaseDatabase.instance.ref().child("users");
-DatabaseReference driversRef = FirebaseDatabase.instance.ref().child("drivers");
-DatabaseReference newRequestsRef = FirebaseDatabase.instance.ref().child("Ride Requests");
-DatabaseReference? rideRequestRef =
-    FirebaseDatabase.instance.ref().child("drivers").child(currentfirebaseUser!.uid).child("newRide");
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

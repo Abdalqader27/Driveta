@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_it/get_it.dart';
+import 'package:rider/features/data/database/app_db.dart';
 import 'package:rider/features/presentation/manager/bloc.dart';
 import 'package:rider/features/presentation/pages/map/main_screen/mainscreen.dart';
 import 'package:rider/features/presentation/pages/sgin_in/loginScreen.dart';
@@ -14,7 +15,7 @@ import 'common/config/theme/theme.dart';
 import 'libraries/flutter_screenutil/flutter_screenutil.dart';
 
 final si = GetIt.instance;
-
+final appDatabase = AppDatabase();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();

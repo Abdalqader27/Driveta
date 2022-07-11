@@ -22,7 +22,8 @@ class CarInfoScreen extends StatefulWidget {
 class _CarInfoScreenState extends State<CarInfoScreen> {
   TextEditingController carModelTextEditingController = TextEditingController();
 
-  TextEditingController carNumberTextEditingController = TextEditingController();
+  TextEditingController carNumberTextEditingController =
+      TextEditingController();
 
   TextEditingController carColorTextEditingController = TextEditingController();
 
@@ -61,7 +62,8 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
                       controller: carModelTextEditingController,
                       decoration: const InputDecoration(
                         labelText: "موديل السيارة",
-                        hintStyle: TextStyle(color: Colors.grey, fontSize: 10.0),
+                        hintStyle:
+                            TextStyle(color: Colors.grey, fontSize: 10.0),
                       ),
                       style: const TextStyle(fontSize: 15.0),
                     ),
@@ -72,7 +74,8 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
                       controller: carNumberTextEditingController,
                       decoration: const InputDecoration(
                         labelText: "رقم السيارة",
-                        hintStyle: TextStyle(color: Colors.grey, fontSize: 10.0),
+                        hintStyle:
+                            TextStyle(color: Colors.grey, fontSize: 10.0),
                       ),
                       style: const TextStyle(fontSize: 15.0),
                     ),
@@ -83,7 +86,8 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
                       controller: carColorTextEditingController,
                       decoration: const InputDecoration(
                         labelText: "لون السيارة",
-                        hintStyle: TextStyle(color: Colors.grey, fontSize: 10.0),
+                        hintStyle:
+                            TextStyle(color: Colors.grey, fontSize: 10.0),
                       ),
                       style: const TextStyle(fontSize: 15.0),
                     ),
@@ -116,17 +120,25 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
                       borderRadius: BorderRadius.circular(30),
                       child: Text(
                         'التالي',
-                        style: Theme.of(context).textTheme.button!.copyWith(color: Colors.white),
+                        style: Theme.of(context)
+                            .textTheme
+                            .button!
+                            .copyWith(color: Colors.white),
                       ),
                       onPressed: () {
                         if (carModelTextEditingController.text.isEmpty) {
-                          displayToastMessage("الرجاء تحديد موديل السيارة.", context);
-                        } else if (carNumberTextEditingController.text.isEmpty) {
-                          displayToastMessage("الرجاء تحديد رقم السيارة.", context);
+                          displayToastMessage(
+                              "الرجاء تحديد موديل السيارة.", context);
+                        } else if (carNumberTextEditingController
+                            .text.isEmpty) {
+                          displayToastMessage(
+                              "الرجاء تحديد رقم السيارة.", context);
                         } else if (carColorTextEditingController.text.isEmpty) {
-                          displayToastMessage("الرجاء تحديد لون السيازة.", context);
+                          displayToastMessage(
+                              "الرجاء تحديد لون السيازة.", context);
                         } else if (selectedCarType == null) {
-                          displayToastMessage("الرجاء تحديد نوع السيارة.", context);
+                          displayToastMessage(
+                              "الرجاء تحديد نوع السيارة.", context);
                         } else {
                           saveDriverCarInfo(context);
                         }
@@ -152,8 +164,9 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
       "type": selectedCarType,
     };
 
-    driversRef.child(userId).child("car_details").set(carInfoMap);
+    // driversRef.child(userId).child("car_details").set(carInfoMap);
 
-    Navigator.pushNamedAndRemoveUntil(context, MapDriverScreen.idScreen, (route) => false);
+    Navigator.pushNamedAndRemoveUntil(
+        context, MapDriverScreen.idScreen, (route) => false);
   }
 }

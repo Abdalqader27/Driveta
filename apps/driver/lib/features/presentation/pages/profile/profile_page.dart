@@ -101,14 +101,7 @@ class ProfilePage extends StatelessWidget {
                       ),
                       CupertinoButton(
                         onPressed: () {
-                          try {
-                            //Geofire.removeLocation(currentfirebaseUser!.uid);
-                            rideRequestRef?.onDisconnect();
-                            rideRequestRef?.remove();
-                            rideRequestRef = null;
-
-                            FirebaseAuth.instance.signOut();
-                          } catch (_) {}
+                       
                           Navigator.pushNamedAndRemoveUntil(
                               context, LoginScreen.idScreen, (route) => false);
                         },

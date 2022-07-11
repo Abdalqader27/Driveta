@@ -1,20 +1,22 @@
+import 'dart:async';
+
 import 'package:design/design.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animarker/widgets/animarker.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../../../../common/utils/google_api_key.dart';
 import '../../../../../../generated/assets.dart';
 import '../../../../../blocs/container_map_bloc.dart';
-import '../../../../../blocs/map_bloc.dart';
 import '../../../../../common/config/theme/colors.dart';
+import '../../../../../common/utils/signal_r.dart';
 import '../../../../../libraries/el_widgets/widgets/material_text.dart';
 import '../../../../../libraries/el_widgets/widgets/responsive_padding.dart';
 import '../../../../../libraries/el_widgets/widgets/responsive_sized_box.dart';
 import '../../../../../main.dart';
 import '../../../../data/models/map_state.dart';
 import 'widget/location_granted_widget.dart';
-import 'widget/map_body_container.dart';
 
 late GoogleMapController tripLiveMapController;
 
@@ -27,6 +29,8 @@ class MapTripLive extends StatefulWidget {
 
 class _MapTripLiveState extends State<MapTripLive>
     with WidgetsBindingObserver, GoogleApiKey {
+  final Completer<GoogleMapController> _controllerGoogleMap = Completer();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -40,21 +44,57 @@ class _MapTripLiveState extends State<MapTripLive>
             AsyncSnapshot<Map<MarkerId, Marker>> marker,
             AsyncSnapshot<Map<PolylineId, Polyline>> polyline,
           ) {
-            Future.delayed(const Duration(seconds: 1), () {
-              si<MapBloc>().setMapFitToTour(Set.of(polyline.data!.values),
-                  controller: tripLiveMapController);
+            final m = marker.data![MarkerId(acceptedDriverID.toString())];
+
+            Future.delayed(Duration.zero, () {
+              CameraPosition cameraPosition =
+                  CameraPosition(target: m!.position, zoom: 18);
+
+              tripLiveMapController.animateCamera(
+                  CameraUpdate.newCameraPosition(cameraPosition));
             });
 
             return Scaffold(
               body: Stack(
                 alignment: Alignment.center,
                 children: [
-                  MapBodyContainer(
+                  Animarker(
+                    curve: Curves.linear,
+                    useRotation: true,
+                    shouldAnimateCamera: false,
+                    angleThreshold: 0,
+                    zoom: 20,
+                    rippleColor: kPRIMARY,
+                    rippleRadius: 0.8,
                     markers: Set.of(marker.data!.values),
-                    polyLines: Set.of(polyline.data!.values),
-                    locationData: location,
-                    padding: const EdgeInsets.only(top: 240),
+                    mapId: _controllerGoogleMap.future
+                        .then<int>((value) => value.mapId),
+                    child: GoogleMap(
+                      padding: const EdgeInsets.only(top: 260.0),
+                      mapType: MapType.normal,
+                      myLocationButtonEnabled: false,
+                      initialCameraPosition: CameraPosition(
+                          target: LatLng(
+                            m?.position.latitude ?? 0,
+                            m?.position.longitude ?? 0,
+                          ),
+                          zoom: 20),
+                      myLocationEnabled: true,
+                      zoomGesturesEnabled: true,
+                      zoomControlsEnabled: true,
+                      polylines: Set.of(polyline.data?.values ?? {}),
+                      onMapCreated: (GoogleMapController controller) async {
+                        _controllerGoogleMap.complete(controller);
+                        tripLiveMapController = controller;
+                      },
+                    ),
                   ),
+                  // MapBodyContainer(
+                  //   markers: Set.of(marker.data!.values),
+                  //   polyLines: Set.of(polyline.data!.values),
+                  //   locationData: location,
+                  //   padding: const EdgeInsets.only(top: 260),
+                  // ),
                   Positioned(
                     right: 0,
                     left: 0,
@@ -167,14 +207,14 @@ class _MapTripLiveState extends State<MapTripLive>
                   ),
                 ),
                 title: Text(
-                  'اسم السائق',
+                  '${acceptedDriver.name}',
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
                 subtitle: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      'نوع السيارة',
+                      '${acceptedDriver.long}',
                       style: TextStyle(fontWeight: FontWeight.w600),
                     ),
                   ],

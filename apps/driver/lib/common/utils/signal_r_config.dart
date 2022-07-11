@@ -40,6 +40,7 @@ class SignalRDriver {
         await _hubConnection!.start();
         _connectionIsOpen = true;
         _hubConnection!.on("ReceiveDeliveries", onReceiveDeliveries);
+        _hubConnection!.on("ReceiveEndingDriver", onReceiveEndingDriver);
 
         print("SignalR_is_hasConnection is $_connectionIsOpen");
       } else {
@@ -62,19 +63,24 @@ class SignalRDriver {
   }
 
   static Future<void> sendLocation({LatLng? point}) async {
+    print('HubConnectionState.Connected is ${_hubConnection!.state}');
     try {
       if (connectionIsOpen == false ||
           _hubConnection!.state != HubConnectionState.Connected) {
         await openConnection();
       }
       if (point != null) {
+        print("SendLocation $point");
+
         _hubConnection!.invoke(
           "SendLocation",
           args: <Object>[point.longitude.toString(), point.latitude.toString()],
         );
         //  print("SendLocation $point");
       }
-    } catch (_) {}
+    } catch (e) {
+      print("SendLocation $e");
+    }
   }
 
   ///AcceptDelivery(Guid id) (invoke) (Driver) (deliveryId)
@@ -149,5 +155,9 @@ class SignalRDriver {
         flagOpenPage = true;
       }
     }
+  }
+
+  static void onReceiveEndingDriver(List<Object>? arguments) {
+    print("ReceiveEndingDriver $arguments");
   }
 }

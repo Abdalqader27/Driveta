@@ -3,8 +3,11 @@ import 'dart:async';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:moor/moor.dart';
 import 'package:rider/features/domain/use_cases/rider_usecase.dart';
+import 'package:rider/main.dart';
 
+import '../../data/database/app_db.dart';
 import '../pages/map/main_screen/mainscreen.dart';
 import '../pages/sgin_up/registeration_screen.dart';
 import 'event.dart';
@@ -22,6 +25,8 @@ class RiderBloc extends SMixinBloc<RiderEvent, RiderState> {
     on<GetVehicleTypesEvent>(_getVehicleTypes);
     on<GetProfileEvent>(_getProfileEvent);
     on<GetDeliveriesEvent>(_getDeliveries);
+    on<GetStoreDetailsEvent>(_getStoreDetails);
+    on<GetStoresEvent>(_getStores);
   }
 
   FutureOr<void> _addSupportEvent(
@@ -139,6 +144,54 @@ class RiderBloc extends SMixinBloc<RiderEvent, RiderState> {
       },
       failure: (error) {
         return _state = _state.copyWith(getDeliveriesState: BlocError(error));
+      },
+    ));
+  }
+
+  FutureOr<void> _getStoreDetails(
+      GetStoreDetailsEvent event, Emitter<RiderState> emit) async {
+    emit(_state = _state.copyWith(getStoreDetailsState: const BlocLoading()));
+    final result = await _useCase.getStoreDetails(event.id);
+    emit(await result.when(
+      success: (data) {
+        BotToast.showText(text: 'تم  بنجاح');
+        return _state =
+            _state.copyWith(getStoreDetailsState: BlocSuccess(data: data));
+      },
+      failure: (error) {
+        return _state = _state.copyWith(getStoreDetailsState: BlocError(error));
+      },
+    ));
+  }
+
+  FutureOr<void> _getStores(
+      GetStoresEvent event, Emitter<RiderState> emit) async {
+    emit(_state = _state.copyWith(getStoresState: const BlocLoading()));
+    final result = await _useCase.getStores();
+    emit(await result.when(
+      success: (data) {
+        BotToast.showText(text: 'تم  بنجاح');
+        List<ShopsCompanion> shopsList = [];
+        for (var d in data) {
+          shopsList.add(ShopsCompanion(
+            id: Value(d.id ?? ''),
+            name: Value(d.name ?? ''),
+            description: Value(d.description ?? ''),
+            userName: Value(d.userName ?? ''),
+            email: Value(d.email ?? ''),
+            lat: Value(d.lat ?? ''),
+            long: Value(d.long ?? ''),
+            personalImage: Value(d.personalImage ?? ''),
+            storeOwnerName: Value(d.storeOwnerName ?? ''),
+            streetId: Value(d.streetId ?? ''),
+          ));
+        }
+        appDatabase.shopsDAO.insertAll(shopsList);
+        return _state =
+            _state.copyWith(getStoresState: BlocSuccess(data: data));
+      },
+      failure: (error) {
+        return _state = _state.copyWith(getStoresState: BlocError(error));
       },
     ));
   }

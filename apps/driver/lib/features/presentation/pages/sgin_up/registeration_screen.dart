@@ -16,10 +16,14 @@ import '../sgin_in/login_screen.dart';
 class RegisterationScreen extends StatelessWidget {
   static const String idScreen = "register";
 
-  final TextEditingController nameTextEditingController = TextEditingController();
-  final TextEditingController emailTextEditingController = TextEditingController();
-  final TextEditingController phoneTextEditingController = TextEditingController();
-  final TextEditingController passwordTextEditingController = TextEditingController();
+  final TextEditingController nameTextEditingController =
+      TextEditingController();
+  final TextEditingController emailTextEditingController =
+      TextEditingController();
+  final TextEditingController phoneTextEditingController =
+      TextEditingController();
+  final TextEditingController passwordTextEditingController =
+      TextEditingController();
 
   RegisterationScreen({Key? key}) : super(key: key);
 
@@ -69,7 +73,8 @@ class RegisterationScreen extends StatelessWidget {
                           decoration: const InputDecoration(
                             labelText: "الاسم",
                             labelStyle: TextStyle(fontSize: 14.0),
-                            hintStyle: TextStyle(color: Colors.grey, fontSize: 10.0),
+                            hintStyle:
+                                TextStyle(color: Colors.grey, fontSize: 10.0),
                           ),
                           style: const TextStyle(fontSize: 14.0),
                         ),
@@ -80,7 +85,8 @@ class RegisterationScreen extends StatelessWidget {
                           decoration: const InputDecoration(
                             labelText: "الايميل",
                             labelStyle: TextStyle(fontSize: 14.0),
-                            hintStyle: TextStyle(color: Colors.grey, fontSize: 10.0),
+                            hintStyle:
+                                TextStyle(color: Colors.grey, fontSize: 10.0),
                           ),
                           style: const TextStyle(fontSize: 14.0),
                         ),
@@ -91,7 +97,8 @@ class RegisterationScreen extends StatelessWidget {
                           decoration: const InputDecoration(
                             labelText: "الهاتف",
                             labelStyle: TextStyle(fontSize: 14.0),
-                            hintStyle: TextStyle(color: Colors.grey, fontSize: 10.0),
+                            hintStyle:
+                                TextStyle(color: Colors.grey, fontSize: 10.0),
                           ),
                           style: const TextStyle(fontSize: 14.0),
                         ),
@@ -106,7 +113,8 @@ class RegisterationScreen extends StatelessWidget {
                             labelStyle: TextStyle(
                               fontSize: 14.0,
                             ),
-                            hintStyle: TextStyle(color: Colors.grey, fontSize: 10.0),
+                            hintStyle:
+                                TextStyle(color: Colors.grey, fontSize: 10.0),
                           ),
                           style: const TextStyle(fontSize: 14.0),
                         ),
@@ -119,17 +127,30 @@ class RegisterationScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(30),
                           child: SText.titleMedium(
                             'انشاء حساب',
-                            style: Theme.of(context).textTheme.button!.copyWith(color: Colors.white),
+                            style: Theme.of(context)
+                                .textTheme
+                                .button!
+                                .copyWith(color: Colors.white),
                           ),
                           onPressed: () {
                             if (nameTextEditingController.text.length < 3) {
-                              displayToastMessage("name must be atleast 3 Characters.", context);
-                            } else if (!emailTextEditingController.text.contains("@")) {
-                              displayToastMessage("Email address is not Valid.", context);
-                            } else if (phoneTextEditingController.text.isEmpty) {
-                              displayToastMessage("Phone Number is mandatory.", context);
-                            } else if (passwordTextEditingController.text.length < 6) {
-                              displayToastMessage("Password must be atleast 6 Characters.", context);
+                              displayToastMessage(
+                                  "name must be atleast 3 Characters.",
+                                  context);
+                            } else if (!emailTextEditingController.text
+                                .contains("@")) {
+                              displayToastMessage(
+                                  "Email address is not Valid.", context);
+                            } else if (phoneTextEditingController
+                                .text.isEmpty) {
+                              displayToastMessage(
+                                  "Phone Number is mandatory.", context);
+                            } else if (passwordTextEditingController
+                                    .text.length <
+                                6) {
+                              displayToastMessage(
+                                  "Password must be atleast 6 Characters.",
+                                  context);
                             } else {
                               registerNewUser(context);
                             }
@@ -140,7 +161,8 @@ class RegisterationScreen extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.pushNamedAndRemoveUntil(context, LoginScreen.idScreen, (route) => false);
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, LoginScreen.idScreen, (route) => false);
                     },
                     child: const Text(
                       "هل لديك حساب مسبق ؟ سجل من هنا!",
@@ -169,7 +191,8 @@ class RegisterationScreen extends StatelessWidget {
 
     final User? firebaseUser = (await _firebaseAuth
             .createUserWithEmailAndPassword(
-                email: emailTextEditingController.text, password: passwordTextEditingController.text)
+                email: emailTextEditingController.text,
+                password: passwordTextEditingController.text)
             .catchError((errMsg) {
       Navigator.pop(context);
       displayToastMessage("Error: " + errMsg.toString(), context);
@@ -185,11 +208,12 @@ class RegisterationScreen extends StatelessWidget {
         "phone": phoneTextEditingController.text.trim(),
       };
 
-      driversRef.child(firebaseUser.uid).set(userDataMap);
+      // driversRef.child(firebaseUser.uid).set(userDataMap);
 
       currentfirebaseUser = firebaseUser;
 
-      displayToastMessage("Congratulations, your account has been created.", context);
+      displayToastMessage(
+          "Congratulations, your account has been created.", context);
 
       Navigator.pushNamed(context, CarInfoScreen.idScreen);
     } else {

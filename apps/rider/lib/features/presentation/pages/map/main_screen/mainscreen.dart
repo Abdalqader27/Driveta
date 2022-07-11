@@ -11,6 +11,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rider/common/assistants/assistantMethods.dart';
 import 'package:rider/common/config/theme/colors.dart';
 import 'package:rider/configMaps.dart';
+import 'package:rider/features/presentation/pages/map/map_store/map_store_screen.dart';
 import 'package:rider/features/presentation/widgets/noDriverAvailableDialog.dart';
 
 import '../../../../../blocs/container_map_bloc.dart';
@@ -59,7 +60,9 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    SignalRRider.openConnection();
+    Future.delayed(Duration.zero, () {
+      SignalRRider().openConnection();
+    });
   }
 
   @override
@@ -97,10 +100,11 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                     onCameraIdle: _onCameraIdle,
                     onCameraMove: _onCameraMove,
                     markers: Set.of(marker.data?.values ?? {}),
-                    onMapCreated: (GoogleMapController controller) {
+                    onMapCreated: (GoogleMapController controller) async {
                       _controllerGoogleMap.complete(controller);
                       newGoogleMapController = controller;
                       setState(() => bottomPadding = 220.0);
+
                       locatePosition();
                     },
                   ),
@@ -159,7 +163,9 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
               //inj<RealTime>().openConnection();
               // goToLocation(si<MapState>().pinData.destinationPoint);
             },
-            locationTap: () {
+            locationTap: () async {
+              await SignalRRider().openConnection();
+
               goToLocation(LatLng(currentPosition?.latitude ?? 0,
                   currentPosition?.longitude ?? 0));
             },
@@ -259,59 +265,65 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     return Positioned(
       top: 36.0,
       right: 15.0,
-      child: CupertinoButton(
-        padding: EdgeInsets.zero,
-        onPressed: () {
-          if (drawerOpen) {
-            scaffoldKey.currentState?.openDrawer();
-          } else {
-            resetApp();
-          }
-        },
-        child: Card(
-          color: kPRIMARY,
-          child: FloatingActionButton(
-            elevation: 0,
-            backgroundColor: kPRIMARY,
-            mini: true,
-            heroTag: 'search',
-            tooltip: ' البحث ',
-            onPressed: null,
-            child: Icon(
-              (drawerOpen) ? Icons.menu : Icons.close,
-              color: Colors.white,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          CupertinoButton(
+            padding: EdgeInsets.zero,
+            onPressed: () {
+              if (drawerOpen) {
+                scaffoldKey.currentState?.openDrawer();
+              } else {
+                resetApp();
+              }
+            },
+            child: Card(
+              color: kPRIMARY,
+              child: FloatingActionButton(
+                elevation: 0,
+                backgroundColor: kPRIMARY,
+                mini: true,
+                heroTag: 'search',
+                tooltip: ' البحث ',
+                onPressed: null,
+                child: Icon(
+                  (drawerOpen) ? Icons.menu : Icons.close,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ),
-        ),
+          SizedBox(
+            height: 10,
+          ),
+          CupertinoButton(
+            padding: EdgeInsets.zero,
+            onPressed: () {
+              Get.to(() => const MapStoreScreen());
+            },
+            child: const Card(
+              color: kPRIMARY,
+              child: FloatingActionButton(
+                elevation: 0,
+                backgroundColor: kPRIMARY,
+                mini: true,
+                heroTag: 'search',
+                tooltip: ' المتاجر ',
+                onPressed: null,
+                child: Icon(
+                  Icons.storefront,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 
   void addDelivery() async {
-    // print("addDelivery "
-    //     "\n pickUp: ${si<MapState>().pinData.pickUpAddress}"
-    //     "\n dropOff: ${si<MapState>().pinData.dropOffAddress}"
-    //     "\n startLat: ${si<MapState>().pinData.currentPoint.latitude.toString()} "
-    //     "\n startLong: ${si<MapState>().pinData.currentPoint.longitude.toString()}"
-    //     "\n endLat: ${si<MapState>().pinData.destinationPoint.longitude.toString()}"
-    //     "\n endLong: ${si<MapState>().pinData.destinationPoint.longitude.toString()}"
-    //     "\n expectedTime: ${si<MapState>().pinData.directionDetails?.durationText}"
-    //     "\n distance: ${si<MapState>().pinData.directionDetails?.distanceValue} ");
-
-    // print("addDelivery \n${json.encode({
-    //       "pickUp": si<MapState>().pinData.pickUpAddress,
-    //       "dropOff": si<MapState>().pinData.dropOffAddress,
-    //       "startLat": si<MapState>().pinData.currentPoint.latitude.toString(),
-    //       "startLong": si<MapState>().pinData.currentPoint.longitude.toString(),
-    //       "endLat":
-    //           si<MapState>().pinData.destinationPoint.longitude.toString(),
-    //       "endLong":
-    //           si<MapState>().pinData.destinationPoint.longitude.toString(),
-    //       "expectedTime": si<MapState>().pinData.directionDetails?.durationText,
-    //       "distance": si<MapState>().pinData.directionDetails?.distanceValue
-    //     })}");
-
-    await SignalRRider.addDelivery(
+    await SignalRRider().addDelivery(
       pickUp: si<MapState>().pinData.pickUpAddress,
       startLat: si<MapState>().pinData.currentPoint.latitude.toString(),
       price: (AssistantMethods.calculateFares(directionDetails!)),

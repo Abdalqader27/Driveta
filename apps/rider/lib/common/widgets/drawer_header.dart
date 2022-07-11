@@ -3,11 +3,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rider/common/config/theme/colors.dart';
 import 'package:rider/common/widgets/painter/header_cliper.dart';
 
+import '../../features/data/models/user.dart';
 import '../../generated/assets.dart';
 import '../../libraries/el_widgets/widgets/material_text.dart';
 
 class DrawerHeaderClipper extends StatelessWidget {
-  const DrawerHeaderClipper({Key? key}) : super(key: key);
+  final User data;
+  const DrawerHeaderClipper({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +19,10 @@ class DrawerHeaderClipper extends StatelessWidget {
         children: <Widget>[
           Container(
             padding: const EdgeInsets.only(bottom: 10),
+            color: kPRIMARY,
             child: ListTile(
-              onTap: () {},
               title: MaterialText(
-                'عبد القادر النجار',
+                '${data.name}',
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -28,7 +30,7 @@ class DrawerHeaderClipper extends StatelessWidget {
                     .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
               ),
               subtitle: Text(
-                "2000 / 01/ 01 ",
+                "رصيدك : ${data.balance}  ",
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -41,7 +43,6 @@ class DrawerHeaderClipper extends StatelessWidget {
               ),
               leading: SvgPicture.asset(Assets.iconsUser),
             ),
-            color: kPRIMARY,
           ),
         ],
       ),

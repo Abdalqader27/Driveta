@@ -10,6 +10,7 @@ import 'package:network/network.dart';
 import 'package:retry_bot/retry_bot.dart';
 
 import '../../common/utils/connectivity.dart';
+import '../../common/utils/storage/token_imp.dart';
 import '../../main.dart';
 
 ///
@@ -49,42 +50,12 @@ class NetworkInjection {
         },
       ),
     );
+    si.registerLazySingleton<RefreshBotMixin>(() => TokenStorageImpl());
 
-    si.registerLazySingleton(() => BotMemoryTokenStorage<AuthToken>(
-          initValue: () {
-            final String accessToken = si<SStorage>().get(
-              key: kAccessToken,
-              type: ValueType.string,
-            );
-            final String refreshToken = si<SStorage>().get(
-              key: kRefreshToken,
-              type: ValueType.string,
-            );
-            return AuthToken(
-              accessToken: accessToken,
-              refreshToken: refreshToken,
-            );
-          },
-          onDeleted: () {
-            si<SStorage>().set(key: kAccessToken, value: '');
-            si<SStorage>().set(key: kRefreshToken, value: '');
-            return null;
-          },
-          onUpdated: (token) async {
-            si<SStorage>().set(
-              key: kAccessToken,
-              value: token?.accessToken ?? '',
-            );
-            si<SStorage>().set(
-              key: kRefreshToken,
-              value: token?.refreshToken ?? '',
-            );
-          },
-        ));
     si.registerLazySingleton(
       () => RefreshTokenInterceptor<AuthToken>(
         dio: si<Dio>(),
-        tokenStorage: si<BotMemoryTokenStorage>(),
+        tokenStorage: si<RefreshBotMixin>(),
         refreshToken: (token, tokenDio) async {
           final response = await tokenDio.post(
             '/auth/refresh-token',
@@ -121,7 +92,7 @@ class NetworkInjection {
           return null;
         },
         // baseUrl: FlavorConfig.instance.variables["baseUrl"],
-        baseUrl: 'http://driveta2-001-site1.itempurl.com/',
+        baseUrl: kBase,
         interceptors: [
           si<RefreshTokenInterceptor>(),
           si<OnRetryConnection>(),
@@ -145,3 +116,5 @@ class NetworkInjection {
     return result;
   }
 }
+
+const kBase = 'http://driveta2-001-site1.itempurl.com/';

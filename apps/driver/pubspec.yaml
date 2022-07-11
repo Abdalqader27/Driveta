@@ -14,7 +14,7 @@ dependencies:
   firebase_core: ^1.17.0
   firebase_auth: ^3.3.18
   firebase_database: ^9.0.14
-  google_maps_flutter: ^2.1.5
+  google_maps_flutter: ^2.1.8
   geolocator: ^8.2.1
   http: ^0.13.4
   provider: ^6.0.2

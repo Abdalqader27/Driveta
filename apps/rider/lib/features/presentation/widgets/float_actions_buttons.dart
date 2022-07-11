@@ -46,7 +46,7 @@ class MapFloatActionsButton extends StatelessWidget {
                         elevation: 0,
                         backgroundColor: kPRIMARY,
                         mini: true,
-                        heroTag: 'search',
+                        heroTag: 'search2',
                         tooltip: ' البحث ',
                         onPressed: null,
                         child: Icon(
@@ -57,25 +57,25 @@ class MapFloatActionsButton extends StatelessWidget {
                     ),
                   ),
                 ),
-                CupertinoButton(
-                  onPressed: themeTap,
-                  padding: EdgeInsets.zero,
-                  child: const Card(
-                    color: kPRIMARY,
-                    child: FloatingActionButton(
-                      elevation: 0,
-                      backgroundColor: kPRIMARY,
-                      mini: true,
-                      heroTag: 'style',
-                      onPressed: null,
-                      tooltip: ' الشكل ',
-                      child: Icon(
-                        Icons.map_outlined,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
+                // CupertinoButton(
+                //   onPressed: themeTap,
+                //   padding: EdgeInsets.zero,
+                //   child: const Card(
+                //     color: kPRIMARY,
+                //     child: FloatingActionButton(
+                //       elevation: 0,
+                //       backgroundColor: kPRIMARY,
+                //       mini: true,
+                //       heroTag: 'style',
+                //       onPressed: null,
+                //       tooltip: ' اماكني المفضلة ',
+                //       child: Icon(
+                //         Icons.favorite_border,
+                //         color: Colors.white,
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 CupertinoButton(
                   onPressed: locationTap,
                   padding: EdgeInsets.zero,

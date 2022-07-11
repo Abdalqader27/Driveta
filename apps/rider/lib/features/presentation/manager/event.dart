@@ -19,6 +19,14 @@ class EndDeliveryEvent extends InitEvent {
 
 class RemoveDeliveryEvent extends InitEvent {}
 
+class GetStoresEvent extends InitEvent {}
+
+class GetStoreDetailsEvent extends InitEvent {
+  final String id;
+
+  GetStoreDetailsEvent(this.id);
+}
+
 class GetVehicleTypesEvent extends InitEvent {}
 
 class GetProfileEvent extends InitEvent {}

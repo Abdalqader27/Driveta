@@ -48,8 +48,6 @@ class AvailableDeliveries extends StatelessWidget {
                               try {
                                 BotToast.showLoading();
                                 SignalRDriver.acceptDelivery(id: deliver.id);
-                                // await si<DriverUseCase>().changeDeliveryStatue(
-                                //     id: delivers.id, statue: 'Accept');
                                 BotToast.closeAllLoading();
                                 Get.to(
                                     () => NewRideScreen(rideDetails: deliver));

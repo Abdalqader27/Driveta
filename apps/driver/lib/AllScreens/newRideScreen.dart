@@ -105,49 +105,47 @@ class _NewRideScreenState extends State<NewRideScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return LocationGrantedWidget(builder: (context, myLoc, child) {
-      return Scaffold(
-        body: Stack(
-          children: [
-            GoogleMap(
-              padding: EdgeInsets.only(bottom: mapPaddingFromBottom),
-              mapType: MapType.normal,
-              myLocationButtonEnabled: true,
-              initialCameraPosition: NewRideScreen._kGooglePlex,
-              myLocationEnabled: true,
-              markers: Set.of(_markers.values),
-              circles: circleSet,
-              polylines: polyLineSet,
-              onMapCreated: (GoogleMapController controller) async {
-                newRideGoogleMapController = controller;
-                setState(() => mapPaddingFromBottom = 305.0);
+    return Scaffold(
+      body: Stack(
+        children: [
+          GoogleMap(
+            padding: EdgeInsets.only(bottom: mapPaddingFromBottom),
+            mapType: MapType.normal,
+            myLocationButtonEnabled: true,
+            initialCameraPosition: NewRideScreen._kGooglePlex,
+            myLocationEnabled: true,
+            markers: Set.of(_markers.values),
+            circles: circleSet,
+            polylines: polyLineSet,
+            onMapCreated: (GoogleMapController controller) async {
+              newRideGoogleMapController = controller;
+              setState(() => mapPaddingFromBottom = 305.0);
 
-                var currentLatLng = LatLng(
-                  myLoc.latitude!,
-                  myLoc.longitude!,
-                );
-                print("currentLatLng: $currentLatLng");
-                var pickUpLatLng = LatLng(
-                  double.parse(widget.rideDetails.startLat),
-                  double.parse(widget.rideDetails.startLong),
-                );
-                print("pickUpLatLng: $pickUpLatLng");
+              var location = await Location.instance.getLocation();
+              var currentLatLng =
+                  LatLng((location).latitude!, (location).longitude!);
+              print("currentLatLng: $currentLatLng");
+              var pickUpLatLng = LatLng(
+                double.parse(widget.rideDetails.startLat),
+                double.parse(widget.rideDetails.startLong),
+              );
+              print("pickUpLatLng: $pickUpLatLng");
 
-                await getPlaceDirection(currentLatLng, pickUpLatLng, false);
+              await getPlaceDirection(currentLatLng, pickUpLatLng, false);
 
-                getRideLiveLocationUpdates();
-              },
-            ),
-            Positioned(
-              left: 0.0,
-              right: 0.0,
-              bottom: 0.0,
-              child: buildRiderTripStatus(context),
-            ),
-          ],
-        ),
-      );
-    });
+              getRideLiveLocationUpdates();
+            },
+          ),
+          Positioned(
+            left: 0.0,
+            right: 0.0,
+            bottom: 0.0,
+            child: buildRiderTripStatus(context),
+          ),
+        ],
+      ),
+    );
+    ;
   }
 
   Widget buildRiderTripStatus(BuildContext context) {
@@ -444,10 +442,6 @@ class _NewRideScreenState extends State<NewRideScreen> {
     await si<DriverUseCase>()
         .endDelivery(id: widget.rideDetails.id, payingValue: fareAmount);
     BotToast.closeAllLoading();
-    // String? rideRequestId = widget.rideDetails.customerId;
-    // newRequestsRef.child(rideRequestId).child("fares").set(fareAmount.toString());
-    // newRequestsRef.child(rideRequestId).child("status").set("ended");
-    // rideStreamSubscription.cancel();
 
     showDialog(
       context: context,

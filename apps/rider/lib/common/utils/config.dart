@@ -44,7 +44,7 @@ MarkerConfig kDestinationMarker(LatLng point) => MarkerConfig(
 
 MarkerConfig kDriverMarker(LatLng point) => MarkerConfig(
       point: point,
-      pinPath: Assets.iconsCarTop,
+      pinPath: Assets.pinsDrivingPin,
       markerId: kDriverMarkerId,
       snippet: 'السائق ',
       title: 'مكان السائق',
