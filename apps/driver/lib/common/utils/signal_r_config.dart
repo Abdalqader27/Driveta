@@ -29,7 +29,7 @@ class SignalRDriver {
   static Future<bool> openConnection() async {
     try {
       _hubConnection = HubConnectionBuilder()
-          .withUrl('http://driveta2-001-site1.itempurl.com/deliveryHub/',
+          .withUrl('$kBaseUrl' 'deliveryHub/',
               options: HttpConnectionOptions(
         accessTokenFactory: () async {
           return si<SStorage>().get(key: kAccessToken, type: ValueType.string);

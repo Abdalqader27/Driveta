@@ -1,8 +1,11 @@
 import 'package:clippy_flutter/triangle.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:rider/common/config/theme/colors.dart';
 
 import '../../../../../../data/database/app_db.dart';
+import '../../map_store_screen_details.dart';
 
 class CustomInfoWidget extends StatelessWidget {
   final Shop shop;
@@ -13,9 +16,9 @@ class CustomInfoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Functions.openIntent(
-        //     screen: ShopScreenInfo(shop: shop, favor: shop.favorite),
-        //     context: context);
+        Get.to(() => MapStoreScreenDetails(
+              id: shop.id,
+            ));
       },
       child: Column(
         children: [

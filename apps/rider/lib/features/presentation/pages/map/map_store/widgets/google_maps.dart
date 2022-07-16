@@ -155,6 +155,9 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen>
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            SizedBox(
+              height: 20,
+            ),
             CupertinoButton(
               padding: EdgeInsets.zero,
               onPressed: () => changeMapSatellite(),
@@ -174,6 +177,9 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen>
                 ),
               ),
             ),
+            SizedBox(
+              height: 5,
+            ),
             CupertinoButton(
               padding: EdgeInsets.zero,
               onPressed: () => changeMapSatellite(),
@@ -192,6 +198,9 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen>
                   ),
                 ),
               ),
+            ),
+            SizedBox(
+              height: 5,
             ),
             StreamBuilder<ConnectivityResult>(
               stream: Connectivity().onConnectivityChanged,
@@ -236,6 +245,9 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen>
                                     ),
                                   ),
                                 ),
+                              ),
+                              SizedBox(
+                                height: 5,
                               ),
                               CupertinoButton(
                                 padding: EdgeInsets.zero,
@@ -295,6 +307,9 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen>
                                 ),
                               ),
                             ),
+                          ),
+                          SizedBox(
+                            height: 5,
                           ),
                           circleButton(context,
                               icon:

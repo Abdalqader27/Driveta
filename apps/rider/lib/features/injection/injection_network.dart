@@ -117,4 +117,4 @@ class NetworkInjection {
   }
 }
 
-const kBase = 'http://driveta2-001-site1.itempurl.com/';
+const kBase = 'http://drivetaplatform-001-site1.etempurl.com/';

@@ -17,7 +17,7 @@ class SearchBarMap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RPadding(
-      padding: EdgeInsets.only(right: 10),
+      padding: const EdgeInsets.only(right: 10),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -58,6 +58,7 @@ class SearchBarMap extends StatelessWidget {
                       ],
                       borderRadius: BorderRadius.circular(15.0),
                     ),
+                    padding: EdgeInsets.symmetric(horizontal: 10),
                     child: TypeAheadFormField(
                       noItemsFoundBuilder: (_) => Container(),
                       suggestionsBoxDecoration: SuggestionsBoxDecoration(

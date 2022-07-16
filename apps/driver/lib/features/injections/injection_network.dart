@@ -12,7 +12,7 @@ import 'package:driver/common/utils/connectivity.dart';
 
 import '../../app_injection.dart';
 
-const kBaseUrl = 'http://driveta2-001-site1.itempurl.com/';
+const kBaseUrl = 'http://drivetaplatform-001-site1.etempurl.com/';
 
 ///
 class NetworkInjection {
