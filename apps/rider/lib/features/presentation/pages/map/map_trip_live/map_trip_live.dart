@@ -62,7 +62,7 @@ class _MapTripLiveState extends State<MapTripLive>
                     curve: Curves.linear,
                     useRotation: true,
                     shouldAnimateCamera: false,
-                    angleThreshold: 0,
+                    angleThreshold: 90,
                     zoom: 20,
                     rippleColor: kPRIMARY,
                     rippleRadius: 0.8,
