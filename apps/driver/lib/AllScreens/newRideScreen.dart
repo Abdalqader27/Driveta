@@ -4,6 +4,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:design/design.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:driver/app_injection.dart';
+import 'package:driver/features/data/data_sources/driver_api.dart';
 import 'package:driver/features/data/models/delivers.dart';
 import 'package:driver/features/domain/use_cases/driver_usecase.dart';
 import 'package:driver/features/presentation/widgets/CollectFareDialog.dart';
@@ -228,6 +229,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
                 borderRadius: BorderRadius.circular(30),
                 onPressed: () async {
                   if (status == "accepted") {
+                    BotToast.showLoading();
                     status = "ArrivedToUser";
                     setState(() {
                       btnTitle = "بدء الرحلة";
@@ -242,10 +244,16 @@ class _NewRideScreenState extends State<NewRideScreen> {
                         double.parse(widget.rideDetails.endLong));
 
                     await getPlaceDirection(pickup, dropoff, true);
+                    await SignalRDriver().arrivedToLocation(
+                        id: widget.rideDetails.id);
+                    BotToast.closeAllLoading();
                   } else if (status == "ArrivedToUser") {
                     BotToast.showLoading();
-                    await si<DriverUseCase>().changeDeliveryStatue(
-                        id: widget.rideDetails.id, statue: 'ArrivedToUser');
+                    await SignalRDriver().startDelivery(
+                        id: widget.rideDetails.id);
+
+                    // await si<DriverUseCase>().changeDeliveryStatue(
+                    //     id: widget.rideDetails.id, statue: 'ArrivedToUser');
                     BotToast.closeAllLoading();
                     status = "StartTrip";
                     setState(() {
@@ -439,8 +447,15 @@ class _NewRideScreenState extends State<NewRideScreen> {
         currentLatLng);
 
     int fareAmount = AssistantMethods.calculateFares(directionalDetails!);
-    await si<DriverUseCase>()
-        .endDelivery(id: widget.rideDetails.id, payingValue: fareAmount);
+    await SignalRDriver().endDeliveryDriver(
+      id: widget.rideDetails.id,
+      price: fareAmount,
+      endLat: currentLatLng.latitude.toString(),
+      endLong: currentLatLng.longitude.toString(),
+      dropOff: widget.rideDetails.dropOff,
+      expectedTime: directionalDetails.durationValue.toString(),
+      distance: directionalDetails.distanceValue??0,
+    );
     BotToast.closeAllLoading();
 
     showDialog(

@@ -16,6 +16,15 @@ class Driver {
   final String? long;
   final bool? isAvailable;
 
+  final String? phoneNumber;
+  final int? rate;
+  final String? vehicleId;
+  final String? vehicleColor;
+  final String? vehicleName;
+  final String? vehicleModelId;
+  final String? vehicleModelName;
+  final String? vehicleNumber;
+
   factory Driver.fromJson(Map<String, dynamic> json) => Driver(
         id: json["id"],
         name: json["name"],
@@ -23,9 +32,31 @@ class Driver {
         lat: json["lat"],
         long: json["long"],
         isAvailable: json["isAvailable"],
+        phoneNumber: json["phoneNumber"],
+        rate: json["rate"],
+        vehicleId: json["vehicleId"],
+        vehicleColor: json["vehicleColor"],
+        vehicleName: json["vehicleName"],
+        vehicleModelId: json["vehicleModelId"],
+        vehicleModelName: json["vehicleModelName"],
+        vehicleNumber: json["vehicleNumber"],
       );
 
-  Driver({this.id, this.name, this.userName, this.lat, this.long, this.isAvailable});
+  Driver(
+      {this.phoneNumber,
+      this.rate,
+      this.vehicleId,
+      this.vehicleColor,
+      this.vehicleName,
+      this.vehicleModelId,
+      this.vehicleModelName,
+      this.vehicleNumber,
+      this.id,
+      this.name,
+      this.userName,
+      this.lat,
+      this.long,
+      this.isAvailable});
 
   Map<String, dynamic> toJson() => {
         "id": id,

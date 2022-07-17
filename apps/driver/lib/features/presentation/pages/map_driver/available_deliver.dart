@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:design/design.dart';
 import 'package:driver/common/exceptions/network_exceptions/network_exceptions.dart';
 import 'package:driver/common/utils/signal_r_config.dart';
+import 'package:driver/features/data/data_sources/driver_api.dart';
 import 'package:driver/features/domain/use_cases/driver_usecase.dart';
 import 'package:driver/features/presentation/manager/container.dart';
 import 'package:driver/features/presentation/pages/map_driver/widgets/available_delevieries_item.dart';
@@ -47,7 +48,7 @@ class AvailableDeliveries extends StatelessWidget {
                             onTap: () async {
                               try {
                                 BotToast.showLoading();
-                                SignalRDriver.acceptDelivery(id: deliver.id);
+                                SignalRDriver().acceptDelivery(id: deliver.id);
                                 BotToast.closeAllLoading();
                                 Get.to(
                                     () => NewRideScreen(rideDetails: deliver));

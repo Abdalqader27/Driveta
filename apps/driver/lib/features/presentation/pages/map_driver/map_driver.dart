@@ -68,13 +68,13 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
               onChanged: (value) async {
                 if (value) {
                   BotToast.showLoading();
-                  await SignalRDriver.openConnection();
+                  await SignalRDriver().openConnection();
                   await makeDriverOnlineNow();
                   BotToast.closeAllLoading();
                   getLocationLiveUpdates();
                   displayToastMessage("تم الاتصال ", context);
                 } else {
-                  await SignalRDriver.stopConnection();
+                  await SignalRDriver().stopConnection();
                   displayToastMessage("تم قطع الاتصال", context);
                 }
               },
@@ -205,7 +205,7 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
   Future<void> makeDriverOnlineNow() async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-    await SignalRDriver.sendLocation(
+    await SignalRDriver().sendLocation(
         point: LatLng(position.latitude!, position.longitude!));
   }
 
@@ -215,7 +215,7 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
         print(
             "latlang:${LatLng(currentLocation.latitude!, currentLocation.longitude!)}");
 
-        await SignalRDriver.sendLocation(
+        await SignalRDriver().sendLocation(
             point:
                 LatLng(currentLocation.latitude, currentLocation.longitude));
         LatLng latLng =

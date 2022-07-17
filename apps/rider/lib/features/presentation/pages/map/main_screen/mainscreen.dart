@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animarker/widgets/animarker.dart';
@@ -60,9 +61,6 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, () {
-      SignalRRider().openConnection();
-    });
   }
 
   @override
@@ -164,7 +162,7 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
               // goToLocation(si<MapState>().pinData.destinationPoint);
             },
             locationTap: () async {
-              await SignalRRider().openConnection();
+              // await SignalRRider().openConnection();
 
               goToLocation(LatLng(currentPosition?.latitude ?? 0,
                   currentPosition?.longitude ?? 0));
@@ -323,6 +321,7 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   }
 
   void addDelivery() async {
+    BotToast.showLoading();
     await SignalRRider().addDelivery(
       pickUp: si<MapState>().pinData.pickUpAddress,
       startLat: si<MapState>().pinData.currentPoint.latitude.toString(),
@@ -334,6 +333,7 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       endLong: si<MapState>().pinData.destinationPoint.longitude.toString(),
       expectedTime: si<MapState>().pinData.directionDetails?.durationText ?? '',
     );
+    BotToast.closeAllLoading();
     print("addDelivery \n${json.encode({
           "pickUp": si<MapState>().pinData.pickUpAddress,
           "dropOff": si<MapState>().pinData.dropOffAddress,

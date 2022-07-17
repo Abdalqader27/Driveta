@@ -10,6 +10,7 @@ import 'package:network/network.dart';
 import 'package:retry_bot/retry_bot.dart';
 
 import '../../common/utils/connectivity.dart';
+import '../../common/utils/signal_r_new.dart';
 import '../../common/utils/storage/token_imp.dart';
 import '../../main.dart';
 
@@ -26,6 +27,7 @@ class NetworkInjection {
         internetChecker: si<InternetConnectionChecker>(),
       ),
     );
+    si.registerSingleton(SignalRService());
 
     si.registerLazySingleton(
       () => Dio(),

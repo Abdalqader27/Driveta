@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:core/core.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rider/features/data/database/app_db.dart';
@@ -12,14 +13,18 @@ import 'package:rider/features/presentation/pages/sgin_up/registeration_screen.d
 
 import '_injections.dart';
 import 'common/config/theme/theme.dart';
+import 'common/utils/signal_r.dart';
 import 'libraries/flutter_screenutil/flutter_screenutil.dart';
 
 final si = GetIt.instance;
 final appDatabase = AppDatabase();
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await init();
+
+  await SignalRRider().openConnection();
 
   runApp(MyApp());
 }

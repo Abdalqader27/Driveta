@@ -20,7 +20,6 @@ class RiderBloc extends SMixinBloc<RiderEvent, RiderState> {
   RiderBloc(this._useCase) : super(_state) {
     on<LoginEvent>(_login);
     on<PostSupportEvent>(_addSupportEvent);
-    on<EndDeliveryEvent>(_endDelivery);
     on<RemoveDeliveryEvent>(_removeDelivery);
     on<GetVehicleTypesEvent>(_getVehicleTypes);
     on<GetProfileEvent>(_getProfileEvent);
@@ -64,22 +63,6 @@ class RiderBloc extends SMixinBloc<RiderEvent, RiderState> {
       failure: (dynamic error) {
         _state = _state.copyWith(loginState: BlocError(error));
         return _state;
-      },
-    ));
-  }
-
-  FutureOr<void> _endDelivery(
-      EndDeliveryEvent event, Emitter<RiderState> emit) async {
-    emit(_state = _state.copyWith(endDeliveryState: const BlocLoading()));
-    final result = await _useCase.endDelivery(rate: event.rate, id: event.id);
-    emit(await result.when(
-      success: (data) {
-        BotToast.showText(text: 'تم  بنجاح');
-        return _state =
-            _state.copyWith(endDeliveryState: BlocSuccess(data: data));
-      },
-      failure: (error) {
-        return _state = _state.copyWith(endDeliveryState: BlocError(error));
       },
     ));
   }
