@@ -29,7 +29,6 @@ import '../../../widgets/float_actions_buttons.dart';
 import '../../../widgets/header_location_destination.dart';
 import '../../../widgets/map_drawer.dart';
 import '../../../widgets/map_next_button.dart';
-import '../map_trip_live/map_trip_live.dart';
 import '../widgets/choice_cars.dart';
 import '../widgets/searching_on_driver.dart';
 
@@ -139,7 +138,7 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   height: rideDetailsContainerHeight,
                   directionDetails: directionDetails,
                   onTap: (carDetails) {
-                    directionDetails?.type = carDetails.type;
+                    directionDetails?.type = carDetails.item1;
                     si<MapState>().pinData.directionDetails = directionDetails;
                     displayRequestRideContainer(polyline);
                   },
@@ -157,9 +156,8 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
           floatingActionButton: MapFloatActionsButton(
             //mapState: mapState.data!,
             directionTap: () {
-              Get.to(() => const MapTripLive());
               //inj<RealTime>().openConnection();
-              // goToLocation(si<MapState>().pinData.destinationPoint);
+              goToLocation(si<MapState>().pinData.destinationPoint);
             },
             locationTap: () async {
               // await SignalRRider().openConnection();

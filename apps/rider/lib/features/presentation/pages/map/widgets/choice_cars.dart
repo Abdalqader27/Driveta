@@ -1,9 +1,9 @@
 import 'package:design/design.dart';
 import 'package:rider/common/config/theme/colors.dart';
 
-import '../../../../../common/assistants/assistantMethods.dart';
 import '../../../../../libraries/el_widgets/widgets/material_text.dart';
 import '../../../../data/models/direct_details.dart';
+import '../../../manager/container.dart';
 
 class ChoiceCarsWidget extends StatelessWidget {
   final double height;
@@ -55,18 +55,21 @@ class ChoiceCarsWidget extends StatelessWidget {
               Expanded(
                 child: SizedBox(
                   height: height * 0.6,
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      itemCount: carsList.length,
-                      itemBuilder: (context, i) {
-                        final cartDetails = carsList[i];
-                        return CarItemWidget(
-                          onTap: () => onTap?.call(cartDetails),
-                          directionDetails: directionDetails,
-                          carDetails: cartDetails,
-                        );
-                      }),
+                  child: GetVehicleTypesContainer(
+                      builder: (context, List<CarDetails> data) {
+                    return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemCount: data.length,
+                        itemBuilder: (context, i) {
+                          final cartDetails = data[i];
+                          return CarItemWidget(
+                            onTap: () => onTap?.call(cartDetails),
+                            directionDetails: directionDetails,
+                            carDetails: cartDetails,
+                          );
+                        });
+                  }),
                 ),
               )
             ],
@@ -99,16 +102,18 @@ class CarItemWidget extends StatelessWidget {
           width: 110,
           child: Column(
             children: [
-              Image.asset(
-                carDetails.image,
-                height: 50.0,
-                width: 80.0,
-              ),
+              // Image.asset(
+              //   carDetails.image,
+              //   height: 50.0,
+              //   width: 80.0,
+              // ),
+              Expanded(child: Container()),
+
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    carDetails.name,
+                    carDetails.item1,
                     style: const TextStyle(fontSize: 18.0),
                   ),
                 ],
@@ -116,7 +121,10 @@ class CarItemWidget extends StatelessWidget {
               Expanded(child: Container()),
               Text(
                 ((directionDetails != null)
-                    ? ' ${(AssistantMethods.calculateFares(directionDetails!)) + carDetails.price} ل.س'
+                    ? ' ${calcPrice(
+                        start: carDetails.item2,
+                        distance: directionDetails?.distanceValue ?? 0,
+                      )} ل.س'
                     : ''),
                 style: const TextStyle(),
               ),
@@ -127,43 +135,54 @@ class CarItemWidget extends StatelessWidget {
       ),
     );
   }
+
+  int calcPrice({required int distance, required int start}) {
+    int factor = start ~/ 2;
+    var temp = (distance / 250.0).round();
+    return start + temp * factor;
+  }
 }
 
 class CarDetails {
-  final String image;
-  final String name;
-  final String type;
-  final int price;
-
-  const CarDetails({
-    Key? key,
-    required this.image,
-    required this.name,
-    required this.type,
-    required this.price,
+  CarDetails({
+    required this.item1,
+    required this.item2,
   });
+
+  final String item1;
+  final int item2;
+
+  factory CarDetails.fromJson(Map<String, dynamic> json) => CarDetails(
+        item1: json["item1"],
+        item2: json["item2"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "item1": item1,
+        "item2": item2,
+      };
 }
 
-List<CarDetails> carsList = [
-  const CarDetails(
-    image: "images/bike.png",
-    type: 'bike',
-    price: 600,
-    name: 'دراجة',
-  ),
-  const CarDetails(
-    image: "images/ubergo.png",
-    type: 'uber-go',
-    price: 1000,
-    name: 'اوبر - غو',
-  ),
-  const CarDetails(
-    image: "images/uberx.png",
-    type: 'uber-x',
-    price: 1000,
-    name: 'اوبر -اكس',
-  ),
-];
+// List<CarDetails> carsList = [
+//   const CarDetails(
+//     image: "images/bike.png",
+//     type: 'bike',
+//     price: 600,
+//     name: 'دراجة',
+//   ),
+//   const CarDetails(
+//     image: "images/ubergo.png",
+//     type: 'uber-go',
+//     price: 1000,
+//     name: 'اوبر - غو',
+//   ),
+//   const CarDetails(
+//     image: "images/uberx.png",
+//     type: 'uber-x',
+//     price: 1000,
+//     name: 'اوبر -اكس',
+//   ),
+// ];
 
 class _PanelItem extends StatelessWidget {
   final String title;

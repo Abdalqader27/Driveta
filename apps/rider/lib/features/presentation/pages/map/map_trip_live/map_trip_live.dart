@@ -151,7 +151,7 @@ class _MapTripLiveState extends State<MapTripLive>
           RichText(
             text: TextSpan(
                 text: " الساىق ",
-                children: [
+                children: const [
                   TextSpan(
                       text: "في طريقه اليك",
                       style: TextStyle(
@@ -163,7 +163,7 @@ class _MapTripLiveState extends State<MapTripLive>
                 style: TextStyle(
                   color: Theme.of(context).brightness != Brightness.dark
                       ? Colors.black
-                      : Color(0xfffbfbfb),
+                      : const Color(0xfffbfbfb),
                   fontSize: 20,
                   fontFamily: 'sst-arabic',
                   fontWeight: FontWeight.bold,
@@ -175,7 +175,7 @@ class _MapTripLiveState extends State<MapTripLive>
             padding: const EdgeInsets.all(8.0),
             child: Row(
               mainAxisSize: MainAxisSize.min,
-              children: [
+              children: const [
                 MaterialText.subTitle2(
                   "المدة المتوقعة للوصول خلال :",
                   style: TextStyle(color: Colors.grey),
@@ -185,7 +185,7 @@ class _MapTripLiveState extends State<MapTripLive>
           ),
           MaterialText.subTitle2(
             "${si<MapState>().pinData.directionDetails?.durationText}",
-            style: TextStyle(
+            style: const TextStyle(
                 color: kBlack, fontWeight: FontWeight.bold, fontSize: 20),
           ),
           Column(
