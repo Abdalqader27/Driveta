@@ -82,8 +82,8 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen>
                 widget.myLocation!.longitude ?? 0,
               )),
           Positioned(
-            right: 0,
-            top: 70,
+            left: 10,
+            bottom: 10,
             child: mapButtons(
                 context: context,
                 location: LatLng(

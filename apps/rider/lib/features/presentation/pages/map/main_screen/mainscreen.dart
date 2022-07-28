@@ -9,6 +9,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:lottie/lottie.dart' hide Marker;
 import 'package:rider/common/assistants/assistantMethods.dart';
 import 'package:rider/common/config/theme/colors.dart';
 import 'package:rider/configMaps.dart';
@@ -53,13 +54,24 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   double requestRideContainerHeight = 0;
   double searchContainerHeight = 220.0;
   double driverDetailsContainerHeight = 0;
-
+  bool showLottie = true;
   bool drawerOpen = true;
   bool isRequestingPositionDetails = false;
+  late Timer timer;
 
   @override
   void initState() {
     super.initState();
+    timer = Timer.periodic(Duration(seconds: 5), (timer) {
+      setState(() => showLottie = false);
+    });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    timer.cancel();
   }
 
   @override
@@ -148,6 +160,18 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                 SearchingOnDriverWidget(
                   height: requestRideContainerHeight,
                   onTap: () => resetApp(),
+                ),
+                Visibility(
+                  visible: showLottie,
+                  child: Container(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    color: Color(0xffffffff).withOpacity(.9),
+                    child: Lottie.asset(
+                      'lotti_files/22770-hello-peep.json',
+                      width: MediaQuery.of(context).size.width,
+                    ),
+                  ),
                 ),
               ],
             );

@@ -725,6 +725,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  flutter_slider_drawer:
+    dependency: "direct main"
+    description:
+      name: flutter_slider_drawer
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.1"
   flutter_spinkit:
     dependency: "direct main"
     description:

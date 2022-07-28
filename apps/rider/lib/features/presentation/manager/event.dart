@@ -33,6 +33,8 @@ class GetProfileEvent extends InitEvent {}
 
 class GetDeliveriesEvent extends InitEvent {}
 
+class GetDeliveriesProductEvent extends InitEvent {}
+
 class LoginEvent extends RiderEvent {
   final BuildContext context;
   final String email;

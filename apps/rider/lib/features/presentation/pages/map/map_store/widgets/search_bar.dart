@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:rider/common/config/theme/colors.dart';
 
 import '../../../../../../common/widgets/progress-Indicator.dart';
 import '../../../../../../libraries/el_widgets/widgets/responsive_padding.dart';
@@ -21,25 +20,6 @@ class SearchBarMap extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
-          CupertinoButton(
-            padding: EdgeInsets.zero,
-            onPressed: () => onTap(context),
-            child: const Card(
-              color: kPRIMARY,
-              child: FloatingActionButton(
-                elevation: 0,
-                backgroundColor: kPRIMARY,
-                mini: true,
-                heroTag: 'menu',
-                tooltip: ' القائمة ',
-                onPressed: null,
-                child: Icon(
-                  Icons.menu,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
           Expanded(
             child: RPadding(
                 padding:

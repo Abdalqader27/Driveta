@@ -3,13 +3,11 @@ import 'package:core/core.dart';
 import 'package:design/design.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lottie/lottie.dart';
 import 'package:rider/features/presentation/manager/bloc.dart';
-import 'package:rider/libraries/flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../common/config/theme/colors.dart';
 import '../../../../common/widgets/round_app_bar.dart';
-import '../../../../generated/assets.dart';
 import '../../../../libraries/el_widgets/widgets/material_text.dart';
 import '../../manager/container.dart';
 import '../../manager/event.dart';
@@ -29,14 +27,14 @@ class _StateSupportScreen extends State<SupportScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          children: <Widget>[
-            const RoundedAppBar(
-                title: 'المساعدة والدعم',
-                subTitle: 'اذا كنت تعاني من اي مشكلة '
-                    'دعنا '),
-            Expanded(
-              child: SupportContainer(builder: (context, _) {
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              const RoundedAppBar(
+                  title: 'المساعدة والدعم',
+                  subTitle: 'اذا كنت تعاني من اي مشكلة '
+                      'دعنا '),
+              SupportContainer(builder: (context, _) {
                 _reportController.clear();
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -44,10 +42,9 @@ class _StateSupportScreen extends State<SupportScreen> {
                   children: [
                     Container(
                       padding: const EdgeInsets.only(left: 16, right: 16),
-                      child: SvgPicture.asset(
-                        Assets.iconsGroup6,
-                        width: 300,
-                      ),
+                      child: Lottie.asset(
+                          'lotti_files/16766-forget-password-animation.json',
+                          height: 300),
                     ),
                     const Padding(
                       padding: EdgeInsets.all(8.0),
@@ -68,11 +65,15 @@ class _StateSupportScreen extends State<SupportScreen> {
                         textInputAction: TextInputAction.done,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(
-                              borderSide: BorderSide(color: kPRIMARY, width: 1.0),
-                              borderRadius: BorderRadius.all(Radius.circular(12))),
+                              borderSide:
+                                  BorderSide(color: kPRIMARY, width: 1.0),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(12))),
                           focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                              borderRadius: BorderRadius.all(Radius.circular(12))),
+                              borderSide:
+                                  BorderSide(color: Colors.grey, width: 1.0),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(12))),
                         ),
                         maxLines: null,
                       ),
@@ -84,11 +85,16 @@ class _StateSupportScreen extends State<SupportScreen> {
                       borderRadius: BorderRadius.circular(30),
                       child: MaterialText.button(
                         'ارسال',
-                        style: Theme.of(context).textTheme.button!.copyWith(color: Colors.white),
+                        style: Theme.of(context)
+                            .textTheme
+                            .button!
+                            .copyWith(color: Colors.white),
                       ),
                       onPressed: () async {
                         if (_reportController.text.isNotEmpty) {
-                          context.read<RiderBloc>().add(PostSupportEvent(_reportController.text));
+                          context
+                              .read<RiderBloc>()
+                              .add(PostSupportEvent(_reportController.text));
                         } else {
                           BotToast.showText(text: 'الحقل فارغ');
                         }
@@ -96,9 +102,9 @@ class _StateSupportScreen extends State<SupportScreen> {
                     )),
                   ],
                 );
-              }),
-            )
-          ],
+              })
+            ],
+          ),
         ),
       ),
     );

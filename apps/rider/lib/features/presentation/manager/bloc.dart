@@ -24,6 +24,7 @@ class RiderBloc extends SMixinBloc<RiderEvent, RiderState> {
     on<GetVehicleTypesEvent>(_getVehicleTypes);
     on<GetProfileEvent>(_getProfileEvent);
     on<GetDeliveriesEvent>(_getDeliveries);
+    on<GetDeliveriesProductEvent>(_getDeliveriesProduct);
     on<GetStoreDetailsEvent>(_getStoreDetails);
     on<GetStoresEvent>(_getStores);
   }
@@ -127,6 +128,24 @@ class RiderBloc extends SMixinBloc<RiderEvent, RiderState> {
       },
       failure: (error) {
         return _state = _state.copyWith(getDeliveriesState: BlocError(error));
+      },
+    ));
+  }
+
+  FutureOr<void> _getDeliveriesProduct(
+      GetDeliveriesProductEvent event, Emitter<RiderState> emit) async {
+    emit(_state =
+        _state.copyWith(getDeliveriesProductState: const BlocLoading()));
+    final result = await _useCase.getProductDeliveries();
+    emit(await result.when(
+      success: (data) {
+        BotToast.showText(text: 'تم  بنجاح');
+        return _state =
+            _state.copyWith(getDeliveriesProductState: BlocSuccess(data: data));
+      },
+      failure: (error) {
+        return _state =
+            _state.copyWith(getDeliveriesProductState: BlocError(error));
       },
     ));
   }
