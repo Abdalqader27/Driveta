@@ -31,8 +31,8 @@ import 'package:driver/features/data/models/delivers.dart';
 
 class NewRideScreen extends StatefulWidget {
   final Delivers rideDetails;
-
-  const NewRideScreen({required this.rideDetails});
+  final int type;
+  const NewRideScreen({required this.rideDetails, this.type = 1});
 
   static const CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),
@@ -244,13 +244,22 @@ class _NewRideScreenState extends State<NewRideScreen> {
                         double.parse(widget.rideDetails.endLong));
 
                     await getPlaceDirection(pickup, dropoff, true);
-                    await SignalRDriver().arrivedToLocation(
-                        id: widget.rideDetails.id);
+                    if (widget.type == 1) {
+                      await SignalRDriver()
+                          .arrivedToLocation(id: widget.rideDetails.id);
+                    } else if (widget.type == 2) {
+                      await SignalRDriver()
+                          .arrivedToLocationProduct(id: widget.rideDetails.id);
+                    }
+
                     BotToast.closeAllLoading();
                   } else if (status == "ArrivedToUser") {
                     BotToast.showLoading();
-                    await SignalRDriver().startDelivery(
-                        id: widget.rideDetails.id);
+                    if (widget.type == 1) {
+                      await SignalRDriver().startDelivery(id: widget.rideDetails.id);
+                    } else if (widget.type == 2) {
+                      await SignalRDriver().startDeliveryProduct(id: widget.rideDetails.id);
+                    }
 
                     // await si<DriverUseCase>().changeDeliveryStatue(
                     //     id: widget.rideDetails.id, statue: 'ArrivedToUser');
@@ -447,15 +456,28 @@ class _NewRideScreenState extends State<NewRideScreen> {
         currentLatLng);
 
     int fareAmount = AssistantMethods.calculateFares(directionalDetails!);
-    await SignalRDriver().endDeliveryDriver(
+    if (widget.type == 1) {
+      await SignalRDriver().endDeliveryDriver(
+        id: widget.rideDetails.id,
+        price: fareAmount,
+        endLat: currentLatLng.latitude.toString(),
+        endLong: currentLatLng.longitude.toString(),
+        dropOff: widget.rideDetails.dropOff,
+        expectedTime: directionalDetails.durationValue.toString(),
+        distance: directionalDetails.distanceValue ?? 0,
+      );
+    } else if (widget.type == 2) {
+          await SignalRDriver().endDeliveryDriverProduct(
       id: widget.rideDetails.id,
       price: fareAmount,
       endLat: currentLatLng.latitude.toString(),
       endLong: currentLatLng.longitude.toString(),
       dropOff: widget.rideDetails.dropOff,
       expectedTime: directionalDetails.durationValue.toString(),
-      distance: directionalDetails.distanceValue??0,
+      distance: directionalDetails.distanceValue ?? 0,
     );
+    }
+
     BotToast.closeAllLoading();
 
     showDialog(

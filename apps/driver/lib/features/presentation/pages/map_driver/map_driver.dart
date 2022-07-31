@@ -183,7 +183,7 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
     // final permission = await Location.instance. serviceEnabled();
     // LocationData position = await Location.instance.getLocation();
 
-    LatLng latLatPosition = LatLng(position.latitude!, position.longitude!);
+    LatLng latLatPosition = LatLng(position.latitude, position.longitude);
 
     CameraPosition cameraPosition =
         CameraPosition(target: latLatPosition, zoom: 18);
@@ -206,16 +206,22 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
     await SignalRDriver().sendLocation(
-        point: LatLng(position.latitude!, position.longitude!));
+        point: LatLng(position.latitude, position.longitude));
+    await SignalRDriver().sendLocationProduct(
+        point: LatLng(position.latitude, position.longitude));
   }
 
   Future<void> getLocationLiveUpdates() async {
     Geolocator.getPositionStream().listen((Position currentLocation) async {
       if (SignalRDriver.connectionIsOpen == true) {
         print(
-            "latlang:${LatLng(currentLocation.latitude!, currentLocation.longitude!)}");
+            "latlang:${LatLng(currentLocation.latitude, currentLocation.longitude!)}");
 
         await SignalRDriver().sendLocation(
+            point:
+                LatLng(currentLocation.latitude, currentLocation.longitude));
+
+        await SignalRDriver().sendLocationProduct(
             point:
                 LatLng(currentLocation.latitude, currentLocation.longitude));
         LatLng latLng =
