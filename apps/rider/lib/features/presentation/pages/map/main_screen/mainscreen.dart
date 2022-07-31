@@ -30,6 +30,7 @@ import '../../../widgets/float_actions_buttons.dart';
 import '../../../widgets/header_location_destination.dart';
 import '../../../widgets/map_drawer.dart';
 import '../../../widgets/map_next_button.dart';
+import '../map_trip_product/map_trip_product.dart';
 import '../widgets/choice_cars.dart';
 import '../widgets/searching_on_driver.dart';
 
@@ -62,14 +63,13 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    timer = Timer.periodic(Duration(seconds: 5), (timer) {
+    timer = Timer.periodic(const Duration(seconds: 5), (timer) {
       setState(() => showLottie = false);
     });
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     timer.cancel();
   }
@@ -185,9 +185,9 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
             },
             locationTap: () async {
               // await SignalRRider().openConnection();
-
-              goToLocation(LatLng(currentPosition?.latitude ?? 0,
-                  currentPosition?.longitude ?? 0));
+              Get.to(() => MapTripProduct());
+              // goToLocation(LatLng(currentPosition?.latitude ?? 0,
+              //     currentPosition?.longitude ?? 0));
             },
             themeTap: () async {},
           )),

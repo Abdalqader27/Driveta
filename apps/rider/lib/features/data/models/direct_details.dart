@@ -1,17 +1,17 @@
 class DirectionDetails {
-  int? distanceValue;
-  int? durationValue;
-  String? distanceText;
-  String? durationText;
-  String? encodedPoints;
-  String? type;
+  int distanceValue;
+  int durationValue;
+  String distanceText;
+  String durationText;
+  String encodedPoints;
+  String type;
 
   DirectionDetails({
-    this.distanceValue,
-    this.durationValue,
-    this.distanceText,
-    this.durationText,
-    this.type,
-    this.encodedPoints,
+    this.distanceValue = 0,
+    this.durationValue = 0,
+    this.distanceText = '',
+    this.durationText = '',
+    this.type = '',
+    this.encodedPoints = '',
   });
 }

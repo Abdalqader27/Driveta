@@ -5,75 +5,84 @@ import '../../../../../libraries/el_widgets/widgets/material_text.dart';
 import '../../../../data/models/direct_details.dart';
 import '../../../manager/container.dart';
 
-class ChoiceCarsWidget extends StatelessWidget {
+class ChoiceCarsWidget extends StatefulWidget {
   final double height;
   final DirectionDetails? directionDetails;
   final ValueChanged<CarDetails>? onTap;
+  final bool? isChosen;
 
   const ChoiceCarsWidget({
     Key? key,
     required this.height,
     this.directionDetails,
+    this.isChosen,
     this.onTap,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      bottom: 0.0,
-      left: 0.0,
-      right: 0.0,
-      child: Container(
-        margin: const EdgeInsets.all(8),
-        height: height,
-        decoration: BoxDecoration(
-          color: Colors.white.withOpacity(.9),
-          borderRadius: const BorderRadius.all(Radius.circular(25.0)),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 17.0),
-          child: Column(
-            children: [
-              const MaterialText.subTitle1('تفاصيل الرحلة'),
-              Row(
-                children: [
-                  _PanelItem(
-                    title: 'المسافة',
-                    subtitle: directionDetails?.distanceText ?? '',
-                    iconData: Icons.polyline_sharp,
-                  ),
-                  _PanelItem(
-                    title: 'الوقت',
-                    subtitle: directionDetails?.durationText ?? '',
-                    iconData: Icons.lock_clock,
-                  ),
-                ],
-              ),
+  State<ChoiceCarsWidget> createState() => _ChoiceCarsWidgetState();
+}
 
-              const MaterialText.subTitle1('اختر السيارة'),
-              // Expanded(child: Container()),
-              Expanded(
-                child: SizedBox(
-                  height: height * 0.6,
-                  child: GetVehicleTypesContainer(
-                      builder: (context, List<CarDetails> data) {
-                    return ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemCount: data.length,
-                        itemBuilder: (context, i) {
-                          final cartDetails = data[i];
-                          return CarItemWidget(
-                            onTap: () => onTap?.call(cartDetails),
-                            directionDetails: directionDetails,
-                            carDetails: cartDetails,
-                          );
-                        });
-                  }),
+class _ChoiceCarsWidgetState extends State<ChoiceCarsWidget> {
+  int selectIdx = -1;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(8),
+      height: widget.height,
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(.9),
+        borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 17.0),
+        child: Column(
+          children: [
+            const MaterialText.subTitle1('تفاصيل الرحلة'),
+            Row(
+              children: [
+                _PanelItem(
+                  title: 'المسافة',
+                  subtitle: widget.directionDetails?.distanceText ?? '',
+                  iconData: Icons.polyline_sharp,
                 ),
-              )
-            ],
-          ),
+                _PanelItem(
+                  title: 'الوقت',
+                  subtitle: widget.directionDetails?.durationText ?? '',
+                  iconData: Icons.lock_clock,
+                ),
+              ],
+            ),
+
+            const MaterialText.subTitle1('اختر السيارة'),
+            // Expanded(child: Container()),
+            Expanded(
+              child: SizedBox(
+                height: widget.height * 0.6,
+                child: GetVehicleTypesContainer(
+                    builder: (context, List<CarDetails> data) {
+                  return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemCount: data.length,
+                      itemBuilder: (context, i) {
+                        final cartDetails = data[i];
+                        return CarItemWidget(
+                          clickIndex: selectIdx,
+                          onTap: () {
+                            setState(() => selectIdx = i);
+                            widget.onTap?.call(cartDetails);
+                          },
+                          directionDetails: widget.directionDetails,
+                          index: widget.isChosen == null ? null : i,
+                          carDetails: cartDetails,
+                        );
+                      });
+                }),
+              ),
+            )
+          ],
         ),
       ),
     );
@@ -84,10 +93,14 @@ class CarItemWidget extends StatelessWidget {
   final GestureTapCallback? onTap;
   final CarDetails carDetails;
   final DirectionDetails? directionDetails;
+  final int? index;
+  final int clickIndex;
 
   const CarItemWidget({
     Key? key,
     this.onTap,
+    this.index,
+    this.clickIndex = 0,
     required this.carDetails,
     required this.directionDetails,
   }) : super(key: key);
@@ -95,7 +108,11 @@ class CarItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: kPRIMARY.withOpacity(.1),
+      color: index == null
+          ? kPRIMARY.withOpacity(.1)
+          : clickIndex == index
+              ? kPRIMARY
+              : kPRIMARY.withOpacity(.1),
       child: GestureDetector(
         onTap: onTap,
         child: SizedBox(
@@ -114,7 +131,13 @@ class CarItemWidget extends StatelessWidget {
                 children: [
                   Text(
                     carDetails.item1,
-                    style: const TextStyle(fontSize: 18.0),
+                    style: TextStyle(
+                        fontSize: 15.0,
+                        color: index == null
+                            ? kBlack
+                            : clickIndex == index
+                                ? Colors.white
+                                : kBlack),
                   ),
                 ],
               ),
@@ -126,7 +149,12 @@ class CarItemWidget extends StatelessWidget {
                         distance: directionDetails?.distanceValue ?? 0,
                       )} ل.س'
                     : ''),
-                style: const TextStyle(),
+                style: TextStyle(
+                    color: index == null
+                        ? kBlack
+                        : clickIndex == index
+                            ? Colors.white
+                            : kBlack),
               ),
               Expanded(child: Container()),
             ],

@@ -11,6 +11,7 @@ import '../../../../../../../common/widgets/svg_icon.dart';
 import '../../../../../../../generated/assets.dart';
 import '../../../../../../../libraries/el_widgets/widgets/material_text.dart';
 import '../../../../../../data/models/store.dart';
+import '../../order_delivery_details.dart';
 
 class StoreProduct extends StatefulWidget {
   final StoreDetails storeDetails;
@@ -154,13 +155,17 @@ class _StoreProductState extends State<StoreProduct> {
                   padding: EdgeInsets.zero,
                   borderRadius: BorderRadius.circular(30.r),
                   child: MaterialText.button(
-                    'طلب',
+                    'مراجعة الطلب',
                     style: Theme.of(context)
                         .textTheme
                         .button!
                         .copyWith(color: Colors.white),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(() => OrderDeliveryDetails(
+                        storeDetails: widget.storeDetails,
+                        productMap: productMap));
+                  },
                 )),
           ),
         ),

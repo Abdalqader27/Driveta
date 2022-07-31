@@ -29,9 +29,8 @@ class SignalRDriver {
   static final SignalRDriver _instance = SignalRDriver._();
   factory SignalRDriver() => _instance;
 
-
   SignalRDriver._() {
-        _hubConnection = HubConnectionBuilder()
+    _hubConnection = HubConnectionBuilder()
         .withUrl('$kBaseUrl' 'deliveryHub/',
             options: HttpConnectionOptions(
               requestTimeout: 700000,
@@ -49,17 +48,17 @@ class SignalRDriver {
       _connectionIsOpen = false;
       print("Connection Closed");
     });
-            _hubConnection!.on("ReceiveDeliveries", onReceiveDeliveries);
-        _hubConnection!.on("ReceiveEndingDriver", onReceiveEndingDriver);
+    _hubConnection!.on("ReceiveDeliveries", onReceiveDeliveries);
+    _hubConnection!.on("ReceiveEndingDriver", onReceiveEndingDriver);
+    _hubConnection!.on("ReceiveDeliveriesProduct", onReceiveDeliveriesProduct);
 
+    _hubConnection!
+        .on("ReceiveEndingDriverProduct", onReceiveEndingDriverProduct);
   }
 
-
-
   /// For open and close signal R
-   Future<bool> openConnection() async {
+  Future<bool> openConnection() async {
     try {
-  
       if (_hubConnection!.state != HubConnectionState.Connected) {
         await _hubConnection!.start();
         _connectionIsOpen = true;
@@ -76,7 +75,7 @@ class SignalRDriver {
     }
   }
 
-   Future<void> stopConnection() async {
+  Future<void> stopConnection() async {
     print("stopConnection is fired ");
     if (_hubConnection!.state == HubConnectionState.Connected) {
       await _hubConnection!.stop();
@@ -86,7 +85,7 @@ class SignalRDriver {
     }
   }
 
-   Future<void> sendLocation({LatLng? point}) async {
+  Future<void> sendLocation({LatLng? point}) async {
     print('HubConnectionState.Connected is ${_hubConnection!.state}');
     print("SendLocation is fired ");
     try {
@@ -108,8 +107,31 @@ class SignalRDriver {
     }
   }
 
+  // done
+  Future<void> sendLocationProduct({LatLng? point}) async {
+    print('HubConnectionState.Connected is ${_hubConnection!.state}');
+    print("SendLocation Product is fired ");
+    try {
+      if (connectionIsOpen == false ||
+          _hubConnection!.state != HubConnectionState.Connected) {
+        await openConnection();
+      }
+      if (point != null) {
+        _hubConnection!.invoke(
+          "SendLocationProduct",
+          args: <Object>[point.longitude.toString(), point.latitude.toString()],
+        );
+        print("SendLocationProduct is sending data $point ");
+
+        //  print("SendLocation $point");
+      }
+    } catch (e) {
+      print("SendLocationProduct is catching error $e ");
+    }
+  }
+
   // /AcceptDelivery(Guid id) (invoke) (Driver) (deliveryId)
-   Future<void> acceptDelivery({required String id}) async {
+  Future<void> acceptDelivery({required String id}) async {
     print('HubConnectionState.Connected is ${_hubConnection!.state}');
     print("acceptDelivery is fired ");
     try {
@@ -117,19 +139,37 @@ class SignalRDriver {
           _hubConnection!.state != HubConnectionState.Connected) {
         await openConnection();
       }
-     await _hubConnection!.invoke(
+      await _hubConnection!.invoke(
         "AcceptDelivery",
         args: <Object>[id],
       );
-    
-      
+
       print("AcceptDelivery is sending data $id ");
     } catch (e) {
       print("AcceptDelivery is catching error $e ");
     }
   }
 
-   Future<void> arrivedToLocation({required String id}) async {
+  Future<void> acceptDeliveryProduct({required String id}) async {
+    print('HubConnectionState.Connected is ${_hubConnection!.state}');
+    print("acceptDelivery Product is fired ");
+    try {
+      if (connectionIsOpen == false ||
+          _hubConnection!.state != HubConnectionState.Connected) {
+        await openConnection();
+      }
+      await _hubConnection!.invoke(
+        "AcceptDeliveryProduct",
+        args: <Object>[id],
+      );
+
+      print("AcceptDeliveryProduct is sending data $id ");
+    } catch (e) {
+      print("AcceptDeliveryProduct is catching error $e ");
+    }
+  }
+
+  Future<void> arrivedToLocation({required String id}) async {
     print('HubConnectionState.Connected is ${_hubConnection!.state}');
     print("ArrivedToLocation is fired ");
     try {
@@ -148,7 +188,44 @@ class SignalRDriver {
     }
   }
 
-   Future<void> startDelivery({required String id}) async {
+  Future<void> arrivedToLocationProduct({required String id}) async {
+    print('HubConnectionState.Connected is ${_hubConnection!.state}');
+    print("ArrivedToLocationProduct is fired ");
+    try {
+      if (connectionIsOpen == false ||
+          _hubConnection!.state != HubConnectionState.Connected) {
+        await openConnection();
+      }
+
+      _hubConnection!.invoke(
+        "ArrivedToLocationProduct",
+        args: <Object>[id],
+      );
+      print("ArrivedToLocationProduct is sending data $id ");
+    } catch (e) {
+      print("ArrivedToLocationProduct is catching error $e ");
+    }
+  }
+
+  Future<void> startDeliveryProduct({required String id}) async {
+    print('HubConnectionState.Connected is ${_hubConnection!.state}');
+    print("StartDelivery Product is fired ");
+    try {
+      if (connectionIsOpen == false ||
+          _hubConnection!.state != HubConnectionState.Connected) {
+        await openConnection();
+      }
+      _hubConnection!.invoke(
+        "StartDeliveryProduct",
+        args: <Object>[id],
+      );
+      print("StartDeliveryProduct is sending data $id ");
+    } catch (e) {
+      print("StartDeliveryProduct is catching error $e ");
+    }
+  }
+
+  Future<void> startDelivery({required String id}) async {
     print('HubConnectionState.Connected is ${_hubConnection!.state}');
     print("StartDelivery is fired ");
     try {
@@ -166,7 +243,7 @@ class SignalRDriver {
     }
   }
 
-   Future<void> endDeliveryDriver(
+  Future<void> endDeliveryDriver(
       {required num price,
       required String id,
       required String endLat,
@@ -208,8 +285,67 @@ class SignalRDriver {
     }
   }
 
-   void onReceiveDeliveries(List<Object>? arguments) {
-    print("onReceiveDeliveries $arguments");
+  Future<void> endDeliveryDriverProduct(
+      {required num price,
+      required String id,
+      required String endLat,
+      required String endLong,
+      required num distance,
+      required String dropOff,
+      required String expectedTime}) async {
+    print('HubConnectionState.Connected is ${_hubConnection!.state}');
+    print("EndDeliveryDriverProduct is fired ");
+    try {
+      if (_hubConnection!.state != HubConnectionState.Connected) {
+        await openConnection();
+      }
+      _hubConnection!.invoke(
+        "EndDeliveryDriverProduct",
+        args: <Object>[
+          {
+            'price': price,
+            'id': id,
+            'endLat': endLat,
+            'endLong': endLong,
+            'distance': distance,
+            'expectedTime': expectedTime,
+            'dropOff': dropOff
+          }
+        ],
+      );
+      print("EndDeliveryDriverProduct is sending data ${json.encode({
+            'price': price,
+            'id': id,
+            'endLat': endLat,
+            'endLong': endLong,
+            'distance': distance,
+            'expectedTime': expectedTime,
+            'dropOff': dropOff
+          })} ");
+    } catch (e) {
+      print("EndDeliveryDriverProduct is catching error $e ");
+    }
+  }
+
+  void onReceiveDeliveriesProduct(List<Object>? arguments) {
+    print("onReceiveDeliveriesProduct $arguments");
+    if (arguments != null) {
+      List<Delivers> delivers = [];
+      for (var item in arguments[0] as List) {
+        delivers.add(Delivers.fromJson(item));
+      }
+      // need to call bloc to update the list of delivers
+      // si<DriverBloc>().add(GetAvailableDeliveries(delivers));
+      deliversProductStream.sink.add(delivers);
+      if (flagOpenPage == false) {
+        Get.to(() => const AvilableDeliveriesProduct());
+        flagOpenPage = true;
+      }
+    }
+  }
+
+  void onReceiveDeliveries(List<Object>? arguments) {
+    print("ReceiveDeliveries $arguments");
     if (arguments != null) {
       List<Delivers> delivers = [];
       for (var item in arguments[0] as List) {
@@ -225,7 +361,11 @@ class SignalRDriver {
     }
   }
 
-   void onReceiveEndingDriver(List<Object>? arguments) {
+  void onReceiveEndingDriverProduct(List<Object>? arguments) {
+    print("ReceiveEndingDriver Product $arguments");
+  }
+
+  void onReceiveEndingDriver(List<Object>? arguments) {
     print("ReceiveEndingDriver $arguments");
   }
 }

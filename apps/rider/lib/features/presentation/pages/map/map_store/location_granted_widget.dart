@@ -9,7 +9,7 @@ import '../../../../../common/widgets/progress-Indicator.dart';
 class LocationGrantedWidget extends StatefulWidget {
   const LocationGrantedWidget({Key? key, required this.builder})
       : super(key: key);
-  final ValueWidgetBuilder builder;
+  final ValueWidgetBuilder<LocationData> builder;
 
   @override
   _LocationGrantedWidgetState createState() => _LocationGrantedWidgetState();
