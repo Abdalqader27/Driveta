@@ -1,10 +1,12 @@
+import 'delivery_product_details.dart';
+
 class DeliversProduct {
   DeliversProduct({
     required this.details,
-    required this.id,
-    required this.driverId,
-    required this.driverName,
-    required this.vehicleId,
+    this.id,
+    this.driverId,
+    this.driverName,
+    this.vehicleId,
     this.vehicleNumber,
     required this.pickUp,
     required this.dropOff,
@@ -13,18 +15,19 @@ class DeliversProduct {
     required this.startLat,
     required this.endLat,
     required this.expectedTime,
-    required this.startDate,
-    required this.endDate,
+    this.startDate,
+    this.endDate,
     required this.distance,
-    required this.payingValue,
+    required this.vehicleType,
+    this.payingValue,
     required this.price,
   });
 
-  final List<dynamic> details;
-  final String id;
-  final String driverId;
-  final String driverName;
-  final String vehicleId;
+  final List<DeliveryProductDetails> details;
+  final String? id;
+  final String? driverId;
+  final String? driverName;
+  final String? vehicleId;
   final dynamic vehicleNumber;
   final String pickUp;
   final String dropOff;
@@ -33,15 +36,17 @@ class DeliversProduct {
   final String startLat;
   final String endLat;
   final String expectedTime;
-  final DateTime startDate;
-  final DateTime endDate;
+  final DateTime? startDate;
+  final DateTime? endDate;
   final int distance;
-  final int payingValue;
+  final int? payingValue;
+  final int? vehicleType;
   final int price;
 
   factory DeliversProduct.fromJson(Map<String, dynamic> json) =>
       DeliversProduct(
-        details: List<dynamic>.from(json["details"].map((x) => x)),
+        details: List<DeliveryProductDetails>.from(
+            json["details"].map((x) => DeliveryProductDetails.fromJson(x))),
         id: json["id"],
         driverId: json["driverId"],
         driverName: json["driverName"],
@@ -49,6 +54,7 @@ class DeliversProduct {
         vehicleNumber: json["vehicleNumber"],
         pickUp: json["pickUp"],
         dropOff: json["dropOff"],
+        vehicleType: json["vehicleType"],
         startLong: json["startLong"],
         endLong: json["endLong"],
         startLat: json["startLat"],
@@ -74,9 +80,10 @@ class DeliversProduct {
         "endLong": endLong,
         "startLat": startLat,
         "endLat": endLat,
+        "vehicleType": vehicleType,
         "expectedTime": expectedTime,
-        "startDate": startDate.toIso8601String(),
-        "endDate": endDate.toIso8601String(),
+        "startDate": startDate?.toIso8601String(),
+        "endDate": endDate?.toIso8601String(),
         "distance": distance,
         "payingValue": payingValue,
         "price": price,

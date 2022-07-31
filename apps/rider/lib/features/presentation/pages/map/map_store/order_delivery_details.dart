@@ -10,6 +10,7 @@ import 'package:location/location.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rider/common/utils/signal_r.dart';
 import 'package:rider/common/widgets/round_app_bar.dart';
+import 'package:rider/features/presentation/pages/map/map_trip_product/provider/map_trip_provider.dart';
 import 'package:rider/libraries/flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../common/assistants/assistantMethods.dart';
@@ -17,6 +18,8 @@ import '../../../../../common/config/theme/colors.dart';
 import '../../../../../common/widgets/svg_icon.dart';
 import '../../../../../generated/assets.dart';
 import '../../../../../libraries/el_widgets/widgets/material_text.dart';
+import '../../../../../main.dart';
+import '../../../../data/models/delivers_product.dart';
 import '../../../../data/models/delivery_product_details.dart';
 import '../../../../data/models/direct_details.dart';
 import '../../../../data/models/store.dart';
@@ -374,24 +377,29 @@ class _OrderDeliveryDetailsState extends State<OrderDeliveryDetails> {
                                             BotToast.closeAllLoading();
                                           });
                                           BotToast.showLoading();
-                                          SignalRRider().addDeliveryProduct(
+                                          final delivery = DeliversProduct(
                                               pickUp: data.pickText!,
                                               startLat: data.start!.latitude
+                                                  .toString(),
+                                              startLong: data.start!.longitude
                                                   .toString(),
                                               price: data.price!.toInt(),
                                               dropOff: data.dropText!,
                                               endLat: data.storeDetails!.lat!,
                                               distance:
-                                                  data.details!.distanceValue!,
-                                              startLong: data.start!.longitude
-                                                  .toString(),
+                                                  data.details!.distanceValue,
                                               endLong: data.storeDetails!.long!,
                                               expectedTime: data
-                                                  .details!.durationValue!
+                                                  .details!.durationValue
                                                   .toString(),
                                               vehicleType:
                                                   data.carDetails!.item2,
                                               details: filter());
+                                          si<MapTripProvider>()
+                                              .setDeliversProduct = delivery;
+                                          SignalRRider().addDeliveryProduct(
+                                              deliverProduct: delivery);
+
                                           print(data.productMap);
                                         },
                                       )),

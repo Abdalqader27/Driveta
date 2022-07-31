@@ -6,10 +6,13 @@ import 'package:flutter_animarker/core/ripple_marker.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rider/common/utils/config.dart';
 import 'package:rider/features/data/models/direct_details.dart';
 
 import '../../../../../../common/assistants/assistantMethods.dart';
 import '../../../../../../common/utils/google_api_key.dart';
+import '../../../../../data/models/delivers_product.dart';
+import '../../../../../data/models/driver.dart';
 import '../../../../../data/models/marker_config.dart';
 import '../../../../../data/models/polyline_config.dart';
 import '../../../../../domain/entities/state_trip_product.dart';
@@ -17,10 +20,14 @@ import '../../../../../domain/entities/state_trip_product.dart';
 class MapTripProvider extends ChangeNotifier with GoogleApiKey {
   final Map<MarkerId, Marker> _markers = {};
   final Map<PolylineId, Polyline> _polyLines = {};
-  final List<LatLng> polylineCoordinates = [];
-  PolylinePoints polylinePoints = PolylinePoints();
+  final List<LatLng> _polylineCoordinates = [];
+  PolylinePoints _polylinePoints = PolylinePoints();
   StateTripProduct _stateTripProduct = StateTripProduct();
   DirectionDetails? _directionDetails = DirectionDetails();
+  final Map<String, Driver> _drivers = {};
+  DeliversProduct? _deliverProduct;
+
+  String? _selectedDriverId;
 
   GoogleMapController? _mapController;
   final Completer<GoogleMapController> _controllerGoogleMap = Completer();
@@ -33,9 +40,84 @@ class MapTripProvider extends ChangeNotifier with GoogleApiKey {
 
   StateTripProduct get state => _stateTripProduct;
 
+  set setStateTripProduct(StateTripProduct value) {
+    _stateTripProduct = value;
+    notifyListeners();
+  }
+
   DirectionDetails? get details => _directionDetails;
 
-  Future<void> prepareMap({
+  Map<String, Driver> get drivers => _drivers;
+
+  Driver? get selectedDriver => _drivers[_selectedDriverId];
+
+  String? get selectedDriverId => _selectedDriverId;
+
+  DeliversProduct? get deliverProduct => _deliverProduct;
+
+  LatLng get startPoint => _parseLatLng(
+        _deliverProduct!.startLat,
+        _deliverProduct!.startLong,
+      );
+
+  LatLng get endPoint => _parseLatLng(
+        _deliverProduct!.endLat,
+        _deliverProduct!.endLong,
+      );
+
+  LatLng get driverPoint => _parseLatLng(
+        selectedDriver!.lat!,
+        selectedDriver!.long!,
+      );
+
+  set setDeliversProduct(DeliversProduct? value) {
+    _deliverProduct = value;
+    notifyListeners();
+  }
+
+  set setSelectedDriverId(String? value) {
+    _selectedDriverId = value;
+  }
+
+  void setSelectedDriverIdAndOpenTrip(String? id) async {
+    BotToast.showLoading();
+    setSelectedDriverId = id;
+    await openTrip(
+      startMarker: kCurrentMarker(startPoint),
+      endMarker: kDestinationMarker(endPoint),
+      driverMarker: kDriverMarker2(driverPoint),
+      startPoint: _parsePointLatLng(startPoint),
+      endPoint: _parsePointLatLng(endPoint),
+      polyLineConfig: kPolylineConfigDriver,
+    );
+    await getDirectDetails(startPoint, driverPoint);
+    BotToast.closeAllLoading();
+    notifyListeners();
+  }
+
+  addDriver(Driver driver) {
+    _drivers[driver.id!] = driver;
+    if (driver.id == _selectedDriverId) {
+      if (driver.lat != null && driver.long != null) {
+        final point = LatLng(
+          double.parse(driver.lat!),
+          double.parse(driver.long!),
+        );
+        addMarker(kDriverMarker(point));
+        animateCameraTarget(point);
+      }
+    }
+
+    notifyListeners();
+  }
+
+  addDrivers(Map<String, Driver> driverMap) {
+    _drivers.clear();
+    _drivers.addAll(driverMap);
+    notifyListeners();
+  }
+
+  Future<void> openTrip({
     required MarkerConfig startMarker,
     required MarkerConfig endMarker,
     required MarkerConfig driverMarker,
@@ -66,25 +148,28 @@ class MapTripProvider extends ChangeNotifier with GoogleApiKey {
     notifyListeners();
   }
 
-  Future<bool> setPolyline(PointLatLng startPoint, PointLatLng endPoint,
-      PolyLineConfig polylineConfig) async {
+  Future<bool> setPolyline(
+    PointLatLng startPoint,
+    PointLatLng endPoint,
+    PolyLineConfig polylineConfig,
+  ) async {
     BotToast.showLoading();
-    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+    PolylineResult result = await _polylinePoints.getRouteBetweenCoordinates(
       getApiKey(),
       startPoint,
       endPoint,
       travelMode: polylineConfig.travelMode,
     );
     if (result.points.isNotEmpty) {
-      polylineCoordinates.clear();
+      _polylineCoordinates.clear();
       for (var point in result.points) {
-        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+        _polylineCoordinates.add(LatLng(point.latitude, point.longitude));
       }
     }
     Polyline polyline = Polyline(
       polylineId: polylineConfig.polylineId,
       color: polylineConfig.color,
-      points: polylineCoordinates,
+      points: _polylineCoordinates,
       width: polylineConfig.width,
       endCap: polylineConfig.capEnd,
       startCap: polylineConfig.capStart,
@@ -136,10 +221,14 @@ class MapTripProvider extends ChangeNotifier with GoogleApiKey {
   void reset() {
     _markers.clear();
     _polyLines.clear();
-    polylineCoordinates.clear();
-    polylinePoints = PolylinePoints();
+    _drivers.clear();
+    _polylineCoordinates.clear();
+    _polylinePoints = PolylinePoints();
     _stateTripProduct = StateTripProduct();
     _directionDetails = DirectionDetails();
+    _selectedDriverId = null;
+    _deliverProduct = null;
+
     notifyListeners();
   }
 
@@ -153,7 +242,7 @@ class MapTripProvider extends ChangeNotifier with GoogleApiKey {
         target: LatLng(position.latitude, position.longitude), zoom: 18)));
   }
 
-  void getDirectDetails(LatLng origin, LatLng destination) async {
+  Future<void> getDirectDetails(LatLng origin, LatLng destination) async {
     _directionDetails =
         await AssistantMethods.obtainPlaceDirectionDetails(origin, destination);
     notifyListeners();
@@ -181,5 +270,13 @@ class MapTripProvider extends ChangeNotifier with GoogleApiKey {
       position: point,
       infoWindow: InfoWindow(title: title, snippet: snippet),
     );
+  }
+
+  LatLng _parseLatLng(String start, String end) {
+    return LatLng(double.parse(start), double.parse(end));
+  }
+
+  PointLatLng _parsePointLatLng(LatLng point) {
+    return PointLatLng(point.latitude, point.longitude);
   }
 }

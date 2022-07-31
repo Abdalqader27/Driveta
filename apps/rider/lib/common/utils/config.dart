@@ -49,3 +49,10 @@ MarkerConfig kDriverMarker(LatLng point) => MarkerConfig(
       snippet: 'السائق ',
       title: 'مكان السائق',
     );
+MarkerConfig kDriverMarker2(LatLng point) => MarkerConfig(
+      point: point,
+      pinPath: Assets.iconsCarTop,
+      markerId: kDriverMarkerId,
+      snippet: 'السائق ',
+      title: 'مكان السائق',
+    );

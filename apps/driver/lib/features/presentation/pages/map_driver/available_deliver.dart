@@ -19,6 +19,7 @@ final BehaviorSubject<List<Delivers>> deliversStream =
 
 final BehaviorSubject<List<Delivers>> deliversProductStream =
     BehaviorSubject<List<Delivers>>.seeded([]);
+
 class AvailableDeliveries extends StatelessWidget {
   const AvailableDeliveries({Key? key}) : super(key: key);
 
@@ -69,18 +70,18 @@ class AvailableDeliveries extends StatelessWidget {
   }
 }
 
-
 class AvilableDeliveriesProduct extends StatelessWidget {
   const AvilableDeliveriesProduct({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-return SafeArea(
+    return SafeArea(
       child: Scaffold(
         body: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             const RoundedAppBar(
+              color: kRed0,
               title: '  الطلبات المتاحة  للمنتجات ',
             ),
             Expanded(
@@ -96,15 +97,16 @@ return SafeArea(
                         itemCount: snap.data!.length,
                         itemBuilder: (context, i) {
                           Delivers deliver = snap.data![i];
-                          return AvailableDeliveriesItem(
+                          return AvailableDeliveriesProductItem(
                             delivers: deliver,
                             onTap: () async {
                               try {
                                 BotToast.showLoading();
-                                SignalRDriver().acceptDeliveryProduct(id: deliver.id);
+                                SignalRDriver()
+                                    .acceptDeliveryProduct(id: deliver.id);
                                 BotToast.closeAllLoading();
-                                Get.to(
-                                    () => NewRideScreen(rideDetails: deliver,type:2));
+                                Get.to(() => NewRideScreen(
+                                    rideDetails: deliver, type: 2));
                               } catch (e) {
                                 BotToast.closeAllLoading();
                               }
@@ -116,5 +118,6 @@ return SafeArea(
           ],
         ),
       ),
-    );  }
+    );
+  }
 }

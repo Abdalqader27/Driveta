@@ -152,7 +152,7 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   onTap: (carDetails) {
                     directionDetails?.type = carDetails.item1;
                     si<MapState>().pinData.directionDetails = directionDetails;
-                    displayRequestRideContainer(polyline);
+                    displayRequestRideContainer(polyline, carDetails);
                   },
                 ),
 
@@ -342,13 +342,14 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     );
   }
 
-  void addDelivery() async {
+  void addDelivery(CarDetails carDetails) async {
     BotToast.showLoading();
     await SignalRRider().addDelivery(
       pickUp: si<MapState>().pinData.pickUpAddress,
       startLat: si<MapState>().pinData.currentPoint.latitude.toString(),
       price: (AssistantMethods.calculateFares(directionDetails!)),
       dropOff: si<MapState>().pinData.dropOffAddress,
+      vehicleType: carDetails.item2,
       endLat: si<MapState>().pinData.destinationPoint.latitude.toString(),
       distance: si<MapState>().pinData.directionDetails?.distanceValue ?? 0,
       startLong: si<MapState>().pinData.currentPoint.longitude.toString(),
@@ -524,7 +525,7 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     }
   }
 
-  void displayRequestRideContainer(polyline) {
+  void displayRequestRideContainer(polyline, carDetails) {
     setState(() {
       requestRideContainerHeight = 400.0;
       rideDetailsContainerHeight = 0;
@@ -532,7 +533,7 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       drawerOpen = false;
     });
     si<MapBloc>().setMapFitToTour(Set.of(polyline.data?.values ?? {}));
-    addDelivery();
+    addDelivery(carDetails);
   }
 
   void displayDriverDetailsContainer() {

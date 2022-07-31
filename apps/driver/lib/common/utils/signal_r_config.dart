@@ -51,7 +51,6 @@ class SignalRDriver {
     _hubConnection!.on("ReceiveDeliveries", onReceiveDeliveries);
     _hubConnection!.on("ReceiveEndingDriver", onReceiveEndingDriver);
     _hubConnection!.on("ReceiveDeliveriesProduct", onReceiveDeliveriesProduct);
-
     _hubConnection!
         .on("ReceiveEndingDriverProduct", onReceiveEndingDriverProduct);
   }

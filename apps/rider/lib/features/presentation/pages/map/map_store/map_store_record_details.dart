@@ -130,7 +130,8 @@ class _MapStoreRecordDetailsState extends State<MapStoreRecordDetails> {
                                               fontWeight: FontWeight.w600),
                                     ),
                                   ),
-                                  subtitle: Text(widget.delivers.driverName),
+                                  subtitle:
+                                      Text(widget.delivers.driverName ?? ''),
                                   leading: const CircleAvatar(
                                       backgroundColor: kGrey2,
                                       child: Center(
@@ -175,7 +176,7 @@ class _MapStoreRecordDetailsState extends State<MapStoreRecordDetails> {
                               ),
                             ),
                             subtitle: Text(
-                              widget.delivers.vehicleId,
+                              widget.delivers.vehicleId ?? '',
                               softWrap: true,
                               overflow: TextOverflow.ellipsis,
                             ),

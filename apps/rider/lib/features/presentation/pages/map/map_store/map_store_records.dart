@@ -88,7 +88,7 @@ class OrderRecordItem extends StatelessWidget {
                     .copyWith(fontWeight: FontWeight.w600),
               ),
             ),
-            subtitle: Text(history.id),
+            subtitle: Text(history.id ?? ''),
             leading: CircleAvatar(
                 backgroundColor: kGrey2,
                 child: Center(child: Text('${index + 1}'))),
@@ -141,7 +141,7 @@ class OrderRecordItem extends StatelessWidget {
                           .copyWith(fontWeight: FontWeight.w600),
                     ),
                   ),
-                  subtitle: Text(history.driverName),
+                  subtitle: Text(history.driverName ?? ''),
                   leading: const CircleAvatar(
                       backgroundColor: kGrey2,
                       child: Center(child: Icon(Icons.perm_contact_cal))),
@@ -183,7 +183,7 @@ class OrderRecordItem extends StatelessWidget {
               ),
             ),
             subtitle: Text(
-              history.vehicleId,
+              history.vehicleId ?? '',
               softWrap: true,
               overflow: TextOverflow.ellipsis,
             ),
