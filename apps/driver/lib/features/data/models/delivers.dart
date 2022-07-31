@@ -12,6 +12,7 @@ class Delivers {
     required this.price,
     required this.pickUp,
     required this.dropOff,
+    this.details,
   });
 
   final String id;
@@ -26,8 +27,13 @@ class Delivers {
   final int price;
   final String pickUp;
   final String dropOff;
+  final List<DeliveryProductDetails>? details;
 
   factory Delivers.fromJson(Map<String, dynamic> json) => Delivers(
+        details: json["details"] == null
+            ? []
+            : List<DeliveryProductDetails>.from(
+                json["details"].map((x) => DeliveryProductDetails.fromJson(x))),
         id: json["id"],
         customerId: json["customerId"],
         customerName: json["customerName"],
@@ -56,4 +62,29 @@ class Delivers {
         "pickUp": pickUp,
         "dropOff": dropOff,
       };
+}
+
+class DeliveryProductDetails {
+  final String? productId;
+  final String? offerId;
+  final num quantity;
+
+  DeliveryProductDetails(
+      {this.productId, this.offerId, required this.quantity});
+
+  factory DeliveryProductDetails.fromJson(Map<String, dynamic> json) {
+    return DeliveryProductDetails(
+      productId: json['productId'] as String,
+      offerId: json['offerId'] as String,
+      quantity: json['quantity'] as num,
+    );
+  }
+
+  toJson() {
+    return {
+      'productId': productId,
+      'offerId': offerId,
+      'quantity': quantity,
+    };
+  }
 }

@@ -10,10 +10,12 @@ class RoundedAppBar extends StatelessWidget {
   final Function? onTapLeading;
   final String title;
   final String? subTitle;
-
+  final Color? color;
   const RoundedAppBar({
     Key? key,
     this.onTapLeading,
+        this.color,
+
     required this.title,
     this.subTitle,
   }) : super(key: key);
@@ -27,7 +29,7 @@ class RoundedAppBar extends StatelessWidget {
       children: [
         CustomPaint(
           size: Size(context.width, 105.5),
-          painter: AppBarCustomPainterShape(colors.primary),
+          painter: AppBarCustomPainterShape(color??colors.primary),
         ),
         CustomPaint(
           size: Size(context.width, 100.0),
@@ -45,7 +47,10 @@ class RoundedAppBar extends StatelessWidget {
                       child: ListTile(
                     title: SText.bodyMedium(
                       title,
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .copyWith(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     subtitle: SText.bodyMedium(
                       subTitle ?? "",
