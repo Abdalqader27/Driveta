@@ -59,11 +59,6 @@ class NetworkInjection {
         dio: si<Dio>(),
         tokenStorage: si<RefreshBotMixin>(),
         refreshToken: (token, tokenDio) async {
-          final response = await tokenDio.post(
-            '/auth/refresh-token',
-            data: {'refreshToken': token.refreshToken},
-          );
-
           return AuthToken(
             accessToken: si<SStorage>().get(
               key: kAccessToken,
@@ -83,11 +78,11 @@ class NetworkInjection {
         exceptionMapper: <T>(Response<T> response, exception) {
           final data = response.data;
           if (data != null && data is Map<String, dynamic>) {
-            log('$exception');
+            log('exxxxx$exception');
             // We only map 418 responses that have json response data:
             return SResponseException(
-              message: mapOfType(data['message']),
-              error: "${data['error']}",
+              message: "$data",
+              error: "$data",
               exception: exception,
             );
           }
@@ -96,7 +91,6 @@ class NetworkInjection {
         // baseUrl: FlavorConfig.instance.variables["baseUrl"],
         baseUrl: kBase,
         interceptors: [
-          si<RefreshTokenInterceptor>(),
           si<OnRetryConnection>(),
         ],
       );

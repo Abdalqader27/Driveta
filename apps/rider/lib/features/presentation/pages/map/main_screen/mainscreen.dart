@@ -30,7 +30,6 @@ import '../../../widgets/float_actions_buttons.dart';
 import '../../../widgets/header_location_destination.dart';
 import '../../../widgets/map_drawer.dart';
 import '../../../widgets/map_next_button.dart';
-import '../map_trip_product/map_trip_product.dart';
 import '../widgets/choice_cars.dart';
 import '../widgets/searching_on_driver.dart';
 
@@ -185,9 +184,9 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
             },
             locationTap: () async {
               // await SignalRRider().openConnection();
-              Get.to(() => MapTripProduct());
-              // goToLocation(LatLng(currentPosition?.latitude ?? 0,
-              //     currentPosition?.longitude ?? 0));
+              // Get.to(() => MapTripProduct());
+              goToLocation(LatLng(currentPosition?.latitude ?? 0,
+                  currentPosition?.longitude ?? 0));
             },
             themeTap: () async {},
           )),

@@ -62,7 +62,8 @@ class RiderBloc extends SMixinBloc<RiderEvent, RiderState> {
         return _state;
       },
       failure: (dynamic error) {
-        _state = _state.copyWith(loginState: BlocError(error));
+        BotToast.showText(text: 'لقد حدث خطأ ما');
+        _state = _state.copyWith(loginState: const SBlocState.init());
         return _state;
       },
     ));

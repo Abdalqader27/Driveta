@@ -16,7 +16,7 @@ class Delivers {
   final String id;
   final String startLat;
   final String startLong;
-  final String startDate;
+  final dynamic startDate;
   final String endLat;
   final String endLong;
   final String? expectedTime;

@@ -28,6 +28,13 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  late bool _passwordVisible;
+
+  @override
+  void initState() {
+    _passwordVisible = false;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     RPadding.all4(
                       child: Lottie.asset(
                         Assets.login,
-                        width: 400.w,
+                        width: 250.w,
                       ),
                     ),
                     const SizedBox(
@@ -75,11 +82,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                 const SizedBox(
                                   height: 1.0,
                                 ),
-                                TextField(
+                                TextFormField(
                                   controller: email,
                                   keyboardType: TextInputType.emailAddress,
                                   decoration: const InputDecoration(
-                                    labelText: "الايميل",
+                                    labelText: "الحساب",
                                     labelStyle: TextStyle(
                                       fontSize: 14.0,
                                     ),
@@ -89,14 +96,23 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                   ),
                                   style: const TextStyle(fontSize: 14.0),
+                                  validator: (value) {
+                                    if (value?.isEmpty ?? true) {
+                                      return 'الرجاء إدخال الحساب';
+                                    }
+                                    return null;
+                                  },
                                 ),
                                 const SizedBox(
                                   height: 1.0,
                                 ),
-                                TextField(
+                                TextFormField(
                                   controller: password,
-                                  obscureText: true,
-                                  decoration: const InputDecoration(
+                                  obscureText: !_passwordVisible,
+                                  //This will obscure text dynamically
+                                  enableSuggestions: false,
+                                  autocorrect: false,
+                                  decoration: InputDecoration(
                                     labelText: "كلمة المرور ",
                                     labelStyle: TextStyle(
                                       fontSize: 14.0,
@@ -105,8 +121,31 @@ class _LoginScreenState extends State<LoginScreen> {
                                       color: Colors.grey,
                                       fontSize: 10.0,
                                     ),
+                                    suffixIcon: IconButton(
+                                      icon: Icon(
+                                        // Based on passwordVisible state choose the icon
+                                        _passwordVisible
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                        color:
+                                            Theme.of(context).primaryColorDark,
+                                      ),
+                                      onPressed: () {
+                                        // Update the state i.e. toogle the state of passwordVisible variable
+                                        setState(() {
+                                          _passwordVisible = !_passwordVisible;
+                                        });
+                                      },
+                                    ),
                                   ),
+
                                   style: const TextStyle(fontSize: 14.0),
+                                  validator: (value) {
+                                    if (value?.isEmpty ?? true) {
+                                      return 'الرجاء إدخال كلمة المرور';
+                                    }
+                                    return null;
+                                  },
                                 ),
                                 const SizedBox(
                                   height: 60.0,

@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,7 @@ import '../../../../../libraries/el_widgets/widgets/responsive_padding.dart';
 import '../../../../../libraries/el_widgets/widgets/responsive_sized_box.dart';
 import '../../../common/config/theme/colors.dart';
 import '../../../common/widgets/drawer_header.dart';
+import '../../../main.dart';
 import '../manager/container.dart';
 import '../pages/about_app/about_app_page.dart';
 import '../pages/orders_history/order_history_page.dart';
@@ -80,7 +82,9 @@ class MapDrawer extends StatelessWidget {
                         title: 'تسجيل الخروج',
                         leadingText: const Text(''),
                         onTap: () {
+                          si<SStorage>().clearAll();
                           Navigator.of(context).pop();
+
                           FirebaseAuth.instance.signOut();
                           Navigator.pushNamedAndRemoveUntil(
                               context, LoginScreen.idScreen, (route) => false);

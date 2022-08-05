@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:core/core.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_it/get_it.dart';
@@ -15,6 +16,7 @@ import 'package:rider/features/presentation/pages/sgin_up/registeration_screen.d
 import '_injections.dart';
 import 'common/config/theme/theme.dart';
 import 'common/utils/signal_r.dart';
+import 'features/presentation/pages/map/map_trip_live/providers/map_live_provider.dart';
 import 'features/presentation/pages/map/map_trip_product/provider/map_trip_provider.dart';
 import 'libraries/flutter_screenutil/flutter_screenutil.dart';
 
@@ -40,8 +42,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => si<RiderBloc>(),
-      child: ChangeNotifierProvider(
-        create: (BuildContext context) => si<MapTripProvider>(),
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => si<MapTripProvider>(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => si<MapLiveProvider>(),
+          )
+        ],
         child: ScreenUtilInit(builder: () {
           return GetMaterialApp(
             title: 'Taxi rider App',
@@ -51,6 +60,15 @@ class MyApp extends StatelessWidget {
               child = botToastBuilder(context, child);
               return child;
             },
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('ar', ''), // English, no country code
+              Locale('en', ''), // Hebrew, no country code
+            ],
             navigatorObservers: [BotToastNavigatorObserver()],
             initialRoute:
                 si<SStorage>().get(key: kAccessToken, type: ValueType.string) ==

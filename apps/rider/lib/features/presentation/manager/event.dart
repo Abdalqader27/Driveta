@@ -51,4 +51,23 @@ class LoginEvent extends RiderEvent {
   });
 }
 
-class SignUPEvent extends RiderEvent {}
+class SignUPEvent extends RiderEvent {
+  final String email;
+  final String password;
+  final String name;
+  final String phoneNumber;
+  final String userName;
+  final int sexType;
+  final String dob;
+  final String bloodType;
+
+  SignUPEvent(
+      {required this.email,
+      required this.password,
+      required this.name,
+      required this.phoneNumber,
+      required this.userName,
+      required this.sexType,
+      required this.dob,
+      required this.bloodType});
+}

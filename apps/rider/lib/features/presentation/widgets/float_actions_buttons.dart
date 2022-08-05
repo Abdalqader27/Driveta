@@ -85,7 +85,6 @@ class MapFloatActionsButton extends StatelessWidget {
                       elevation: 0,
                       backgroundColor: kPRIMARY,
                       mini: true,
-                      heroTag: 'Location3',
                       onPressed: null,
                       tooltip: ' الموقع ',
                       child: Icon(

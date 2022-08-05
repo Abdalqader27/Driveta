@@ -61,7 +61,7 @@ dependencies:
   sealed_unions: ^3.0.3+1
   equatable: ^2.0.3
   get_it: ^7.2.0
-
+  dob_input_field: ^1.0.0
   get_storage:
   dots_indicator: ^2.0.0
   connectivity_plus: ^2.3.3
@@ -85,7 +85,7 @@ dependencies:
   google_place: ^0.4.3
   about: ^2.1.0
   flutter_animarker: ^3.2.0
-
+#  smart_select: ^4.3.2
   sliding_up_panel: ^2.0.0+1
   signalr_netcore: ^1.3.1
   logging: ^1.0.2
@@ -98,7 +98,7 @@ dependencies:
   network:
     path: packages/network
   moor: ^4.4.0
-
+#  search_choices: ^2.1.1
   flutter_cart: ^0.0.7
   modal_bottom_sheet: ^2.0.1
   image_picker: ^0.8.4+11

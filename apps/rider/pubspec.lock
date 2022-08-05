@@ -407,6 +407,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.6"
+  dob_input_field:
+    dependency: "direct main"
+    description:
+      name: dob_input_field
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   dots_indicator:
     dependency: "direct main"
     description:
