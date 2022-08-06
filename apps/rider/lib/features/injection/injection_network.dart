@@ -2,16 +2,13 @@ import 'dart:developer';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:core/core.dart';
 import 'package:dio/dio.dart';
-import 'package:dio_refresh_bot/dio_refresh_bot.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:network/network.dart';
 import 'package:retry_bot/retry_bot.dart';
 
 import '../../common/utils/connectivity.dart';
 import '../../common/utils/signal_r_new.dart';
-import '../../common/utils/storage/token_imp.dart';
 import '../../main.dart';
 
 ///
@@ -52,26 +49,7 @@ class NetworkInjection {
         },
       ),
     );
-    si.registerLazySingleton<RefreshBotMixin>(() => TokenStorageImpl());
 
-    si.registerLazySingleton(
-      () => RefreshTokenInterceptor<AuthToken>(
-        dio: si<Dio>(),
-        tokenStorage: si<RefreshBotMixin>(),
-        refreshToken: (token, tokenDio) async {
-          return AuthToken(
-            accessToken: si<SStorage>().get(
-              key: kAccessToken,
-              type: ValueType.string,
-            ),
-            refreshToken: si<SStorage>().get(
-              key: kRefreshToken,
-              type: ValueType.string,
-            ),
-          );
-        },
-      ),
-    );
     si.registerLazySingleton(() {
       return SHttpClient(
         dio: si<Dio>(),

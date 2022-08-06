@@ -22,7 +22,7 @@ import 'libraries/flutter_screenutil/flutter_screenutil.dart';
 
 final si = GetIt.instance;
 final appDatabase = AppDatabase();
-
+late BuildContext ctx;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -40,6 +40,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ctx = context;
     return BlocProvider(
       create: (context) => si<RiderBloc>(),
       child: MultiProvider(

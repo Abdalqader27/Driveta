@@ -218,7 +218,7 @@ class SHttpClient {
             // for Dio.
             throw AppNetworkSResponseException(exception: exception);
           }
-          throw 'حدث خطأ ما';
+          throw response;
           throw mapper?.call(response, exception) ??
               exceptionMapper?.call(response, exception) ??
               '';

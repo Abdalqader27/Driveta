@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:location/location.dart';
 
 import '../../../../../common/widgets/custom_button.dart';
-import '../../../../../common/widgets/progress-Indicator.dart';
 
 class LocationGrantedWidget extends StatefulWidget {
   const LocationGrantedWidget({Key? key, required this.builder})
@@ -22,7 +21,7 @@ class _LocationGrantedWidgetState extends State<LocationGrantedWidget> {
         stream: Location.instance.hasPermission().asStream(),
         builder: (_, hasPermission) {
           if (hasPermission.data == null) {
-            return const ProgressIndicatorLoading();
+            return const CircularProgressIndicator();
           } else {
             if (hasPermission.data != PermissionStatus.granted) {
               return noLocationWidget(context: context);
@@ -31,7 +30,7 @@ class _LocationGrantedWidgetState extends State<LocationGrantedWidget> {
                 stream: Location.instance.requestPermission().asStream(),
                 builder: (_, requestPermission) {
                   if (requestPermission.data == null) {
-                    return const ProgressIndicatorLoading();
+                    return const CircularProgressIndicator();
                   } else {
                     if (requestPermission.data != PermissionStatus.granted) {
                       return noLocationWidget(context: context);
@@ -42,7 +41,7 @@ class _LocationGrantedWidgetState extends State<LocationGrantedWidget> {
                           if (loc.hasData) if (loc.data == null) {
                             return noLocationWidget(context: context);
                           } else {
-                            const ProgressIndicatorLoading();
+                            const CircularProgressIndicator();
                           }
                           if (loc.data != null &&
                               loc.data!.latitude != null &&
@@ -53,7 +52,7 @@ class _LocationGrantedWidgetState extends State<LocationGrantedWidget> {
                               builder: widget.builder,
                             );
                           }
-                          return const ProgressIndicatorLoading();
+                          return const CircularProgressIndicator();
                         });
                   }
                 });

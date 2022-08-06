@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
-import '../../../../../../common/widgets/progress-Indicator.dart';
 import '../../../../../../libraries/el_widgets/widgets/responsive_padding.dart';
 import '../bloc/map_source/map_source.dart';
 
@@ -48,7 +47,7 @@ class SearchBarMap extends StatelessWidget {
                       hideOnError: true,
                       direction: AxisDirection.down,
                       hideOnLoading: true,
-                      loadingBuilder: (_) => const ProgressIndicatorLoading(),
+                      loadingBuilder: (_) => const CircularProgressIndicator(),
                       textFieldConfiguration: TextFieldConfiguration(
                           controller: typeAheadController,
                           decoration: InputDecoration(

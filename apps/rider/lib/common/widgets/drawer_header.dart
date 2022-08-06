@@ -30,13 +30,21 @@ class DrawerHeaderClipper extends StatelessWidget {
                     .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
               ),
               subtitle: Text(
-                "رصيدك : ${data.balance}  ",
+                "",
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
                     .caption!
                     .copyWith(color: Colors.white),
               ),
+              // subtitle: Text(
+              //   "رصيدك : ${data.balance}  ",
+              //   textAlign: TextAlign.center,
+              //   style: Theme.of(context)
+              //       .textTheme
+              //       .caption!
+              //       .copyWith(color: Colors.white),
+              // ),
               trailing: const Icon(
                 Icons.arrow_forward_ios,
                 color: Colors.white,

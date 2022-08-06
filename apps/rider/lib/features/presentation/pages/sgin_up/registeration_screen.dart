@@ -239,8 +239,8 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
 
                                     if (datePick != null) {
                                       setState(() {
-                                        dob.text =
-                                            "${datePick.month}/${datePick.day}/${datePick.year}";
+                                        dob.text = datePick.toIso8601String();
+                                        // "${datePick.month}/${datePick.day}/${datePick.year}";
                                         // put it here
                                       });
                                     }
@@ -422,5 +422,5 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
 }
 
 displayToastMessage(String? message, BuildContext context) {
-  BotToast.showText(text: message ?? '');
+  BotToast.showText(text: message ?? '', duration: Duration(seconds: 10));
 }

@@ -1,5 +1,6 @@
 import 'package:design/design.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../../common/config/theme/colors.dart';
 import '../../../../../../generated/assets.dart';
@@ -133,6 +134,9 @@ class TitleAppBar extends StatelessWidget {
                         ],
                       ),
                       onPressed: () {
+                        launchUrlString(
+                            'tel:00${driverPhone.replaceAll(' ', '')}');
+
                         if (onPhoneTap != null) {
                           onPhoneTap!();
                         }

@@ -37,6 +37,10 @@ class _OrderBookScreenDetailsState extends State<OrderBookScreenDetails> {
 
   @override
   Widget build(BuildContext context) {
+    print("StartLat ${widget.delivers.startLat}");
+    print("StartLong ${widget.delivers.startLong}");
+    print("EndLat ${widget.delivers.endLat}");
+    print("EndLong ${widget.delivers.endLat}");
     return SafeArea(
       child: Scaffold(
         body: Column(

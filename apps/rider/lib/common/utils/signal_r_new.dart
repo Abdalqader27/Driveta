@@ -90,13 +90,13 @@ class SignalRService {
     connections[hubUrl]!.on(methodName, method);
   }
 
-  void invoke({
+  Future invoke({
     required String hubUrl,
     required String methodName,
     required List<Object>? args,
-  }) {
+  }) async {
     _assertHubIsBuilt(hubUrl);
-    connections[hubUrl]!.invoke(methodName, args: args);
+    return await connections[hubUrl]!.invoke(methodName, args: args);
   }
 
   void off({

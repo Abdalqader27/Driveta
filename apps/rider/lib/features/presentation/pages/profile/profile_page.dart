@@ -1,14 +1,9 @@
-import 'dart:convert';
-
 import 'package:design/design.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:rider/common/config/theme/colors.dart';
 
 import '../../../../generated/assets.dart';
 import '../../../data/models/user.dart';
-import 'favourite.dart';
 
 class Profile extends StatefulWidget {
   final User user;
@@ -60,13 +55,13 @@ class _ProfileState extends State<Profile> {
                     const SizedBox(
                       height: 10.0,
                     ),
-                    Text(
-                      "رصيدك : ${widget.user.balance}  ",
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 25.0,
-                      ),
-                    )
+                    // Text(
+                    //   "رصيدك : ${widget.user.balance}  ",
+                    //   style: const TextStyle(
+                    //     color: Colors.white,
+                    //     fontSize: 25.0,
+                    //   ),
+                    // )
                   ]),
                 ),
               ),
@@ -123,7 +118,7 @@ class _ProfileState extends State<Profile> {
                                             Directionality(
                                               textDirection: TextDirection.ltr,
                                               child: Text(
-                                                "${(json.decode(widget.user.phoneNumber!) as Map)['formatInternational']}",
+                                                "${((widget.user.phoneNumber!))}",
                                                 style: TextStyle(
                                                   fontSize: 12.0,
                                                   color: Colors.grey[400],
@@ -242,27 +237,27 @@ class _ProfileState extends State<Profile> {
                         )
                       ],
                     )),
-                    GestureDetector(
-                      onTap: () => Get.to(() => FavouritePage()),
-                      child: Container(
-                        child: Column(children: [
-                          Text(
-                            'المفضلة ',
-                            style: TextStyle(
-                                color: Colors.grey[400], fontSize: 14.0),
-                          ),
-                          const SizedBox(
-                            height: 5.0,
-                          ),
-                          const Text(
-                            '3',
-                            style: TextStyle(
-                              fontSize: 15.0,
-                            ),
-                          )
-                        ]),
-                      ),
-                    ),
+                    // GestureDetector(
+                    //   onTap: () => Get.to(() => FavouritePage()),
+                    //   child: Container(
+                    //     child: Column(children: [
+                    //       Text(
+                    //         'المفضلة ',
+                    //         style: TextStyle(
+                    //             color: Colors.grey[400], fontSize: 14.0),
+                    //       ),
+                    //       const SizedBox(
+                    //         height: 5.0,
+                    //       ),
+                    //       const Text(
+                    //         '3',
+                    //         style: TextStyle(
+                    //           fontSize: 15.0,
+                    //         ),
+                    //       )
+                    //     ]),
+                    //   ),
+                    // ),
                   ],
                 ),
               ))),

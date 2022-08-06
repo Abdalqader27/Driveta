@@ -84,7 +84,7 @@ class SignalRDriver {
     }
   }
 
-  Future<void> sendLocation({LatLng? point}) async {
+  Future<void> sendLocation({LatLng? point, double angel = 0}) async {
     print('HubConnectionState.Connected is ${_hubConnection!.state}');
     print("SendLocation is fired ");
     try {
@@ -95,7 +95,11 @@ class SignalRDriver {
       if (point != null) {
         _hubConnection!.invoke(
           "SendLocation",
-          args: <Object>[point.longitude.toString(), point.latitude.toString()],
+          args: <Object>[
+            point.longitude.toString(),
+            point.latitude.toString(),
+            angel.toString()
+          ],
         );
         print("SendLocation is sending data $point ");
 
@@ -107,7 +111,7 @@ class SignalRDriver {
   }
 
   // done
-  Future<void> sendLocationProduct({LatLng? point}) async {
+  Future<void> sendLocationProduct({LatLng? point, double angel = 0}) async {
     print('HubConnectionState.Connected is ${_hubConnection!.state}');
     print("SendLocation Product is fired ");
     try {
@@ -118,7 +122,11 @@ class SignalRDriver {
       if (point != null) {
         _hubConnection!.invoke(
           "SendLocationProduct",
-          args: <Object>[point.longitude.toString(), point.latitude.toString()],
+          args: <Object>[
+            point.longitude.toString(),
+            point.latitude.toString(),
+            angel.toString()
+          ],
         );
         print("SendLocationProduct is sending data $point ");
 

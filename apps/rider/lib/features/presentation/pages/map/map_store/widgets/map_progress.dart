@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../common/widgets/progress-Indicator.dart';
 import '../../../../../../libraries/el_widgets/el_widgets.dart';
 
 class ProgressMap extends StatelessWidget {
@@ -26,7 +25,7 @@ class ProgressMap extends StatelessWidget {
                   padding: EdgeInsets.all(10.0),
                   child: SizedBox(
                     width: (100),
-                    child: Center(child: ProgressIndicatorLoading()),
+                    child: Center(child: CircularProgressIndicator()),
                   ),
                 ),
                 RPadding(

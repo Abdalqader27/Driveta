@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:rider/features/presentation/pages/map/map_trip_live/providers/map_live_provider.dart';
 
 import '../../../../../../common/utils/google_api_key.dart';
+import '../../../../../main.dart';
 import '../map_trip_product/widgets/map_body_container.dart';
 import '../map_trip_product/widgets/title_app_bar.dart';
 import 'widget/location_granted_widget.dart';
@@ -22,6 +23,8 @@ class _MapTripLiveState extends State<MapTripLive>
     with WidgetsBindingObserver, GoogleApiKey {
   @override
   Widget build(BuildContext context) {
+    ctx = context;
+
     return Scaffold(
       body: LocationGrantedWidget(
           builder: (BuildContext context, locationData, Widget? child) {

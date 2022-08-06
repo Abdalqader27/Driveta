@@ -1,10 +1,10 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:design/design.dart';
 import 'package:dotted_line/dotted_line.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:rider/features/data/models/delivers_product.dart';
 import 'package:rider/features/presentation/pages/orders_history/widget/header_item.dart';
 

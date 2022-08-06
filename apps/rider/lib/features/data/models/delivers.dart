@@ -56,4 +56,34 @@ class Delivers {
         "pickUp": pickUp,
         "dropOff": dropOff,
       };
+
+  // give me copy with
+  Delivers copyWith({
+    String? id,
+    String? startLat,
+    String? startLong,
+    dynamic startDate,
+    String? endLat,
+    String? endLong,
+    String? expectedTime,
+    int? distance,
+    int? vehicleType,
+    int? price,
+    String? pickUp,
+    String? dropOff,
+  }) =>
+      Delivers(
+        id: id ?? this.id,
+        startLat: startLat ?? this.startLat,
+        startLong: startLong ?? this.startLong,
+        startDate: startDate ?? this.startDate,
+        endLat: endLat ?? this.endLat,
+        endLong: endLong ?? this.endLong,
+        expectedTime: expectedTime ?? this.expectedTime,
+        distance: distance ?? this.distance,
+        vehicleType: vehicleType ?? this.vehicleType,
+        price: price ?? this.price,
+        pickUp: pickUp ?? this.pickUp,
+        dropOff: dropOff ?? this.dropOff,
+      );
 }

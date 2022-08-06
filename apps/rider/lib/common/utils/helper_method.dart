@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:either_dart/either.dart';
 import 'package:network/network.dart';
 
@@ -45,20 +44,20 @@ Future<ApiResult<T>> fetchApiResult<T>({
   } else {
     return ApiResult.failure(
         error: SResponseException(
-      message: 'Please check your internet connection and try again'.tr(),
-      error: 'No Internet'.tr(),
+      message: 'Please check your internet connection and try again',
+      error: 'No Internet',
       exception: Exception(),
     ));
   }
 }
 
-Future<Either<String, T>> fetch<T>({
+Future<Either<dynamic, T>> fetch<T>({
   required Future<T> Function() call,
 }) async {
   try {
     final result = await call();
     return Right(result);
   } catch (e) {
-    return const Left('error happened');
+    return Left(e);
   }
 }

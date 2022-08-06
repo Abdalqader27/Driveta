@@ -86,30 +86,43 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
             Expanded(
               child: Stack(
                 children: [
-                  Animarker(
-                      curve: Curves.linear,
-                      useRotation: true,
-                      shouldAnimateCamera: false,
-                      angleThreshold: 0,
-                      zoom: 20,
-                      rippleColor: kPRIMARY,
-                      rippleRadius: 0.8,
-                      markers: _markers.values.toSet(),
-                      mapId: _controllerGoogleMap.future
-                          .then<int>((value) => value.mapId),
-                      child: GoogleMap(
-                        mapType: MapType.normal,
-                        padding: const EdgeInsets.only(top: 30),
-                        buildingsEnabled: true,
-                        myLocationEnabled: false,
-                        // markers: _markers.values.toSet(),
-                        initialCameraPosition: MapDriverScreen._kGooglePlex,
-                        onMapCreated: (GoogleMapController controller) {
-                          _controllerGoogleMap.complete(controller);
-                          newGoogleMapController = controller;
-                          locatePosition();
-                        },
-                      )),
+                  GoogleMap(
+                    mapType: MapType.normal,
+                    padding: const EdgeInsets.only(top: 30),
+                    buildingsEnabled: true,
+                    myLocationEnabled: false,
+                    markers: _markers.values.toSet(),
+                    initialCameraPosition: MapDriverScreen._kGooglePlex,
+                    onMapCreated: (GoogleMapController controller) {
+                      _controllerGoogleMap.complete(controller);
+                      newGoogleMapController = controller;
+                      locatePosition();
+                    },
+                  ),
+                  // Animarker(
+                  //     curve: Curves.linear,
+                  //     useRotation: true,
+                  //     shouldAnimateCamera: false,
+                  //     angleThreshold: 0,
+                  //     zoom: 20,
+                  //     rippleColor: kPRIMARY,
+                  //     rippleRadius: 0.8,
+                  //     markers: _markers.values.toSet(),
+                  //     mapId: _controllerGoogleMap.future
+                  //         .then<int>((value) => value.mapId),
+                  //     child: GoogleMap(
+                  //       mapType: MapType.normal,
+                  //       padding: const EdgeInsets.only(top: 30),
+                  //       buildingsEnabled: true,
+                  //       myLocationEnabled: false,
+                  //       // markers: _markers.values.toSet(),
+                  //       initialCameraPosition: MapDriverScreen._kGooglePlex,
+                  //       onMapCreated: (GoogleMapController controller) {
+                  //         _controllerGoogleMap.complete(controller);
+                  //         newGoogleMapController = controller;
+                  //         locatePosition();
+                  //       },
+                  //  )),
                   const MapPanelWidget(),
                 ],
               ),
@@ -185,10 +198,14 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
 
     LatLng latLatPosition = LatLng(position.latitude, position.longitude);
 
-    CameraPosition cameraPosition =
-        CameraPosition(target: latLatPosition, zoom: 18);
-    newGoogleMapController
-        .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+    CameraPosition cameraPosition = CameraPosition(
+      target: latLatPosition,
+      zoom: 19,
+      bearing: position.heading,
+    );
+    newGoogleMapController.animateCamera(CameraUpdate.newCameraPosition(
+      cameraPosition,
+    ));
     final markerConfig = kDriverMarker(latLatPosition);
     final Marker marker = await _marker(
       markerId: markerConfig.markerId,
@@ -206,29 +223,36 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
     await SignalRDriver().sendLocation(
-        point: LatLng(position.latitude, position.longitude));
+      point: LatLng(position.latitude, position.longitude),
+      angel: position.heading,
+    );
     await SignalRDriver().sendLocationProduct(
-        point: LatLng(position.latitude, position.longitude));
+      point: LatLng(position.latitude, position.longitude),
+      angel: position.heading,
+    );
   }
 
   Future<void> getLocationLiveUpdates() async {
     Geolocator.getPositionStream().listen((Position currentLocation) async {
       if (SignalRDriver.connectionIsOpen == true) {
         print(
-            "latlang:${LatLng(currentLocation.latitude, currentLocation.longitude!)}");
+            "latlang:${LatLng(currentLocation.latitude, currentLocation.longitude)}");
 
         await SignalRDriver().sendLocation(
-            point:
-                LatLng(currentLocation.latitude, currentLocation.longitude));
+            point: LatLng(currentLocation.latitude, currentLocation.longitude),
+            angel: currentLocation.heading);
 
         await SignalRDriver().sendLocationProduct(
-            point:
-                LatLng(currentLocation.latitude, currentLocation.longitude));
+            point: LatLng(
+              currentLocation.latitude,
+              currentLocation.longitude,
+            ),
+            angel: currentLocation.heading);
         LatLng latLng =
             LatLng(currentLocation.latitude, currentLocation.longitude);
         CameraPosition cameraPosition = CameraPosition(
           target: latLng,
-          // bearing: currentLocation.heading!,
+          bearing: currentLocation.heading,
           zoom: 18,
         );
         newGoogleMapController.animateCamera(CameraUpdate.newCameraPosition(

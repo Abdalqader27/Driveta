@@ -63,7 +63,7 @@ class RiderBloc extends SMixinBloc<RiderEvent, RiderState> {
         return _state;
       },
       failure: (dynamic error) {
-        BotToast.showText(text: 'لقد حدث خطأ ما');
+        BotToast.showText(text: '$error');
         _state = _state.copyWith(loginState: const SBlocState.init());
         return _state;
       },
@@ -91,10 +91,14 @@ class RiderBloc extends SMixinBloc<RiderEvent, RiderState> {
         Navigator.pushNamedAndRemoveUntil(
             event.context, MainScreen.idScreen, (route) => false);
         displayToastMessage("انت مسجل دخول الان", event.context);
+
+        // displayToastMessage(
+        //     "سوف يتم ارسال رسالة الى هاتفك توكد عملية التفعيل الحساب",
+        //     event.context);
         return _state;
       },
       failure: (dynamic error) {
-        BotToast.showText(text: 'لقد حدث خطأ ما');
+        BotToast.showText(text: '$error');
         _state = _state.copyWith(signUpState: const SBlocState.init());
         return _state;
       },

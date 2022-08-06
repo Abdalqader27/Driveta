@@ -30,7 +30,7 @@ class MapLiveProvider extends ChangeNotifier with GoogleApiKey {
   String? _selectedDriverId;
 
   GoogleMapController? _mapController;
-  final Completer<GoogleMapController> _controllerGoogleMap = Completer();
+  Completer<GoogleMapController> _controllerGoogleMap = Completer();
 
   GoogleMapController? get mapController => _mapController;
 
@@ -103,7 +103,7 @@ class MapLiveProvider extends ChangeNotifier with GoogleApiKey {
     );
     if (driver.id == _selectedDriverId) {
       if (driver.lat != null && driver.long != null) {
-        addMarker(kDriverMarker(point));
+        addMarker(kDriverMarker2(point));
         animateCameraTarget(point);
       }
     }
@@ -221,14 +221,14 @@ class MapLiveProvider extends ChangeNotifier with GoogleApiKey {
   void reset() {
     _markers.clear();
     _polyLines.clear();
-    _drivers.clear();
+    // _drivers.clear();
     _polylineCoordinates.clear();
     _polylinePoints = PolylinePoints();
     _stateTripProduct = StateTripProduct();
     _directionDetails = DirectionDetails();
     _selectedDriverId = null;
     _deliver = null;
-
+    _controllerGoogleMap = Completer();
     notifyListeners();
   }
 

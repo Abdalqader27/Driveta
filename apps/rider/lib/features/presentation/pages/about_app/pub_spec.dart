@@ -8,7 +8,7 @@ class Pubspec {
   static const name = 'Driveta';
 
   static const description =
-      'اكتشف عالم تنجز فيه كل احتياجاتك اليومية على تطبيق واحد! احجز مشوارك، اطلب طعامك من أي مطعم، تسوق من أي متجر واشحن رصيد هاتفك.. كل هذا بطرق دفع اونلاين تناسبك';
+      'اكتشف عالم تنجز فيه كل احتياجاتك اليومية على تطبيق واحد! احجز مشوارك، اطلب طعامك من أي مطعم، تسوق من أي متجر واشحن رصيد هاتفك.. ';
 
   static const versionFull = '1.0.0';
 
@@ -73,7 +73,7 @@ class Pubspec {
   };
 
   static const authors = <String>[
-    'Abd Alqader Alnajjar - Mohmmad Abudan - Abd Alaziz Sharour ',
+    'Abd Alqader Alnajjar \n Mohmmad Abudan \n Abd Alaziz Sharour \n',
   ];
 
   static const authorsName = <String>[

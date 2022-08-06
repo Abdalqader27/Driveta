@@ -51,6 +51,7 @@ class Assets {
   static const String login = 'assets/lottie/login.json';
   static const String lottieErorr = 'assets/lottie/erorr.json';
   static const String lottieNewLoader = 'assets/lottie/new_loader.json';
+  static const String lottieEmpty = 'assets/lottie/empty.json';
   static const String lottieSearch = 'assets/lottie/search.json';
   static const String lottieTeam = 'assets/lottie/team.json';
   static const String newUser = 'assets/lottie/new_user.json';

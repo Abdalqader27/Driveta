@@ -12,7 +12,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:lottie/lottie.dart' hide Marker;
 import 'package:rider/common/assistants/assistantMethods.dart';
 import 'package:rider/common/config/theme/colors.dart';
-import 'package:rider/configMaps.dart';
 import 'package:rider/features/data/models/delivers.dart';
 import 'package:rider/features/presentation/pages/map/map_store/map_store_screen.dart';
 import 'package:rider/features/presentation/widgets/noDriverAvailableDialog.dart';
@@ -96,6 +95,7 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   zoom: 20,
                   rippleColor: kPRIMARY,
                   rippleRadius: 0.8,
+                  markers: Set.of(marker.data?.values ?? {}),
                   mapId: _controllerGoogleMap.future
                       .then<int>((value) => value.mapId),
                   child: GoogleMap(
@@ -109,7 +109,6 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                     polylines: Set.of(polyline.data?.values ?? {}),
                     onCameraIdle: _onCameraIdle,
                     onCameraMove: _onCameraMove,
-                    markers: Set.of(marker.data?.values ?? {}),
                     onMapCreated: (GoogleMapController controller) async {
                       _controllerGoogleMap.complete(controller);
                       newGoogleMapController = controller;
@@ -191,8 +190,6 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
               goToLocation(si<MapState>().pinData.destinationPoint);
             },
             locationTap: () async {
-              // await SignalRRider().openConnection();
-              // Get.to(() => MapTripProduct());
               goToLocation(LatLng(currentPosition?.latitude ?? 0,
                   currentPosition?.longitude ?? 0));
             },
@@ -363,7 +360,10 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
         pickUp: si<MapState>().pinData.pickUpAddress,
         dropOff: si<MapState>().pinData.dropOffAddress);
     si<MapLiveProvider>().setDeliver = delivery;
-    await SignalRRider().addDelivery(deliver: delivery);
+    final data = await SignalRRider().addDelivery(deliver: delivery);
+    delivery = delivery.copyWith(id: data);
+    si<MapLiveProvider>().setDeliver = delivery;
+    print("Add DeliveryData $data");
     BotToast.closeAllLoading();
     print("addDelivery \n${json.encode({
           "pickUp": si<MapState>().pinData.pickUpAddress,
@@ -505,9 +505,7 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       if (details == null) {
         return;
       }
-      setState(() {
-        rideStatus = "Driver is Coming - " + "${details.durationText}";
-      });
+      setState(() {});
 
       isRequestingPositionDetails = false;
     }
@@ -525,9 +523,7 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       if (details == null) {
         return;
       }
-      setState(() {
-        rideStatus = "Going to Destination - " "${details.durationText}";
-      });
+      setState(() {});
 
       isRequestingPositionDetails = false;
     }
@@ -568,6 +564,7 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
       driverDetailsContainerHeight = 0.0;
     });
+
     locatePosition();
   }
 

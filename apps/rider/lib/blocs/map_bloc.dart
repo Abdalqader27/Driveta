@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_animarker/core/ripple_marker.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rider/features/presentation/pages/map/main_screen/mainscreen.dart';
@@ -31,7 +32,7 @@ class MapBloc extends RxMap with MapInterface, GoogleApiKey {
   }
 
   @override
-  Future<void> setMarker(MarkerConfig markerConfig) async {
+  Future<void> setMarker(MarkerConfig markerConfig, {int type = 0}) async {
     final Marker marker = await _marker(
       markerId: markerConfig.markerId,
       pinPath: markerConfig.pinPath,
@@ -125,7 +126,22 @@ class MapBloc extends RxMap with MapInterface, GoogleApiKey {
       required LatLng point,
       String? pinPath,
       required String title,
-      required String snippet}) async {
+      required String snippet,
+      int type = 0}) async {
+    if (type == 1) {
+      return RippleMarker(
+        ripple: true,
+        icon: pinPath == null
+            ? BitmapDescriptor.defaultMarker
+            : await BitmapDescriptor.fromAssetImage(
+                const ImageConfiguration(size: Size(78, 78)),
+                pinPath,
+              ),
+        markerId: markerId,
+        position: point,
+        infoWindow: InfoWindow(title: title, snippet: snippet),
+      );
+    }
     return Marker(
       icon: pinPath == null
           ? BitmapDescriptor.defaultMarker

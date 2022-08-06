@@ -6,7 +6,6 @@ import 'package:location/location.dart';
 import 'package:rider/features/presentation/pages/map/map_store/widgets/button_map.dart';
 import 'package:rider/features/presentation/pages/map/map_store/widgets/search_bar.dart';
 
-import '../../../../../common/widgets/progress-Indicator.dart';
 import 'bloc/map_source/map_source.dart';
 
 GoogleMapController? mapStoreController;
@@ -101,7 +100,7 @@ class MapImplement {
           child: SizedBox(
             width: 25,
             height: 25,
-            child: ProgressIndicatorLoading(),
+            child: CircularProgressIndicator(),
           ),
         );
       });

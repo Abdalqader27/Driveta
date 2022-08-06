@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rider/common/widgets/circle_button.dart';
 import 'package:rider/libraries/flutter_screenutil/flutter_screenutil.dart';
 
 import '../../generated/assets.dart';
 import '../../libraries/el_widgets/widgets/material_text.dart';
 import '../../libraries/el_widgets/widgets/responsive_padding.dart';
-import 'circle_button.dart';
 import 'painter/app_bar_shape.dart';
 
 class RoundedAppBar extends StatelessWidget {
