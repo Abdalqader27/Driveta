@@ -98,7 +98,7 @@ dependencies:
   network:
     path: packages/network
   moor: ^4.4.0
-#  search_choices: ^2.1.1
+  search_choices: ^2.1.1
   flutter_cart: ^0.0.7
   modal_bottom_sheet: ^2.0.1
   image_picker: ^0.8.4+11

@@ -46,7 +46,6 @@ class MapFloatActionsButton extends StatelessWidget {
                         elevation: 0,
                         backgroundColor: kPRIMARY,
                         mini: true,
-                        heroTag: 'search23',
                         tooltip: ' البحث ',
                         onPressed: null,
                         child: Icon(
@@ -107,7 +106,6 @@ class MapFloatActionsButton extends StatelessWidget {
                         elevation: 0,
                         backgroundColor: kPRIMARY,
                         mini: true,
-                        heroTag: 'Directions3',
                         onPressed: null,
                         tooltip: ' الوجهة ',
                         child: Icon(

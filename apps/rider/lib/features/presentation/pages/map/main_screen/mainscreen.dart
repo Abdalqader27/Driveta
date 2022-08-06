@@ -145,14 +145,20 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                 ),
 
                 ///Ride Details Ui #2
-                ChoiceCarsWidget(
-                  height: rideDetailsContainerHeight,
-                  directionDetails: directionDetails,
-                  onTap: (carDetails) {
-                    directionDetails?.type = carDetails.item1;
-                    si<MapState>().pinData.directionDetails = directionDetails;
-                    displayRequestRideContainer(polyline, carDetails);
-                  },
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: ChoiceCarsWidget(
+                    height: rideDetailsContainerHeight,
+                    directionDetails: directionDetails,
+                    onTap: (carDetails) {
+                      directionDetails?.type = carDetails.item1;
+                      si<MapState>().pinData.directionDetails =
+                          directionDetails;
+                      displayRequestRideContainer(polyline, carDetails);
+                    },
+                  ),
                 ),
 
                 /// Searching on Driver #3
@@ -165,7 +171,7 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   child: Container(
                     height: MediaQuery.of(context).size.height,
                     width: MediaQuery.of(context).size.width,
-                    color: Color(0xffffffff).withOpacity(.9),
+                    color: const Color(0xffffffff).withOpacity(.9),
                     child: Lottie.asset(
                       'lotti_files/22770-hello-peep.json',
                       width: MediaQuery.of(context).size.width,
@@ -302,7 +308,6 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                 elevation: 0,
                 backgroundColor: kPRIMARY,
                 mini: true,
-                heroTag: 'search',
                 tooltip: ' البحث ',
                 onPressed: null,
                 child: Icon(
@@ -312,9 +317,7 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
               ),
             ),
           ),
-          SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           CupertinoButton(
             padding: EdgeInsets.zero,
             onPressed: () {
@@ -326,7 +329,6 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                 elevation: 0,
                 backgroundColor: kPRIMARY,
                 mini: true,
-                heroTag: 'search',
                 tooltip: ' المتاجر ',
                 onPressed: null,
                 child: Icon(

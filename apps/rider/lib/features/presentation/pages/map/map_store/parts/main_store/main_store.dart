@@ -1,8 +1,9 @@
 import 'package:design/design.dart';
 import 'package:dotted_line/dotted_line.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rider/generated/assets.dart';
 
-import '../../../../../../../common/config/theme/colors.dart';
 import '../../../../../../data/models/store.dart';
 import '../../../../../../injection/injection_network.dart';
 
@@ -24,8 +25,26 @@ class _StoreMainState extends State<StoreMain> {
       physics: const BouncingScrollPhysics(),
       children: [
         Card(
-          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: Image.network(kBase + widget.storeDetails.personalImage!),
+          margin: const EdgeInsets.symmetric(horizontal: 22, vertical: 10),
+          child: Image.network(
+            kBase + widget.storeDetails.personalImage!,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) => Center(
+              child: Column(
+                children: [
+                  SvgPicture.asset(
+                    Assets.iconsGroup3,
+                    height: 200,
+                    width: 200,
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('لاتوجد صورة'),
+                  )
+                ],
+              ),
+            ),
+          ),
         ),
         Card(
           margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
@@ -129,10 +148,10 @@ class _StoreMainState extends State<StoreMain> {
                     setState(() => {});
                   },
                 ),
-                Container(
-                  color: kPRIMARY.withOpacity(.2),
-                  height: 380,
-                ),
+                // Container(
+                //   color: kPRIMARY.withOpacity(.2),
+                //   height: 380,
+                // ),
               ],
             ),
           ),

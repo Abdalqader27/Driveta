@@ -154,6 +154,25 @@ class _StoreProductState extends State<StoreProduct> {
                   color: kPRIMARY,
                   padding: EdgeInsets.zero,
                   borderRadius: BorderRadius.circular(30.r),
+                  onPressed: productMap.keys
+                              .map((e) {
+                                return productMap[e]! *
+                                    double.parse(widget.storeDetails.products!
+                                        .firstWhere((element) {
+                                          return element.id == e;
+                                        })
+                                        .defaultPrice
+                                        .toString());
+                              })
+                              .toList()
+                              .fold(0, (num a, num b) => a + b) !=
+                          0.0
+                      ? () {
+                          Get.to(() => OrderDeliveryDetails(
+                              storeDetails: widget.storeDetails,
+                              productMap: productMap));
+                        }
+                      : null,
                   child: MaterialText.button(
                     'مراجعة الطلب',
                     style: Theme.of(context)
@@ -161,11 +180,6 @@ class _StoreProductState extends State<StoreProduct> {
                         .button!
                         .copyWith(color: Colors.white),
                   ),
-                  onPressed: () {
-                    Get.to(() => OrderDeliveryDetails(
-                        storeDetails: widget.storeDetails,
-                        productMap: productMap));
-                  },
                 )),
           ),
         ),

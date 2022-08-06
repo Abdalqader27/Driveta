@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 abstract class RiderEvent {}
 
@@ -52,22 +53,32 @@ class LoginEvent extends RiderEvent {
 }
 
 class SignUPEvent extends RiderEvent {
-  final String email;
-  final String password;
-  final String name;
-  final String phoneNumber;
-  final String userName;
-  final int sexType;
-  final String dob;
-  final String bloodType;
+  final BuildContext context;
+
+  final String? userName;
+  final String? name;
+  final String? phoneNumber;
+  final String? email;
+  final String? password;
+  final int? sexType;
+  final int? bloodType;
+  final String? dob;
+  final XFile? personalImageFile;
+  final XFile? idPhotoFile;
+  final XFile? drivingCertificateFile;
 
   SignUPEvent(
-      {required this.email,
-      required this.password,
-      required this.name,
-      required this.phoneNumber,
-      required this.userName,
-      required this.sexType,
-      required this.dob,
-      required this.bloodType});
+    this.context, {
+    this.userName,
+    this.name,
+    this.phoneNumber,
+    this.email,
+    this.password,
+    this.sexType,
+    this.bloodType,
+    this.dob,
+    this.personalImageFile,
+    this.idPhotoFile,
+    this.drivingCertificateFile,
+  });
 }

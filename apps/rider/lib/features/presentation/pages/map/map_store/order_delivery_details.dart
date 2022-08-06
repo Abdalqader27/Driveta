@@ -111,8 +111,8 @@ class _OrderDeliveryDetailsState extends State<OrderDeliveryDetails> {
                                                 return const Padding(
                                                   padding: EdgeInsets.all(28.0),
                                                   child: Center(
-                                                    child:
-                                                        CircularProgressIndicator(),
+                                                    child: Text(
+                                                        '....جاري التحميل'),
                                                   ),
                                                 );
                                               }
@@ -141,8 +141,8 @@ class _OrderDeliveryDetailsState extends State<OrderDeliveryDetails> {
                                                 return const Padding(
                                                   padding: EdgeInsets.all(28.0),
                                                   child: Center(
-                                                    child:
-                                                        CircularProgressIndicator(),
+                                                    child: Text(
+                                                        '....جاري التحميل'),
                                                   ),
                                                 );
                                               }
@@ -229,6 +229,8 @@ class _OrderDeliveryDetailsState extends State<OrderDeliveryDetails> {
                                                       horizontal: 10),
                                                   child: Text(
                                                     item.name,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .bodyText1!
@@ -338,10 +340,18 @@ class _OrderDeliveryDetailsState extends State<OrderDeliveryDetails> {
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyText1!
-                                        .copyWith(fontSize: 15.sp),
+                                        .copyWith(fontSize: 18.sp),
                                   ),
-                                  subtitle: Text(
-                                      "${data.price = (widget.productMap.keys.map((e) {
+                                  subtitle: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Icon(Icons.storefront),
+                                          SizedBox(width: 5),
+                                          Text("${(widget.productMap.keys.map((e) {
                                                 return widget.productMap[e]! *
                                                     double.parse(widget
                                                         .storeDetails.products!
@@ -351,12 +361,58 @@ class _OrderDeliveryDetailsState extends State<OrderDeliveryDetails> {
                                                         })
                                                         .defaultPrice
                                                         .toString());
-                                              }).toList().fold(0, (num a, num b) => a + b) + calcPrice(
+                                              }).toList().fold(0, (num a, num b) => a + b).toDouble())}"),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          data.carDetails != null &&
+                                                  data.carDetails!.item1 ==
+                                                      'دراجة'
+                                              ? Icon(Icons.delivery_dining)
+                                              : Icon(Icons.local_taxi_outlined),
+                                          SizedBox(width: 5),
+                                          Text("${calcPrice(
                                             start: data.carDetails?.item2 ?? 0,
                                             distance:
                                                 data.details?.distanceValue ??
                                                     0,
-                                          ))}"),
+                                          ).toDouble()}"),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      SizedBox(width: 80, child: DottedLine()),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        "${data.price = (widget.productMap.keys.map((e) {
+                                                  return widget.productMap[e]! *
+                                                      double.parse(widget
+                                                          .storeDetails
+                                                          .products!
+                                                          .firstWhere(
+                                                              (element) {
+                                                            return element.id ==
+                                                                e;
+                                                          })
+                                                          .defaultPrice
+                                                          .toString());
+                                                }).toList().fold(0, (num a, num b) => a + b) + calcPrice(
+                                              start:
+                                                  data.carDetails?.item2 ?? 0,
+                                              distance:
+                                                  data.details?.distanceValue ??
+                                                      0,
+                                            ))} ل.س",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 20),
+                                      ),
+                                    ],
+                                  ),
                                   trailing: SizedBox(
                                       width: 120,
                                       child: CupertinoButton(
@@ -364,6 +420,50 @@ class _OrderDeliveryDetailsState extends State<OrderDeliveryDetails> {
                                         padding: EdgeInsets.zero,
                                         borderRadius:
                                             BorderRadius.circular(30.r),
+                                        onPressed: data.carDetails == null
+                                            ? null
+                                            : () {
+                                                orderDeliveryTimer = Timer(
+                                                    const Duration(seconds: 30),
+                                                    () {
+                                                  BotToast.closeAllLoading();
+                                                  BotToast.showText(
+                                                      text:
+                                                          'لايوجد سائقين متاحين');
+                                                });
+                                                BotToast.showLoading();
+                                                final delivery = DeliversProduct(
+                                                    pickUp: data.pickText!,
+                                                    startLat: data
+                                                        .start!.latitude
+                                                        .toString(),
+                                                    startLong: data
+                                                        .start!.longitude
+                                                        .toString(),
+                                                    price: data.price!.toInt(),
+                                                    dropOff: data.dropText!,
+                                                    endLat:
+                                                        data.storeDetails!.lat!,
+                                                    distance: data
+                                                        .details!.distanceValue,
+                                                    endLong: data
+                                                        .storeDetails!.long!,
+                                                    expectedTime: data
+                                                        .details!.durationValue
+                                                        .toString(),
+                                                    vehicleType:
+                                                        data.carDetails!.item2,
+                                                    details: filter());
+                                                si<MapTripProvider>()
+                                                        .setDeliversProduct =
+                                                    delivery;
+                                                SignalRRider()
+                                                    .addDeliveryProduct(
+                                                        deliverProduct:
+                                                            delivery);
+
+                                                print(data.productMap);
+                                              },
                                         child: MaterialText.button(
                                           'طلب',
                                           style: Theme.of(context)
@@ -371,37 +471,6 @@ class _OrderDeliveryDetailsState extends State<OrderDeliveryDetails> {
                                               .button!
                                               .copyWith(color: Colors.white),
                                         ),
-                                        onPressed: () {
-                                          orderDeliveryTimer = Timer(
-                                              const Duration(seconds: 20), () {
-                                            BotToast.closeAllLoading();
-                                          });
-                                          BotToast.showLoading();
-                                          final delivery = DeliversProduct(
-                                              pickUp: data.pickText!,
-                                              startLat: data.start!.latitude
-                                                  .toString(),
-                                              startLong: data.start!.longitude
-                                                  .toString(),
-                                              price: data.price!.toInt(),
-                                              dropOff: data.dropText!,
-                                              endLat: data.storeDetails!.lat!,
-                                              distance:
-                                                  data.details!.distanceValue,
-                                              endLong: data.storeDetails!.long!,
-                                              expectedTime: data
-                                                  .details!.durationValue
-                                                  .toString(),
-                                              vehicleType:
-                                                  data.carDetails!.item2,
-                                              details: filter());
-                                          si<MapTripProvider>()
-                                              .setDeliversProduct = delivery;
-                                          SignalRRider().addDeliveryProduct(
-                                              deliverProduct: delivery);
-
-                                          print(data.productMap);
-                                        },
                                       )),
                                 ),
                               ),

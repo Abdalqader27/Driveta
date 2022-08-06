@@ -26,7 +26,6 @@ Widget circleCloseButton(context, {heroTag, tooltip, icon, onPressed}) => Align(
                 backgroundColor: kPRIMARY,
                 mini: false,
                 isExtended: false,
-                heroTag: heroTag,
                 onPressed: onPressed,
                 tooltip: 'الغاء ',
                 child: const Icon(

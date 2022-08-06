@@ -70,7 +70,7 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen>
                   child: StreamBuilder<Map<PolylineId, Polyline>>(
                       stream: MapSource.mapBloc!.allPolyLine,
                       builder: (context, polyline) {
-                        if (polyline.data == null) return Container();
+                        // if (polyline.data == null) return Container();
                         return googleMapView(marker, polyline.data);
                       }),
                 );
@@ -117,7 +117,7 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen>
       compassEnabled: true,
       myLocationEnabled: true,
       rotateGesturesEnabled: true,
-      tiltGesturesEnabled: false,
+      tiltGesturesEnabled: true,
       zoomControlsEnabled: true,
       zoomGesturesEnabled: true,
       myLocationButtonEnabled: false,
@@ -167,7 +167,6 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen>
                   elevation: 0,
                   backgroundColor: kPRIMARY,
                   mini: true,
-                  heroTag: 'satalate',
                   tooltip: ' تغير عرض الخريطة ',
                   onPressed: null,
                   child: Icon(
@@ -182,14 +181,13 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen>
             ),
             CupertinoButton(
               padding: EdgeInsets.zero,
-              onPressed: () => changeMapSatellite(),
+              onPressed: () => goToMyLocation(location),
               child: const Card(
                 color: kPRIMARY,
                 child: FloatingActionButton(
                   elevation: 0,
                   backgroundColor: kPRIMARY,
                   mini: true,
-                  heroTag: 'gps',
                   tooltip: 'موقعك ',
                   onPressed: null,
                   child: Icon(
@@ -236,7 +234,6 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen>
                                     elevation: 0,
                                     backgroundColor: kPRIMARY,
                                     mini: true,
-                                    heroTag: 'walk',
                                     tooltip: 'مسار المشاة ',
                                     onPressed: null,
                                     child: Icon(
@@ -265,7 +262,6 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen>
                                     elevation: 0,
                                     backgroundColor: kPRIMARY,
                                     mini: true,
-                                    heroTag: 'drivers',
                                     tooltip: 'مسار المركبات',
                                     onPressed: null,
                                     child: Icon(
@@ -298,7 +294,6 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen>
                                 elevation: 0,
                                 backgroundColor: kPRIMARY,
                                 mini: true,
-                                heroTag: 'shop',
                                 tooltip: ' المتجر ',
                                 onPressed: null,
                                 child: Icon(
@@ -314,7 +309,6 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen>
                           circleButton(context,
                               icon:
                                   const Icon(Icons.close, color: Colors.white),
-                              heroTag: "close",
                               tooltip: "إغلاق  ", onPressed: () {
                             MapSource.mapBloc!
                                 .addSinkDirection(idx: 0, result: null);

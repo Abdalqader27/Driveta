@@ -19,6 +19,7 @@ class RiderBloc extends SMixinBloc<RiderEvent, RiderState> {
 
   RiderBloc(this._useCase) : super(_state) {
     on<LoginEvent>(_login);
+    on<SignUPEvent>(_signUp);
     on<PostSupportEvent>(_addSupportEvent);
     on<RemoveDeliveryEvent>(_removeDelivery);
     on<GetVehicleTypesEvent>(_getVehicleTypes);
@@ -64,6 +65,37 @@ class RiderBloc extends SMixinBloc<RiderEvent, RiderState> {
       failure: (dynamic error) {
         BotToast.showText(text: 'لقد حدث خطأ ما');
         _state = _state.copyWith(loginState: const SBlocState.init());
+        return _state;
+      },
+    ));
+  }
+
+  FutureOr<void> _signUp(SignUPEvent event, Emitter<RiderState> emit) async {
+    emit(_state = _state.copyWith(signUpState: const BlocLoading()));
+    final result = await _useCase.signUp(
+      userName: event.userName,
+      name: event.name,
+      phoneNumber: event.phoneNumber,
+      sexType: event.sexType,
+      bloodType: event.bloodType,
+      dob: event.dob,
+      personalImageFile: event.personalImageFile,
+      idPhotoFile: event.idPhotoFile,
+      drivingCertificateFile: event.drivingCertificateFile,
+      email: event.email,
+      password: event.password,
+    );
+    emit(await result.when(
+      success: (user) {
+        _state = _state.copyWith(signUpState: BlocSuccess(data: user));
+        Navigator.pushNamedAndRemoveUntil(
+            event.context, MainScreen.idScreen, (route) => false);
+        displayToastMessage("انت مسجل دخول الان", event.context);
+        return _state;
+      },
+      failure: (dynamic error) {
+        BotToast.showText(text: 'لقد حدث خطأ ما');
+        _state = _state.copyWith(signUpState: const SBlocState.init());
         return _state;
       },
     ));
