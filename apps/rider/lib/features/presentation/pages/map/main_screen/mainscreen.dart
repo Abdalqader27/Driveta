@@ -13,6 +13,7 @@ import 'package:lottie/lottie.dart' hide Marker;
 import 'package:rider/common/assistants/assistantMethods.dart';
 import 'package:rider/common/config/theme/colors.dart';
 import 'package:rider/configMaps.dart';
+import 'package:rider/features/data/models/delivers.dart';
 import 'package:rider/features/presentation/pages/map/map_store/map_store_screen.dart';
 import 'package:rider/features/presentation/widgets/noDriverAvailableDialog.dart';
 
@@ -30,6 +31,7 @@ import '../../../widgets/float_actions_buttons.dart';
 import '../../../widgets/header_location_destination.dart';
 import '../../../widgets/map_drawer.dart';
 import '../../../widgets/map_next_button.dart';
+import '../map_trip_live/providers/map_live_provider.dart';
 import '../widgets/choice_cars.dart';
 import '../widgets/searching_on_driver.dart';
 
@@ -345,18 +347,23 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   void addDelivery(CarDetails carDetails) async {
     BotToast.showLoading();
-    await SignalRRider().addDelivery(
-      pickUp: si<MapState>().pinData.pickUpAddress,
-      startLat: si<MapState>().pinData.currentPoint.latitude.toString(),
-      price: (AssistantMethods.calculateFares(directionDetails!)),
-      dropOff: si<MapState>().pinData.dropOffAddress,
-      vehicleType: carDetails.item2,
-      endLat: si<MapState>().pinData.destinationPoint.latitude.toString(),
-      distance: si<MapState>().pinData.directionDetails?.distanceValue ?? 0,
-      startLong: si<MapState>().pinData.currentPoint.longitude.toString(),
-      endLong: si<MapState>().pinData.destinationPoint.longitude.toString(),
-      expectedTime: si<MapState>().pinData.directionDetails?.durationText ?? '',
-    );
+
+    Delivers delivery = Delivers(
+        id: '-',
+        startLat: si<MapState>().pinData.currentPoint.latitude.toString(),
+        startLong: si<MapState>().pinData.currentPoint.longitude.toString(),
+        endLat: si<MapState>().pinData.destinationPoint.latitude.toString(),
+        endLong: si<MapState>().pinData.destinationPoint.longitude.toString(),
+        distance: si<MapState>().pinData.directionDetails?.distanceValue ?? 0,
+        vehicleType: carDetails.item2,
+        startDate: DateTime.now(),
+        expectedTime:
+            si<MapState>().pinData.directionDetails?.durationText ?? '',
+        price: (AssistantMethods.calculateFares(directionDetails!)),
+        pickUp: si<MapState>().pinData.pickUpAddress,
+        dropOff: si<MapState>().pinData.dropOffAddress);
+    si<MapLiveProvider>().setDeliver = delivery;
+    await SignalRRider().addDelivery(deliver: delivery);
     BotToast.closeAllLoading();
     print("addDelivery \n${json.encode({
           "pickUp": si<MapState>().pinData.pickUpAddress,

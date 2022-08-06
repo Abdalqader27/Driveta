@@ -10,6 +10,7 @@ class Delivers {
     required this.expectedTime,
     required this.price,
     required this.pickUp,
+    required this.vehicleType,
     required this.dropOff,
   });
 
@@ -21,6 +22,7 @@ class Delivers {
   final String endLong;
   final String? expectedTime;
   final int distance;
+  final int vehicleType;
   final int price;
   final String pickUp;
   final String dropOff;
@@ -31,6 +33,7 @@ class Delivers {
         startLong: json["startLong"],
         endLat: json["endLat"],
         startDate: json["startDate"],
+        vehicleType: json["vehicleType"],
         expectedTime: json["expectedTime"],
         endLong: json["endLong"],
         distance: json["distance"],
@@ -45,6 +48,7 @@ class Delivers {
         "startLong": startLong,
         "endLat": endLat,
         "startDate": startDate,
+        "vehicleType": vehicleType,
         "expectedTime": expectedTime,
         "endLong": endLong,
         "distance": distance,

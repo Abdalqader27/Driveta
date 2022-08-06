@@ -11,7 +11,7 @@ import 'package:rider/features/data/models/direct_details.dart';
 
 import '../../../../../../common/assistants/assistantMethods.dart';
 import '../../../../../../common/utils/google_api_key.dart';
-import '../../../../../data/models/delivers_product.dart';
+import '../../../../../data/models/delivers.dart';
 import '../../../../../data/models/driver.dart';
 import '../../../../../data/models/marker_config.dart';
 import '../../../../../data/models/polyline_config.dart';
@@ -25,7 +25,7 @@ class MapLiveProvider extends ChangeNotifier with GoogleApiKey {
   StateTripProduct _stateTripProduct = StateTripProduct();
   DirectionDetails? _directionDetails = DirectionDetails();
   final Map<String, Driver> _drivers = {};
-  DeliversProduct? _deliverProduct;
+  Delivers? _deliver;
 
   String? _selectedDriverId;
 
@@ -53,16 +53,16 @@ class MapLiveProvider extends ChangeNotifier with GoogleApiKey {
 
   String? get selectedDriverId => _selectedDriverId;
 
-  DeliversProduct? get deliverProduct => _deliverProduct;
+  Delivers? get deliver => _deliver;
 
   LatLng get startPoint => _parseLatLng(
-        _deliverProduct!.startLat,
-        _deliverProduct!.startLong,
+        _deliver!.startLat,
+        _deliver!.startLong,
       );
 
   LatLng get endPoint => _parseLatLng(
-        _deliverProduct!.endLat,
-        _deliverProduct!.endLong,
+        _deliver!.endLat,
+        _deliver!.endLong,
       );
 
   LatLng get driverPoint => _parseLatLng(
@@ -70,8 +70,8 @@ class MapLiveProvider extends ChangeNotifier with GoogleApiKey {
         selectedDriver!.long!,
       );
 
-  set setDeliversProduct(DeliversProduct? value) {
-    _deliverProduct = value;
+  set setDeliver(Delivers? value) {
+    _deliver = value;
     notifyListeners();
   }
 
@@ -97,12 +97,12 @@ class MapLiveProvider extends ChangeNotifier with GoogleApiKey {
 
   addDriver(Driver driver) {
     _drivers[driver.id!] = driver;
+    final point = LatLng(
+      double.parse(driver.lat!),
+      double.parse(driver.long!),
+    );
     if (driver.id == _selectedDriverId) {
       if (driver.lat != null && driver.long != null) {
-        final point = LatLng(
-          double.parse(driver.lat!),
-          double.parse(driver.long!),
-        );
         addMarker(kDriverMarker(point));
         animateCameraTarget(point);
       }
@@ -227,7 +227,7 @@ class MapLiveProvider extends ChangeNotifier with GoogleApiKey {
     _stateTripProduct = StateTripProduct();
     _directionDetails = DirectionDetails();
     _selectedDriverId = null;
-    _deliverProduct = null;
+    _deliver = null;
 
     notifyListeners();
   }
