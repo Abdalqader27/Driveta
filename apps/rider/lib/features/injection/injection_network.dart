@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bot_toast/bot_toast.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
@@ -56,7 +54,6 @@ class NetworkInjection {
         exceptionMapper: <T>(Response<T> response, exception) {
           final data = response.data;
           if (data != null && data is Map<String, dynamic>) {
-            log('exxxxx$exception');
             // We only map 418 responses that have json response data:
             return SResponseException(
               message: "$data",
@@ -73,21 +70,6 @@ class NetworkInjection {
         ],
       );
     });
-  }
-
-  static String mapOfType(dynamic message) {
-    String result = "";
-    if (message is List) {
-      for (String word in message) {
-        result += word;
-        result += "\n";
-      }
-    } else if (message is String) {
-      result = message;
-    } else {
-      result = "An error occurred.";
-    }
-    return result;
   }
 }
 

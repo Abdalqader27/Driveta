@@ -9,5 +9,4 @@ Future<void> mapInjection() async {
   si.registerLazySingleton(() => MapState(
         pinData: si<TripData>(),
       ));
-  // inj.registerLazySingleton(() => RealTime());
 }
