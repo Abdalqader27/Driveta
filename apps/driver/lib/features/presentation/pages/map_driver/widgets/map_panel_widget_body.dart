@@ -1,19 +1,18 @@
 import 'package:design/design.dart';
 import 'package:driver/features/presentation/manager/container.dart';
+import 'package:driver/features/presentation/manager/event.dart';
 import 'package:driver/features/presentation/pages/history/widgets/order_book_item.dart';
-
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../../../../../../common/config/theme/colors.dart';
-import '../../../widgets/show_more_widget.dart';
-import '../../../../../../features/presentation/pages/balance/balance_screen.dart';
-import '../../../../../../features/presentation/pages/balance/widgets/balance_item.dart';
 import '../../../../../../features/presentation/pages/balance/widgets/balance_transaction.dart';
-import '../../../../../../generated/assets.dart';
 import '../../../../../../features/presentation/pages/history/order_book_screen.dart';
+import '../../../../../../generated/assets.dart';
+import '../../../../../app_injection.dart';
+import '../../../manager/bloc.dart';
+import '../../../widgets/show_more_widget.dart';
 
 class MapPanelWidgetBody extends StatelessWidget {
   final PanelController panelController;
@@ -33,19 +32,23 @@ class MapPanelWidgetBody extends StatelessWidget {
               onTap: () {
                 if (panelController.isPanelOpen) panelController.close();
                 if (panelController.isPanelClosed) {
-                  // Provider.of<PanelProvider>(context, listen: false)
-                  //     .reBuildWidget();
+                  si<DriverBloc>().add(GetStatisticsEvent());
+                  si<DriverBloc>().add(GetHistoriesEvent());
+                  si<DriverBloc>().add(GetInvoicesEvent());
+
                   panelController.open();
                 }
               },
               child: Material(
                 clipBehavior: Clip.antiAlias,
+                color: Colors.white,
                 borderRadius: const BorderRadius.only(
                     bottomRight: Radius.circular(15),
                     bottomLeft: Radius.circular(15)),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
+                    const SSizedBox.v4(),
                     const SSizedBox.v4(),
                     const SSizedBox.v4(),
                     Row(
@@ -83,26 +86,26 @@ class MapPanelWidgetBody extends StatelessWidget {
                     _PanelItem(
                       title: 'اجمالي الرحلات',
                       subtitle: data.deliveryCount.toString(),
-                      path: Assets.iconsRate,
+                      path: Assets.iconsPayment,
                     ),
                   ],
                 );
               }),
             ),
-            InvoiceContainer(builder: (context, data) {
-              return BalanceItem(
-                index: 1,
-                invoiceMoney: data.invoices?.first.total.toString() ?? '0',
-                invoiceNumber: data.invoices?.first.invoiceNumber ?? '',
-              );
-            }),
-            ShowMoreWidget(
-              onPressed: () {
-                Get.to(() => const BalanceScreen());
-              },
-              title: 'اخر المعاملات',
-              buttonText: 'عرض الكل',
-            ),
+            // InvoiceContainer(builder: (context, data) {
+            //   return BalanceItem(
+            //     index: 1,
+            //     invoiceMoney: data.invoices?.first.total.toString() ?? '0',
+            //     invoiceNumber: data.invoices?.first.invoiceNumber ?? '',
+            //   );
+            // }),
+            // ShowMoreWidget(
+            //   onPressed: () {
+            //     Get.to(() => const BalanceScreen());
+            //   },
+            //   title: 'اخر المعاملات',
+            //   buttonText: 'عرض الكل',
+            // ),
             HistoryContainer(builder: (context, data) {
               return OrderBookItem(
                 index: 0,

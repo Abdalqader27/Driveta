@@ -5,7 +5,7 @@
 class Pubspec {
   static final buildDate = DateTime.utc(2021, 10, 21, 18, 2, 50);
 
-  static const name = 'Driveta';
+  static const name = 'Driveta Driver';
 
   static const description =
       'اكتشف عالم تنجز فيه كل احتياجاتك اليومية على تطبيق واحد! احجز مشوارك، اطلب طعامك من أي مطعم، تسوق من أي متجر واشحن رصيد هاتفك.. كل هذا بطرق دفع اونلاين تناسبك';

@@ -57,6 +57,7 @@ class Assets {
   static const String jsonNightMode = 'assets/json/night_mode.json';
   static const String lottieCarAnim = 'assets/lottie/car_anim.json';
   static const String lottieCarinfo = 'assets/lottie/carinfo.json';
+  static const String lottieEmpty = 'assets/lottie/empty.json';
   static const String lottieErorr = 'assets/lottie/erorr.json';
   static const String lottieNewLoader = 'assets/lottie/new_loader.json';
   static const String lottieNewUser = 'assets/lottie/new_user.json';

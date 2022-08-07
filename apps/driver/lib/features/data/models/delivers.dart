@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class Delivers {
   Delivers({
     required this.id,
@@ -12,6 +14,7 @@ class Delivers {
     required this.price,
     required this.pickUp,
     required this.dropOff,
+    this.createdAt,
     this.details,
   });
 
@@ -28,6 +31,7 @@ class Delivers {
   final String pickUp;
   final String dropOff;
   final List<DeliveryProductDetails>? details;
+  final String? createdAt;
 
   factory Delivers.fromJson(Map<String, dynamic> json) => Delivers(
         details: json["details"] == null
@@ -42,11 +46,20 @@ class Delivers {
         endLat: json["endLat"],
         expectedTime: json["expectedTime"],
         endLong: json["endLong"],
+        createdAt: json["startDate"],
         distance: json["distance"],
         price: json["price"],
         pickUp: json["pickUp"],
         dropOff: json["dropOff"],
       );
+
+  String get date {
+    return DateFormat.d().format(parseDate);
+  }
+
+  DateTime get parseDate {
+    return DateTime.parse(createdAt!);
+  }
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -55,6 +68,7 @@ class Delivers {
         "startLat": startLat,
         "startLong": startLong,
         "endLat": endLat,
+        "createdAt": createdAt,
         "expectedTime": expectedTime,
         "endLong": endLong,
         "distance": distance,

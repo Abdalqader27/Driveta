@@ -8,11 +8,9 @@ import 'package:get/get.dart';
 
 import '../../../../../../common/config/theme/colors.dart';
 import '../../../../../../features/presentation/pages/balance/balance_screen.dart';
-import '../../../../../../configMaps.dart';
-import '../../../../../../features/presentation/pages/sgin_in/login_screen.dart';
-import '../../../../../../main.dart';
 import '../../../../../../features/presentation/pages/history/order_book_screen.dart';
 import '../../../../../../features/presentation/pages/profile/profile_page.dart';
+import '../../../../../../features/presentation/pages/sgin_in/login_screen.dart';
 import '../../about_app/about_app_screen.dart';
 import 'map_drawer_item.dart';
 
@@ -104,7 +102,7 @@ class MapDrawer extends StatelessWidget {
                         icon: Icons.info,
                         title: 'حول التطبيق',
                         leadingText: const SizedBox.shrink(),
-                        onTap: () => Get.to(() => const AboutAppScreen())),
+                        onTap: () => Get.to(() => const AboutAppPage())),
                   ),
                 ],
               ),

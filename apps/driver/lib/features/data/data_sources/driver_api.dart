@@ -8,6 +8,7 @@ import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:network/network.dart';
 
+import '../../../app_injection.dart';
 import '../../../common/utils/helper_method.dart';
 import '../models/delivers.dart';
 import '../models/driver_info.dart';
@@ -24,6 +25,16 @@ class DriverApi {
       final response = await _api.post<dynamic>(
         'api/DriverApp/AddSupport',
         data: {'description': text},
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ${si<SStorage>().get(
+              key: kAccessToken,
+              type: ValueType.string,
+            )}',
+          },
+        ),
       );
       return response.data;
     });
@@ -33,6 +44,16 @@ class DriverApi {
     return fetch(call: () async {
       final response = await _api.get<dynamic>(
         'api/DriverApp/Profile',
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ${si<SStorage>().get(
+              key: kAccessToken,
+              type: ValueType.string,
+            )}',
+          },
+        ),
       );
       return DriverProfile.fromJson(response.data);
     });
@@ -42,6 +63,16 @@ class DriverApi {
     return fetch(call: () async {
       final response = await _api.get<dynamic>(
         'api/DriverApp/GetInvoices',
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ${si<SStorage>().get(
+              key: kAccessToken,
+              type: ValueType.string,
+            )}',
+          },
+        ),
       );
       (json.encode(response.data)).log();
       return Invoices.fromJson(response.data);
@@ -53,6 +84,16 @@ class DriverApi {
     return fetch(call: () async {
       final response = await _api.get(
         'api/DriverApp/GetStatistics',
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ${si<SStorage>().get(
+              key: kAccessToken,
+              type: ValueType.string,
+            )}',
+          },
+        ),
       );
       (json.encode(response.data)).log();
       return Statistics.fromJson(response.data);
@@ -64,6 +105,16 @@ class DriverApi {
     return fetch(call: () async {
       final response = await _api.get(
         'api/DriverApp/GetDeliveries',
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ${si<SStorage>().get(
+              key: kAccessToken,
+              type: ValueType.string,
+            )}',
+          },
+        ),
       );
       (json.encode(response.data)).log();
 
@@ -168,6 +219,16 @@ class DriverApi {
       call: () async {
         final response = await _api.put(
           'api/DriverApp/ChangeDeliveryStatue?id=$id&statue=$statue',
+          options: Options(
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ${si<SStorage>().get(
+                key: kAccessToken,
+                type: ValueType.string,
+              )}',
+            },
+          ),
         );
         (json.encode(response.data)).log();
       },
@@ -182,6 +243,16 @@ class DriverApi {
       call: () async {
         final response = await _api.put(
           'api/DriverApp/EndDelivery?id=$id&payingValue=$payingValue',
+          options: Options(
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ${si<SStorage>().get(
+                key: kAccessToken,
+                type: ValueType.string,
+              )}',
+            },
+          ),
           // data: {'id': id, 'payingValue': payingValue},
         );
         (json.encode(response.data)).log();

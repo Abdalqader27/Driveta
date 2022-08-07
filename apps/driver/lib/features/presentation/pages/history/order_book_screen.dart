@@ -1,11 +1,11 @@
+import 'package:design/design.dart';
 import 'package:driver/features/data/models/delivers.dart';
 import 'package:driver/features/presentation/pages/history/widgets/order_book_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 
-import '../../widgets/round_app_bar.dart';
 import '../../manager/container.dart';
+import '../../widgets/round_app_bar.dart';
 import 'order_book_screen_details.dart';
 
 class OrderBookScreen extends StatelessWidget {
@@ -18,14 +18,15 @@ class OrderBookScreen extends StatelessWidget {
         body: HistoryContainer(builder: (context, List<Delivers> data) {
           return Column(
             children: [
-              const RoundedAppBar(
+              RoundedAppBar(
                 title: 'سجل الطلبات',
-                subTitle: 'لديك 25 طلب ',
+                subTitle: 'لديك ${data.length} طلب ',
               ),
               Expanded(
                   child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 itemCount: data.length,
+                reverse: true,
                 itemBuilder: (context, i) {
                   final history = data[i];
                   return GestureDetector(

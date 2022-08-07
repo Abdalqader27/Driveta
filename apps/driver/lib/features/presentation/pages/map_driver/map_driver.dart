@@ -75,18 +75,25 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
             Expanded(
               child: Stack(
                 children: [
-                  GoogleMap(
-                    mapType: MapType.normal,
-                    padding: const EdgeInsets.only(top: 30),
-                    buildingsEnabled: true,
-                    myLocationEnabled: false,
-                    markers: _markers.values.toSet(),
-                    initialCameraPosition: MapDriverScreen._kGooglePlex,
-                    onMapCreated: (GoogleMapController controller) {
-                      _controllerGoogleMap.complete(controller);
-                      newGoogleMapController = controller;
-                      locatePosition();
-                    },
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    top: 25,
+                    child: GoogleMap(
+                      mapType: MapType.normal,
+                      padding: const EdgeInsets.only(top: 30),
+                      buildingsEnabled: true,
+                      myLocationEnabled: true,
+                      markers: _markers.values.toSet(),
+                      myLocationButtonEnabled: true,
+                      initialCameraPosition: MapDriverScreen._kGooglePlex,
+                      onMapCreated: (GoogleMapController controller) {
+                        _controllerGoogleMap.complete(controller);
+                        newGoogleMapController = controller;
+                        locatePosition();
+                      },
+                    ),
                   ),
                   // Animarker(
                   //     curve: Curves.linear,
@@ -131,46 +138,6 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
   //     DataSnapshot snapshot = s.snapshot;
   //     if (snapshot.value != null) {
   //       setState(() => rideType = snapshot.value.toString());
-  //     }
-  //   });
-  // }
-
-  // void getRatings() {
-  //   //update ratings
-  //   driversRef
-  //       .child(currentfirebaseUser!.uid)
-  //       .child("ratings")
-  //       .once()
-  //       .then((s) {
-  //     DataSnapshot dataSnapshot = s.snapshot;
-
-  //     if (dataSnapshot.value != null) {
-  //       double ratings = double.parse(dataSnapshot.value.toString());
-  //       setState(() => starCounter = ratings);
-
-  //       if (starCounter <= 1.5) {
-  //         setState(() => title = "Very Bad");
-  //         return;
-  //       }
-  //       if (starCounter <= 2.5) {
-  //         setState(() => title = "Bad");
-
-  //         return;
-  //       }
-  //       if (starCounter <= 3.5) {
-  //         setState(() => title = "Good");
-
-  //         return;
-  //       }
-  //       if (starCounter <= 4.5) {
-  //         setState(() => title = "Very Good");
-  //         return;
-  //       }
-  //       if (starCounter <= 5.0) {
-  //         setState(() => title = "Excellent");
-
-  //         return;
-  //       }
   //     }
   //   });
   // }

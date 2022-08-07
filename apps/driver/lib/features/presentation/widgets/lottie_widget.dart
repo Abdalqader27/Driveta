@@ -22,6 +22,10 @@ class LottieWidget extends StatelessWidget {
     double width,
     String path,
   }) = _NotFound2;
+  const factory LottieWidget.empty({
+    double width,
+    String path,
+  }) = _Empty;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -50,6 +54,33 @@ class _NotFound extends LottieWidget {
 class _NotFound2 extends LottieWidget {
   const _NotFound2({
     double width = 300,
-    String path = Assets.lottieTeam,
+    String path = Assets.lottieCarAnim,
   }) : super(path: path, width: width);
+}
+
+class _Empty extends LottieWidget {
+  const _Empty({
+    double width = 300,
+    String path = Assets.lottieEmpty,
+  }) : super(path: path, width: width);
+}
+
+class EmptyWidget extends StatelessWidget {
+  const EmptyWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          LottieWidget.empty(),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text('لايوجد عناصر'),
+          )
+        ],
+      ),
+    );
+  }
 }

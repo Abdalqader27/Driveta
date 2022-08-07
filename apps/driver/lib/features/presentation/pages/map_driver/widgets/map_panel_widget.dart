@@ -21,16 +21,17 @@ class _MapPanelWidgetState extends State<MapPanelWidget> {
       right: 0,
       top: 0,
       child: SlidingUpPanel(
-        color: Theme.of(context).scaffoldBackgroundColor,
         parallaxEnabled: true,
         backdropTapClosesPanel: true,
         controller: panelController,
         slideDirection: SlideDirection.DOWN,
         backdropEnabled: true,
-        maxHeight: 0.85 * context.height,
+        maxHeight: 0.8 * context.height,
         minHeight: 30,
         panel: MapPanelWidgetBody(panelController: panelController),
-        borderRadius: BorderRadius.only(bottomLeft: const Radius.circular(15), bottomRight: Radius.circular(15.0)),
+        borderRadius: BorderRadius.only(
+            bottomLeft: const Radius.circular(15),
+            bottomRight: Radius.circular(15.0)),
       ),
     );
   }
