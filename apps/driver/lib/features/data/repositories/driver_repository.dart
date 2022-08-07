@@ -1,5 +1,6 @@
 import 'package:driver/features/data/data_sources/driver_api.dart';
 import 'package:driver/features/data/models/delivers.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:network/network.dart';
 
 import '../../../common/utils/connectivity.dart';
@@ -61,13 +62,6 @@ class DriverRepository {
     );
   }
 
-  // Future<ApiResult> getAvailableDeliveries() async {
-  //   return await fetchApiResult<dynamic>(
-  //     isConnected: _connectivity.isConnected,
-  //     fetch: _remote.getAvailableDeliveries(),
-  //   );
-  // }
-
   Future<ApiResult<List<Delivers>>> getHistories() async {
     return await fetchApiResult<List<Delivers>>(
       isConnected: _connectivity.isConnected,
@@ -92,15 +86,34 @@ class DriverRepository {
     );
   }
 
-  Future<ApiResult<String>> signUp({
-    required String email,
-    required String password,
-    required String deviceToken,
-    bool rememberMe = true,
+  Future<ApiResult<dynamic>> signUp({
+    String? userName,
+    String? name,
+    String? phoneNumber,
+    String? email,
+    String? password,
+    int? sexType,
+    int? bloodType,
+    String? dob,
+    XFile? personalImageFile,
+    XFile? idPhotoFile,
+    XFile? drivingCertificateFile,
   }) async {
-    return await fetchApiResult<String>(
+    return await fetchApiResult(
       isConnected: _connectivity.isConnected,
-      fetch: _remote.signUP(),
+      fetch: _remote.signUp(
+        userName: userName,
+        name: name,
+        phoneNumber: phoneNumber,
+        email: email,
+        password: password,
+        sexType: sexType,
+        bloodType: bloodType,
+        dob: dob,
+        personalImageFile: personalImageFile,
+        idPhotoFile: idPhotoFile,
+        drivingCertificateFile: drivingCertificateFile,
+      ),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:design/design.dart';
 import 'package:driver/features/data/models/profile.dart';
 import 'package:driver/features/presentation/manager/bloc.dart';
 import 'package:driver/features/presentation/manager/state.dart';
+
 import '../../../../../common/utils/bloc_wrapper.dart';
 import '../../data/models/delivers.dart';
 import '../../data/models/invoices.dart';
@@ -95,6 +96,20 @@ class LoginContainer extends StatelessWidget {
       initChild: builder(context, {}),
       onRetry: () => context.read<DriverBloc>().retry(),
       selector: (state) => state.loginState!,
+      builder: builder,
+    );
+  }
+}
+
+class SignUpContainer extends StatelessWidget {
+  final ViewModelBuilder<dynamic> builder;
+  const SignUpContainer({Key? key, required this.builder}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return BlocSelectorWrapper<dynamic, DriverBloc, DriverState>(
+      initChild: builder(context, {}),
+      onRetry: () => context.read<DriverBloc>().retry(),
+      selector: (state) => state.signUpState!,
       builder: builder,
     );
   }

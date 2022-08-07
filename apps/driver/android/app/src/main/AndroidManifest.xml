@@ -17,6 +17,7 @@
         android:label="driver"
         android:requestLegacyExternalStorage="true"
         android:largeHeap="true"
+        android:exported="true"
 
         android:usesCleartextTraffic="true">
         <activity

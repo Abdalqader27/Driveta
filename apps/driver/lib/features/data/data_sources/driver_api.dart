@@ -26,7 +26,6 @@ class DriverApi {
         data: {'description': text},
       );
       return response.data;
-      // return DriverProfile.fromJson(response.data);
     });
   }
 
@@ -76,7 +75,7 @@ class DriverApi {
     });
   }
 
-  Future<Either<dynamic, String>> signUP({
+  Future<Either<dynamic, dynamic>> signUp({
     String? userName,
     String? name,
     String? phoneNumber,
@@ -84,55 +83,56 @@ class DriverApi {
     String? password,
     int? sexType,
     int? bloodType,
-    DateTime? dob,
+    String? dob,
     XFile? personalImageFile,
     XFile? idPhotoFile,
     XFile? drivingCertificateFile,
   }) async {
     return fetch(
       call: () async {
+        FormData formData = FormData.fromMap({
+          'userName': userName,
+          'name': name,
+          'phoneNumber': phoneNumber,
+          'email': email,
+          'password': password,
+          'sexType': sexType,
+          'bloodType': bloodType,
+          'dob': dob,
+          'personalImageFile': personalImageFile != null
+              ? FormData.fromMap(<String, dynamic>{
+                  'file': await MultipartFile.fromFile(
+                    personalImageFile.path,
+                    filename: personalImageFile.name,
+                    contentType: MediaType('image', 'png'),
+                  ),
+                })
+              : null,
+          'idPhotoFile': idPhotoFile != null
+              ? FormData.fromMap(<String, dynamic>{
+                  'file': await MultipartFile.fromFile(
+                    idPhotoFile.path,
+                    filename: idPhotoFile.name,
+                    contentType: MediaType('image', 'png'),
+                  ),
+                })
+              : null,
+          'drivingCertificateFile': drivingCertificateFile != null
+              ? FormData.fromMap(<String, dynamic>{
+                  'file': await MultipartFile.fromFile(
+                    drivingCertificateFile.path,
+                    filename: drivingCertificateFile.name,
+                    contentType: MediaType('image', 'png'),
+                  ),
+                })
+              : null,
+        });
+
         await _api.post(
           'api/DriverApp/SignUp',
-          data: {
-            'userName': userName,
-            'name': name,
-            'phoneNumber': phoneNumber,
-            'email': email,
-            'password': password,
-            'sexType': sexType,
-            'bloodType': bloodType,
-            'dob': dob?.toIso8601String(),
-            'personalImageFile': personalImageFile != null
-                ? FormData.fromMap(<String, dynamic>{
-                    'file': await MultipartFile.fromFile(
-                      personalImageFile.path,
-                      filename: personalImageFile.name,
-                      contentType: MediaType('image', 'png'),
-                    ),
-                  })
-                : null,
-            'idPhotoFile': idPhotoFile != null
-                ? FormData.fromMap(<String, dynamic>{
-                    'file': await MultipartFile.fromFile(
-                      idPhotoFile.path,
-                      filename: idPhotoFile.name,
-                      contentType: MediaType('image', 'png'),
-                    ),
-                  })
-                : null,
-            'drivingCertificateFile': drivingCertificateFile != null
-                ? FormData.fromMap(<String, dynamic>{
-                    'file': await MultipartFile.fromFile(
-                      drivingCertificateFile.path,
-                      filename: drivingCertificateFile.name,
-                      contentType: MediaType('image', 'png'),
-                    ),
-                  })
-                : null,
-          },
+          data: formData,
         );
-
-        return 'Verification Code sent';
+        return 'Sent';
       },
     );
   }
@@ -168,7 +168,6 @@ class DriverApi {
       call: () async {
         final response = await _api.put(
           'api/DriverApp/ChangeDeliveryStatue?id=$id&statue=$statue',
-          // data: {'id': id, 'statue': statue},
         );
         (json.encode(response.data)).log();
       },
@@ -189,101 +188,4 @@ class DriverApi {
       },
     );
   }
-
-  // Future<Either<SResponseException, List<Delivers>>> getAvailableDeliveries() async {
-  //   return fetch(
-  //     call: () async {
-  //       final response = await _api.get(
-  //         'api/DriverApp/GetAvailableDeliveries',
-  //       );
-  //       (json.encode(response.data)).log();
-  //       return List<Delivers>.from((response.data).map((x) => Delivers.fromJson(x)));
-  //     },
-  //   );
-  // }
-
-  /// real time invoked
-//   Future<Either<SResponseException, dynamic>> acceptDelivery(
-//       {required String id}) async {
-//     print("acceptDelivery is fired ");
-//     return fetch(
-//       call: () async {
-//         final response = await _api.put(
-//           'api/DriverApp/AcceptDelivery?id=$id',
-//         );
-//         (json.encode(response.data)).log();
-//         print("AcceptDelivery is sending data $id ");
-
-//         return response.data;
-//       },
-//     );
-//   }
-//    Future<Either<SResponseException, dynamic>> arrivedToLocation(
-//       {required String id}) async {
-//     print("ArrivedToLocation is fired ");
-//     return fetch(
-//       call: () async {
-//         final response = await _api.put(
-//           'api/DriverApp/ArrivedToLocation?id=$id',
-//         );
-//         (json.encode(response.data)).log();
-//         print("ArrivedToLocation is sending data $id ");
-
-//         return response.data;
-//       },
-//     );
-//   }
-//   Future<Either<SResponseException, dynamic>> startDelivery(
-//       {required String id}) async {
-//     print("StartDelivery is fired ");
-//     return fetch(
-//       call: () async {
-//         final response = await _api.put(
-//           'api/DriverApp/StartDelivery?id=$id',
-//         );
-//         (json.encode(response.data)).log();
-//         print("StartDelivery is sending data $id ");
-
-//         return response.data;
-//       },
-//     );
-//   }
-//     Future<Either<SResponseException, dynamic>> endDeliveryDriver(
-//       {required num price,
-//       required String id,
-//       required String endLat,
-//       required String endLong,
-//       required num distance,
-//       required String dropOff,
-//       required String expectedTime}) async {
-//     print("StartDelivery is fired ");
-//     return fetch(
-//       call: () async {
-//         final response = await _api.put(
-//           'api/DriverApp/EndDeliveryDriver',
-//           data:  {
-//             'price': price,
-//             'id': id,
-//             'endLat': endLat,
-//             'endLong': endLong,
-//             'distance': distance,
-//             'expectedTime': expectedTime,
-//             'dropOff': dropOff
-//           }
-//         );
-//         (json.encode(response.data)).log();
-//  print("EndDeliveryDriver is sending data ${json.encode({
-//             'price': price,
-//             'id': id,
-//             'endLat': endLat,
-//             'endLong': endLong,
-//             'distance': distance,
-//             'expectedTime': expectedTime,
-//             'dropOff': dropOff
-//           })} ");
-//         return response.data;
-//       },
-//     );
-//   }
-// }
 }

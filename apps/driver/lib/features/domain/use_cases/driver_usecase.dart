@@ -1,11 +1,11 @@
 import 'package:core/core.dart';
 import 'package:driver/features/data/models/delivers.dart';
 import 'package:driver/features/data/repositories/driver_repository.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:network/network.dart';
 
 import '../../../app_injection.dart';
 import '../../../common/utils/helper_method.dart';
-import '../../data/models/driver_info.dart';
 import '../../data/models/invoices.dart';
 import '../../data/models/statistics.dart';
 
@@ -82,6 +82,36 @@ class DriverUseCase {
       onData: (data) {
         si<SStorage>().set(key: kAccessToken, value: data.token);
       },
+    );
+  }
+
+  Future<ApiResult<dynamic>> signUp({
+    String? userName,
+    String? name,
+    String? phoneNumber,
+    String? email,
+    String? password,
+    int? sexType,
+    int? bloodType,
+    String? dob,
+    XFile? personalImageFile,
+    XFile? idPhotoFile,
+    XFile? drivingCertificateFile,
+  }) async {
+    return onResult<dynamic>(
+      await _repository.signUp(
+        userName: userName,
+        name: name,
+        phoneNumber: phoneNumber,
+        email: email,
+        password: password,
+        sexType: sexType,
+        bloodType: bloodType,
+        dob: dob,
+        personalImageFile: personalImageFile,
+        idPhotoFile: idPhotoFile,
+        drivingCertificateFile: drivingCertificateFile,
+      ),
     );
   }
 }

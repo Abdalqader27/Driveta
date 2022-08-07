@@ -9,7 +9,8 @@ class DriverState extends Equatable {
   final SBlocState? supportState;
   final SBlocState? historyState;
   final SBlocState? loginState;
-  final SBlocState? signState;
+  final SBlocState? signUpState;
+
   const DriverState({
     this.supportState = const BlocInitial(),
     this.getAvailableDeliveriesState = const BlocInitial(),
@@ -18,7 +19,7 @@ class DriverState extends Equatable {
     this.invoiceState = const BlocInitial(),
     this.historyState = const BlocInitial(),
     this.loginState = const BlocInitial(),
-    this.signState = const BlocInitial(),
+    this.signUpState = const BlocInitial(),
   });
 
   DriverState copyWith({
@@ -28,18 +29,19 @@ class DriverState extends Equatable {
     SBlocState? invoiceState,
     SBlocState? statisticsSate,
     SBlocState? historyState,
-    SBlocState? signState,
+    SBlocState? signUpState,
     SBlocState? loginState,
   }) {
     return DriverState(
       supportState: supportState ?? this.supportState,
-      getAvailableDeliveriesState: getAvailableDeliveriesState ?? this.getAvailableDeliveriesState,
+      getAvailableDeliveriesState:
+          getAvailableDeliveriesState ?? this.getAvailableDeliveriesState,
       infoState: infoState ?? this.infoState,
       invoiceState: invoiceState ?? this.invoiceState,
       statisticsSate: statisticsSate ?? this.statisticsSate,
       historyState: historyState ?? this.historyState,
       loginState: loginState ?? this.loginState,
-      signState: signState ?? this.signState,
+      signUpState: signUpState ?? this.signUpState,
     );
   }
 
@@ -51,7 +53,7 @@ class DriverState extends Equatable {
         invoiceState,
         statisticsSate,
         historyState,
-        signState,
+        signUpState,
         loginState,
       ];
 }

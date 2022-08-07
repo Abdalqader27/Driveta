@@ -14,7 +14,7 @@ dependencies:
   firebase_core: ^1.17.0
   firebase_auth: ^3.3.18
   google_maps_flutter: ^2.1.8
-  geolocator: ^8.2.1
+  geolocator: ^9.0.1
   http: ^0.13.4
   provider: ^6.0.2
   dotted_line: ^3.1.0
@@ -50,7 +50,8 @@ dependencies:
   http_parser: ^4.0.1
   smooth_star_rating_null_safety: ^1.0.4+2
   responsive_framework: ^0.2.0
-  # Locale Packages
+  search_choices: ^2.1.1
+  permission_handler: ^10.0.0
   bootstrap:
     path: packages/bootstrap
   core:
@@ -59,7 +60,10 @@ dependencies:
     path: packages/design
   network:
     path: packages/network
-
+  photo_view:
+    git:
+      url: https://github.com/bluefireteam/photo_view
+      ref: master
 dev_dependencies:
   flutter_test:
     sdk: flutter

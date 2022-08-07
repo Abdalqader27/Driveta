@@ -4,6 +4,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:core/core.dart';
 import 'package:design/design.dart';
 import 'package:driver/features/domain/use_cases/driver_usecase.dart';
+import 'package:driver/features/presentation/pages/sgin_in/login_screen.dart';
 import 'package:driver/features/presentation/pages/sgin_up/registeration_screen.dart';
 
 import '../pages/map_driver/map_driver.dart';
@@ -150,6 +151,40 @@ class DriverBloc extends SMixinBloc<DriverEvent, DriverState> {
       failure: (error) {
         BotToast.showText(text: '$error');
         _state = _state.copyWith(loginState: const SBlocState.init());
+        return _state;
+      },
+    ));
+  }
+
+  FutureOr<void> _signUp(SignUPEvent event, Emitter<DriverState> emit) async {
+    emit(_state = _state.copyWith(signUpState: const BlocLoading()));
+    final result = await _useCase.signUp(
+      userName: event.userName,
+      name: event.name,
+      phoneNumber: event.phoneNumber,
+      sexType: event.sexType,
+      bloodType: event.bloodType,
+      dob: event.dob,
+      personalImageFile: event.personalImageFile,
+      idPhotoFile: event.idPhotoFile,
+      drivingCertificateFile: event.drivingCertificateFile,
+      email: event.email,
+      password: event.password,
+    );
+    emit(await result.when(
+      success: (user) {
+        _state = _state.copyWith(signUpState: BlocSuccess(data: user));
+        Navigator.pushNamedAndRemoveUntil(
+            event.context, LoginScreen.idScreen, (route) => false);
+
+        displayToastMessage(
+            "سوف يتم ارسال رسالة الى هاتفك توكد عملية التفعيل الحساب",
+            event.context);
+        return _state;
+      },
+      failure: (dynamic error) {
+        BotToast.showText(text: '$error');
+        _state = _state.copyWith(signUpState: const SBlocState.init());
         return _state;
       },
     ));
