@@ -12,8 +12,7 @@ import '../../features/data/models/direct_details.dart';
 import '../../main.dart';
 
 class AssistantMethods {
-  static Future<String> searchCoordinateAddress(
-      LatLng position, context) async {
+  static Future<String> searchCoordinateAddress(LatLng position) async {
     String placeAddress = "";
     String url =
         "https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.latitude},${position.longitude}&key=$mapKey";

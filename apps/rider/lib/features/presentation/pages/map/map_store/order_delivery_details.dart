@@ -101,11 +101,9 @@ class _OrderDeliveryDetailsState extends State<OrderDeliveryDetails> {
                                       children: [
                                         FutureBuilder<String>(
                                             future: AssistantMethods
-                                                .searchCoordinateAddress(
-                                              LatLng(point.data!.latitude!,
-                                                  point.data!.longitude!),
-                                              context,
-                                            ),
+                                                .searchCoordinateAddress(LatLng(
+                                                    point.data!.latitude!,
+                                                    point.data!.longitude!)),
                                             builder: (context, snap) {
                                               if (!snap.hasData) {
                                                 return const Padding(
@@ -134,7 +132,6 @@ class _OrderDeliveryDetailsState extends State<OrderDeliveryDetails> {
                                                       widget.storeDetails.lat!),
                                                   double.parse(widget
                                                       .storeDetails.long!)),
-                                              context,
                                             ),
                                             builder: (context, snap) {
                                               if (!snap.hasData) {

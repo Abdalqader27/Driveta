@@ -220,7 +220,7 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       si<MapState>().isCurrentLoading = true;
       si<MapBloc>().sinkSetMapState(si<MapState>());
       String currentAddress = await AssistantMethods.searchCoordinateAddress(
-          si<MapState>().pinData.currentPoint, context);
+          si<MapState>().pinData.currentPoint);
       si<MapState>().isCurrentLoading = false;
       si<MapState>().pinData.pickUpAddress = currentAddress;
       si<MapBloc>().sinkSetMapState(si<MapState>());
@@ -231,9 +231,7 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       si<MapState>().isDestinationLoading = true;
       si<MapBloc>().sinkSetMapState(si<MapState>());
       String currentAddress = await AssistantMethods.searchCoordinateAddress(
-        si<MapState>().pinData.destinationPoint,
-        context,
-      );
+          si<MapState>().pinData.destinationPoint);
 
       si<MapState>().isDestinationLoading = false;
       si<MapState>().pinData.dropOffAddress = currentAddress;
@@ -580,7 +578,12 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   void locatePosition() async {
     // await Geolocator.requestPermission();
-
+    LocationPermission permission;
+    permission = await Geolocator.checkPermission();
+    permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.denied) {
+      //nothing
+    }
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
     currentPosition = position;
@@ -593,7 +596,7 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
         .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
 
     String address = await AssistantMethods.searchCoordinateAddress(
-        LatLng(position.latitude, position.longitude), context);
+        LatLng(position.latitude, position.longitude));
     print("This is your Address :: $address");
   }
 
