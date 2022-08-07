@@ -1,4 +1,6 @@
+import 'package:core/core.dart';
 import 'package:design/design.dart';
+import 'package:driver/app_injection.dart';
 import 'package:driver/features/presentation/pages/map_driver/available_deliver.dart';
 import 'package:driver/features/presentation/pages/support/support_complaint_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -83,6 +85,7 @@ class MapDrawer extends StatelessWidget {
                               // rideRequestRef?.onDisconnect();
                               // rideRequestRef?.remove();
                               // rideRequestRef = null;
+                              si<SStorage>().clearAll();
                               FirebaseAuth.instance.signOut();
                             } catch (_) {}
                             Navigator.pushNamedAndRemoveUntil(context,

@@ -2,12 +2,11 @@ import 'dart:convert';
 
 import 'package:core/core.dart';
 import 'package:dio/dio.dart';
-import 'package:driver/common/utils/signal_r_config.dart';
 import 'package:driver/features/data/models/invoices.dart';
 import 'package:either_dart/either.dart';
 import 'package:http_parser/http_parser.dart';
-import 'package:network/network.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:network/network.dart';
 
 import '../../../common/utils/helper_method.dart';
 import '../models/delivers.dart';
@@ -20,7 +19,7 @@ class DriverApi {
 
   final SHttpClient _api;
 
-  Future<Either<SResponseException, dynamic>> addSupportText(String text) {
+  Future<Either<dynamic, dynamic>> addSupportText(String text) {
     return fetch(call: () async {
       final response = await _api.post<dynamic>(
         'api/DriverApp/AddSupport',
@@ -31,7 +30,7 @@ class DriverApi {
     });
   }
 
-  Future<Either<SResponseException, dynamic>> getProfile() {
+  Future<Either<dynamic, dynamic>> getProfile() {
     return fetch(call: () async {
       final response = await _api.get<dynamic>(
         'api/DriverApp/Profile',
@@ -40,7 +39,7 @@ class DriverApi {
     });
   }
 
-  Future<Either<SResponseException, Invoices>> getInvoices() {
+  Future<Either<dynamic, Invoices>> getInvoices() {
     return fetch(call: () async {
       final response = await _api.get<dynamic>(
         'api/DriverApp/GetInvoices',
@@ -51,7 +50,7 @@ class DriverApi {
     });
   }
 
-  Future<Either<SResponseException, Statistics>> getStatistics() {
+  Future<Either<dynamic, Statistics>> getStatistics() {
     return fetch(call: () async {
       final response = await _api.get(
         'api/DriverApp/GetStatistics',
@@ -62,7 +61,7 @@ class DriverApi {
     });
   }
 
-  Future<Either<SResponseException, List<Delivers>>> getHistories() {
+  Future<Either<dynamic, List<Delivers>>> getHistories() {
     return fetch(call: () async {
       final response = await _api.get(
         'api/DriverApp/GetDeliveries',
@@ -77,7 +76,7 @@ class DriverApi {
     });
   }
 
-  Future<Either<SResponseException, String>> signUP({
+  Future<Either<dynamic, String>> signUP({
     String? userName,
     String? name,
     String? phoneNumber,
@@ -138,7 +137,7 @@ class DriverApi {
     );
   }
 
-  Future<Either<SResponseException, DriverInfo>> login({
+  Future<Either<dynamic, DriverInfo>> login({
     required String username,
     required String password,
     required String deviceToken,
@@ -161,7 +160,7 @@ class DriverApi {
     );
   }
 
-  Future<Either<SResponseException, dynamic>> changeDeliveryStatue({
+  Future<Either<dynamic, dynamic>> changeDeliveryStatue({
     required String id,
     required String statue,
   }) async {
@@ -176,7 +175,7 @@ class DriverApi {
     );
   }
 
-  Future<Either<SResponseException, dynamic>> endDelivery({
+  Future<Either<dynamic, dynamic>> endDelivery({
     required String id,
     required int payingValue,
   }) async {

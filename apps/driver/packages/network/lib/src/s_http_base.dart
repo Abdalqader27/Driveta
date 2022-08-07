@@ -30,7 +30,9 @@ class SHttpClient {
       ..options.receiveTimeout = timeout
       ..transformer = SFlutterTransformer()
       ..httpClientAdapter
-      ..options.headers = <String, dynamic>{'Content-Type': 'application/json; charset=UTF-8'};
+      ..options.headers = <String, dynamic>{
+        'Content-Type': 'application/json; charset=UTF-8'
+      };
 
     if (kDebugMode) {
       _dio.interceptors.add(sLogInterceptor);
@@ -187,7 +189,8 @@ class SHttpClient {
     try {
       return await method();
     } on DioError catch (exception) {
-      if (exception.response?.statusCode.toString().matchAsPrefix('5') != null) {
+      if (exception.response?.statusCode.toString().matchAsPrefix('5') !=
+          null) {
         throw AppNetworkException(
           reason: AppNetworkExceptionReason.serverError,
           exception: exception,
@@ -215,18 +218,16 @@ class SHttpClient {
             // for Dio.
             throw AppNetworkSResponseException(exception: exception);
           }
-
+          throw response;
           throw mapper?.call(response, exception) ??
               exceptionMapper?.call(response, exception) ??
-              AppNetworkSResponseException(
-                exception: exception,
-                statusCode: response.statusCode,
-                data: response.data,
-              );
+              '';
         case DioErrorType.other:
         default:
           if (exception.error is SocketException) {
-            throw AppNetworkException(reason: AppNetworkExceptionReason.noInternet, exception: exception);
+            throw AppNetworkException(
+                reason: AppNetworkExceptionReason.noInternet,
+                exception: exception);
           }
           throw AppException.unknown(exception: exception);
       }

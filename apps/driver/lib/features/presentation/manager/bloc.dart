@@ -3,12 +3,10 @@ import 'dart:async';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:core/core.dart';
 import 'package:design/design.dart';
-import 'package:driver/features/data/models/delivers.dart';
 import 'package:driver/features/domain/use_cases/driver_usecase.dart';
 import 'package:driver/features/presentation/pages/sgin_up/registeration_screen.dart';
 
 import '../pages/map_driver/map_driver.dart';
-import 'package:rxdart/rxdart.dart';
 import 'event.dart';
 import 'state.dart';
 
@@ -37,8 +35,9 @@ class DriverBloc extends SMixinBloc<DriverEvent, DriverState> {
         BotToast.showText(text: 'تم الارسال بنجاح');
         return _state;
       },
-      failure: (dynamic error) {
-        _state = _state.copyWith(supportState: BlocError(error));
+      failure: (error) {
+        BotToast.showText(text: 'error');
+        _state = _state.copyWith(supportState: BlocInitial());
         return _state;
       },
     ));
@@ -148,8 +147,9 @@ class DriverBloc extends SMixinBloc<DriverEvent, DriverState> {
         displayToastMessage("انت مسجل دخول الان", event.context);
         return _state;
       },
-      failure: (dynamic error) {
-        _state = _state.copyWith(loginState: SBlocState.error(error));
+      failure: (error) {
+        BotToast.showText(text: '$error');
+        _state = _state.copyWith(loginState: const SBlocState.init());
         return _state;
       },
     ));

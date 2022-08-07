@@ -70,9 +70,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                 controller: email,
                                 keyboardType: TextInputType.emailAddress,
                                 decoration: const InputDecoration(
+                                  icon: Icon(Icons.verified_user_sharp),
                                   labelText: "اسم المستخدم",
                                   labelStyle: TextStyle(fontSize: 14.0),
-                                  hintStyle: TextStyle(color: Colors.grey, fontSize: 10.0),
+                                  hintStyle: TextStyle(
+                                      color: Colors.grey, fontSize: 10.0),
                                 ),
                                 validator: (String? value) {
                                   if (value!.isEmpty) {
@@ -89,6 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 controller: password,
                                 obscureText: true,
                                 decoration: const InputDecoration(
+                                  icon: Icon(Icons.password),
                                   labelText: "كلمة المرور ",
                                   labelStyle: TextStyle(
                                     fontSize: 14.0,
@@ -115,7 +118,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 borderRadius: BorderRadius.circular(30),
                                 child: SText.titleMedium(
                                   'تسجيل الدخول',
-                                  style: Theme.of(context).textTheme.button!.copyWith(color: Colors.white),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .button!
+                                      .copyWith(color: Colors.white),
                                 ),
                                 onPressed: () async {
                                   if (formKey.currentState!.validate()) {
@@ -124,7 +130,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                             context,
                                             email: email.text,
                                             password: password.text,
-                                            deviceToken: await FirebaseMessaging.instance.getToken() ?? '',
+                                            deviceToken: await FirebaseMessaging
+                                                    .instance
+                                                    .getToken() ??
+                                                '',
                                             rememberMe: true,
                                           ),
                                         );
@@ -136,7 +145,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.pushNamedAndRemoveUntil(context, RegisterationScreen.idScreen, (route) => false);
+                            Navigator.pushNamedAndRemoveUntil(context,
+                                RegisterationScreen.idScreen, (route) => false);
                           },
                           child: const Text(
                             "ليس لديك حساب ؟ قم بتسجيل من هنا ",

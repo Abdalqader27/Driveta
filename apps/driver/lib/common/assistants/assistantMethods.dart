@@ -1,15 +1,7 @@
 import 'package:driver/common/assistants/requestAssistant.dart';
-import 'package:driver/main.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
-import 'package:driver/features/data/models/address.dart';
-import 'package:driver/features/data/models/allUsers.dart';
-import 'package:driver/features/data/models/directDetails.dart';
 import 'package:driver/configMaps.dart';
+import 'package:driver/features/data/models/directDetails.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class AssistantMethods {
   static Future<DirectionDetails?> obtainPlaceDirectionDetails(
@@ -18,8 +10,6 @@ class AssistantMethods {
         "https://maps.googleapis.com/maps/api/directions/json?origin=${initialPosition.latitude},${initialPosition.longitude}&destination=${finalPosition.latitude},${finalPosition.longitude}&key=$mapKey";
 
     var res = await RequestAssistant.getRequest(directionUrl);
-
-    print(res);
     if (res == "failed") {
       return null;
     }
@@ -63,23 +53,5 @@ class AssistantMethods {
     } else {
       return totalFareAmount.truncate();
     }
-  }
-
-  static void disableHomeTabLiveLocationUpdates() {
-    homeTabPageStreamSubscription.pause();
-    //Geofire.removeLocation(currentfirebaseUser!.uid);
-  }
-
-  static void enableHomeTabLiveLocationUpdates() {
-    homeTabPageStreamSubscription.resume();
-    //Geofire.setLocation(currentfirebaseUser!.uid, currentPosition.latitude, currentPosition.longitude);
-  }
-
-  static String formatTripDate(String date) {
-    DateTime dateTime = DateTime.parse(date);
-    String formattedDate =
-        "${DateFormat.MMMd().format(dateTime)}, ${DateFormat.y().format(dateTime)} - ${DateFormat.jm().format(dateTime)}";
-
-    return formattedDate;
   }
 }

@@ -4,17 +4,16 @@ import 'dart:developer';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:core/core.dart';
 import 'package:design/design.dart';
-import 'package:driver/AllScreens/carInfoScreen.dart';
 import 'package:driver/configMaps.dart';
 import 'package:driver/features/presentation/manager/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:responsive_framework/utils/scroll_behavior.dart';
+
 import 'app_injection.dart';
 import 'common/config/theme/theme.dart';
 import 'features/presentation/pages/map_driver/map_driver.dart';
@@ -23,8 +22,8 @@ import 'features/presentation/pages/sgin_up/registeration_screen.dart';
 
 void main() async {
   if (defaultTargetPlatform == TargetPlatform.android) {
-  AndroidGoogleMapsFlutter.useAndroidViewSurface = true;
-}
+    AndroidGoogleMapsFlutter.useAndroidViewSurface = true;
+  }
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -44,7 +43,6 @@ void main() async {
   });
 }
 
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -57,14 +55,16 @@ class MyApp extends StatelessWidget {
       theme: kLightMod,
       locale: const Locale('ar'),
       navigatorObservers: [BotToastNavigatorObserver()],
-      initialRoute: si<SStorage>().get(key: kAccessToken, type: ValueType.string).toString().isEmpty
+      initialRoute: si<SStorage>()
+              .get(key: kAccessToken, type: ValueType.string)
+              .toString()
+              .isEmpty
           ? LoginScreen.idScreen
           : MapDriverScreen.idScreen,
       routes: {
         RegisterationScreen.idScreen: (context) => RegisterationScreen(),
         LoginScreen.idScreen: (context) => const LoginScreen(),
         MapDriverScreen.idScreen: (context) => const MapDriverScreen(),
-        CarInfoScreen.idScreen: (context) => const CarInfoScreen(),
       },
       builder: (context, navigator) {
         navigator = ResponsiveWrapper.builder(

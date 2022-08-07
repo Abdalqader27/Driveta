@@ -1,27 +1,16 @@
 import 'dart:async';
 
 import 'package:bot_toast/bot_toast.dart';
-import 'package:driver/common/assistants/assistantMethods.dart';
-import 'package:driver/configMaps.dart';
-import 'package:driver/features/data/models/drivers.dart';
-import 'package:driver/features/presentation/pages/map_driver/available_deliver.dart';
 import 'package:driver/features/presentation/pages/map_driver/widgets/map_drawer.dart';
 import 'package:driver/features/presentation/pages/map_driver/widgets/map_panel_widget.dart';
-import 'package:driver/features/presentation/widgets/location_granted_widget.dart';
-import 'package:driver/main.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animarker/core/ripple_marker.dart';
-import 'package:flutter_animarker/widgets/animarker.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../../../common/utils/config.dart';
 import '../../../../../common/utils/signal_r_config.dart';
 import '../../../../../features/presentation/pages/sgin_up/registeration_screen.dart';
-import '../../../../common/config/theme/colors.dart';
 import 'widgets/map_app_bar.dart';
 
 late BuildContext context;
@@ -220,6 +209,13 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
   }
 
   Future<void> makeDriverOnlineNow() async {
+    LocationPermission permission;
+    permission = await Geolocator.checkPermission();
+    permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.denied) {
+      //nothing
+      return;
+    }
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
     await SignalRDriver().sendLocation(
@@ -233,6 +229,13 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
   }
 
   Future<void> getLocationLiveUpdates() async {
+    LocationPermission permission;
+    permission = await Geolocator.checkPermission();
+    permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.denied) {
+      //nothing
+      return;
+    }
     Geolocator.getPositionStream().listen((Position currentLocation) async {
       if (SignalRDriver.connectionIsOpen == true) {
         print(

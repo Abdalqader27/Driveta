@@ -21,7 +21,8 @@ class _LocationGrantedWidgetState extends State<LocationGrantedWidget> {
         stream: Location.instance.hasPermission().asStream(),
         builder: (_, hasPermission) {
           if (hasPermission.data == null) {
-            return const CircularProgressIndicator();
+            return const Center(
+                child: SizedBox(child: CircularProgressIndicator()));
           } else {
             if (hasPermission.data != PermissionStatus.granted) {
               return noLocationWidget(context: context);
@@ -30,7 +31,8 @@ class _LocationGrantedWidgetState extends State<LocationGrantedWidget> {
                 stream: Location.instance.requestPermission().asStream(),
                 builder: (_, requestPermission) {
                   if (requestPermission.data == null) {
-                    return const CircularProgressIndicator();
+                    return const Center(
+                        child: SizedBox(child: CircularProgressIndicator()));
                   } else {
                     if (requestPermission.data != PermissionStatus.granted) {
                       return noLocationWidget(context: context);
@@ -41,7 +43,9 @@ class _LocationGrantedWidgetState extends State<LocationGrantedWidget> {
                           if (loc.hasData) if (loc.data == null) {
                             return noLocationWidget(context: context);
                           } else {
-                            const CircularProgressIndicator();
+                            const Center(
+                                child: const SizedBox(
+                                    child: CircularProgressIndicator()));
                           }
                           if (loc.data != null &&
                               loc.data!.latitude != null &&
@@ -52,7 +56,9 @@ class _LocationGrantedWidgetState extends State<LocationGrantedWidget> {
                               builder: widget.builder,
                             );
                           }
-                          return const CircularProgressIndicator();
+                          return const Center(
+                              child:
+                                  SizedBox(child: CircularProgressIndicator()));
                         });
                   }
                 });
@@ -67,7 +73,7 @@ class _LocationGrantedWidgetState extends State<LocationGrantedWidget> {
       child: CustomButton(
         title: "تشغيل ",
         height: 44,
-        icon: Icon(
+        icon: const Icon(
           Icons.location_on_outlined,
           size: 22,
         ),
@@ -105,12 +111,12 @@ class _LocationGrantedWidgetState extends State<LocationGrantedWidget> {
         child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(Icons.location_on_outlined, size: 32),
+        const Icon(Icons.location_on_outlined, size: 32),
         Container(
-            padding: EdgeInsets.all(8.0),
-            child: Text(
+            padding: const EdgeInsets.all(8.0),
+            child: const Text(
               " الرجاء تشغيل  الموقع لفتح الخريطة ",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
             )),
         openLocationButton(context: context)
       ],

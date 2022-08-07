@@ -1,5 +1,4 @@
 import 'package:driver/common/animations/bouncing_animation.dart';
-import 'package:driver/common/config/styles/container_styles.dart';
 import 'package:driver/common/config/theme/colors.dart';
 import 'package:flutter/material.dart';
 

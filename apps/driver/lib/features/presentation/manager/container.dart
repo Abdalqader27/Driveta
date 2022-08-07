@@ -28,10 +28,9 @@ class ProfileContainer extends StatelessWidget {
   const ProfileContainer({Key? key, required this.builder}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    context.read<DriverBloc>().add(GetProfileEvent());
+
     return BlocSelectorWrapper<DriverProfile, DriverBloc, DriverState>(
-      onInit: () {
-        context.read<DriverBloc>().add(GetProfileEvent());
-      },
       onRetry: () => context.read<DriverBloc>().retry(),
       selector: (state) => state.infoState!,
       builder: builder,
@@ -47,9 +46,6 @@ class InvoiceContainer extends StatelessWidget {
     return Builder(builder: (context) {
       context.read<DriverBloc>().add(GetInvoicesEvent());
       return BlocSelectorWrapper<Invoices, DriverBloc, DriverState>(
-        onInit: () {
-          context.read<DriverBloc>().add(GetInvoicesEvent());
-        },
         onRetry: () => context.read<DriverBloc>().retry(),
         selector: (state) => state.invoiceState!,
         builder: builder,
@@ -67,9 +63,6 @@ class StatisticsContainer extends StatelessWidget {
     return Builder(builder: (context) {
       context.read<DriverBloc>().add(GetStatisticsEvent());
       return BlocSelectorWrapper<Statistics, DriverBloc, DriverState>(
-        onInit: () {
-          context.read<DriverBloc>().add(GetStatisticsEvent());
-        },
         onRetry: () => context.read<DriverBloc>().retry(),
         selector: (state) => state.statisticsSate!,
         builder: builder,
@@ -83,10 +76,9 @@ class HistoryContainer extends StatelessWidget {
   const HistoryContainer({Key? key, required this.builder}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    context.read<DriverBloc>().add(GetHistoriesEvent());
+
     return BlocSelectorWrapper<List<Delivers>, DriverBloc, DriverState>(
-      onInit: () {
-        context.read<DriverBloc>().add(GetHistoriesEvent());
-      },
       onRetry: () => context.read<DriverBloc>().retry(),
       selector: (state) => state.historyState!,
       builder: builder,

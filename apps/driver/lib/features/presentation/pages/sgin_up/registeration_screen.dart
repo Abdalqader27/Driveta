@@ -1,12 +1,10 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:design/design.dart';
-import 'package:driver/AllScreens/carInfoScreen.dart';
 import 'package:driver/configMaps.dart';
 import 'package:driver/features/presentation/widgets/background/primary_background.dart';
+import 'package:driver/features/presentation/widgets/progress_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:driver/features/presentation/widgets/progress_dialog.dart';
-import 'package:driver/main.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../../common/config/theme/colors.dart';
@@ -44,7 +42,7 @@ class RegisterationScreen extends StatelessWidget {
                   ),
                   SPadding.all4(
                     child: Lottie.asset(
-                      Assets.newUser,
+                      Assets.lottieNewUser,
                       width: 200,
                     ),
                   ),
@@ -214,8 +212,6 @@ class RegisterationScreen extends StatelessWidget {
 
       displayToastMessage(
           "Congratulations, your account has been created.", context);
-
-      Navigator.pushNamed(context, CarInfoScreen.idScreen);
     } else {
       Navigator.pop(context);
       //error occurred - display error msg

@@ -2,13 +2,11 @@ import 'dart:developer';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:core/core.dart';
 import 'package:dio/dio.dart';
-import 'package:dio_refresh_bot/dio_refresh_bot.dart';
+import 'package:driver/common/utils/connectivity.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:network/network.dart';
 import 'package:retry_bot/retry_bot.dart';
-import 'package:driver/common/utils/connectivity.dart';
 
 import '../../app_injection.dart';
 
@@ -52,56 +50,6 @@ class NetworkInjection {
       ),
     );
 
-    si.registerLazySingleton(() => BotMemoryTokenStorage<AuthToken>(
-          initValue: () {
-            final String accessToken = si<SStorage>().get(
-              key: kAccessToken,
-              type: ValueType.string,
-            );
-            final String refreshToken = si<SStorage>().get(
-              key: kRefreshToken,
-              type: ValueType.string,
-            );
-            return AuthToken(
-              accessToken: accessToken,
-              refreshToken: refreshToken,
-            );
-          },
-          onDeleted: () {
-            si<SStorage>().set(key: kAccessToken, value: '');
-            si<SStorage>().set(key: kRefreshToken, value: '');
-            return null;
-          },
-          onUpdated: (token) async {
-            si<SStorage>().set(
-              key: kAccessToken,
-              value: token?.accessToken ?? '',
-            );
-            si<SStorage>().set(
-              key: kRefreshToken,
-              value: token?.refreshToken ?? '',
-            );
-          },
-        ));
-    si.registerLazySingleton(
-      () => RefreshTokenInterceptor<AuthToken>(
-        dio: si<Dio>(),
-        tokenStorage: si<BotMemoryTokenStorage>(),
-        refreshToken: (token, tokenDio) async {
-          // final response = await tokenDio.post(
-          //   '/auth/refresh-token',
-          //   data: {'refreshToken': token.refreshToken},
-          // );
-
-          return AuthToken(
-            accessToken:
-                si<SStorage>().get(key: kAccessToken, type: ValueType.string),
-            refreshToken:
-                si<SStorage>().get(key: kRefreshToken, type: ValueType.string),
-          );
-        },
-      ),
-    );
     si.registerLazySingleton(() {
       return SHttpClient(
         dio: si<Dio>(),
@@ -121,7 +69,6 @@ class NetworkInjection {
         // baseUrl: FlavorConfig.instance.variables["baseUrl"],
         baseUrl: kBaseUrl,
         interceptors: [
-          si<RefreshTokenInterceptor>(),
           si<OnRetryConnection>(),
         ],
       );

@@ -52,13 +52,13 @@ Future<ApiResult<T>> fetchApiResult<T>({
   }
 }
 
-Future<Either<SResponseException, T>> fetch<T>({
+Future<Either<dynamic, T>> fetch<T>({
   required Future<T> Function() call,
 }) async {
   try {
     final result = await call();
     return Right(result);
-  } on SResponseException catch (e) {
+  } catch (e) {
     return Left(e);
   }
 }

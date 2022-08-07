@@ -3,18 +3,10 @@ import 'dart:async';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:design/design.dart';
 import 'package:dotted_line/dotted_line.dart';
-import 'package:driver/app_injection.dart';
-import 'package:driver/features/data/data_sources/driver_api.dart';
-import 'package:driver/features/data/models/delivers.dart';
-import 'package:driver/features/domain/use_cases/driver_usecase.dart';
-import 'package:driver/features/presentation/widgets/CollectFareDialog.dart';
 import 'package:driver/common/assistants/assistantMethods.dart';
-import 'package:driver/features/data/models/rideDetails.dart';
 import 'package:driver/common/config/theme/colors.dart';
-import 'package:driver/features/presentation/widgets/progress_dialog.dart';
-import 'package:driver/configMaps.dart';
-import 'package:driver/main.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:driver/features/data/models/delivers.dart';
+import 'package:driver/features/presentation/widgets/CollectFareDialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter_svg/svg.dart';
@@ -25,9 +17,7 @@ import 'package:location/location.dart';
 import '../common/utils/config.dart';
 import '../common/utils/signal_r_config.dart';
 import '../features/presentation/pages/history/widgets/header_item.dart';
-import '../features/presentation/widgets/location_granted_widget.dart';
 import '../generated/assets.dart';
-import 'package:driver/features/data/models/delivers.dart';
 
 class NewRideScreen extends StatefulWidget {
   final Delivers rideDetails;
@@ -256,9 +246,11 @@ class _NewRideScreenState extends State<NewRideScreen> {
                   } else if (status == "ArrivedToUser") {
                     BotToast.showLoading();
                     if (widget.type == 1) {
-                      await SignalRDriver().startDelivery(id: widget.rideDetails.id);
+                      await SignalRDriver()
+                          .startDelivery(id: widget.rideDetails.id);
                     } else if (widget.type == 2) {
-                      await SignalRDriver().startDeliveryProduct(id: widget.rideDetails.id);
+                      await SignalRDriver()
+                          .startDeliveryProduct(id: widget.rideDetails.id);
                     }
 
                     // await si<DriverUseCase>().changeDeliveryStatue(
@@ -467,15 +459,15 @@ class _NewRideScreenState extends State<NewRideScreen> {
         distance: directionalDetails.distanceValue ?? 0,
       );
     } else if (widget.type == 2) {
-          await SignalRDriver().endDeliveryDriverProduct(
-      id: widget.rideDetails.id,
-      price: fareAmount,
-      endLat: currentLatLng.latitude.toString(),
-      endLong: currentLatLng.longitude.toString(),
-      dropOff: widget.rideDetails.dropOff,
-      expectedTime: directionalDetails.durationValue.toString(),
-      distance: directionalDetails.distanceValue ?? 0,
-    );
+      await SignalRDriver().endDeliveryDriverProduct(
+        id: widget.rideDetails.id,
+        price: fareAmount,
+        endLat: currentLatLng.latitude.toString(),
+        endLong: currentLatLng.longitude.toString(),
+        dropOff: widget.rideDetails.dropOff,
+        expectedTime: directionalDetails.durationValue.toString(),
+        distance: directionalDetails.distanceValue ?? 0,
+      );
     }
 
     BotToast.closeAllLoading();

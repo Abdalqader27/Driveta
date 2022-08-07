@@ -172,7 +172,7 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   child: Container(
                     height: MediaQuery.of(context).size.height,
                     width: MediaQuery.of(context).size.width,
-                    color: const Color(0xffffffff).withOpacity(.9),
+                    color: const Color(0xffffffff),
                     child: Lottie.asset(
                       'lotti_files/22770-hello-peep.json',
                       width: MediaQuery.of(context).size.width,
@@ -378,120 +378,6 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
         })}");
   }
 
-  // void saveRideRequest() {
-  //   rideRequestRef = FirebaseDatabase.instance.ref().child("Ride Requests").push();
-  //
-  //   // var pickUp = Provider.of<AppData>(context, listen: false).pickUpLocation;
-  //   // var dropOff = Provider.of<AppData>(context, listen: false).dropOffLocation;
-  //   var pickUp = si<MapState>().pinData.currentPoint;
-  //   var pickUpName = si<MapState>().pinData.pickUpAddress;
-  //   var dropOff = si<MapState>().pinData.destinationPoint;
-  //   var dropOffName = si<MapState>().pinData.dropOffAddress;
-  //
-  //   Map pickUpLocMap = {
-  //     "latitude": pickUp.latitude.toString(),
-  //     "longitude": pickUp.longitude.toString(),
-  //   };
-  //
-  //   Map dropOffLocMap = {
-  //     "latitude": dropOff.latitude.toString(),
-  //     "longitude": dropOff.longitude.toString(),
-  //   };
-  //
-  //   Map rideInfoMap = {
-  //     "driver_id": "waiting",
-  //     "payment_method": "cash",
-  //     "pickup": pickUpLocMap,
-  //     "dropoff": dropOffLocMap,
-  //     "created_at": DateTime.now().toString(),
-  //     "rider_name": userCurrentInfo?.name,
-  //     "rider_phone": userCurrentInfo?.phone,
-  //     "pickup_address": pickUpName,
-  //     "dropoff_address": dropOffName,
-  //     "ride_type": carRideType,
-  //   };
-  //
-  //   rideRequestRef?.set(rideInfoMap);
-  //
-  //   rideStreamSubscription = rideRequestRef?.onValue.listen((event) async {
-  //     if (event.snapshot.value == null) {
-  //       return;
-  //     }
-  //
-  //     if ((event.snapshot.value as Map)["car_details"] != null) {
-  //       setState(() {
-  //         carDetailsDriver = (event.snapshot.value as Map)["car_details"].toString();
-  //       });
-  //     }
-  //     if ((event.snapshot.value as Map)["driver_name"] != null) {
-  //       setState(() {
-  //         driverName = (event.snapshot.value as Map)["driver_name"].toString();
-  //       });
-  //     }
-  //     if ((event.snapshot.value as Map)["driver_phone"] != null) {
-  //       setState(() {
-  //         driverphone = (event.snapshot.value as Map)["driver_phone"].toString();
-  //       });
-  //     }
-  //
-  //     if ((event.snapshot.value as Map)["driver_location"] != null) {
-  //       double driverLat =
-  //           double.parse((event.snapshot.value as Map)["driver_location"]["latitude"].toString());
-  //       double driverLng =
-  //           double.parse((event.snapshot.value as Map)["driver_location"]["longitude"].toString());
-  //       LatLng driverCurrentLocation = LatLng(driverLat, driverLng);
-  //
-  //       if (statusRide == "accepted") {
-  //         updateRideTimeToPickUpLoc(driverCurrentLocation);
-  //       } else if (statusRide == "onride") {
-  //         updateRideTimeToDropOffLoc(driverCurrentLocation);
-  //       } else if (statusRide == "arrived") {
-  //         setState(() {
-  //           rideStatus = "Driver has Arrived.";
-  //         });
-  //       }
-  //     }
-  //
-  //     if ((event.snapshot.value as Map)["status"] != null) {
-  //       statusRide = (event.snapshot.value as Map)["status"].toString();
-  //     }
-  //     if (statusRide == "accepted") {
-  //       displayDriverDetailsContainer();
-  //       Geofire.stopListener();
-  //       deleteGeofileMarkers();
-  //     }
-  //     if (statusRide == "ended") {
-  //       if ((event.snapshot.value as Map)["fares"] != null) {
-  //         int fare = int.parse((event.snapshot.value as Map)["fares"].toString());
-  //         var res = await showDialog(
-  //           context: context,
-  //           barrierDismissible: false,
-  //           builder: (BuildContext context) => CollectFareDialog(
-  //             paymentMethod: "cash",
-  //             fareAmount: fare,
-  //           ),
-  //         );
-  //
-  //         String driverId = "";
-  //         if (res == "close") {
-  //           if ((event.snapshot.value as Map)["driver_id"] != null) {
-  //             driverId = (event.snapshot.value as Map)["driver_id"].toString();
-  //           }
-  //
-  //           Navigator.of(context)
-  //               .push(MaterialPageRoute(builder: (context) => RatingScreen(driverId: driverId)));
-  //
-  //           rideRequestRef?.onDisconnect();
-  //           rideRequestRef = null;
-  //           rideStreamSubscription?.cancel();
-  //           rideStreamSubscription = null;
-  //           resetApp();
-  //         }
-  //       }
-  //     }
-  //   });
-  // }
-
   void updateRideTimeToPickUpLoc(LatLng driverCurrentLocation) async {
     if (isRequestingPositionDetails == false) {
       isRequestingPositionDetails = true;
@@ -583,6 +469,7 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     permission = await Geolocator.requestPermission();
     if (permission == LocationPermission.denied) {
       //nothing
+      return;
     }
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
