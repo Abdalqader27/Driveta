@@ -41,7 +41,7 @@ class User {
         balance: json["balance"],
         userName: json["userName"],
         name: json["name"],
-        phoneNumber: json["phoneNumber"],
+        phoneNumber: jsonDecode(json["phoneNumber"])['phoneNumber'],
         email: json["email"],
         sexType: json["sexType"],
       );

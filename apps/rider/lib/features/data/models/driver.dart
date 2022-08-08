@@ -18,6 +18,7 @@ class Driver {
 
   final String? phoneNumber;
   final int? rate;
+  final int? vehicleType;
   final String? vehicleId;
   final String? vehicleColor;
   final String? vehicleName;
@@ -31,6 +32,7 @@ class Driver {
         userName: json["userName"],
         lat: json["lat"],
         long: json["long"],
+        vehicleType: json["vehicleType"],
         isAvailable: json["isAvailable"],
         phoneNumber: json["phoneNumber"],
         rate: json["rate"],
@@ -49,6 +51,7 @@ class Driver {
       this.vehicleColor,
       this.vehicleName,
       this.vehicleModelId,
+      this.vehicleType,
       this.vehicleModelName,
       this.vehicleNumber,
       this.id,

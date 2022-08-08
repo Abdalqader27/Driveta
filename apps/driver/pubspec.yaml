@@ -52,8 +52,6 @@ dependencies:
   responsive_framework: ^0.2.0
   search_choices: ^2.1.1
   permission_handler: ^10.0.0
-  bootstrap:
-    path: packages/bootstrap
   core:
     path: packages/core
   design:

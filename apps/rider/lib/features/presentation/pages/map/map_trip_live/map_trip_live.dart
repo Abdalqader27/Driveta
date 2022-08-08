@@ -2,6 +2,7 @@ import 'package:design/design.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:rider/common/utils/signal_r.dart';
 import 'package:rider/features/presentation/pages/map/map_trip_live/providers/map_live_provider.dart';
 
 import '../../../../../../common/utils/google_api_key.dart';
@@ -40,6 +41,11 @@ class _MapTripLiveState extends State<MapTripLive>
                   mapId: provider.mapId(),
                 ),
                 TitleAppBar(
+                  onCancelTrip: () {
+                    SignalRRider().removeDeliveryCustomer(
+                      id: provider.deliver!.id,
+                    );
+                  },
                   titleSpan: provider.state.getTitleSpan(),
                   durationText: provider.details?.durationText ?? '',
                   title: provider.state.getTitle(),

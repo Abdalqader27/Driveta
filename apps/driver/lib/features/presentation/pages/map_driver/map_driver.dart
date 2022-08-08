@@ -84,7 +84,7 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
                       mapType: MapType.normal,
                       padding: const EdgeInsets.only(top: 30),
                       buildingsEnabled: true,
-                      myLocationEnabled: true,
+                      myLocationEnabled: false,
                       markers: _markers.values.toSet(),
                       myLocationButtonEnabled: true,
                       initialCameraPosition: MapDriverScreen._kGooglePlex,

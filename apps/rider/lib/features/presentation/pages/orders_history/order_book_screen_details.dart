@@ -114,15 +114,16 @@ class _OrderBookScreenDetailsState extends State<OrderBookScreenDetails> {
                         // TODO add time and distance and money
                         ChipItem(
                           iconData: Icons.access_time,
-                          title: '${widget.delivers.expectedTime}',
+                          title:
+                              '${widget.delivers.expectedTime?.replaceAll('mins', 'د  ')}',
                         ),
                         ChipItem(
                           iconData: Icons.add_road_rounded,
-                          title: '${widget.delivers.distance}',
+                          title: '${widget.delivers.distance}  متر ',
                         ),
                         ChipItem(
                           iconData: Icons.account_balance_wallet_outlined,
-                          title: '${widget.delivers.price}',
+                          title: '${widget.delivers.price} ل.س ',
                         ),
                       ],
                     ),

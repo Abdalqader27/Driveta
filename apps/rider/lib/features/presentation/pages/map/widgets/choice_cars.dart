@@ -44,12 +44,16 @@ class _ChoiceCarsWidgetState extends State<ChoiceCarsWidget> {
               children: [
                 _PanelItem(
                   title: 'المسافة',
-                  subtitle: widget.directionDetails?.distanceText ?? '',
+                  subtitle: widget.directionDetails?.distanceText
+                          .replaceAll('km', 'كم') ??
+                      '',
                   iconData: Icons.polyline_sharp,
                 ),
                 _PanelItem(
                   title: 'الوقت',
-                  subtitle: widget.directionDetails?.durationText ?? '',
+                  subtitle: widget.directionDetails?.durationText
+                          .replaceAll('mins', 'د') ??
+                      '',
                   iconData: Icons.lock_clock,
                 ),
               ],

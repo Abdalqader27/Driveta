@@ -15,6 +15,7 @@ class TitleAppBar extends StatelessWidget {
   final String driverName;
   final String driverPhone;
   final Function()? onPhoneTap;
+  final Function()? onCancelTrip;
 
   const TitleAppBar(
       {Key? key,
@@ -23,7 +24,8 @@ class TitleAppBar extends StatelessWidget {
       required this.durationText,
       required this.driverName,
       required this.driverPhone,
-      this.onPhoneTap})
+      this.onPhoneTap,
+      this.onCancelTrip})
       : super(key: key);
 
   @override
@@ -115,33 +117,67 @@ class TitleAppBar extends StatelessWidget {
                       '$driverName',
                       style: const TextStyle(fontWeight: FontWeight.w600),
                     ),
-                    trailing: FlatButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                          side: const BorderSide(color: Colors.green)),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: const <Widget>[
-                          Text(
-                            'اتصال ',
-                            style: TextStyle(color: Colors.green, fontSize: 13),
+                    trailing: Row(
+                      children: [
+                        FlatButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                              side: const BorderSide(color: Colors.green)),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: const <Widget>[
+                              Text(
+                                'اتصال ',
+                                style: TextStyle(
+                                    color: Colors.green, fontSize: 13),
+                              ),
+                              Icon(
+                                Icons.call,
+                                color: Colors.green,
+                                size: 17,
+                              ),
+                            ],
                           ),
-                          Icon(
-                            Icons.call,
-                            color: Colors.green,
-                            size: 17,
-                          ),
-                        ],
-                      ),
-                      onPressed: () {
-                        launchUrlString(
-                            'tel:00${driverPhone.replaceAll(' ', '')}');
+                          onPressed: () {
+                            launchUrlString(
+                                'tel:00${driverPhone.replaceAll(' ', '')}');
 
-                        if (onPhoneTap != null) {
-                          onPhoneTap!();
-                        }
-                        // UrlLauncer.launch('tel:00${snapshot.data.captainNumber}');
-                      },
+                            if (onPhoneTap != null) {
+                              onPhoneTap!();
+                            }
+                            // UrlLauncer.launch('tel:00${snapshot.data.captainNumber}');
+                          },
+                        ),
+                        SizedBox(
+                          width: 100,
+                        ),
+                        FlatButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                              side: const BorderSide(color: Colors.green)),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: const <Widget>[
+                              Text(
+                                'الغاء الرحلة ',
+                                style:
+                                    TextStyle(color: Colors.red, fontSize: 13),
+                              ),
+                              Icon(
+                                Icons.close,
+                                color: Colors.red,
+                                size: 17,
+                              ),
+                            ],
+                          ),
+                          onPressed: () {
+                            if (onCancelTrip != null) {
+                              onCancelTrip!();
+                            }
+                            // UrlLauncer.launch('tel:00${snapshot.data.captainNumber}');
+                          },
+                        ),
+                      ],
                     ),
                   ),
                 ],

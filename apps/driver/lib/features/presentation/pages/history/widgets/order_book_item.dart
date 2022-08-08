@@ -43,7 +43,6 @@ class OrderBookItem extends StatelessWidget {
                 ],
               ),
             ),
-            subtitle: Text(history.id),
             leading: CircleAvatar(child: Center(child: Text('${index + 1}'))),
           ),
           Row(

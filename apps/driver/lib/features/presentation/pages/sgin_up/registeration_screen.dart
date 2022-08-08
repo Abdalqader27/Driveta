@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:search_choices/search_choices.dart';
 
@@ -227,7 +228,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                                   controller: dob,
                                   onTap: () async {
                                     final datePick = await showDatePicker(
-                                        locale: const Locale('ar'),
+                                        // locale: const Locale('ar'),
                                         context: context,
                                         initialDate: DateTime.now(),
                                         firstDate: DateTime(1990),
@@ -235,7 +236,8 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
 
                                     if (datePick != null) {
                                       setState(() {
-                                        dob.text = datePick.toIso8601String();
+                                        dob.text = DateFormat('yyyy-MM-dd')
+                                            .format(datePick);
                                         // "${datePick.month}/${datePick.day}/${datePick.year}";
                                         // put it here
                                       });
@@ -369,8 +371,6 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                                                 textAlign: TextAlign.left,
                                                 style: const TextStyle(
                                                     fontSize: 14.0),
-                                                textDirection:
-                                                    TextDirection.ltr,
                                               ),
                                             ),
                                           ))

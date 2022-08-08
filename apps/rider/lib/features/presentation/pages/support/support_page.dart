@@ -32,7 +32,7 @@ class _StateSupportScreen extends State<SupportScreen> {
             const RoundedAppBar(
                 title: 'المساعدة والدعم',
                 subTitle: 'اذا كنت تعاني من اي مشكلة '
-                    'دعنا '),
+                    'دعنا نساعدك   '),
             Expanded(
               child: Center(
                 child: SingleChildScrollView(
