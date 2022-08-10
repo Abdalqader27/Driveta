@@ -47,7 +47,8 @@ class AvailableDeliveries extends StatelessWidget {
                             onTap: () async {
                               try {
                                 BotToast.showLoading();
-                                SignalRDriver().acceptDelivery(id: deliver.id);
+                                SignalRDriver()
+                                    .acceptDelivery(id: deliver.id ?? '');
                                 BotToast.closeAllLoading();
                                 Get.back();
                                 Get.to(
@@ -99,8 +100,8 @@ class AvilableDeliveriesProduct extends StatelessWidget {
                             onTap: () async {
                               try {
                                 BotToast.showLoading();
-                                SignalRDriver()
-                                    .acceptDeliveryProduct(id: deliver.id);
+                                SignalRDriver().acceptDeliveryProduct(
+                                    id: deliver.id ?? '');
                                 BotToast.closeAllLoading();
                                 Get.to(() => NewRideScreen(
                                     rideDetails: deliver, type: 2));

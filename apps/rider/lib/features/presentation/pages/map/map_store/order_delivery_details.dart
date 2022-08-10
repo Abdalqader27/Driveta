@@ -429,28 +429,32 @@ class _OrderDeliveryDetailsState extends State<OrderDeliveryDetails> {
                                                           'لايوجد سائقين متاحين');
                                                 });
                                                 BotToast.showLoading();
-                                                final delivery = DeliversProduct(
-                                                    pickUp: data.pickText!,
-                                                    startLat: data
-                                                        .start!.latitude
-                                                        .toString(),
-                                                    startLong: data
-                                                        .start!.longitude
-                                                        .toString(),
-                                                    price: data.price!.toInt(),
-                                                    dropOff: data.dropText!,
-                                                    endLat:
-                                                        data.storeDetails!.lat!,
-                                                    distance: data
-                                                        .details!.distanceValue,
-                                                    endLong: data
-                                                        .storeDetails!.long!,
-                                                    expectedTime: data
-                                                        .details!.durationValue
-                                                        .toString(),
-                                                    vehicleType:
-                                                        data.carDetails!.item2,
-                                                    details: filter());
+                                                final delivery =
+                                                    DeliversProduct(
+                                                        pickUp: data.pickText!,
+                                                        startLat: data
+                                                            .start!.latitude
+                                                            .toString(),
+                                                        startLong: data
+                                                            .start!.longitude
+                                                            .toString(),
+                                                        price:
+                                                            data.price!.toInt(),
+                                                        dropOff: data.dropText!,
+                                                        endLat: data
+                                                            .storeDetails!.lat!,
+                                                        distance: data.details!
+                                                            .distanceValue,
+                                                        endLong: data
+                                                            .storeDetails!
+                                                            .long!,
+                                                        expectedTime:
+                                                            data.details!
+                                                                .durationText
+                                                                .toString(),
+                                                        vehicleType: data
+                                                            .carDetails!.item2,
+                                                        details: filter());
                                                 si<MapTripProvider>()
                                                         .setDeliversProduct =
                                                     delivery;
@@ -459,7 +463,8 @@ class _OrderDeliveryDetailsState extends State<OrderDeliveryDetails> {
                                                         deliverProduct:
                                                             delivery);
 
-                                                print(data.productMap);
+                                                print(
+                                                    "order ${delivery.expectedTime}");
                                               },
                                         child: MaterialText.button(
                                           'طلب',
