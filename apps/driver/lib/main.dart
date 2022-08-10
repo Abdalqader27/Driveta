@@ -29,7 +29,6 @@ void main() async {
   await Firebase.initializeApp();
   await Injections.init();
 
-  currentfirebaseUser = FirebaseAuth.instance.currentUser;
 
   await runZonedGuarded(() async {
     runApp(MultiBlocProvider(

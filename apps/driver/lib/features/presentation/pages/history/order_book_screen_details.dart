@@ -95,18 +95,18 @@ class _OrderBookScreenDetailsState extends State<OrderBookScreenDetails> {
                                 getPlaceDirection(
                                     LatLng(
                                       double.tryParse(
-                                              widget.delivers.startLat) ??
+                                              widget.delivers.startLat??'0') ??
                                           0,
                                       double.tryParse(
-                                              widget.delivers.startLong) ??
+                                              widget.delivers.startLong??'0') ??
                                           0,
                                     ),
                                     LatLng(
                                         double.tryParse(
-                                                widget.delivers.endLat) ??
+                                                widget.delivers.endLat??'0') ??
                                             0,
                                         double.tryParse(
-                                                widget.delivers.endLong) ??
+                                                widget.delivers.endLong??'0') ??
                                             0),
                                     false);
                               },
@@ -198,8 +198,8 @@ class _OrderBookScreenDetailsState extends State<OrderBookScreenDetails> {
 
     _markers[MarkerId('1')] = Marker(
       markerId: MarkerId('1'),
-      position: LatLng(double.tryParse(widget.delivers.startLat) ?? 0,
-          double.tryParse(widget.delivers.startLong) ?? 0),
+      position: LatLng(double.tryParse(widget.delivers.startLat??'0') ?? 0,
+          double.tryParse(widget.delivers.startLong??'0') ?? 0),
       infoWindow: InfoWindow(
         title: '${widget.delivers.pickUp}',
         snippet: '${widget.delivers.pickUp}',
@@ -207,8 +207,8 @@ class _OrderBookScreenDetailsState extends State<OrderBookScreenDetails> {
     );
     _markers[MarkerId('2')] = Marker(
       markerId: MarkerId('2'),
-      position: LatLng(double.tryParse(widget.delivers.endLat) ?? 0,
-          double.tryParse(widget.delivers.endLong) ?? 0),
+      position: LatLng(double.tryParse(widget.delivers.endLat??'0') ?? 0,
+          double.tryParse(widget.delivers.endLong??'0') ?? 0),
       infoWindow: InfoWindow(
         title: '${widget.delivers.dropOff}',
         snippet: '${widget.delivers.dropOff}',

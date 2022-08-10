@@ -1,104 +1,109 @@
-import 'package:intl/intl.dart';
+// To parse this JSON data, do
+//
+//     final delivers = deliversFromJson(jsonString);
+
+import 'dart:convert';
+
+List<Delivers> deliversFromJson(String str) => List<Delivers>.from(json.decode(str).map((x) => Delivers.fromJson(x)));
+
+String deliversToJson(List<Delivers> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Delivers {
-  Delivers({
-    required this.id,
-    required this.customerId,
-    required this.customerName,
-    required this.startLat,
-    required this.startLong,
-    required this.endLat,
-    required this.endLong,
-    required this.distance,
-    required this.expectedTime,
-    required this.price,
-    required this.pickUp,
-    required this.dropOff,
-    this.createdAt,
-    this.details,
-  });
+    Delivers({
+        this.details,
+        this.id,
+        this.customerId,
+        this.customerName,
+        this.expectedTime,
+        this.riderPhone,
+        this.dateCreated,
+        this.startLat,
+        this.startLong,
+        this.endLat,
+        this.endLong,
+        this.distance,
+        this.price,
+        this.pickUp,
+        this.dropOff,
+    });
 
-  final String id;
-  final String customerId;
-  final String customerName;
-  final String startLat;
-  final String startLong;
-  final String endLat;
-  final String endLong;
-  final String? expectedTime;
-  final int distance;
-  final int price;
-  final String pickUp;
-  final String dropOff;
-  final List<DeliveryProductDetails>? details;
-  final String? createdAt;
+    final List<Detail>? details;
+    final String ?id;
+    final String ?customerId;
+    final String ?customerName;
+    final String ?expectedTime;
+    final String ?riderPhone;
+    final DateTime? dateCreated;
+    final String ?startLat;
+    final String ?startLong;
+    final String ?endLat;
+    final String ?endLong;
+    final int ?distance;
+    final int? price;
+    final String ?pickUp;
+    final String ?dropOff;
 
-  factory Delivers.fromJson(Map<String, dynamic> json) => Delivers(
-        details: json["details"] == null
-            ? []
-            : List<DeliveryProductDetails>.from(
-                json["details"].map((x) => DeliveryProductDetails.fromJson(x))),
+    factory Delivers.fromJson(Map<String, dynamic> json) => Delivers(
+        details: List<Detail>.from(json["details"].map((x) => Detail.fromJson(x))),
         id: json["id"],
         customerId: json["customerId"],
         customerName: json["customerName"],
+        expectedTime: json["expectedTime"],
+        riderPhone: json["riderPhone"],
+        dateCreated: DateTime.parse(json["dateCreated"]),
         startLat: json["startLat"],
         startLong: json["startLong"],
         endLat: json["endLat"],
-        expectedTime: json["expectedTime"],
         endLong: json["endLong"],
-        createdAt: json["startDate"],
         distance: json["distance"],
         price: json["price"],
         pickUp: json["pickUp"],
         dropOff: json["dropOff"],
-      );
+    );
 
-  String get date {
-    return DateFormat.d().format(parseDate);
-  }
-
-  DateTime get parseDate {
-    return DateTime.parse(createdAt!);
-  }
-
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
+        "details":details==null?[]: List<dynamic>.from(details!.map((x) => x.toJson())),
         "id": id,
         "customerId": customerId,
         "customerName": customerName,
+        "expectedTime": expectedTime,
+        "riderPhone": riderPhone,
+        "dateCreated": dateCreated?.toIso8601String(),
         "startLat": startLat,
         "startLong": startLong,
         "endLat": endLat,
-        "createdAt": createdAt,
-        "expectedTime": expectedTime,
         "endLong": endLong,
         "distance": distance,
         "price": price,
         "pickUp": pickUp,
         "dropOff": dropOff,
-      };
+    };
 }
 
-class DeliveryProductDetails {
-  final String? productId;
-  final String? offerId;
-  final num quantity;
+class Detail {
+    Detail({
+        this.productId,
+        this.offerId,
+        this.name,
+        this.quantity,
+    });
 
-  DeliveryProductDetails(
-      {this.productId, this.offerId, required this.quantity});
+    final String ?productId;
+    final dynamic ?offerId;
+    final String ?name;
+    final int ?quantity;
 
-  factory DeliveryProductDetails.fromJson(Map<String, dynamic> json) {
-    return DeliveryProductDetails(
-      productId: json['productId'] as String,
-      offerId: json['offerId'] as String,
-      quantity: json['quantity'] as num,
+    factory Detail.fromJson(Map<String, dynamic> json) => Detail(
+        productId: json["productId"],
+        offerId: json["offerId"],
+        name: json["name"],
+        quantity: json["quantity"],
     );
-  }
 
-  toJson() {
-    return {
-      'productId': productId,
-      'offerId': offerId,
-      'quantity': quantity,
+    Map<String, dynamic> toJson() => {
+        "productId": productId,
+        "offerId": offerId,
+        "name": name,
+        "quantity": quantity,
     };
-  }
 }

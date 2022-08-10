@@ -33,7 +33,7 @@ class AvailableDeliveriesItem extends StatelessWidget {
               child: Icon(Icons.person),
             ),
             title: SText.bodyMedium(
-              delivers.customerName,
+              delivers.customerName ?? '',
               style: Theme.of(context)
                   .textTheme
                   .bodyText1!
@@ -50,7 +50,7 @@ class AvailableDeliveriesItem extends StatelessWidget {
                   ChipItem(
                     iconData: Icons.add_road_rounded,
                     title:
-                        '${delivers.distance.convertFromTo(LENGTH.meters, LENGTH.kilometers)} KM',
+                        '${delivers.distance?.convertFromTo(LENGTH.meters, LENGTH.kilometers)} KM',
                   ),
                   ChipItem(
                     iconData: Icons.account_balance_wallet_outlined,
@@ -76,14 +76,14 @@ class AvailableDeliveriesItem extends StatelessWidget {
                     HeaderItem(
                         context: context,
                         title: 'المكان الانطلاق',
-                        subtitle: delivers.pickUp),
+                        subtitle: delivers.pickUp ?? ''),
                     DottedLine(
                       dashColor: Colors.grey.withOpacity(.5),
                     ),
                     HeaderItem(
                         context: context,
                         title: ' الوجهة',
-                        subtitle: delivers.dropOff),
+                        subtitle: delivers.dropOff ?? ''),
                   ],
                 ),
               ),
@@ -125,15 +125,19 @@ class AvailableDeliveriesProductItem extends StatelessWidget {
       elevation: 0,
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 7.5),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           ListTile(
             leading: const CircleAvatar(
-              backgroundColor: kPRIMARY,
-              child: Icon(Icons.person),
+              backgroundColor: kRed0,
+              child: Icon(
+                Icons.person,
+                color: Colors.white,
+              ),
             ),
             title: SText.bodyMedium(
-              delivers.customerName,
+              delivers.customerName ?? '',
               style: Theme.of(context)
                   .textTheme
                   .bodyText1!
@@ -144,17 +148,17 @@ class AvailableDeliveriesProductItem extends StatelessWidget {
                 children: [
                   // TODO add time and distance and money
                   ChipItem(
-                    iconData: Icons.access_time,
-                    title: delivers.expectedTime ?? '',
-                  ),
+                      iconData: Icons.access_time,
+                      title:
+                          delivers.expectedTime?.replaceAll('mins', 'د') ?? ' '),
                   ChipItem(
                     iconData: Icons.add_road_rounded,
                     title:
-                        '${delivers.distance.convertFromTo(LENGTH.meters, LENGTH.kilometers)} KM',
+                        '${delivers.distance?.convertFromTo(LENGTH.meters, LENGTH.kilometers)} كم',
                   ),
                   ChipItem(
                     iconData: Icons.account_balance_wallet_outlined,
-                    title: '${delivers.distance}',
+                    title: '${delivers.price} ل.س',
                   ),
                 ],
               ),
@@ -176,22 +180,92 @@ class AvailableDeliveriesProductItem extends StatelessWidget {
                     HeaderItem(
                         context: context,
                         title: 'المكان الانطلاق',
-                        subtitle: delivers.pickUp),
+                        subtitle: delivers.pickUp ?? ''),
                     DottedLine(
                       dashColor: Colors.grey.withOpacity(.5),
                     ),
                     HeaderItem(
                         context: context,
                         title: ' الوجهة',
-                        subtitle: delivers.dropOff),
+                        subtitle: delivers.dropOff ?? ''),
                   ],
                 ),
               ),
             ],
           ),
+          Divider(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: SText.bodyMedium(
+              'المنتجات',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText1!
+                  .copyWith(fontWeight: FontWeight.w600),
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: 95,
+            child: GridView.builder(
+              padding: EdgeInsets.all(10),
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: delivers.details?.length ?? 0,
+              itemBuilder: (context, i) => Card(
+                elevation: 0.4,
+                margin: EdgeInsets.all(5),
+                child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Expanded(
+                        child: SText.bodyMedium(
+                          delivers.details![i].name ?? '',
+                          style: Theme.of(context).textTheme.caption!.copyWith(
+                              fontWeight: FontWeight.w600, fontSize: 9),
+                        ),
+                      ),
+                      Divider(),
+                      Center(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SText.bodyMedium(
+                              'الكمية :',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .caption!
+                                  .copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 9,
+                                      color: kBlack),
+                            ),
+                            SText.bodyMedium(
+                              '${delivers.details![i].quantity}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .caption!
+                                  .copyWith(fontWeight: FontWeight.w600),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  childAspectRatio: 1.2, crossAxisCount: 4),
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
           SPadding.h15(
               child: CupertinoButton(
-            color: kPRIMARY,
+            color: kRed0,
             borderRadius: BorderRadius.circular(30),
             onPressed: onTap,
             child: Center(

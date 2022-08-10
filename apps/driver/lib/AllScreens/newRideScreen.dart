@@ -117,8 +117,8 @@ class _NewRideScreenState extends State<NewRideScreen> {
                   LatLng((location).latitude!, (location).longitude!);
               print("currentLatLng: $currentLatLng");
               var pickUpLatLng = LatLng(
-                double.parse(widget.rideDetails.startLat),
-                double.parse(widget.rideDetails.startLong),
+                double.parse(widget.rideDetails.startLat??'0'),
+                double.parse(widget.rideDetails.startLong??'0'),
               );
               print("pickUpLatLng: $pickUpLatLng");
 
@@ -167,7 +167,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
                   width: 50,
                 ),
                 Text(
-                  widget.rideDetails.customerName,
+                  widget.rideDetails.customerName??'',
                   style: const TextStyle(
                       fontSize: 24, fontWeight: FontWeight.bold),
                 ),
@@ -196,14 +196,14 @@ class _NewRideScreenState extends State<NewRideScreen> {
                       HeaderItem(
                           context: context,
                           title: 'المكان الحالي',
-                          subtitle: widget.rideDetails.pickUp),
+                          subtitle: widget.rideDetails.pickUp??''),
                       DottedLine(
                         dashColor: Colors.grey.withOpacity(.5),
                       ),
                       HeaderItem(
                         context: context,
                         title: ' الوجهة',
-                        subtitle: widget.rideDetails.dropOff,
+                        subtitle: widget.rideDetails.dropOff??'',
                       ),
                     ],
                   ),
@@ -227,19 +227,19 @@ class _NewRideScreenState extends State<NewRideScreen> {
                     });
 
                     var pickup = LatLng(
-                        double.parse(widget.rideDetails.startLat),
-                        double.parse(widget.rideDetails.startLong));
+                        double.parse(widget.rideDetails.startLat??'0'),
+                        double.parse(widget.rideDetails.startLong??'0'));
                     var dropoff = LatLng(
-                        double.parse(widget.rideDetails.endLat),
-                        double.parse(widget.rideDetails.endLong));
+                        double.parse(widget.rideDetails.endLat??'0'),
+                        double.parse(widget.rideDetails.endLong??'0'));
 
                     await getPlaceDirection(pickup, dropoff, true);
                     if (widget.type == 1) {
                       await SignalRDriver()
-                          .arrivedToLocation(id: widget.rideDetails.id);
+                          .arrivedToLocation(id: widget.rideDetails.id??'');
                     } else if (widget.type == 2) {
                       await SignalRDriver()
-                          .arrivedToLocationProduct(id: widget.rideDetails.id);
+                          .arrivedToLocationProduct(id: widget.rideDetails.id??'');
                     }
 
                     BotToast.closeAllLoading();
@@ -247,10 +247,10 @@ class _NewRideScreenState extends State<NewRideScreen> {
                     BotToast.showLoading();
                     if (widget.type == 1) {
                       await SignalRDriver()
-                          .startDelivery(id: widget.rideDetails.id);
+                          .startDelivery(id: widget.rideDetails.id??'');
                     } else if (widget.type == 2) {
                       await SignalRDriver()
-                          .startDeliveryProduct(id: widget.rideDetails.id);
+                          .startDeliveryProduct(id: widget.rideDetails.id??'');
                     }
 
                     // await si<DriverUseCase>().changeDeliveryStatue(
@@ -418,11 +418,11 @@ class _NewRideScreenState extends State<NewRideScreen> {
       LatLng destinationLatLng;
 
       if (status == "accepted") {
-        destinationLatLng = LatLng(double.parse(widget.rideDetails.startLat),
-            double.parse(widget.rideDetails.startLong));
+        destinationLatLng = LatLng(double.parse(widget.rideDetails.startLat??'0'),
+            double.parse(widget.rideDetails.startLong??'0'));
       } else {
-        destinationLatLng = LatLng(double.parse(widget.rideDetails.endLat),
-            double.parse(widget.rideDetails.endLong));
+        destinationLatLng = LatLng(double.parse(widget.rideDetails.endLat??'0'),
+            double.parse(widget.rideDetails.endLong??'0'));
       }
 
       var directionDetails = await AssistantMethods.obtainPlaceDirectionDetails(
@@ -443,28 +443,28 @@ class _NewRideScreenState extends State<NewRideScreen> {
     var currentLatLng = LatLng(myPostion.latitude!, myPostion.longitude!);
 
     var directionalDetails = await AssistantMethods.obtainPlaceDirectionDetails(
-        LatLng(double.parse(widget.rideDetails.startLat),
-            double.parse(widget.rideDetails.startLong)),
+        LatLng(double.parse(widget.rideDetails.startLat??'0'),
+            double.parse(widget.rideDetails.startLong??'0')),
         currentLatLng);
 
     int fareAmount = AssistantMethods.calculateFares(directionalDetails!);
     if (widget.type == 1) {
       await SignalRDriver().endDeliveryDriver(
-        id: widget.rideDetails.id,
+        id: widget.rideDetails.id??'',
         price: fareAmount,
         endLat: currentLatLng.latitude.toString(),
         endLong: currentLatLng.longitude.toString(),
-        dropOff: widget.rideDetails.dropOff,
+        dropOff: widget.rideDetails.dropOff??'',
         expectedTime: directionalDetails.durationValue.toString(),
         distance: directionalDetails.distanceValue ?? 0,
       );
     } else if (widget.type == 2) {
       await SignalRDriver().endDeliveryDriverProduct(
-        id: widget.rideDetails.id,
+        id: widget.rideDetails.id??'',
         price: fareAmount,
         endLat: currentLatLng.latitude.toString(),
         endLong: currentLatLng.longitude.toString(),
-        dropOff: widget.rideDetails.dropOff,
+        dropOff: widget.rideDetails.dropOff??'',
         expectedTime: directionalDetails.durationValue.toString(),
         distance: directionalDetails.distanceValue ?? 0,
       );
