@@ -14,6 +14,7 @@ import '../../../../../features/presentation/pages/sgin_up/registeration_screen.
 import 'widgets/map_app_bar.dart';
 
 late BuildContext context;
+late GoogleMapController newGoogleMapController;
 
 class MapDriverScreen extends StatefulWidget {
   static const String idScreen = "mapDelivery";
@@ -31,14 +32,21 @@ class MapDriverScreen extends StatefulWidget {
 
 class _MapDriverScreenState extends State<MapDriverScreen> {
   final Completer<GoogleMapController> _controllerGoogleMap = Completer();
-  late GoogleMapController newGoogleMapController;
   final Map<MarkerId, Marker> _markers = <MarkerId, Marker>{};
   final GlobalKey<ScaffoldState> _key = GlobalKey();
-
+  StreamSubscription<Position>? stream;
   @override
   dispose() {
     super.dispose();
     newGoogleMapController.dispose();
+    stream?.cancel();
+  }
+
+  @override
+  void setState(fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
   }
 
   @override
@@ -85,14 +93,16 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
                       padding: const EdgeInsets.only(top: 30),
                       buildingsEnabled: true,
                       myLocationEnabled: false,
-                      
                       markers: _markers.values.toSet(),
                       myLocationButtonEnabled: true,
                       initialCameraPosition: MapDriverScreen._kGooglePlex,
                       onMapCreated: (GoogleMapController controller) {
-                        _controllerGoogleMap.complete(controller);
                         newGoogleMapController = controller;
-                        locatePosition();
+
+                        _controllerGoogleMap.complete(controller);
+                        if (mounted) {
+                          locatePosition();
+                        }
                       },
                     ),
                   ),
@@ -129,20 +139,6 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
         ));
   }
 
-  // void getRideType() {
-  //   driversRef
-  //       .child(currentfirebaseUser!.uid)
-  //       .child("car_details")
-  //       .child("type")
-  //       .once()
-  //       .then((s) {
-  //     DataSnapshot snapshot = s.snapshot;
-  //     if (snapshot.value != null) {
-  //       setState(() => rideType = snapshot.value.toString());
-  //     }
-  //   });
-  // }
-
   void locatePosition() async {
     await Geolocator.checkPermission();
     await Geolocator.requestPermission();
@@ -160,6 +156,8 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
       zoom: 19,
       bearing: position.heading,
     );
+    if (!mounted) return;
+
     newGoogleMapController.animateCamera(CameraUpdate.newCameraPosition(
       cameraPosition,
     ));
@@ -171,8 +169,8 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
       title: markerConfig.title,
       snippet: markerConfig.snippet,
     );
-    setState(() {
-      _markers[markerConfig.markerId] = marker;
+    setStateIfMounted(() {
+      _markers[marker.markerId] = marker;
     });
   }
 
@@ -182,6 +180,10 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
     permission = await Geolocator.requestPermission();
     if (permission == LocationPermission.denied) {
       //nothing
+      return;
+    }
+    if (!mounted) {
+      stream?.cancel();
       return;
     }
     Position position = await Geolocator.getCurrentPosition(
@@ -204,13 +206,22 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
       //nothing
       return;
     }
-    Geolocator.getPositionStream().listen((Position currentLocation) async {
-      if (SignalRDriver.connectionIsOpen == true) {
+    if (!mounted) {
+      stream?.cancel();
+      return;
+    }
+
+    stream =
+        Geolocator.getPositionStream().listen((Position currentLocation) async {
+      if (SignalRDriver.connectionIsOpen == true && mounted) {
         print(
             "latlang:${LatLng(currentLocation.latitude, currentLocation.longitude)}");
 
         await SignalRDriver().sendLocation(
-            point: LatLng(currentLocation.latitude, currentLocation.longitude),
+            point: LatLng(
+              currentLocation.latitude,
+              currentLocation.longitude,
+            ),
             angel: currentLocation.heading);
 
         await SignalRDriver().sendLocationProduct(
@@ -237,7 +248,7 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
           title: markerConfig.title,
           snippet: markerConfig.snippet,
         );
-        setState(() {
+        setStateIfMounted(() {
           _markers[markerConfig.markerId] = marker;
         });
       }
@@ -263,5 +274,9 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
       position: point,
       infoWindow: InfoWindow(title: title, snippet: snippet),
     );
+  }
+
+  void setStateIfMounted(f) {
+    if (mounted) setState(f);
   }
 }

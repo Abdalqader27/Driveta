@@ -13,6 +13,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:lottie/lottie.dart' hide Marker;
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../common/utils/config.dart';
 import '../common/utils/signal_r_config.dart';
@@ -41,7 +43,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
   double mapPaddingFromBottom = 0;
   var geoLocator = Geolocator();
   late BitmapDescriptor animatingMarkerIcon;
-  late LocationData myPostion;
+  late Position myPostion;
   String status = "accepted";
   String durationRide = "";
   bool isRequestingDirection = false;
@@ -52,11 +54,18 @@ class _NewRideScreenState extends State<NewRideScreen> {
   final PolylinePoints polylinePoints = PolylinePoints();
   final Map<PolylineId, Polyline> _polyLines = <PolylineId, Polyline>{};
   final List<LatLng> polylineCoordinates = [];
+  late StreamSubscription<Position> stream;
+
+  @override
+  void dispose() {
+    stream.cancel();
+    super.dispose();
+  }
 
   void getRideLiveLocationUpdates() async {
     LatLng oldPos = const LatLng(0, 0);
-    Stream<LocationData> stream = Location.instance.onLocationChanged;
-    stream.listen((position) async {
+
+    stream = Geolocator.getPositionStream().listen((Position position) async {
       myPostion = position;
       LatLng mPostion = LatLng(position.latitude!, position.longitude!);
       final markerConfig = kDriverMarker(oldPos);
@@ -70,13 +79,20 @@ class _NewRideScreenState extends State<NewRideScreen> {
       CameraPosition cameraPosition = CameraPosition(
           target: mPostion, zoom: 17, bearing: position.heading!);
       _markers[markerConfig.markerId] = marker;
-
-      newRideGoogleMapController
-          .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
-
+      if (mounted) {
+        newRideGoogleMapController
+            .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+      }
       oldPos = mPostion;
       updateRideDetails();
     });
+  }
+
+  @override
+  void setState(fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
   }
 
   Future<Marker> _marker(
@@ -117,8 +133,8 @@ class _NewRideScreenState extends State<NewRideScreen> {
                   LatLng((location).latitude!, (location).longitude!);
               print("currentLatLng: $currentLatLng");
               var pickUpLatLng = LatLng(
-                double.parse(widget.rideDetails.startLat??'0'),
-                double.parse(widget.rideDetails.startLong??'0'),
+                double.parse(widget.rideDetails.startLat ?? '0'),
+                double.parse(widget.rideDetails.startLong ?? '0'),
               );
               print("pickUpLatLng: $pickUpLatLng");
 
@@ -152,12 +168,17 @@ class _NewRideScreenState extends State<NewRideScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              durationRide,
-              style: const TextStyle(
-                  fontSize: 14.0,
-                  fontFamily: "Brand Bold",
-                  color: Colors.deepPurple),
+            Wrap(
+              children: [
+                Text(
+                  " الوقت المتوقع لوصولك  ",
+                  style: const TextStyle(
+                      fontSize: 15, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  durationRide.replaceAll('mins', 'د'),
+                ),
+              ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -167,13 +188,19 @@ class _NewRideScreenState extends State<NewRideScreen> {
                   width: 50,
                 ),
                 Text(
-                  widget.rideDetails.customerName??'',
+                  widget.rideDetails.customerName ?? '',
                   style: const TextStyle(
                       fontSize: 24, fontWeight: FontWeight.bold),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(right: 10.0),
-                  child: Icon(Icons.phone_android),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {});
+                    launchUrlString(widget.rideDetails.riderPhone ?? '');
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.only(right: 10.0),
+                    child: Icon(Icons.phone_android),
+                  ),
                 ),
               ],
             ),
@@ -196,14 +223,14 @@ class _NewRideScreenState extends State<NewRideScreen> {
                       HeaderItem(
                           context: context,
                           title: 'المكان الحالي',
-                          subtitle: widget.rideDetails.pickUp??''),
+                          subtitle: widget.rideDetails.pickUp ?? ''),
                       DottedLine(
                         dashColor: Colors.grey.withOpacity(.5),
                       ),
                       HeaderItem(
                         context: context,
                         title: ' الوجهة',
-                        subtitle: widget.rideDetails.dropOff??'',
+                        subtitle: widget.rideDetails.dropOff ?? '',
                       ),
                     ],
                   ),
@@ -227,19 +254,19 @@ class _NewRideScreenState extends State<NewRideScreen> {
                     });
 
                     var pickup = LatLng(
-                        double.parse(widget.rideDetails.startLat??'0'),
-                        double.parse(widget.rideDetails.startLong??'0'));
+                        double.parse(widget.rideDetails.startLat ?? '0'),
+                        double.parse(widget.rideDetails.startLong ?? '0'));
                     var dropoff = LatLng(
-                        double.parse(widget.rideDetails.endLat??'0'),
-                        double.parse(widget.rideDetails.endLong??'0'));
+                        double.parse(widget.rideDetails.endLat ?? '0'),
+                        double.parse(widget.rideDetails.endLong ?? '0'));
 
                     await getPlaceDirection(pickup, dropoff, true);
                     if (widget.type == 1) {
                       await SignalRDriver()
-                          .arrivedToLocation(id: widget.rideDetails.id??'');
+                          .arrivedToLocation(id: widget.rideDetails.id ?? '');
                     } else if (widget.type == 2) {
-                      await SignalRDriver()
-                          .arrivedToLocationProduct(id: widget.rideDetails.id??'');
+                      await SignalRDriver().arrivedToLocationProduct(
+                          id: widget.rideDetails.id ?? '');
                     }
 
                     BotToast.closeAllLoading();
@@ -247,10 +274,10 @@ class _NewRideScreenState extends State<NewRideScreen> {
                     BotToast.showLoading();
                     if (widget.type == 1) {
                       await SignalRDriver()
-                          .startDelivery(id: widget.rideDetails.id??'');
+                          .startDelivery(id: widget.rideDetails.id ?? '');
                     } else if (widget.type == 2) {
-                      await SignalRDriver()
-                          .startDeliveryProduct(id: widget.rideDetails.id??'');
+                      await SignalRDriver().startDeliveryProduct(
+                          id: widget.rideDetails.id ?? '');
                     }
 
                     // await si<DriverUseCase>().changeDeliveryStatue(
@@ -418,16 +445,18 @@ class _NewRideScreenState extends State<NewRideScreen> {
       LatLng destinationLatLng;
 
       if (status == "accepted") {
-        destinationLatLng = LatLng(double.parse(widget.rideDetails.startLat??'0'),
-            double.parse(widget.rideDetails.startLong??'0'));
+        destinationLatLng = LatLng(
+            double.parse(widget.rideDetails.startLat ?? '0'),
+            double.parse(widget.rideDetails.startLong ?? '0'));
       } else {
-        destinationLatLng = LatLng(double.parse(widget.rideDetails.endLat??'0'),
-            double.parse(widget.rideDetails.endLong??'0'));
+        destinationLatLng = LatLng(
+            double.parse(widget.rideDetails.endLat ?? '0'),
+            double.parse(widget.rideDetails.endLong ?? '0'));
       }
 
       var directionDetails = await AssistantMethods.obtainPlaceDirectionDetails(
           posLatLng, destinationLatLng);
-      if (directionDetails != null) {
+      if (directionDetails != null && this.mounted) {
         setState(() {
           durationRide = directionDetails.durationText!;
         });
@@ -443,42 +472,120 @@ class _NewRideScreenState extends State<NewRideScreen> {
     var currentLatLng = LatLng(myPostion.latitude!, myPostion.longitude!);
 
     var directionalDetails = await AssistantMethods.obtainPlaceDirectionDetails(
-        LatLng(double.parse(widget.rideDetails.startLat??'0'),
-            double.parse(widget.rideDetails.startLong??'0')),
+        LatLng(double.parse(widget.rideDetails.startLat ?? '0'),
+            double.parse(widget.rideDetails.startLong ?? '0')),
         currentLatLng);
 
     int fareAmount = AssistantMethods.calculateFares(directionalDetails!);
     if (widget.type == 1) {
       await SignalRDriver().endDeliveryDriver(
-        id: widget.rideDetails.id??'',
+        id: widget.rideDetails.id ?? '',
         price: fareAmount,
         endLat: currentLatLng.latitude.toString(),
         endLong: currentLatLng.longitude.toString(),
-        dropOff: widget.rideDetails.dropOff??'',
+        dropOff: widget.rideDetails.dropOff ?? '',
         expectedTime: directionalDetails.durationValue.toString(),
         distance: directionalDetails.distanceValue ?? 0,
       );
     } else if (widget.type == 2) {
       await SignalRDriver().endDeliveryDriverProduct(
-        id: widget.rideDetails.id??'',
+        id: widget.rideDetails.id ?? '',
         price: fareAmount,
         endLat: currentLatLng.latitude.toString(),
         endLong: currentLatLng.longitude.toString(),
-        dropOff: widget.rideDetails.dropOff??'',
+        dropOff: widget.rideDetails.dropOff ?? '',
         expectedTime: directionalDetails.durationValue.toString(),
         distance: directionalDetails.distanceValue ?? 0,
       );
     }
 
     BotToast.closeAllLoading();
-
     showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) => CollectFareDialog(
-        paymentMethod: 'Cash',
-        fareAmount: fareAmount,
-      ),
-    );
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              title: const Text("تفاصيل الرحلة"),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Lottie.asset(
+                    'lotti_files/92520-money-hand.json',
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "الكلفة ",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 25),
+                      ),
+                      Text(
+                        "${widget.rideDetails.price}  ل.س",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 25),
+                      ),
+                    ],
+                  ),
+                  const Divider(),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(Icons.straighten_rounded),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          const Text(
+                            "المسافة ",
+                            style: TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        "${widget.rideDetails.distance} متر",
+                      ),
+                    ],
+                  ),
+                  const Divider(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(Icons.access_time),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          const Text(
+                            "الوقت ",
+                            style: const TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        "${widget.rideDetails.expectedTime}"
+                            .replaceAll("mins", 'د'),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  child: const Text("تم"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            ));
   }
 }

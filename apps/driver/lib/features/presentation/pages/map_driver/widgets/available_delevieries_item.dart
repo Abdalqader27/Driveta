@@ -45,16 +45,16 @@ class AvailableDeliveriesItem extends StatelessWidget {
                   // TODO add time and distance and money
                   ChipItem(
                     iconData: Icons.access_time,
-                    title: delivers.expectedTime ?? '',
+                    title: delivers.expectedTime?.replaceAll('mins', 'د') ?? '',
                   ),
                   ChipItem(
                     iconData: Icons.add_road_rounded,
                     title:
-                        '${delivers.distance?.convertFromTo(LENGTH.meters, LENGTH.kilometers)} KM',
+                        '${delivers.distance?.convertFromTo(LENGTH.meters, LENGTH.kilometers)} كم',
                   ),
                   ChipItem(
                     iconData: Icons.account_balance_wallet_outlined,
-                    title: '${delivers.distance}',
+                    title: '${delivers.price} ل.س',
                   ),
                 ],
               ),
@@ -149,8 +149,8 @@ class AvailableDeliveriesProductItem extends StatelessWidget {
                   // TODO add time and distance and money
                   ChipItem(
                       iconData: Icons.access_time,
-                      title:
-                          delivers.expectedTime?.replaceAll('mins', 'د') ?? ' '),
+                      title: delivers.expectedTime?.replaceAll('mins', 'د') ??
+                          ' '),
                   ChipItem(
                     iconData: Icons.add_road_rounded,
                     title:

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:core/core.dart';
 import 'package:driver/features/presentation/manager/bloc.dart';
 import 'package:flutter/foundation.dart';
@@ -49,6 +50,8 @@ class SignalRDriver {
       print("Connection Closed");
     });
     _hubConnection!.on("ReceiveDeliveries", onReceiveDeliveries);
+    _hubConnection!.on("ReceiveRemoveDelivery", onReceiveRemoveDelivery);
+
     _hubConnection!.on("ReceiveEndingDriver", onReceiveEndingDriver);
     _hubConnection!.on("ReceiveDeliveriesProduct", onReceiveDeliveriesProduct);
     _hubConnection!
@@ -337,35 +340,43 @@ class SignalRDriver {
   void onReceiveDeliveriesProduct(List<Object>? arguments) {
     ("onReceiveDeliveriesProduct ${json.encode(arguments![0])}").log();
     // arguments?.log();
-    if (arguments != null) {
-      List<Delivers> delivers = [];
-      for (var item in arguments[0] as List) {
-        delivers.add(Delivers.fromJson(item));
+    try {
+      if (arguments != null) {
+        List<Delivers> delivers = [];
+        for (var item in arguments[0] as List) {
+          delivers.add(Delivers.fromJson(item));
+        }
+        // need to call bloc to update the list of delivers
+        // si<DriverBloc>().add(GetAvailableDeliveries(delivers));
+        deliversProductStream.sink.add(delivers);
+        if (flagOpenPage == false) {
+          Get.to(() => const AvilableDeliveriesProduct());
+          flagOpenPage = true;
+        }
       }
-      // need to call bloc to update the list of delivers
-      // si<DriverBloc>().add(GetAvailableDeliveries(delivers));
-      deliversProductStream.sink.add(delivers);
-      if (flagOpenPage == false) {
-        Get.to(() => const AvilableDeliveriesProduct());
-        flagOpenPage = true;
-      }
+    } catch (e) {
+      print("onReceiveDeliveriesProduct is catching error $e ");
     }
   }
 
   void onReceiveDeliveries(List<Object>? arguments) {
     print("ReceiveDeliveries $arguments");
-    if (arguments != null) {
-      List<Delivers> delivers = [];
-      for (var item in arguments[0] as List) {
-        delivers.add(Delivers.fromJson(item));
+    try {
+      if (arguments != null) {
+        List<Delivers> delivers = [];
+        for (var item in arguments[0] as List) {
+          delivers.add(Delivers.fromJson(item));
+        }
+        // need to call bloc to update the list of delivers
+        // si<DriverBloc>().add(GetAvailableDeliveries(delivers));
+        deliversStream.sink.add(delivers);
+        if (flagOpenPage == false) {
+          Get.to(() => const AvailableDeliveries());
+          flagOpenPage = true;
+        }
       }
-      // need to call bloc to update the list of delivers
-      // si<DriverBloc>().add(GetAvailableDeliveries(delivers));
-      deliversStream.sink.add(delivers);
-      if (flagOpenPage == false) {
-        Get.to(() => const AvailableDeliveries());
-        flagOpenPage = true;
-      }
+    } catch (e) {
+      print("ReceiveDeliveries is catching error $e ");
     }
   }
 
@@ -375,5 +386,17 @@ class SignalRDriver {
 
   void onReceiveEndingDriver(List<Object>? arguments) {
     print("ReceiveEndingDriver $arguments");
+  }
+
+  void onReceiveRemoveDelivery(List<Object>? arguments) {
+    print("ReceiveRemoveDelivery $arguments");
+    try {
+      flagOpenPage = false;
+
+      BotToast.showText(text: 'Delivery has been removed');
+      Get.back();
+    } catch (e) {
+      print("ReceiveRemoveDelivery is catching error $e ");
+    }
   }
 }
