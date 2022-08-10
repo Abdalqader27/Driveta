@@ -21,6 +21,7 @@ import '../../../../../common/utils/check_map_status.dart';
 import '../../../../../common/utils/config.dart';
 import '../../../../../common/utils/go_to.dart';
 import '../../../../../common/utils/signal_r.dart';
+import '../../../../../common/utils/signal_r_new.dart';
 import '../../../../../common/widgets/map_pin.dart';
 import '../../../../../main.dart';
 import '../../../../data/models/direct_details.dart';
@@ -167,7 +168,15 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                 /// Searching on Driver #3
                 SearchingOnDriverWidget(
                   height: requestRideContainerHeight,
-                  onTap: () => resetApp(),
+                  onTap: () async {
+                    BotToast.showLoading();
+                    await si<SignalRService>().invoke(
+                        hubUrl: hubUrl,
+                        methodName: "RemoveDelivery",
+                        args: <Object>[si<MapLiveProvider>().deliver!.id]);
+                    resetApp();
+                    BotToast.cleanAll();
+                  },
                 ),
                 Visibility(
                   visible: showLottie,
@@ -450,7 +459,9 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     });
   }
 
-  resetApp() {
+  resetApp() async {
+    _controllerGoogleMap != Completer();
+
     setState(() {
       drawerOpen = true;
       searchContainerHeight = 220.0;
@@ -465,7 +476,7 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
       driverDetailsContainerHeight = 0.0;
     });
-
+    BotToast.closeAllLoading();
     locatePosition();
   }
 

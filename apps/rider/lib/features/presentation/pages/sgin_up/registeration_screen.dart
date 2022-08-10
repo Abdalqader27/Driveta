@@ -3,6 +3,7 @@ import 'package:core/core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart' hide TextDirection;
 import 'package:lottie/lottie.dart';
 import 'package:rider/libraries/flutter_screenutil/flutter_screenutil.dart';
 import 'package:search_choices/search_choices.dart';
@@ -239,8 +240,8 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
 
                                     if (datePick != null) {
                                       setState(() {
-                                        dob.text = datePick.toIso8601String();
-                                        // "${datePick.month}/${datePick.day}/${datePick.year}";
+                                        dob.text = DateFormat('yyyy-MM-dd').format(
+                                            datePick); // "${datePick.month}/${datePick.day}/${datePick.year}";
                                         // put it here
                                       });
                                     }

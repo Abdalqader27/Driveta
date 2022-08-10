@@ -20,54 +20,53 @@ class SNoInternetScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(
-                Icons.wifi_off_rounded,
-                size: 80,
-              ),
-              const SSizedBox.v16(),
-              SText.titleMedium(
-                error,
-                style: Theme.of(context).textTheme.headline6!.copyWith(
-                      color: Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.bold,
+    return Center(
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(
+              Icons.wifi_off_rounded,
+              size: 80,
+            ),
+            const SSizedBox.v16(),
+            SText.titleMedium(
+              error,
+              style: Theme.of(context).textTheme.headline6!.copyWith(
+                    color: Theme.of(context).primaryColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+            const SSizedBox.v8(),
+            SizedBox(
+              width: context.widthPx / 1.5,
+              child: SText.titleMedium(
+                message,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: Colors.grey,
                     ),
               ),
-              const SSizedBox.v8(),
-              SizedBox(
-                width: context.widthPx / 1.5,
-                child: SText.titleMedium(
-                  message,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        color: Colors.grey,
-                      ),
-                ),
-              ),
-              const SSizedBox.v16(),
+            ),
+            const SSizedBox.v16(),
 
-              /// TODO buttons
-              OutlinedButton(
-                style: ButtonStyle(
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                  side: const BorderSide(color: Colors.grey),
-                ))),
-                onPressed: retry,
-                child: SText.titleMedium(
-                  retryText,
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        color: Theme.of(context).primaryColor,
-                      ),
-                ),
-              )
-            ],
-          ),
+            /// TODO buttons
+            OutlinedButton(
+              style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0),
+                side: const BorderSide(color: Colors.grey),
+              ))),
+              onPressed: retry,
+              child: SText.titleMedium(
+                retryText,
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: Theme.of(context).primaryColor,
+                    ),
+              ),
+            )
+          ],
         ),
       ),
     );

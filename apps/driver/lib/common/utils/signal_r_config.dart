@@ -19,6 +19,7 @@ import '../../features/presentation/manager/event.dart';
 import '../../features/presentation/pages/map_driver/available_deliver.dart';
 
 bool flagOpenPage = false;
+bool flagOnDelivery = false;
 
 class SignalRDriver {
   static late HubConnection? _hubConnection;
@@ -149,6 +150,8 @@ class SignalRDriver {
           _hubConnection!.state != HubConnectionState.Connected) {
         await openConnection();
       }
+      flagOnDelivery = true;
+
       await _hubConnection!.invoke(
         "AcceptDelivery",
         args: <Object>[id],
@@ -386,15 +389,20 @@ class SignalRDriver {
 
   void onReceiveEndingDriver(List<Object>? arguments) {
     print("ReceiveEndingDriver $arguments");
+    flagOnDelivery = false;
   }
 
   void onReceiveRemoveDelivery(List<Object>? arguments) {
     print("ReceiveRemoveDelivery $arguments");
     try {
-      flagOpenPage = false;
-
       BotToast.showText(text: 'Delivery has been removed');
-      Get.back();
+      if (flagOnDelivery) {
+        flagOnDelivery = false;
+        Get.back();
+      } else {}
+
+       deliversStream.sink.add(deliversStream.value
+          ..removeWhere((element) => element.id == arguments![0].toString()));
     } catch (e) {
       print("ReceiveRemoveDelivery is catching error $e ");
     }
