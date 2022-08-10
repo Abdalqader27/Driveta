@@ -3,6 +3,7 @@ import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:rider/common/widgets/lottie_widget.dart';
 import 'package:rider/features/presentation/manager/container.dart';
 import 'package:rider/features/presentation/pages/orders_history/widget/header_item.dart';
 
@@ -34,22 +35,24 @@ class _MapStoreRecordScreenState extends State<MapStoreRecordScreen> {
                 subTitle: 'لديك ${data.length} طلب ',
               ),
               Expanded(
-                  child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemCount: data.length,
-                itemBuilder: (context, i) {
-                  final history = data[i];
-                  return GestureDetector(
-                    onTap: () => Get.to(() => MapStoreRecordDetails(
-                          delivers: history,
-                        )),
-                    child: OrderRecordItem(
-                      index: i,
-                      history: history,
-                    ),
-                  );
-                },
-              ))
+                  child: data.isEmpty
+                      ? const LottieWidget.empty()
+                      : ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: data.length,
+                          itemBuilder: (context, i) {
+                            final history = data[i];
+                            return GestureDetector(
+                              onTap: () => Get.to(() => MapStoreRecordDetails(
+                                    delivers: history,
+                                  )),
+                              child: OrderRecordItem(
+                                index: i,
+                                history: history,
+                              ),
+                            );
+                          },
+                        ))
             ],
           );
         }),

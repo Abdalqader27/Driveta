@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   firebase_core: ^1.17.0
+  awesome_dialog: ^2.2.1
   firebase_auth: ^3.3.18
   google_maps_flutter: ^2.1.8
   geolocator: ^9.0.1
@@ -76,6 +77,7 @@ flutter:
      - assets/icons/
      - assets/lottie/
      - README.md
+     - lotti_files/
 
   fonts:
     - family: sst-arabic

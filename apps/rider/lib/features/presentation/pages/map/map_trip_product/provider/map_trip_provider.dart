@@ -103,7 +103,11 @@ class MapTripProvider extends ChangeNotifier with GoogleApiKey {
           double.parse(driver.lat!),
           double.parse(driver.long!),
         );
-        addMarker(kDriverMarker(point));
+        if (driver.vehicleType == 500) {
+          addMarker(kDriverMarkerBike(point));
+        } else {
+          addMarker(kDriverMarker2(point));
+        }
         animateCameraTarget(point);
       }
     }
@@ -228,8 +232,7 @@ class MapTripProvider extends ChangeNotifier with GoogleApiKey {
     _directionDetails = DirectionDetails();
     _selectedDriverId = null;
     _deliverProduct = null;
-
-    notifyListeners();
+    _mapController?.dispose();
   }
 
   void animateCameraTarget(LatLng target) {

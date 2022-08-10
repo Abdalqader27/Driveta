@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -51,8 +50,7 @@ class _SearchScreenState extends State<SearchScreen> {
               builder: (context, snapshot) {
                 final data = snapshot.data;
                 if (snapshot.data == null || snapshot.data!.hideHeader) {
-                  return const FadeInAnimation(
-                      curve: Curves.bounceInOut, child: SizedBox.shrink());
+                  return const SizedBox.shrink();
                 }
                 pickUpTextEditingController.text =
                     data?.pinData.pickUpAddress ?? '';

@@ -17,7 +17,6 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  flutter_staggered_animations: ^1.0.0
   rxdart: ^0.27.5
   firebase_core: ^1.19.1
   firebase_auth: ^3.4.1
@@ -66,8 +65,8 @@ dependencies:
   flutter_slider_drawer: ^2.1.1
   rating_dialog: ^2.0.4
   image_picker: ^0.8.4+11
-
-
+  awesome_dialog: ^2.2.1
+  custom_marker: ^1.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

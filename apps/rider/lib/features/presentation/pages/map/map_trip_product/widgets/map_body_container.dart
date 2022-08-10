@@ -40,6 +40,7 @@ class MapProductContainer extends StatelessWidget {
           // markers: markers,
           polylines: polyLines,
           zoomGesturesEnabled: true,
+          myLocationEnabled: false,
           padding: padding ?? const EdgeInsets.all(0),
           onTap: (LatLng argument) {},
           onMapCreated: onMapCreated,

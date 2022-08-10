@@ -85,6 +85,7 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
                       padding: const EdgeInsets.only(top: 30),
                       buildingsEnabled: true,
                       myLocationEnabled: false,
+                      
                       markers: _markers.values.toSet(),
                       myLocationButtonEnabled: true,
                       initialCameraPosition: MapDriverScreen._kGooglePlex,

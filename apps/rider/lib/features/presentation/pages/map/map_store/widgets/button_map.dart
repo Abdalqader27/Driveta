@@ -2,13 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rider/common/config/theme/colors.dart';
 
-Widget circleButton(context, {heroTag, tooltip, icon, onPressed}) => Container(
+Widget circleButton(context, {tooltip, icon, onPressed}) => Container(
       padding: const EdgeInsets.only(bottom: 10, left: (5), right: (5)),
       child: FloatingActionButton(
           backgroundColor: kPRIMARY,
           mini: true,
           isExtended: false,
-          heroTag: heroTag,
           onPressed: onPressed,
           child: icon,
           tooltip: '$tooltip '),

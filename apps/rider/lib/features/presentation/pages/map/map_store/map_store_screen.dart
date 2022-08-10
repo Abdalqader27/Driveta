@@ -22,6 +22,7 @@ class _MapStoreScreenState extends State<MapStoreScreen> {
   final GlobalKey<SliderDrawerState> _key = GlobalKey<SliderDrawerState>();
   bool shouldShow = true;
   late Timer timer;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -43,35 +44,33 @@ class _MapStoreScreenState extends State<MapStoreScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.white,
+          centerTitle: true,
+          iconTheme: IconThemeData(color: Colors.black),
+          title: Text('المتاجر',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+                color: Colors.black,
+              ))),
+      drawer: _SliderView(
+        onItemClick: (title) {
+          _key.currentState!.closeSlider();
+        },
+      ),
       body: Stack(
         children: [
-          SafeArea(
-            child: SliderDrawer(
-                appBar: const SliderAppBar(
-                    appBarHeight: 55,
-                    appBarPadding: EdgeInsets.zero,
-                    appBarColor: Colors.white,
-                    title: Text('المتاجر',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w700))),
-                key: _key,
-                sliderOpenSize: 200,
-                slideDirection: SlideDirection.TOP_TO_BOTTOM,
-                slider: _SliderView(
-                  onItemClick: (title) {
-                    _key.currentState!.closeSlider();
-                  },
-                ),
-                child: GetStoresContainer(builder: (context, data) {
-                  return LocationGrantedWidget(builder:
-                      (BuildContext context, dynamic location, Widget? child) {
-                    return GoogleMapsScreen(
-                      myLocation: location,
-                      // isMapSatellite: snapshot.data,
-                    );
-                  });
-                })),
-          ),
+          GetStoresContainer(builder: (context, data) {
+            return LocationGrantedWidget(builder:
+                (BuildContext context, dynamic location, Widget? child) {
+              return GoogleMapsScreen(
+                myLocation: location,
+                // isMapSatellite: snapshot.data,
+              );
+            });
+          }),
           Visibility(
             visible: shouldShow,
             child: Positioned(
@@ -102,6 +101,7 @@ class _SliderView extends StatelessWidget {
     return GridView.count(
       crossAxisCount: 2,
       shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       children: [
         InkWell(
           onTap: () => Get.to(() => const MapStoreRecordScreen()),

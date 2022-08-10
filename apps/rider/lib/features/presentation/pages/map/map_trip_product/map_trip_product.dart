@@ -6,6 +6,7 @@ import 'package:rider/features/presentation/pages/map/map_trip_product/widgets/m
 import 'package:rider/features/presentation/pages/map/map_trip_product/widgets/title_app_bar.dart';
 
 import '../../../../../common/utils/google_api_key.dart';
+import '../../../../../main.dart';
 import '../map_store/location_granted_widget.dart';
 
 class MapTripProduct extends StatefulWidget {
@@ -35,10 +36,12 @@ class _MapTripProductState extends State<MapTripProduct>
                 ),
                 TitleAppBar(
                   titleSpan: provider.state.getTitleSpan(),
-                  durationText: provider.details?.durationText ?? '',
+                  durationText:
+                      provider.details?.durationText.replaceAll('mins', 'د') ??
+                          '',
                   title: provider.state.getTitle(),
-                  driverName: provider.state.driver?.name ?? '',
-                  driverPhone: provider.state.driver?.phoneNumber ?? '',
+                  driverName: provider.selectedDriver?.name ?? '',
+                  driverPhone: provider.selectedDriver?.phoneNumber ?? '',
                 ),
               ],
             );
@@ -46,5 +49,12 @@ class _MapTripProductState extends State<MapTripProduct>
         );
       }),
     );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    si<MapTripProvider>().reset();
   }
 }

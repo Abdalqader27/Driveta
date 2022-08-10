@@ -79,15 +79,15 @@ class OrderBookItem extends StatelessWidget {
               // TODO add time and distance and money
               ChipItem(
                 iconData: Icons.access_time,
-                title: '${history.expectedTime}',
+                title: '${history.expectedTime?.replaceAll('mins', ' د')}',
               ),
               ChipItem(
                 iconData: Icons.add_road_rounded,
-                title: '${history.distance}',
+                title: '${history.distance} م ',
               ),
               ChipItem(
                 iconData: Icons.account_balance_wallet_outlined,
-                title: '${history.price}',
+                title: '${history.price} ل.س',
               ),
             ],
           ),

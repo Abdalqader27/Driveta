@@ -335,7 +335,8 @@ class SignalRDriver {
   }
 
   void onReceiveDeliveriesProduct(List<Object>? arguments) {
-    print("onReceiveDeliveriesProduct $arguments");
+    ("onReceiveDeliveriesProduct ${json.encode(arguments![0])}").log();
+    // arguments?.log();
     if (arguments != null) {
       List<Delivers> delivers = [];
       for (var item in arguments[0] as List) {

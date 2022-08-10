@@ -167,6 +167,7 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen>
                   elevation: 0,
                   backgroundColor: kPRIMARY,
                   mini: true,
+                  heroTag: "map_satellite",
                   tooltip: ' تغير عرض الخريطة ',
                   onPressed: null,
                   child: Icon(
@@ -188,6 +189,7 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen>
                   elevation: 0,
                   backgroundColor: kPRIMARY,
                   mini: true,
+                  heroTag: "map_my_location",
                   tooltip: 'موقعك ',
                   onPressed: null,
                   child: Icon(
@@ -234,6 +236,7 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen>
                                     elevation: 0,
                                     backgroundColor: kPRIMARY,
                                     mini: true,
+                                    heroTag: "map_direction_walk",
                                     tooltip: 'مسار المشاة ',
                                     onPressed: null,
                                     child: Icon(
@@ -262,6 +265,7 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen>
                                     elevation: 0,
                                     backgroundColor: kPRIMARY,
                                     mini: true,
+                                    heroTag: "map_direction_car",
                                     tooltip: 'مسار المركبات',
                                     onPressed: null,
                                     child: Icon(
@@ -294,6 +298,7 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen>
                                 elevation: 0,
                                 backgroundColor: kPRIMARY,
                                 mini: true,
+                                heroTag: "map_direction_shop",
                                 tooltip: ' المتجر ',
                                 onPressed: null,
                                 child: Icon(

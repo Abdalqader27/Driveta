@@ -13,7 +13,6 @@ import 'package:lottie/lottie.dart' hide Marker;
 import 'package:rider/common/assistants/assistantMethods.dart';
 import 'package:rider/common/config/theme/colors.dart';
 import 'package:rider/features/data/models/delivers.dart';
-import 'package:rider/features/presentation/pages/map/map_store/map_store_screen.dart';
 import 'package:rider/features/presentation/widgets/noDriverAvailableDialog.dart';
 
 import '../../../../../blocs/container_map_bloc.dart';
@@ -30,11 +29,10 @@ import '../../../widgets/float_actions_buttons.dart';
 import '../../../widgets/header_location_destination.dart';
 import '../../../widgets/map_drawer.dart';
 import '../../../widgets/map_next_button.dart';
+import '../map_store/map_store_screen.dart';
 import '../map_trip_live/providers/map_live_provider.dart';
 import '../widgets/choice_cars.dart';
 import '../widgets/searching_on_driver.dart';
-
-late GoogleMapController newGoogleMapController;
 
 class MainScreen extends StatefulWidget {
   static const String idScreen = "mainScreen";
@@ -45,8 +43,10 @@ class MainScreen extends StatefulWidget {
   MainScreenState createState() => MainScreenState();
 }
 
+late GoogleMapController mainMapController;
+
 class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
-  final Completer<GoogleMapController> _controllerGoogleMap = Completer();
+  Completer<GoogleMapController>? _controllerGoogleMap = Completer();
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   DirectionDetails? directionDetails;
   Position? currentPosition;
@@ -71,6 +71,8 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   @override
   void dispose() {
     super.dispose();
+    mainMapController.dispose();
+    _controllerGoogleMap = null;
     timer.cancel();
   }
 
@@ -96,22 +98,22 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   rippleColor: kPRIMARY,
                   rippleRadius: 0.8,
                   markers: Set.of(marker.data?.values ?? {}),
-                  mapId: _controllerGoogleMap.future
+                  mapId: _controllerGoogleMap!.future
                       .then<int>((value) => value.mapId),
                   child: GoogleMap(
                     padding: EdgeInsets.only(bottom: bottomPadding, top: 25.0),
                     mapType: MapType.normal,
                     myLocationButtonEnabled: false,
                     initialCameraPosition: _kGooglePlex,
-                    myLocationEnabled: true,
+                    myLocationEnabled: false,
                     zoomGesturesEnabled: true,
                     zoomControlsEnabled: true,
                     polylines: Set.of(polyline.data?.values ?? {}),
                     onCameraIdle: _onCameraIdle,
                     onCameraMove: _onCameraMove,
                     onMapCreated: (GoogleMapController controller) async {
-                      _controllerGoogleMap.complete(controller);
-                      newGoogleMapController = controller;
+                      _controllerGoogleMap!.complete(controller);
+                      mainMapController = controller;
                       setState(() => bottomPadding = 220.0);
 
                       locatePosition();
@@ -187,11 +189,17 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
             //mapState: mapState.data!,
             directionTap: () {
               //inj<RealTime>().openConnection();
-              goToLocation(si<MapState>().pinData.destinationPoint);
+              goToLocation(
+                si<MapState>().pinData.destinationPoint,
+              );
             },
             locationTap: () async {
-              goToLocation(LatLng(currentPosition?.latitude ?? 0,
-                  currentPosition?.longitude ?? 0));
+              goToLocation(
+                LatLng(
+                  currentPosition?.latitude ?? 0,
+                  currentPosition?.longitude ?? 0,
+                ),
+              );
             },
             themeTap: () async {},
           )),
@@ -283,6 +291,12 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     return false;
   }
 
+  int calcPrice({required int distance, required int start}) {
+    int factor = start ~/ 2;
+    var temp = (distance / 250.0).round();
+    return start + temp * factor;
+  }
+
   Positioned drawerButton() {
     return Positioned(
       top: 36.0,
@@ -305,6 +319,7 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                 elevation: 0,
                 backgroundColor: kPRIMARY,
                 mini: true,
+                heroTag: 'menu_or_search',
                 tooltip: ' البحث ',
                 onPressed: null,
                 child: Icon(
@@ -326,6 +341,7 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                 elevation: 0,
                 backgroundColor: kPRIMARY,
                 mini: true,
+                heroTag: 'stores_main_map',
                 tooltip: ' المتاجر ',
                 onPressed: null,
                 child: Icon(
@@ -342,7 +358,6 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   void addDelivery(CarDetails carDetails) async {
     BotToast.showLoading();
-
     Delivers delivery = Delivers(
         id: '-',
         startLat: si<MapState>().pinData.currentPoint.latitude.toString(),
@@ -354,7 +369,9 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
         startDate: DateTime.now(),
         expectedTime:
             si<MapState>().pinData.directionDetails?.durationText ?? '',
-        price: (AssistantMethods.calculateFares(directionDetails!)),
+        price: calcPrice(
+            distance: carDetails.item2,
+            start: si<MapState>().pinData.directionDetails?.distanceValue ?? 0),
         pickUp: si<MapState>().pinData.pickUpAddress,
         dropOff: si<MapState>().pinData.dropOffAddress);
     si<MapLiveProvider>().setDeliver = delivery;
@@ -479,7 +496,7 @@ class MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
     CameraPosition cameraPosition =
         CameraPosition(target: latLatPosition, zoom: 18, bearing: 0, tilt: 0);
-    newGoogleMapController
+    mainMapController
         .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
 
     String address = await AssistantMethods.searchCoordinateAddress(

@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:core/core.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -29,8 +32,12 @@ Future<void> main() async {
   await init();
 
   await SignalRRider().openConnection();
-
-  runApp(MyApp());
+  runZonedGuarded(
+    () => runApp(MyApp()),
+    (error, stackTrace) async {
+      log(error.toString(), stackTrace: stackTrace);
+    },
+  );
 }
 
 class MyApp extends StatelessWidget {

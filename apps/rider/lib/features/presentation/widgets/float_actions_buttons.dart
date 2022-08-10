@@ -38,7 +38,7 @@ class MapFloatActionsButton extends StatelessWidget {
                   child: CupertinoButton(
                     padding: EdgeInsets.zero,
                     onPressed: () {
-                      Get.to(() => const SearchScreen());
+                      Get.to(() => SearchScreen());
                     },
                     child: const Card(
                       color: kPRIMARY,
@@ -46,6 +46,7 @@ class MapFloatActionsButton extends StatelessWidget {
                         elevation: 0,
                         backgroundColor: kPRIMARY,
                         mini: true,
+                        heroTag: 'search',
                         tooltip: ' البحث ',
                         onPressed: null,
                         child: Icon(
@@ -84,6 +85,7 @@ class MapFloatActionsButton extends StatelessWidget {
                       elevation: 0,
                       backgroundColor: kPRIMARY,
                       mini: true,
+                      heroTag: 'location',
                       onPressed: null,
                       tooltip: ' الموقع ',
                       child: Icon(
@@ -106,6 +108,7 @@ class MapFloatActionsButton extends StatelessWidget {
                         elevation: 0,
                         backgroundColor: kPRIMARY,
                         mini: true,
+                        heroTag: 'direction',
                         onPressed: null,
                         tooltip: ' الوجهة ',
                         child: Icon(

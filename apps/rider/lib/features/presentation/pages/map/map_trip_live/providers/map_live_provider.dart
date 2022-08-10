@@ -8,9 +8,11 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rider/common/utils/config.dart';
 import 'package:rider/features/data/models/direct_details.dart';
+import 'package:rider/features/domain/use_cases/rider_usecase.dart';
 
 import '../../../../../../common/assistants/assistantMethods.dart';
 import '../../../../../../common/utils/google_api_key.dart';
+import '../../../../../../main.dart';
 import '../../../../../data/models/delivers.dart';
 import '../../../../../data/models/driver.dart';
 import '../../../../../data/models/marker_config.dart';
@@ -82,6 +84,7 @@ class MapLiveProvider extends ChangeNotifier with GoogleApiKey {
   void setSelectedDriverIdAndOpenTrip(String? id) async {
     BotToast.showLoading();
     setSelectedDriverId = id;
+    await _getDriverApi(id!);
     await openTrip(
       startMarker: kCurrentMarker(startPoint),
       endMarker: kDestinationMarker(endPoint),
@@ -97,12 +100,13 @@ class MapLiveProvider extends ChangeNotifier with GoogleApiKey {
 
   addDriver(Driver driver) {
     _drivers[driver.id!] = driver;
-    final point = LatLng(
-      double.parse(driver.lat!),
-      double.parse(driver.long!),
-    );
+
     if (driver.id == _selectedDriverId) {
       if (driver.lat != null && driver.long != null) {
+        final point = LatLng(
+          double.parse(driver.lat!),
+          double.parse(driver.long!),
+        );
         addMarker(kDriverMarker2(point));
         animateCameraTarget(point);
       }
@@ -278,5 +282,16 @@ class MapLiveProvider extends ChangeNotifier with GoogleApiKey {
 
   PointLatLng _parsePointLatLng(LatLng point) {
     return PointLatLng(point.latitude, point.longitude);
+  }
+
+  Future<Driver?> _getDriverApi(String id) async {
+    final result = await si<RiderUseCase>().getDriver(id);
+    return result.when(
+      success: (value) {
+        addDriver(value);
+        return value;
+      },
+      failure: (error) => _drivers[id],
+    );
   }
 }

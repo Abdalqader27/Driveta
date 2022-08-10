@@ -28,7 +28,7 @@ const kDestinationMarkerId = MarkerId('Destination');
 
 MarkerConfig kCurrentMarker(LatLng point) => MarkerConfig(
       point: point,
-      // pinPath: Assets.iconsCarTop,
+      pinPath: 'assets/images/pin_user.png',
       markerId: kCurrentMarkerId,
       snippet: 'المكان الحالي',
       title: 'أنا',
@@ -36,7 +36,7 @@ MarkerConfig kCurrentMarker(LatLng point) => MarkerConfig(
 
 MarkerConfig kDestinationMarker(LatLng point) => MarkerConfig(
       point: point,
-      // pinPath: Assets.pinsDestinationMapMarker,
+      pinPath: Assets.pinsDestinationMapMarker,
       markerId: kDestinationMarkerId,
       snippet: 'الوجهة',
       title: 'المكان المستهدف',
@@ -52,6 +52,13 @@ MarkerConfig kDriverMarker(LatLng point) => MarkerConfig(
 MarkerConfig kDriverMarker2(LatLng point) => MarkerConfig(
       point: point,
       pinPath: Assets.iconsCarTop,
+      markerId: kDriverMarkerId,
+      snippet: 'السائق ',
+      title: 'مكان السائق',
+    );
+MarkerConfig kDriverMarkerBike(LatLng point) => MarkerConfig(
+      point: point,
+      pinPath: 'assets/images/moto_top.png',
       markerId: kDriverMarkerId,
       snippet: 'السائق ',
       title: 'مكان السائق',

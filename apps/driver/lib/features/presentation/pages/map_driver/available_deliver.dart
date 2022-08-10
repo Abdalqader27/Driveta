@@ -35,7 +35,7 @@ class AvailableDeliveries extends StatelessWidget {
                   initialData: [],
                   builder: (context, AsyncSnapshot<List<Delivers>> snap) {
                     if (snap.data!.isEmpty) {
-                      return LottieWidget.notFound2();
+                      return Center(child: Text('لايوجد طلبات'));
                     }
 
                     return ListView.builder(
@@ -49,6 +49,7 @@ class AvailableDeliveries extends StatelessWidget {
                                 BotToast.showLoading();
                                 SignalRDriver().acceptDelivery(id: deliver.id);
                                 BotToast.closeAllLoading();
+                                Get.back();
                                 Get.to(
                                     () => NewRideScreen(rideDetails: deliver));
                               } catch (e) {
@@ -86,7 +87,7 @@ class AvilableDeliveriesProduct extends StatelessWidget {
                   initialData: [],
                   builder: (context, AsyncSnapshot<List<Delivers>> snap) {
                     if (snap.data!.isEmpty) {
-                      return LottieWidget.notFound2();
+                      return Text('لايوجد توصيلات');
                     }
 
                     return ListView.builder(

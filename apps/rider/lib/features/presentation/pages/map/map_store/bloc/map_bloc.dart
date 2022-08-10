@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:custom_info_window/custom_info_window.dart';
+import 'package:custom_marker/marker_icon.dart';
 import 'package:design/design.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
@@ -12,7 +13,6 @@ import 'package:rider/features/presentation/pages/map/map_store/bloc/interface_m
 import 'package:tuple/tuple.dart';
 
 import '../../../../../../common/utils/google_api_key.dart';
-import '../../../../../../generated/assets.dart';
 import '../../../../../../main.dart';
 import '../../../../../data/database/app_db.dart';
 import '../../../../../data/models/place.dart';
@@ -90,10 +90,12 @@ class MapBloc extends RxMap with MapInterface, GoogleApiKey {
       icon: cluster.isMultiple
           ? await MarkerBitmap().getMarkerBitmap(cluster.isMultiple ? 125 : 75,
               text: cluster.isMultiple ? cluster.count.toString() : null)
-          : await BitmapDescriptor.fromAssetImage(
-              const ImageConfiguration(size: Size(78, 78)),
-              Assets.pinsDestinationMapMarker,
-            ),
+          // : await BitmapDescriptor.fromAssetImage(
+          //     const ImageConfiguration(size: Size(78, 78)),
+          //     'assets/images/store.png',
+          //   ),
+          : await MarkerIcon.pictureAsset(
+              assetPath: 'assets/images/store.png', height: 106, width: 106),
     );
   }
 

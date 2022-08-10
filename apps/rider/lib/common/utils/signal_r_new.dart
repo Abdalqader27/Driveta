@@ -116,7 +116,7 @@ class SignalRService {
   HttpConnectionOptions _defaultHttpConnectionOptions(String hubName) {
     return HttpConnectionOptions(
       logMessageContent: true,
-      requestTimeout: 90000,
+      requestTimeout: 200000,
       transport: HttpTransportType.WebSockets,
       accessTokenFactory: () async {
         print("Token : ${si<SStorage>().get(
