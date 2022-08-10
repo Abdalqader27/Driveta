@@ -26,7 +26,6 @@ class OrderBookScreen extends StatelessWidget {
                   child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 itemCount: data.length,
-                reverse: true,
                 itemBuilder: (context, i) {
                   final history = data[i];
                   return GestureDetector(

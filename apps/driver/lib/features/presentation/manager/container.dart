@@ -77,10 +77,12 @@ class HistoryContainer extends StatelessWidget {
   const HistoryContainer({Key? key, required this.builder}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    context.read<DriverBloc>().add(GetHistoriesEvent());
+        context.read<DriverBloc>().add(GetHistoriesEvent());
 
     return BlocSelectorWrapper<List<Delivers>, DriverBloc, DriverState>(
       onRetry: () => context.read<DriverBloc>().retry(),
+      onInit: () {
+      },
       selector: (state) => state.historyState!,
       builder: builder,
     );

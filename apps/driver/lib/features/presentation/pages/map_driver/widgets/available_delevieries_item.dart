@@ -222,7 +222,7 @@ class AvailableDeliveriesProductItem extends StatelessWidget {
                     children: [
                       Expanded(
                         child: SText.bodyMedium(
-                          delivers.details![i].name ?? '',
+                          delivers.details![i]?.name ?? '',
                           style: Theme.of(context).textTheme.caption!.copyWith(
                               fontWeight: FontWeight.w600, fontSize: 9),
                         ),
@@ -243,7 +243,7 @@ class AvailableDeliveriesProductItem extends StatelessWidget {
                                       color: kBlack),
                             ),
                             SText.bodyMedium(
-                              '${delivers.details![i].quantity}',
+                              '${delivers.details![i]?.quantity}',
                               style: Theme.of(context)
                                   .textTheme
                                   .caption!

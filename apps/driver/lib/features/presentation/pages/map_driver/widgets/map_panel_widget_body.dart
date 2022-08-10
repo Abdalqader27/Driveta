@@ -75,17 +75,17 @@ class MapPanelWidgetBody extends StatelessWidget {
                   children: <Widget>[
                     _PanelItem(
                       title: 'الإيرادات',
-                      subtitle: data.totalAmount.toString(),
+                      subtitle: data.totalAmount.toStringAsFixed(2),
                       path: Assets.iconsMoney,
                     ),
                     _PanelItem(
                       title: 'تقييمك',
-                      subtitle: data.rateAvg.toString(),
+                      subtitle: data.rateAvg.toStringAsFixed(2),
                       path: Assets.iconsRate,
                     ),
                     _PanelItem(
                       title: 'اجمالي الرحلات',
-                      subtitle: data.deliveryCount.toString(),
+                      subtitle: data.deliveryCount.toStringAsFixed(0),
                       path: Assets.iconsPayment,
                     ),
                   ],
@@ -121,8 +121,8 @@ class MapPanelWidgetBody extends StatelessWidget {
             ),
             InvoiceContainer(builder: (context, data) {
               return BalanceTransactionWidget(
-                salary: data.totalAmount.toString(),
-                total: data.monthAmount.toString(),
+                salary: data.totalAmount!.toStringAsFixed(2),
+                total: data.monthAmount!.toStringAsFixed(2),
               );
             }),
           ]),

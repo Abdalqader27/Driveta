@@ -17,10 +17,10 @@ class Invoices {
     this.invoices,
   });
 
-  final int? totalAmount;
-  final int? monthAmount;
-  final int? totalTripsCount;
-  final int? monthTripsCount;
+  final num? totalAmount;
+  final num? monthAmount;
+  final num? totalTripsCount;
+  final num? monthTripsCount;
   final List<Invoice>? invoices;
 
   factory Invoices.fromJson(Map<String, dynamic> json) => Invoices(
@@ -54,7 +54,7 @@ class Invoice {
 
   final String? id;
   final String? invoiceNumber;
-  final int? total;
+  final num? total;
   final String? note;
   final List<Delivery>? deliveries;
 
@@ -113,9 +113,9 @@ class Delivery {
   final dynamic? expectedTime;
   final DateTime? startDate;
   final DateTime? endDate;
-  final int? distance;
-  final int? payingValue;
-  final int? price;
+  final num? distance;
+  final num? payingValue;
+  final num? price;
 
   factory Delivery.fromJson(Map<String, dynamic> json) => Delivery(
         id: json["id"],

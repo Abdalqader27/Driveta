@@ -59,6 +59,7 @@ Future<Either<dynamic, T>> fetch<T>({
     final result = await call();
     return Right(result);
   } catch (e) {
+    print("fetch error$e");
     return Left(e);
   }
 }

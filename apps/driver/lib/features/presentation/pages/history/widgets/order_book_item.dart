@@ -37,7 +37,7 @@ class OrderBookItem extends StatelessWidget {
                     .copyWith(fontWeight: FontWeight.w600),
                 children: [
                   TextSpan(
-                    text: history.customerName,
+                    text: "${history.customerName}",
                     style: Theme.of(context).textTheme.bodyText2,
                   ),
                 ],

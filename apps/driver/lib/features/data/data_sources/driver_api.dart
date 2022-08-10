@@ -95,7 +95,6 @@ class DriverApi {
           },
         ),
       );
-      (json.encode(response.data)).log();
       return Statistics.fromJson(response.data);
       // return DriverProfile.fromJson(response.data);
     });
