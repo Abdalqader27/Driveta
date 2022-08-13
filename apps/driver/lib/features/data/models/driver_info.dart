@@ -18,13 +18,14 @@ class DriverInfo {
     this.idPhoto,
     this.drivingCertificate,
     this.balance,
+    this.vehicleType,
     this.userName,
     this.name,
     this.phoneNumber,
     this.email,
     this.sexType,
     this.dob,
-    this.bloodType,
+    required this.bloodType,
   });
 
   final String? id;
@@ -33,14 +34,15 @@ class DriverInfo {
   final String? personalImage;
   final String? idPhoto;
   final String? drivingCertificate;
-  final int? balance;
+  final num? balance;
+  final num? vehicleType;
   final String? userName;
   final String? name;
   final String? phoneNumber;
   final String? email;
   final int? sexType;
-  final dynamic? dob;
-  final int? bloodType;
+  final dynamic dob;
+  final num bloodType;
 
   factory DriverInfo.fromJson(Map<String, dynamic> json) => DriverInfo(
         id: json["id"],
@@ -50,6 +52,7 @@ class DriverInfo {
         idPhoto: json["idPhoto"],
         drivingCertificate: json["drivingCertificate"],
         balance: json["balance"],
+        vehicleType: json["vehicleType"],
         userName: json["userName"],
         name: json["name"],
         phoneNumber: json["phoneNumber"],
@@ -67,6 +70,7 @@ class DriverInfo {
         "idPhoto": idPhoto,
         "drivingCertificate": drivingCertificate,
         "balance": balance,
+        "vehicleType": vehicleType,
         "userName": userName,
         "name": name,
         "phoneNumber": phoneNumber,

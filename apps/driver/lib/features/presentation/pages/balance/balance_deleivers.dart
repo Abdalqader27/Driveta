@@ -30,6 +30,8 @@ class BalanceDelivers extends StatelessWidget {
                         itemCount: invoice.deliveries?.length ?? 0,
                         itemBuilder: (context, i) {
                           final history = invoice.deliveries![i];
+                          print('timee ${history.expectedTime}');
+
                           Delivers delivers = Delivers(
                               customerId: history.customerId ?? '',
                               customerName: history.customerName ?? '',

@@ -77,12 +77,11 @@ class HistoryContainer extends StatelessWidget {
   const HistoryContainer({Key? key, required this.builder}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-        context.read<DriverBloc>().add(GetHistoriesEvent());
+    context.read<DriverBloc>().add(GetHistoriesEvent());
 
     return BlocSelectorWrapper<List<Delivers>, DriverBloc, DriverState>(
       onRetry: () => context.read<DriverBloc>().retry(),
-      onInit: () {
-      },
+      onInit: () {},
       selector: (state) => state.historyState!,
       builder: builder,
     );
@@ -124,7 +123,7 @@ class GetAvailableDeliveriesContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
-      context.read<DriverBloc>().add(GetAvailableDeliveries([]));
+      context.read<DriverBloc>().add(GetAvailableDeliveries());
       return BlocSelectorWrapper<dynamic, DriverBloc, DriverState>(
         initChild: builder(context, []),
         onRetry: () => context.read<DriverBloc>().retry(),

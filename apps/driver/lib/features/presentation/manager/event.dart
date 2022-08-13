@@ -1,5 +1,4 @@
 import 'package:design/design.dart';
-import 'package:driver/features/data/models/delivers.dart';
 import 'package:image_picker/image_picker.dart';
 
 abstract class DriverEvent {}
@@ -21,9 +20,7 @@ class GetStatisticsEvent extends DriverEvent {}
 class GetHistoriesEvent extends DriverEvent {}
 
 class GetAvailableDeliveries extends DriverEvent {
-  final List<Delivers> list;
-
-  GetAvailableDeliveries(this.list);
+  GetAvailableDeliveries();
 }
 
 class LoadingEvent extends DriverEvent {}

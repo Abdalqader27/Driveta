@@ -55,6 +55,13 @@ class DriverRepository {
     );
   }
 
+  Future<ApiResult<List<Delivers>>> getAvailableDelivers() async {
+    return await fetchApiResult<List<Delivers>>(
+      isConnected: _connectivity.isConnected,
+      fetch: _remote.getAvailableDeliveries(),
+    );
+  }
+
   Future<ApiResult<Statistics>> getStatistics() async {
     return await fetchApiResult<Statistics>(
       isConnected: _connectivity.isConnected,

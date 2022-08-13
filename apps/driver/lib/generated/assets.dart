@@ -28,23 +28,11 @@ class Assets {
   static const String iconsPayment = 'assets/icons/payment.svg';
   static const String iconsRate = 'assets/icons/rate.svg';
   static const String iconsUser = 'assets/icons/user.svg';
-  static const String imagesBike = 'assets/images/bike.png';
-  static const String imagesCarAndroid = 'assets/images/car_android.png';
-  static const String imagesCarIos = 'assets/images/car_ios.png';
-  static const String imagesDesticon = 'assets/images/desticon.png';
-  static const String imagesDesticon1 = 'assets/images/desticon1.png';
   static const String imagesLoginBottom = 'assets/images/login_bottom.png';
-  static const String imagesLogo = 'assets/images/logo.png';
-  static const String imagesLogo1 = 'assets/images/logo1.png';
   static const String imagesMainBottom = 'assets/images/main_bottom.png';
   static const String imagesMainTop = 'assets/images/main_top.png';
-  static const String imagesPickicon = 'assets/images/pickicon.png';
-  static const String imagesPosimarker = 'assets/images/posimarker.png';
-  static const String imagesRedmarker = 'assets/images/redmarker.png';
+  static const String imagesMotoTop = 'assets/images/moto_top.png';
   static const String imagesSignupTop = 'assets/images/signup_top.png';
-  static const String imagesTaxi = 'assets/images/taxi.png';
-  static const String imagesUbergo = 'assets/images/ubergo.png';
-  static const String imagesUberx = 'assets/images/uberx.png';
   static const String imagesUserIcon = 'assets/images/user_icon.png';
   static const String introWalkthrough1 =
       'assets/images/intro/walkthrough1.png';

@@ -1,16 +1,24 @@
 import 'dart:async';
 
 import 'package:bot_toast/bot_toast.dart';
+import 'package:core/core.dart';
+import 'package:driver/app_injection.dart';
+import 'package:driver/features/data/models/marker_config.dart';
+import 'package:driver/features/presentation/manager/bloc.dart';
+import 'package:driver/features/presentation/pages/map_driver/available_deliver.dart';
 import 'package:driver/features/presentation/pages/map_driver/widgets/map_drawer.dart';
 import 'package:driver/features/presentation/pages/map_driver/widgets/map_panel_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animarker/core/ripple_marker.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../../../common/utils/config.dart';
 import '../../../../../common/utils/signal_r_config.dart';
 import '../../../../../features/presentation/pages/sgin_up/registeration_screen.dart';
+import '../../manager/event.dart';
 import 'widgets/map_app_bar.dart';
 
 late BuildContext context;
@@ -35,6 +43,7 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
   final Map<MarkerId, Marker> _markers = <MarkerId, Marker>{};
   final GlobalKey<ScaffoldState> _key = GlobalKey();
   StreamSubscription<Position>? stream;
+
   @override
   dispose() {
     super.dispose();
@@ -65,11 +74,13 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
               onChanged: (value) async {
                 if (value) {
                   BotToast.showLoading();
+                  si<DriverBloc>().add(GetAvailableDeliveries());
                   await SignalRDriver().openConnection();
                   await makeDriverOnlineNow();
                   BotToast.closeAllLoading();
                   getLocationLiveUpdates();
                   displayToastMessage("تم الاتصال ", context);
+                  Get.to(() => AvailableDeliveries());
                 } else {
                   await SignalRDriver().stopConnection();
                   displayToastMessage("تم قطع الاتصال", context);
@@ -161,7 +172,13 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
     newGoogleMapController.animateCamera(CameraUpdate.newCameraPosition(
       cameraPosition,
     ));
-    final markerConfig = kDriverMarker(latLatPosition);
+
+    final data = si<SStorage>().get(key: kVehicleType, type: ValueType.string);
+
+    late final MarkerConfig markerConfig;
+    markerConfig = data == '500'
+        ? kDriverMotorMarker(latLatPosition)
+        : kDriverMarker(latLatPosition);
     final Marker marker = await _marker(
       markerId: markerConfig.markerId,
       pinPath: markerConfig.pinPath,
@@ -240,7 +257,12 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
         newGoogleMapController.animateCamera(CameraUpdate.newCameraPosition(
           cameraPosition,
         ));
-        final markerConfig = kDriverMarker(latLng);
+        final data =
+            si<SStorage>().get(key: kVehicleType, type: ValueType.string);
+
+        late final MarkerConfig markerConfig;
+        markerConfig =
+            data == '500' ? kDriverMotorMarker(latLng) : kDriverMarker(latLng);
         final Marker marker = await _marker(
           markerId: markerConfig.markerId,
           pinPath: markerConfig.pinPath,

@@ -18,4 +18,3 @@ late StreamSubscription<Position> rideStreamSubscription;
 String title = "";
 double starCounter = 0.0;
 
-String rideType = "";

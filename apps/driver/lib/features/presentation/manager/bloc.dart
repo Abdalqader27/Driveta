@@ -7,6 +7,7 @@ import 'package:driver/features/domain/use_cases/driver_usecase.dart';
 import 'package:driver/features/presentation/pages/sgin_in/login_screen.dart';
 import 'package:driver/features/presentation/pages/sgin_up/registeration_screen.dart';
 
+import '../pages/map_driver/available_deliver.dart';
 import '../pages/map_driver/map_driver.dart';
 import 'event.dart';
 import 'state.dart';
@@ -23,6 +24,7 @@ class DriverBloc extends SMixinBloc<DriverEvent, DriverState> {
     on<GetHistoriesEvent>(_getHistory);
     on<GetAvailableDeliveries>(_getAvailableDeliveries);
     on<LoginEvent>(_login);
+    on<SignUPEvent>(_signUp);
   }
 
   FutureOr<void> _addSupportEvent(
@@ -113,22 +115,21 @@ class DriverBloc extends SMixinBloc<DriverEvent, DriverState> {
 
   void _getAvailableDeliveries(
       GetAvailableDeliveries event, Emitter<DriverState> emit) async {
-    final list = event.list;
+    final result = await _useCase.getAvailableDelivers();
 
-    //final result = await _useCase.getAvailableDeliveries();
-    emit(_state = _state.copyWith(
-        getAvailableDeliveriesState: SBlocState.success(data: list)));
-    // emit(await result.when(
-    //   success: (data) {
-    //     _state = _state.copyWith(getAvailableDeliveriesState: SBlocState.success(data: data));
-
-    //     return _state;
-    //   },
-    //   failure: (dynamic error) {
-    //     _state = _state.copyWith(getAvailableDeliveriesState: SBlocState.error(error));
-    //     return _state;
-    //   },
-    // ));
+    emit(await result.when(
+      success: (data) {
+        _state = _state.copyWith(
+            getAvailableDeliveriesState: SBlocState.success(data: data));
+        deliversStream.sink.add(data);
+        return _state;
+      },
+      failure: (dynamic error) {
+        _state = _state.copyWith(
+            getAvailableDeliveriesState: SBlocState.error(error));
+        return _state;
+      },
+    ));
   }
 
   void _login(LoginEvent event, Emitter<DriverState> emit) async {
@@ -176,7 +177,6 @@ class DriverBloc extends SMixinBloc<DriverEvent, DriverState> {
         _state = _state.copyWith(signUpState: BlocSuccess(data: user));
         Navigator.pushNamedAndRemoveUntil(
             event.context, LoginScreen.idScreen, (route) => false);
-
         displayToastMessage(
             "سوف يتم ارسال رسالة الى هاتفك توكد عملية التفعيل الحساب",
             event.context);

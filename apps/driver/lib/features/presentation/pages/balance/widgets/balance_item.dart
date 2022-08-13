@@ -8,7 +8,11 @@ class BalanceItem extends StatelessWidget {
   final String invoiceNumber;
   final String invoiceMoney;
 
-  const BalanceItem({Key? key, required this.index, required this.invoiceNumber, required this.invoiceMoney})
+  const BalanceItem(
+      {Key? key,
+      required this.index,
+      required this.invoiceNumber,
+      required this.invoiceMoney})
       : super(key: key);
 
   @override
@@ -23,8 +27,7 @@ class BalanceItem extends StatelessWidget {
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.attach_money),
-          SText.labelMedium(invoiceMoney),
+          SText.labelMedium("$invoiceMoney ل.س"),
         ],
       ),
     );

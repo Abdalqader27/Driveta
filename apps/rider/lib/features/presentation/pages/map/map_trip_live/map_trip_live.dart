@@ -45,9 +45,10 @@ class _MapTripLiveState extends State<MapTripLive>
                 ),
                 TitleAppBar(
                   titleSpan: provider.state.getTitleSpan(),
-                  durationText:
-                      provider.details?.durationText.replaceAll('mins', 'د ') ??
-                          '',
+                  durationText: provider.details?.durationText
+                          .replaceAll('mins', 'د ')
+                          .replaceAll('min', 'د ') ??
+                      '',
                   title: provider.state.getTitle(),
                   driverName: (provider.selectedDriver)?.name ?? '',
                   driverPhone: provider.selectedDriver?.phoneNumber ?? '',

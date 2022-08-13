@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:bot_toast/bot_toast.dart';
+import 'package:core/core.dart';
 import 'package:design/design.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:driver/common/assistants/assistantMethods.dart';
 import 'package:driver/common/config/theme/colors.dart';
 import 'package:driver/features/data/models/delivers.dart';
-import 'package:driver/features/presentation/widgets/CollectFareDialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter_svg/svg.dart';
@@ -16,8 +16,10 @@ import 'package:location/location.dart';
 import 'package:lottie/lottie.dart' hide Marker;
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../app_injection.dart';
 import '../common/utils/config.dart';
 import '../common/utils/signal_r_config.dart';
+import '../features/data/models/marker_config.dart';
 import '../features/presentation/pages/history/widgets/header_item.dart';
 import '../generated/assets.dart';
 
@@ -67,8 +69,13 @@ class _NewRideScreenState extends State<NewRideScreen> {
 
     stream = Geolocator.getPositionStream().listen((Position position) async {
       myPostion = position;
-      LatLng mPostion = LatLng(position.latitude!, position.longitude!);
-      final markerConfig = kDriverMarker(oldPos);
+      LatLng mPostion = LatLng(position.latitude, position.longitude);
+      final data =
+          si<SStorage>().get(key: kVehicleType, type: ValueType.string);
+
+      late final MarkerConfig markerConfig;
+      markerConfig =
+          data == '500' ? kDriverMotorMarker(oldPos) : kDriverMarker(oldPos);
       final Marker marker = await _marker(
         markerId: markerConfig.markerId,
         pinPath: markerConfig.pinPath,
@@ -76,8 +83,8 @@ class _NewRideScreenState extends State<NewRideScreen> {
         title: markerConfig.title,
         snippet: markerConfig.snippet,
       );
-      CameraPosition cameraPosition = CameraPosition(
-          target: mPostion, zoom: 17, bearing: position.heading!);
+      CameraPosition cameraPosition =
+          CameraPosition(target: mPostion, zoom: 17, bearing: position.heading);
       _markers[markerConfig.markerId] = marker;
       if (mounted) {
         newRideGoogleMapController
@@ -441,7 +448,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
         return;
       }
 
-      var posLatLng = LatLng(myPostion.latitude!, myPostion.longitude!);
+      var posLatLng = LatLng(myPostion.latitude, myPostion.longitude);
       LatLng destinationLatLng;
 
       if (status == "accepted") {
@@ -469,32 +476,31 @@ class _NewRideScreenState extends State<NewRideScreen> {
   endTheTrip() async {
     BotToast.showLoading();
 
-    var currentLatLng = LatLng(myPostion.latitude!, myPostion.longitude!);
+    var currentLatLng = LatLng(myPostion.latitude, myPostion.longitude);
 
     var directionalDetails = await AssistantMethods.obtainPlaceDirectionDetails(
         LatLng(double.parse(widget.rideDetails.startLat ?? '0'),
             double.parse(widget.rideDetails.startLong ?? '0')),
         currentLatLng);
 
-    int fareAmount = AssistantMethods.calculateFares(directionalDetails!);
     if (widget.type == 1) {
       await SignalRDriver().endDeliveryDriver(
         id: widget.rideDetails.id ?? '',
-        price: fareAmount,
+        price: widget.rideDetails.price ?? 0,
         endLat: currentLatLng.latitude.toString(),
         endLong: currentLatLng.longitude.toString(),
         dropOff: widget.rideDetails.dropOff ?? '',
-        expectedTime: directionalDetails.durationValue.toString(),
+        expectedTime: directionalDetails!.durationValue.toString(),
         distance: directionalDetails.distanceValue ?? 0,
       );
     } else if (widget.type == 2) {
       await SignalRDriver().endDeliveryDriverProduct(
         id: widget.rideDetails.id ?? '',
-        price: fareAmount,
+        price: widget.rideDetails.price ?? 0,
         endLat: currentLatLng.latitude.toString(),
         endLong: currentLatLng.longitude.toString(),
         dropOff: widget.rideDetails.dropOff ?? '',
-        expectedTime: directionalDetails.durationValue.toString(),
+        expectedTime: directionalDetails!.durationValue.toString(),
         distance: directionalDetails.distanceValue ?? 0,
       );
     }

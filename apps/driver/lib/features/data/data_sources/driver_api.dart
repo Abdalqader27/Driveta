@@ -74,7 +74,6 @@ class DriverApi {
           },
         ),
       );
-      (json.encode(response.data)).log();
       return Invoices.fromJson(response.data);
       // return DriverProfile.fromJson(response.data);
     });
@@ -121,7 +120,30 @@ class DriverApi {
           List.from((response.data).map((i) => Delivers.fromJson(i)));
 
       return List.from(list);
-      // return DriverProfile.fromJson(response.data);
+    });
+  }
+
+  Future<Either<dynamic, List<Delivers>>> getAvailableDeliveries() {
+    return fetch(call: () async {
+      final response = await _api.get(
+        'api/DriverApp/GetAvailableDeliveries',
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ${si<SStorage>().get(
+              key: kAccessToken,
+              type: ValueType.string,
+            )}',
+          },
+        ),
+      );
+      (json.encode(response.data)).log();
+
+      final List<Delivers> list =
+          List.from((response.data).map((i) => Delivers.fromJson(i)));
+
+      return List.from(list);
     });
   }
 

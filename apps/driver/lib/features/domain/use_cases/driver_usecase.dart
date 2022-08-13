@@ -66,6 +66,13 @@ class DriverUseCase {
     );
   }
 
+  Future<ApiResult<List<Delivers>>> getAvailableDelivers() async {
+    return onResult<List<Delivers>>(
+      await _repository.getAvailableDelivers(),
+      onData: (data) {},
+    );
+  }
+
   Future<ApiResult<dynamic>> login({
     required String email,
     required String password,
@@ -81,6 +88,8 @@ class DriverUseCase {
       ),
       onData: (data) {
         si<SStorage>().set(key: kAccessToken, value: data.token);
+        si<SStorage>()
+            .set(key: kVehicleType, value: data.vehicleType.toString());
       },
     );
   }

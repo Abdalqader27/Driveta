@@ -3,11 +3,12 @@ import 'package:design/design.dart';
 import 'package:driver/common/utils/signal_r_config.dart';
 import 'package:driver/features/data/models/delivers.dart';
 import 'package:driver/features/presentation/pages/map_driver/widgets/available_delevieries_item.dart';
-import 'package:driver/features/presentation/widgets/lottie_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../../AllScreens/newRideScreen.dart';
+import '../../../../common/config/theme/colors.dart';
 import '../../widgets/round_app_bar.dart';
 
 final BehaviorSubject<List<Delivers>> deliversStream =
@@ -35,7 +36,31 @@ class AvailableDeliveries extends StatelessWidget {
                   initialData: [],
                   builder: (context, AsyncSnapshot<List<Delivers>> snap) {
                     if (snap.data!.isEmpty) {
-                      return Center(child: Text('لايوجد طلبات'));
+                      return Center(
+                          child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text('لايوجد طلبات'),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Center(
+                              child: CupertinoButton(
+                            color: kPRIMARY,
+                            borderRadius: BorderRadius.circular(30),
+                            child: SText.titleMedium(
+                              'الرجوع',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .button!
+                                  .copyWith(color: Colors.white),
+                            ),
+                            onPressed: () {
+                              Get.back();
+                            },
+                          )),
+                        ],
+                      ));
                     }
 
                     return ListView.builder(
