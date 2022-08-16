@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:android_intent_plus/android_intent.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:core/core.dart';
 import 'package:design/design.dart';
@@ -14,6 +15,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:lottie/lottie.dart' hide Marker;
+import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../app_injection.dart';
@@ -127,7 +129,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
             mapType: MapType.normal,
             myLocationButtonEnabled: true,
             initialCameraPosition: NewRideScreen._kGooglePlex,
-            myLocationEnabled: true,
+            myLocationEnabled: false,
             markers: Set.of(_markers.values),
             circles: circleSet,
             polylines: polyLineSet,
@@ -158,8 +160,69 @@ class _NewRideScreenState extends State<NewRideScreen> {
           ),
         ],
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+      floatingActionButton: Padding(
+        padding: EdgeInsets.symmetric(vertical: 15),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            FloatingActionButton(
+              heroTag: 'newRideScreenLOpenGoogleMaps',
+              onPressed: () async {
+                var location = await Location.instance.getLocation();
+
+                String origin =
+                    "${location.latitude},${location.longitude}"; // lat,long like 123.34,68.56
+                String destination =
+                    "${widget.rideDetails.startLat},${widget.rideDetails.startLong}"; // la
+
+                if (isAndroid) {
+                  final AndroidIntent intent = AndroidIntent(
+                      action: 'action_view',
+                      data: Uri.encodeFull(
+                          "https://www.google.com/maps/dir/?api=1&origin=" +
+                              origin +
+                              "&destination=" +
+                              destination +
+                              "&travelmode=driving&dir_action=navigate"),
+                      package: 'com.google.android.apps.maps');
+                  intent.launch();
+                } else {
+                  String url =
+                      "https://www.google.com/maps/dir/?api=1&origin=" +
+                          origin +
+                          "&destination=" +
+                          destination +
+                          "&travelmode=driving&dir_action=navigate";
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else {
+                    throw 'Could not launch $url';
+                  }
+                }
+              },
+              child: Icon(Icons.map_rounded),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            FloatingActionButton(
+              heroTag: 'newRideScreenLocation',
+              onPressed: () async {
+                var location = await Location.instance.getLocation();
+
+                newRideGoogleMapController.animateCamera(
+                    CameraUpdate.newCameraPosition(CameraPosition(
+                        zoom: 17,
+                        target:
+                            LatLng(location.latitude!, location.longitude!))));
+              },
+              child: Icon(Icons.gps_fixed),
+            ),
+          ],
+        ),
+      ),
     );
-    ;
   }
 
   Widget buildRiderTripStatus(BuildContext context) {
@@ -178,7 +241,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
             Wrap(
               children: [
                 Text(
-                  " الوقت المتوقع لوصولك  ",
+                  "الوقت المتوقع للوصول  ",
                   style: const TextStyle(
                       fontSize: 15, fontWeight: FontWeight.bold),
                 ),

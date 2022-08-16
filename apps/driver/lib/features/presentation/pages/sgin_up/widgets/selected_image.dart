@@ -11,9 +11,15 @@ class SelectedImage extends StatefulWidget {
   const SelectedImage({
     Key? key,
     required this.builder,
+    required this.idImage,
+    required this.personalImage,
+    required this.certificateImage,
   }) : super(key: key);
 
   final ValueWidgetBuilder builder;
+  final ValueChanged<XFile?> idImage;
+  final ValueChanged<XFile?> personalImage;
+  final ValueChanged<XFile?> certificateImage;
 
   @override
   State<SelectedImage> createState() => _SelectedImageState();
@@ -22,6 +28,9 @@ class SelectedImage extends StatefulWidget {
 class _SelectedImageState extends State<SelectedImage> {
   final ImagePicker _picker = ImagePicker();
   final List<XFile> imagesUri = [];
+  XFile? idImage;
+  XFile? personalImage;
+  XFile? certificateImage;
 
   @override
   Widget build(BuildContext context) {
@@ -40,91 +49,174 @@ class _SelectedImageState extends State<SelectedImage> {
                 left: 8.0,
               ),
               child: MaterialText.headLine6(
-                ' قم بإضافة هذه المستندات على (الترتيب) \n-صورة الهوية الشخصية \n-صورة الوجه \n-رخصة القيادة ',
+                ' قم بإضافة هذه المستندات    \n-صورة الهوية الشخصية \n-صورة الوجه \n-رخصة القيادة ',
                 style: textTheme.headline6!.copyWith(
                   fontWeight: FontWeight.w400,
                   color: kGrey4,
                   fontSize: 16,
                 ),
               )),
-          Visibility(
-            visible: imagesUri.isNotEmpty,
-            replacement: const SizedBox.shrink(),
-            child: Column(
-              children: [
-                const SSizedBox.v8(),
-                SizedBox(
-                  height: 80,
-                  width: context.widthPx,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: imagesUri.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return ImageSelectedItem(
-                        selectedImages: imagesUri,
-                        index: index,
-                        removeImageTap: () {
-                          setState(() => imagesUri.removeAt(index));
-                        },
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-          InkWell(
-            borderRadius: BorderRadius.circular(15),
-            onTap: _pickedImage,
-            child: Card(
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                  side: const BorderSide(color: kGrey2),
-                  borderRadius: BorderRadius.circular(10)),
-              child: SPadding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Row(
+            children: [
+              Expanded(
+                child: Column(
                   children: [
-                    Row(
-                      children: [
-                        Icon(Icons.add),
-                        const SSizedBox.h4(),
-                        SPadding.all8(
-                          child: MaterialText.button(
-                            'إضافة ',
-                            style:
-                                textTheme.titleMedium!.copyWith(color: kGrey4),
-                          ),
-                        ),
-                      ],
+                    const SSizedBox.v8(),
+                    ImageSelectedItem(
+                      selectedImage: idImage,
+                      index: 0,
+                      removeImageTap: () {
+                        idImage = null;
+                        widget.idImage(idImage);
+
+                        setState(() {});
+                      },
                     ),
-                    const Icon(Icons.arrow_forward_ios)
+                    InkWell(
+                      borderRadius: BorderRadius.circular(15),
+                      onTap: () async {
+                        idImage = await _picker.pickImage(
+                            source: ImageSource.gallery);
+                        widget.idImage(idImage);
+                        setState(() {});
+                      },
+                      child: Card(
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                            side: const BorderSide(color: kGrey2),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          children: [
+                            SizedBox(height: 5),
+                            Icon(Icons.add, color: kGrey),
+                            SPadding.all8(
+                              child: MaterialText.caption(
+                                'صورة الهوية  ',
+                                style:
+                                    textTheme.caption!.copyWith(color: kGrey4),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
-            ),
+              Expanded(
+                child: Column(
+                  children: [
+                    const SSizedBox.v8(),
+                    ImageSelectedItem(
+                      selectedImage: personalImage,
+                      index: 0,
+                      removeImageTap: () {
+                        personalImage = null;
+                        widget.personalImage(personalImage);
+
+                        setState(() {});
+                      },
+                    ),
+                    InkWell(
+                      borderRadius: BorderRadius.circular(15),
+                      onTap: () async {
+                        personalImage = await _picker.pickImage(
+                            source: ImageSource.gallery);
+                        widget.personalImage(personalImage);
+
+                        setState(() {});
+                      },
+                      child: Card(
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                            side: const BorderSide(color: kGrey2),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          children: [
+                            SizedBox(height: 5),
+                            Icon(Icons.add, color: kGrey),
+                            SPadding.all8(
+                              child: MaterialText.caption(
+                                'صورة الوجه',
+                                style:
+                                    textTheme.caption!.copyWith(color: kGrey4),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  children: [
+                    const SSizedBox.v8(),
+                    ImageSelectedItem(
+                      selectedImage: certificateImage,
+                      index: 0,
+                      removeImageTap: () {
+                        certificateImage = null;
+                        widget.certificateImage(certificateImage);
+
+                        setState(() {});
+                      },
+                    ),
+                    InkWell(
+                      borderRadius: BorderRadius.circular(15),
+                      onTap: () async {
+                        certificateImage = await _picker.pickImage(
+                            source: ImageSource.gallery);
+                        widget.certificateImage(certificateImage);
+
+                        setState(() {});
+                      },
+                      child: Card(
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                            side: const BorderSide(color: kGrey2),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          children: [
+                            SizedBox(height: 5),
+                            Icon(Icons.add, color: kGrey),
+                            SPadding.all8(
+                              child: MaterialText.caption(
+                                'رخصة القيادة ',
+                                style:
+                                    textTheme.caption!.copyWith(color: kGrey4),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),
     );
   }
 
-  void _pickedImage() async {
+  Future<XFile?> _pickedImage(XFile? xfile) async {
+    XFile? file;
     showDialog(
         context: context,
         builder: (context) => SelectImageDialog(
-              onEvent: (ImageSource? source) {
+              onEvent: (ImageSource? source) async {
                 if (source != null) {
-                  _selectImage(source);
+                  file = await selectImage(source);
                 }
               },
             ));
+    return file;
   }
 
-  void _selectImage(ImageSource imageSource) async {
+  Future<XFile?> selectImage(ImageSource imageSource) async {
     Navigator.pop(context);
     try {
       if (imageSource == ImageSource.gallery) {
@@ -136,15 +228,13 @@ class _SelectedImageState extends State<SelectedImage> {
           );
           if (selectedImages != null) {
             if (selectedImages.isNotEmpty) {
-              BotToast.showLoading();
-              for (int i = 0; i < selectedImages.length; ++i) {
-                imagesUri.add(selectedImages[i]);
-              }
-              BotToast.closeAllLoading();
+              return selectedImages.first;
             }
           }
         } else {
           BotToast.showText(text: 'لايوجد صلاحيات للمستندات');
+
+          return null;
         }
       } else {
         if (await Permission.camera.request().isGranted) {
@@ -154,15 +244,13 @@ class _SelectedImageState extends State<SelectedImage> {
               maxHeight: 1200,
               imageQuality: 80);
           if (image != null) {
-            BotToast.showLoading();
-            imagesUri.add(image);
+            return image;
           }
-          BotToast.closeAllLoading();
         } else {
           BotToast.showText(text: 'لايوجد صلاحيات للكاميرة');
+          return null;
         }
       }
-      setState(() {});
     } catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: e.toString());

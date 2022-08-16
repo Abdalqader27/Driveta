@@ -49,8 +49,8 @@ class AvailableDeliveriesItem extends StatelessWidget {
                   ),
                   ChipItem(
                     iconData: Icons.add_road_rounded,
-                    title:
-                        '${delivers.distance?.convertFromTo(LENGTH.meters, LENGTH.kilometers)} كم',
+                    title:'${delivers.distance?.convertFromTo(LENGTH.meters, LENGTH.kilometers)} كم',
+                        
                   ),
                   ChipItem(
                     iconData: Icons.account_balance_wallet_outlined,

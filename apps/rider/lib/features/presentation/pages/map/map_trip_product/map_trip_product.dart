@@ -23,7 +23,7 @@ class _MapTripProductState extends State<MapTripProduct>
     return Scaffold(
       body: LocationGrantedWidget(builder:
           (BuildContext context, LocationData locationData, Widget? child) {
-        return Consumer<MapTripProvider>(
+        return Consumer<MapTripProductProvider>(
           builder: (context, provider, child) {
             return Stack(
               children: [
@@ -53,8 +53,7 @@ class _MapTripProductState extends State<MapTripProduct>
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
-    si<MapTripProvider>().reset();
+    si<MapTripProductProvider>().reset();
   }
 }

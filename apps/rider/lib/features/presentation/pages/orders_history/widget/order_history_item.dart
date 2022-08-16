@@ -1,6 +1,7 @@
 import 'package:design/design.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart' hide TextDirection;
 
 import '../../../../../generated/assets.dart';
 import '../../../../data/models/delivers.dart';
@@ -30,14 +31,26 @@ class OrderBookItem extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
               text: TextSpan(
-                text: 'رقم الرحلة :',
+                text: 'تاريخ الرحلة :',
                 style: Theme.of(context)
                     .textTheme
                     .bodyText1!
                     .copyWith(fontWeight: FontWeight.w600),
               ),
             ),
-            subtitle: Text(history.id),
+            subtitle: Wrap(
+              children: [
+                Text(
+                    history.startDate != null
+                        ? DateFormat('yyyy-MM-dd – hh:mm')
+                            .format(DateTime.parse(history.startDate))
+                        : '',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1!
+                        .copyWith(fontWeight: FontWeight.w400, color: kGrey4)),
+              ],
+            ),
             leading: CircleAvatar(child: Center(child: Text('${index + 1}'))),
           ),
           Row(

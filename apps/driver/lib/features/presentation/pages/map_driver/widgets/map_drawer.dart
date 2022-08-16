@@ -105,7 +105,6 @@ class MapDrawer extends StatelessWidget {
                               },
                               btnCancelOnPress: () {
                                 try {
-                         
                                   si<SStorage>().clearAll();
                                   FirebaseAuth.instance.signOut();
                                 } catch (_) {}

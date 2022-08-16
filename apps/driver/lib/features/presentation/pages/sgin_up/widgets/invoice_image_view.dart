@@ -5,12 +5,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:photo_view/photo_view.dart';
 
 class InvoiceImageView extends StatelessWidget {
-  final XFile image;
+  final XFile? image;
 
   const InvoiceImageView({Key? key, required this.image}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    if (image == null) return Container();
     return Scaffold(
         backgroundColor: kPrimaryColor,
         body: Stack(
@@ -24,7 +25,7 @@ class InvoiceImageView extends StatelessWidget {
                     valueColor: AlwaysStoppedAnimation<Color>(kWhite),
                   ));
                 },
-                imageProvider: FileImage(File(image.path))),
+                imageProvider: FileImage(File(image!.path))),
           ],
         ));
   }

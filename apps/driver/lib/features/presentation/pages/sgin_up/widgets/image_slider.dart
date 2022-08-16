@@ -4,7 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'invoice_image_view.dart';
 
 class ImageSliderView extends StatefulWidget {
-  final List<XFile?> images;
+  final XFile ?images;
   final Function() removeImageTap;
   final int index;
 
@@ -46,42 +46,12 @@ class _ImageSliderViewState extends State<ImageSliderView> {
                 }, Icons.arrow_forward_ios)),
             SPadding(
               padding: const EdgeInsets.symmetric(vertical: 70),
-              child: PageView.builder(
-                  controller: pageController,
-                  itemCount: widget.images.length,
-                  onPageChanged: (index) {
-                    setState(() => this.index = index);
-                  },
-                  itemBuilder: (_, index) {
-                    return InvoiceImageView(
-                      image: widget.images[index]!,
-                    );
-                  }),
+              child:   InvoiceImageView(
+                      image: widget.images,
+                    )
             ),
-            Visibility(
-              visible: index < (widget.images.length - 1),
-              child: Positioned(
-                //   alignment: const Alignment(1, -0.5),
-                right: 0,
-                bottom: 20,
-                child: _circleButton(
-                  iconData: Icons.arrow_back_ios_outlined,
-                  onPress: _next,
-                ),
-              ),
-            ),
-            Visibility(
-              visible: index != 0,
-              child: Positioned(
-                // alignment: const Alignment(-1, -0.5),
-                left: 0,
-                bottom: 20,
-                child: _circleButton(
-                  iconData: Icons.arrow_forward_ios_outlined,
-                  onPress: _back,
-                ),
-              ),
-            ),
+          
+          
           ],
         ),
       ),

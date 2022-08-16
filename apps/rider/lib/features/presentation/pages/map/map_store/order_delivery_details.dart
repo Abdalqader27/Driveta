@@ -20,7 +20,6 @@ import '../../../../../generated/assets.dart';
 import '../../../../../libraries/el_widgets/widgets/material_text.dart';
 import '../../../../../main.dart';
 import '../../../../data/models/delivers_product.dart';
-import '../../../../data/models/delivery_product_details.dart';
 import '../../../../data/models/direct_details.dart';
 import '../../../../data/models/store.dart';
 import '../../orders_history/widget/header_item.dart';
@@ -455,7 +454,7 @@ class _OrderDeliveryDetailsState extends State<OrderDeliveryDetails> {
                                                         vehicleType: data
                                                             .carDetails!.item2,
                                                         details: filter());
-                                                si<MapTripProvider>()
+                                                si<MapTripProductProvider>()
                                                         .setDeliversProduct =
                                                     delivery;
                                                 SignalRRider()
@@ -494,11 +493,11 @@ class _OrderDeliveryDetailsState extends State<OrderDeliveryDetails> {
     );
   }
 
-  List<DeliveryProductDetails> filter() {
-    List<DeliveryProductDetails> list = [];
+  List<Detail> filter() {
+    List<Detail> list = [];
     widget.productMap.forEach((key, value) {
       if (widget.productMap[key]! > 0) {
-        list.add(DeliveryProductDetails(
+        list.add(Detail(
           productId: key,
           quantity: value,
         ));

@@ -18,7 +18,6 @@ import 'package:rider/features/presentation/pages/sgin_up/registeration_screen.d
 
 import '_injections.dart';
 import 'common/config/theme/theme.dart';
-import 'common/utils/signal_r.dart';
 import 'features/presentation/pages/map/map_trip_live/providers/map_live_provider.dart';
 import 'features/presentation/pages/map/map_trip_product/provider/map_trip_provider.dart';
 import 'libraries/flutter_screenutil/flutter_screenutil.dart';
@@ -31,7 +30,6 @@ Future<void> main() async {
   await Firebase.initializeApp();
   await init();
 
-  await SignalRRider().openConnection();
   runZonedGuarded(
     () => runApp(MyApp()),
     (error, stackTrace) async {
@@ -53,7 +51,7 @@ class MyApp extends StatelessWidget {
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider(
-            create: (context) => si<MapTripProvider>(),
+            create: (context) => si<MapTripProductProvider>(),
           ),
           ChangeNotifierProvider(
             create: (context) => si<MapLiveProvider>(),

@@ -50,22 +50,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const SizedBox(
-                      height: 35.0,
-                    ),
-                    RPadding.all4(
-                      child: Lottie.asset(
-                        Assets.login,
-                        width: 250.w,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 1.0,
-                    ),
                     LoginContainer(builder: (context, _) {
                       return Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
+                          const SizedBox(
+                            height: 35.0,
+                          ),
+                          RPadding.all4(
+                            child: Lottie.asset(
+                              Assets.login,
+                              width: 250.w,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 1.0,
+                          ),
                           const MaterialText.headLine6(
                             "تطبيق المستخدم",
                             style: TextStyle(fontSize: 24.0),

@@ -103,12 +103,24 @@ class MapLiveProvider extends ChangeNotifier with GoogleApiKey {
 
     if (driver.id == _selectedDriverId) {
       if (driver.lat != null && driver.long != null) {
-        final point = LatLng(
+        final driverPoint = LatLng(
           double.parse(driver.lat!),
           double.parse(driver.long!),
         );
-        addMarker(kDriverMarker2(point));
-        animateCameraTarget(point);
+        if (driver.vehicleType == 500) {
+          addMarker(kDriverMarkerBike(driverPoint));
+        } else {
+          addMarker(kDriverMarker2(driverPoint));
+        }
+        Future.delayed(const Duration(seconds: 10), () async {
+          if (state.number == 0) {
+            await getDirectDetails(startPoint, driverPoint);
+          } else {
+            await getDirectDetails(driverPoint, endPoint);
+          }
+        });
+
+        animateCameraTarget(driverPoint);
       }
     }
 

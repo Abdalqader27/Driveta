@@ -92,7 +92,7 @@ class _MapStoreRecordDetailsState extends State<MapStoreRecordDetails> {
                                 HeaderItem(
                                     context: context,
                                     title: 'المكان الانطلاق',
-                                    subtitle: widget.delivers.pickUp),
+                                    subtitle: "${widget.delivers.pickUp}"),
                                 DottedLine(
                                   dashColor: Colors.grey.withOpacity(.5),
                                 ),
@@ -153,7 +153,8 @@ class _MapStoreRecordDetailsState extends State<MapStoreRecordDetails> {
                                               fontWeight: FontWeight.w600),
                                     ),
                                   ),
-                                  subtitle: Text(widget.delivers.vehicleNumber),
+                                  subtitle:
+                                      Text("${widget.delivers.vehicleNumber}"),
                                   leading: const CircleAvatar(
                                       backgroundColor: kGrey2,
                                       child:
@@ -185,6 +186,43 @@ class _MapStoreRecordDetailsState extends State<MapStoreRecordDetails> {
                                 child: Center(child: Icon(Icons.numbers))),
                           ),
                         ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text('المنتجات المطلوبة',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText1!
+                            .copyWith(fontWeight: FontWeight.w600)),
+                    Card(
+                      margin: const EdgeInsets.symmetric(horizontal: 20),
+                      child: SizedBox(
+                        height: 100,
+                        child: ListView.builder(
+                            padding: EdgeInsets.all(10),
+                            itemCount: widget.delivers.details!.length,
+                            scrollDirection: Axis.horizontal,
+                            physics: const BouncingScrollPhysics(),
+                            itemBuilder: (context, i) => SizedBox(
+                                width: 100,
+                                child: Card(
+                                  elevation: 0,
+                                  color: kGrey1,
+                                  child: ListTile(
+                                    title: Text(
+                                      "${widget.delivers.details![i].productOrOfferName}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1!
+                                          .copyWith(
+                                              fontWeight: FontWeight.w500),
+                                    ),
+                                    subtitle: Text(
+                                        "${widget.delivers.details![i].quantity}"),
+                                  ),
+                                ))),
                       ),
                     ),
                     const SizedBox(
@@ -251,18 +289,18 @@ class _MapStoreRecordDetailsState extends State<MapStoreRecordDetails> {
                                 getPlaceDirection(
                                     LatLng(
                                       double.tryParse(
-                                              widget.delivers.startLat) ??
+                                              "${widget.delivers.startLat}") ??
                                           0,
                                       double.tryParse(
-                                              widget.delivers.startLong) ??
+                                              "${widget.delivers.startLong}") ??
                                           0,
                                     ),
                                     LatLng(
                                         double.tryParse(
-                                                widget.delivers.endLat) ??
+                                                "${widget.delivers.endLat}") ??
                                             0,
                                         double.tryParse(
-                                                widget.delivers.endLong) ??
+                                                "${widget.delivers.endLong}") ??
                                             0),
                                     false);
                               },
@@ -354,8 +392,8 @@ class _MapStoreRecordDetailsState extends State<MapStoreRecordDetails> {
 
     _markers[const MarkerId('1')] = Marker(
       markerId: const MarkerId('1'),
-      position: LatLng(double.tryParse(widget.delivers.startLat) ?? 0,
-          double.tryParse(widget.delivers.startLong) ?? 0),
+      position: LatLng(double.tryParse("${widget.delivers.startLat}") ?? 0,
+          double.tryParse("${widget.delivers.startLong}") ?? 0),
       infoWindow: InfoWindow(
         title: widget.delivers.pickUp,
         snippet: widget.delivers.pickUp,
@@ -363,8 +401,8 @@ class _MapStoreRecordDetailsState extends State<MapStoreRecordDetails> {
     );
     _markers[const MarkerId('2')] = Marker(
       markerId: const MarkerId('2'),
-      position: LatLng(double.tryParse(widget.delivers.endLat) ?? 0,
-          double.tryParse(widget.delivers.endLong) ?? 0),
+      position: LatLng(double.tryParse("${widget.delivers.endLat}") ?? 0,
+          double.tryParse("${widget.delivers.endLong}") ?? 0),
       infoWindow: InfoWindow(
         title: widget.delivers.dropOff,
         snippet: widget.delivers.dropOff,

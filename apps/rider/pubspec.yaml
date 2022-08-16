@@ -43,9 +43,12 @@ dependencies:
   google_maps_webservice: ^0.0.20-nullsafety.5
   equatable: ^2.0.3
   get_it: ^7.2.0
+  flutter_staggered_animations: "^1.0.0"
+
   retry_bot: ^1.0.1
   lottie: ^1.2.1
   get: ^4.6.5
+  units_converter: ^2.0.1
   either_dart: ^0.1.4
   internet_connection_checker: ^0.0.1+4
   dotted_line: ^3.1.0

@@ -174,12 +174,11 @@ class DriverBloc extends SMixinBloc<DriverEvent, DriverState> {
     );
     emit(await result.when(
       success: (user) {
+        BotToast.showText(text: 'تم ارسال معلوماتك بنجاح  سوف يتم اخطارك في حال تفعيل الحساب');
         _state = _state.copyWith(signUpState: BlocSuccess(data: user));
         Navigator.pushNamedAndRemoveUntil(
             event.context, LoginScreen.idScreen, (route) => false);
-        displayToastMessage(
-            "سوف يتم ارسال رسالة الى هاتفك توكد عملية التفعيل الحساب",
-            event.context);
+
         return _state;
       },
       failure: (dynamic error) {

@@ -172,34 +172,29 @@ class DriverApi {
           'bloodType': bloodType,
           'dob': dob,
           'personalImageFile': personalImageFile != null
-              ? FormData.fromMap(<String, dynamic>{
-                  'file': await MultipartFile.fromFile(
-                    personalImageFile.path,
-                    filename: personalImageFile.name,
-                    contentType: MediaType('image', 'png'),
-                  ),
-                })
+              ? await MultipartFile.fromFile(
+                  personalImageFile.path,
+                  filename: personalImageFile.name,
+                  contentType: MediaType('image', 'png'),
+                )
               : null,
           'idPhotoFile': idPhotoFile != null
-              ? FormData.fromMap(<String, dynamic>{
-                  'file': await MultipartFile.fromFile(
-                    idPhotoFile.path,
-                    filename: idPhotoFile.name,
-                    contentType: MediaType('image', 'png'),
-                  ),
-                })
+              ? await MultipartFile.fromFile(
+                  idPhotoFile.path,
+                  filename: idPhotoFile.name,
+                  contentType: MediaType('image', 'png'),
+                )
               : null,
           'drivingCertificateFile': drivingCertificateFile != null
-              ? FormData.fromMap(<String, dynamic>{
-                  'file': await MultipartFile.fromFile(
-                    drivingCertificateFile.path,
-                    filename: drivingCertificateFile.name,
-                    contentType: MediaType('image', 'png'),
-                  ),
-                })
+              ? await MultipartFile.fromFile(
+                  drivingCertificateFile.path,
+                  filename: drivingCertificateFile.name,
+                  contentType: MediaType('application', 'x-tar'),
+                )
               : null,
         });
 
+        print(formData.files);
         await _api.post(
           'api/DriverApp/SignUp',
           data: formData,

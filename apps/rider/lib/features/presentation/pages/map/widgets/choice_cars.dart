@@ -1,5 +1,7 @@
 import 'package:design/design.dart';
 import 'package:rider/common/config/theme/colors.dart';
+import 'package:units_converter/models/extension_converter.dart';
+import 'package:units_converter/properties/length.dart';
 
 import '../../../../../libraries/el_widgets/widgets/material_text.dart';
 import '../../../../data/models/direct_details.dart';
@@ -44,19 +46,28 @@ class _ChoiceCarsWidgetState extends State<ChoiceCarsWidget> {
               children: [
                 _PanelItem(
                   title: 'المسافة',
-                  subtitle: widget.directionDetails?.distanceText
-                          .replaceAll('km', 'كم') ??
-                      '',
+                  subtitle:
+                      '${widget.directionDetails?.distanceValue.convertFromTo(LENGTH.meters, LENGTH.kilometers)} كم',
                   iconData: Icons.polyline_sharp,
                 ),
                 _PanelItem(
                   title: 'الوقت',
                   subtitle: widget.directionDetails?.durationText
-                          .replaceAll('mins', 'د') ??
+                          .replaceAll('mins', 'د')
+                          .replaceAll('min', 'د') ??
                       '',
                   iconData: Icons.lock_clock,
                 ),
               ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            SDottedLine(
+              dashColor: kGrey2,
+            ),
+            SizedBox(
+              height: 10,
             ),
 
             const MaterialText.subTitle1('اختر السيارة'),
@@ -169,8 +180,14 @@ class CarItemWidget extends StatelessWidget {
   }
 
   int calcPrice({required int distance, required int start}) {
+    print('distance: $distance');
     int factor = start ~/ 2;
-    var temp = (distance / 250.0).round();
+    print('factor: $factor');
+
+    var temp = distance ~/ 250;
+    print('temp: $temp');
+    print('start: $start');
+
     return start + temp * factor;
   }
 }
@@ -231,29 +248,23 @@ class _PanelItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Card(
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Icon(
-              iconData,
-              color: kPRIMARY,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Icon(
+            iconData,
+            color: kPRIMARY,
+          ),
+          Center(
+            child: Padding(
+              padding: EdgeInsets.only(top: 5.0),
+              child: SText.bodyMedium(title, textAlign: TextAlign.center),
             ),
-            Center(
-              child: Padding(
-                padding: EdgeInsets.only(top: 5.0),
-                child: SText.bodyMedium(title, textAlign: TextAlign.center),
-              ),
-            ),
-            Center(
-              child: SText.bodyMedium(subtitle, textAlign: TextAlign.center),
-            ),
-          ],
-        ),
+          ),
+          Center(
+            child: SText.bodyMedium(subtitle, textAlign: TextAlign.center),
+          ),
+        ],
       ),
     );
   }

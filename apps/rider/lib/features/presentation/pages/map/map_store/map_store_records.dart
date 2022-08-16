@@ -91,7 +91,7 @@ class OrderRecordItem extends StatelessWidget {
                     .copyWith(fontWeight: FontWeight.w600),
               ),
             ),
-            subtitle: Text(history.id ?? ''),
+            subtitle: Text("${history.id}"),
             leading: CircleAvatar(
                 backgroundColor: kGrey2,
                 child: Center(child: Text('${index + 1}'))),
@@ -144,7 +144,7 @@ class OrderRecordItem extends StatelessWidget {
                           .copyWith(fontWeight: FontWeight.w600),
                     ),
                   ),
-                  subtitle: Text(history.driverName ?? ''),
+                  subtitle: Text("${history.driverName}"),
                   leading: const CircleAvatar(
                       backgroundColor: kGrey2,
                       child: Center(child: Icon(Icons.perm_contact_cal))),
@@ -164,7 +164,7 @@ class OrderRecordItem extends StatelessWidget {
                           .copyWith(fontWeight: FontWeight.w600),
                     ),
                   ),
-                  subtitle: Text(history.vehicleNumber),
+                  subtitle: Text("${history.vehicleNumber}"),
                   leading: const CircleAvatar(
                       backgroundColor: kGrey2,
                       child: Center(child: Icon(Icons.numbers))),
@@ -186,7 +186,7 @@ class OrderRecordItem extends StatelessWidget {
               ),
             ),
             subtitle: Text(
-              history.vehicleId ?? '',
+              "${history.vehicleId}",
               softWrap: true,
               overflow: TextOverflow.ellipsis,
             ),
@@ -203,7 +203,7 @@ class OrderRecordItem extends StatelessWidget {
               // TODO add time and distance and money
               ChipItem(
                 iconData: Icons.access_time,
-                title: history.expectedTime,
+                title: "${history.expectedTime}",
               ),
               ChipItem(
                 iconData: Icons.add_road_rounded,
@@ -216,6 +216,41 @@ class OrderRecordItem extends StatelessWidget {
             ],
           ),
           const SSizedBox.v12(),
+          DottedLine(
+            dashColor: Colors.grey.withOpacity(.5),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            'الطلبيات :',
+            style: Theme.of(context)
+                .textTheme
+                .bodyText1!
+                .copyWith(fontWeight: FontWeight.w600),
+          ),
+          SizedBox(
+            height: 100,
+            child: ListView.builder(
+                padding: EdgeInsets.all(8),
+                itemCount: history.details!.length,
+                scrollDirection: Axis.horizontal,
+                physics: const BouncingScrollPhysics(),
+                itemBuilder: (context, i) => SizedBox(
+                    width: 100,
+                    child: Card(
+                      elevation: 0,
+                      color: kGrey1,
+                      child: ListTile(
+                        title: Text(
+                          "${history.details![i].productOrOfferName}",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(fontWeight: FontWeight.w500),
+                        ),
+                        subtitle: Text("${history.details![i].quantity}"),
+                      ),
+                    ))),
+          )
         ],
       ),
     );

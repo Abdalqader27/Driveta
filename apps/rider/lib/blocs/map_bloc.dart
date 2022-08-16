@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_animarker/core/ripple_marker.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rider/features/presentation/pages/map/main_screen/mainscreen.dart';
 
 import '../../../../common/utils/google_api_key.dart';
 import '../features/data/models/marker_config.dart';
@@ -106,7 +107,7 @@ class MapBloc extends RxMap with MapInterface, GoogleApiKey {
       }
     }
     {
-      controller?.animateCamera(CameraUpdate.newLatLngBounds(
+      mainMapController.animateCamera(CameraUpdate.newLatLngBounds(
           LatLngBounds(
               southwest: LatLng(minLat, minLong),
               northeast: LatLng(maxLat, maxLong)),

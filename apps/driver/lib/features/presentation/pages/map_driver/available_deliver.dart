@@ -1,11 +1,15 @@
+import 'package:android_intent_plus/android_intent.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:core/core.dart';
 import 'package:design/design.dart';
 import 'package:driver/common/utils/signal_r_config.dart';
 import 'package:driver/features/data/models/delivers.dart';
 import 'package:driver/features/presentation/pages/map_driver/widgets/available_delevieries_item.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../AllScreens/newRideScreen.dart';
 import '../../../../common/config/theme/colors.dart';
@@ -70,6 +74,8 @@ class AvailableDeliveries extends StatelessWidget {
                           return AvailableDeliveriesItem(
                             delivers: deliver,
                             onTap: () async {
+                       
+
                               try {
                                 BotToast.showLoading();
                                 SignalRDriver()

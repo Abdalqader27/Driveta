@@ -30,7 +30,7 @@ class DrawerHeaderClipper extends StatelessWidget {
                     .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
               ),
               subtitle: Text(
-                "",
+                "${data.email}",
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme

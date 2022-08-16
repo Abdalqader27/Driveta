@@ -17,7 +17,7 @@ import '../../../../../data/models/marker_config.dart';
 import '../../../../../data/models/polyline_config.dart';
 import '../../../../../domain/entities/state_trip_product.dart';
 
-class MapTripProvider extends ChangeNotifier with GoogleApiKey {
+class MapTripProductProvider extends ChangeNotifier with GoogleApiKey {
   final Map<MarkerId, Marker> _markers = {};
   final Map<PolylineId, Polyline> _polyLines = {};
   final List<LatLng> _polylineCoordinates = [];
@@ -30,7 +30,7 @@ class MapTripProvider extends ChangeNotifier with GoogleApiKey {
   String? _selectedDriverId;
 
   GoogleMapController? _mapController;
-  final Completer<GoogleMapController> _controllerGoogleMap = Completer();
+  Completer<GoogleMapController> _controllerGoogleMap = Completer();
 
   GoogleMapController? get mapController => _mapController;
 
@@ -56,13 +56,13 @@ class MapTripProvider extends ChangeNotifier with GoogleApiKey {
   DeliversProduct? get deliverProduct => _deliverProduct;
 
   LatLng get startPoint => _parseLatLng(
-        _deliverProduct!.startLat,
-        _deliverProduct!.startLong,
+        _deliverProduct!.startLat!,
+        _deliverProduct!.startLong!,
       );
 
   LatLng get endPoint => _parseLatLng(
-        _deliverProduct!.endLat,
-        _deliverProduct!.endLong,
+        _deliverProduct!.endLat!,
+        _deliverProduct!.endLong!,
       );
 
   LatLng get driverPoint => _parseLatLng(
@@ -233,6 +233,7 @@ class MapTripProvider extends ChangeNotifier with GoogleApiKey {
     _selectedDriverId = null;
     _deliverProduct = null;
     _mapController?.dispose();
+    _controllerGoogleMap = Completer();
   }
 
   void animateCameraTarget(LatLng target) {

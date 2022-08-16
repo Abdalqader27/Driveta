@@ -395,12 +395,11 @@ class SignalRDriver {
   void onReceiveRemoveDelivery(List<Object>? arguments) {
     print("ReceiveRemoveDelivery $arguments");
     try {
-      BotToast.showText(text: 'Delivery has been removed');
+      BotToast.showText(text: 'تم الغاء الرحلة من الزبون ');
       if (flagOnDelivery) {
         flagOnDelivery = false;
         Get.back();
-      } else {}
-
+      } 
        deliversStream.sink.add(deliversStream.value
           ..removeWhere((element) => element.id == arguments![0].toString()));
     } catch (e) {

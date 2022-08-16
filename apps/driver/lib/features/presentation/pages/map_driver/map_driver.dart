@@ -14,6 +14,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../common/utils/config.dart';
 import '../../../../../common/utils/signal_r_config.dart';
@@ -80,7 +81,12 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
                   BotToast.closeAllLoading();
                   getLocationLiveUpdates();
                   displayToastMessage("تم الاتصال ", context);
-                  Get.to(() => AvailableDeliveries());
+                  // Get.to(() => AvailableDeliveries());
+
+
+
+
+
                 } else {
                   await SignalRDriver().stopConnection();
                   displayToastMessage("تم قطع الاتصال", context);

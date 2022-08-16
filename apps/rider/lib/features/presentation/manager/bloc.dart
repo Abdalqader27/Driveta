@@ -111,7 +111,6 @@ class RiderBloc extends SMixinBloc<RiderEvent, RiderState> {
     final result = await _useCase.removeDelivery();
     emit(await result.when(
       success: (data) {
-        BotToast.showText(text: 'تم  بنجاح');
         return _state =
             _state.copyWith(removeDeliveryState: BlocSuccess(data: data));
       },
@@ -127,7 +126,6 @@ class RiderBloc extends SMixinBloc<RiderEvent, RiderState> {
     final result = await _useCase.getVehicleTypes();
     emit(await result.when(
       success: (data) {
-        BotToast.showText(text: 'تم  بنجاح');
         return _state =
             _state.copyWith(getVehicleTypesState: BlocSuccess(data: data));
       },
@@ -143,7 +141,6 @@ class RiderBloc extends SMixinBloc<RiderEvent, RiderState> {
     final result = await _useCase.profile();
     emit(await result.when(
       success: (data) {
-        BotToast.showText(text: 'تم  بنجاح');
         return _state =
             _state.copyWith(getProfileState: BlocSuccess(data: data));
       },
@@ -159,7 +156,6 @@ class RiderBloc extends SMixinBloc<RiderEvent, RiderState> {
     final result = await _useCase.getDeliveries();
     emit(await result.when(
       success: (data) {
-        BotToast.showText(text: 'تم  بنجاح');
         return _state =
             _state.copyWith(getDeliveriesState: BlocSuccess(data: data));
       },
@@ -176,7 +172,6 @@ class RiderBloc extends SMixinBloc<RiderEvent, RiderState> {
     final result = await _useCase.getProductDeliveries();
     emit(await result.when(
       success: (data) {
-        BotToast.showText(text: 'تم  بنجاح');
         return _state =
             _state.copyWith(getDeliveriesProductState: BlocSuccess(data: data));
       },
@@ -193,7 +188,6 @@ class RiderBloc extends SMixinBloc<RiderEvent, RiderState> {
     final result = await _useCase.getStoreDetails(event.id);
     emit(await result.when(
       success: (data) {
-        BotToast.showText(text: 'تم  بنجاح');
         return _state =
             _state.copyWith(getStoreDetailsState: BlocSuccess(data: data));
       },
@@ -209,7 +203,6 @@ class RiderBloc extends SMixinBloc<RiderEvent, RiderState> {
     final result = await _useCase.getStores();
     emit(await result.when(
       success: (data) {
-        BotToast.showText(text: 'تم  بنجاح');
         List<ShopsCompanion> shopsList = [];
         for (var d in data) {
           shopsList.add(ShopsCompanion(

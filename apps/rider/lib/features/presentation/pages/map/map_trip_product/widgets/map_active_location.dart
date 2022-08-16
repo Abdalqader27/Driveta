@@ -17,7 +17,7 @@ class MapActiveLocation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Selector<MapTripProvider, int>(
+    return Selector<MapTripProductProvider, int>(
       selector: (context, provider) => provider.state.number,
       builder: (context, value, child) {
         return StreamBuilder<Position>(

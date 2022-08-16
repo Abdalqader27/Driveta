@@ -114,7 +114,7 @@ class _MapTripLiveState extends State<MapTripLive>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    si<MapTripProvider>().reset();
+    si<MapTripProductProvider>().reset();
     super.dispose();
   }
 }

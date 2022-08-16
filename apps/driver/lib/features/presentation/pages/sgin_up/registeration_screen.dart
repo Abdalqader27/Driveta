@@ -51,8 +51,9 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
   var bloodSelected;
   var selectedGender = sex.boy;
   late bool _passwordVisible;
-  List<XFile> imageList = [];
-
+  XFile? idImage;
+  XFile? personalImage;
+  XFile? certificateImage;
   List<Map<String, dynamic>> blood = [
     {'id': '0', 'name': 'APositive', 'category': 'A+'},
     {'id': '1', 'name': 'ANegative', 'category': 'A-'},
@@ -354,8 +355,16 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                                     children: [
                                       SelectedImage(
                                         builder: (context, value, child) {
-                                          imageList = value;
                                           return child!;
+                                        },
+                                        certificateImage: (XFile? value) {
+                                          certificateImage = value;
+                                        },
+                                        idImage: (XFile? value) {
+                                          idImage = value;
+                                        },
+                                        personalImage: (XFile? value) {
+                                          personalImage = value;
                                         },
                                       ),
                                     ],
@@ -408,7 +417,9 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                                         BotToast.showText(
                                             text: 'الرجاء اختيار الزمرة الدم');
                                       } else {
-                                        if (imageList.length != 3) {
+                                        if (idImage == null ||
+                                            certificateImage == null ||
+                                            personalImage == null) {
                                           BotToast.showText(
                                               text: 'الرجاء إضافة المستندات ');
                                         } else {
@@ -432,11 +443,11 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                                                           .text,
                                                   sexType: selectedGender.index,
                                                   dob: dob.text,
-                                                  idPhotoFile: imageList[0],
+                                                  idPhotoFile: idImage,
                                                   personalImageFile:
-                                                      imageList[1],
+                                                      personalImage,
                                                   drivingCertificateFile:
-                                                      imageList[2],
+                                                      certificateImage,
                                                   bloodType: int.parse(
                                                       bloodSelected['id']),
                                                 ),

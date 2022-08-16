@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:rider/features/presentation/pages/orders_history/widget/order_history_item.dart';
@@ -25,21 +26,34 @@ class OrderHistoryPage extends StatelessWidget {
               Expanded(
                   child: data.isEmpty
                       ? const LottieWidget.empty(width: 300)
-                      : ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          itemCount: data.length,
-                          itemBuilder: (context, i) {
-                            final history = data[i];
-                            return GestureDetector(
-                              onTap: () => Get.to(() => OrderBookScreenDetails(
-                                    delivers: history,
-                                  )),
-                              child: OrderBookItem(
-                                index: i,
-                                history: history,
-                              ),
-                            );
-                          },
+                      : AnimationLimiter(
+                          child: ListView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: data.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              final history = data[index];
+
+                              return AnimationConfiguration.staggeredList(
+                                position: index,
+                                duration: const Duration(milliseconds: 375),
+                                child: SlideAnimation(
+                                  verticalOffset: 80.0,
+                                  child: FadeInAnimation(
+                                    child: GestureDetector(
+                                      onTap: () =>
+                                          Get.to(() => OrderBookScreenDetails(
+                                                delivers: history,
+                                              )),
+                                      child: OrderBookItem(
+                                        index: index,
+                                        history: history,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
                         ))
             ],
           );

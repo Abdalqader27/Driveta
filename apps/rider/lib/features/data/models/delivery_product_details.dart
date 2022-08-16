@@ -1,7 +1,7 @@
 class DeliveryProductDetails {
-  final String? productId;
-  final String? offerId;
-  final num quantity;
+  final dynamic productId;
+  final dynamic offerId;
+  final dynamic quantity;
 
   DeliveryProductDetails(
       {this.productId, this.offerId, required this.quantity});

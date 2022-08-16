@@ -2,6 +2,7 @@ import 'package:design/design.dart';
 import 'package:driver/features/presentation/manager/container.dart';
 import 'package:driver/features/presentation/manager/event.dart';
 import 'package:driver/features/presentation/pages/history/widgets/order_book_item.dart';
+import 'package:driver/features/presentation/widgets/lottie_widget.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -107,6 +108,9 @@ class MapPanelWidgetBody extends StatelessWidget {
             //   buttonText: 'عرض الكل',
             // ),
             HistoryContainer(builder: (context, data) {
+              if (data.isEmpty) {
+                return LottieWidget.empty();
+              }
               return OrderBookItem(
                 index: 0,
                 history: data.first,

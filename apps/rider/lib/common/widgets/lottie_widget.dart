@@ -56,3 +56,21 @@ class _Empty extends LottieWidget {
     String path = Assets.lottieEmpty,
   }) : super(path: path, width: width);
 }
+
+class LottieLoading extends StatelessWidget {
+  const LottieLoading({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Lottie.asset(
+          'lotti_files/111034-maps-ciudad-inteligente.json',
+          width: 300,
+        ),
+        const Text('الرجاء الانتظار')
+      ],
+    );
+  }
+}

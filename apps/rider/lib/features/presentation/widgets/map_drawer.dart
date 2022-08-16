@@ -1,12 +1,9 @@
-import 'dart:math';
-
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:core/core.dart';
 import 'package:design/design.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
 import 'package:rider/features/presentation/pages/profile/profile_page.dart';
 import 'package:rider/libraries/flutter_screenutil/flutter_screenutil.dart';
 
@@ -89,16 +86,8 @@ class MapDrawer extends StatelessWidget {
                         onTap: () {
                           AwesomeDialog(
                             context: context,
-                            dialogType: DialogType.NO_HEADER,
+                            dialogType: DialogType.ERROR,
                             animType: AnimType.RIGHSLIDE,
-                            customHeader: [
-                              Lottie.asset('lotti_files/87096-log-in.json'),
-                              Lottie.asset(
-                                  'lotti_files/11133-kicking-cats.json'),
-                              Lottie.asset('lotti_files/23100-happy-bird.json'),
-                              Lottie.asset(
-                                  'lotti_files/33187-rabbit-in-a-hat.json'),
-                            ][Random().nextInt(3)],
                             headerAnimationLoop: true,
                             title: 'الخروج',
                             desc: 'هل حقا تريد تسجيل الخروج ؟',

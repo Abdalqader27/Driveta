@@ -23,7 +23,6 @@ class MapProductContainer extends StatelessWidget {
   final Future<int> mapId;
 
   @override
-  @override
   Widget build(BuildContext context) {
     return Animarker(
         curve: Curves.linear,
