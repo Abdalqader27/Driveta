@@ -4,19 +4,15 @@
 
 import 'dart:convert';
 
-List<DeliversProduct> deliversProductFromJson(String str) =>
-    List<DeliversProduct>.from(
-        json.decode(str).map((x) => DeliversProduct.fromJson(x)));
-
-String deliversProductToJson(List<DeliversProduct> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+DeliversProduct deliversProductFromJson(String str) =>
+    DeliversProduct.fromJson(json.decode(str));
 
 class DeliversProduct {
   DeliversProduct({
     this.details,
     this.id,
-    this.driverId,
-    this.driverName,
+    this.customerId,
+    this.customerName,
     this.vehicleId,
     this.vehicleNumber,
     this.pickUp,
@@ -32,35 +28,39 @@ class DeliversProduct {
     this.payingValue,
     this.price,
     this.vehicleType,
+    this.driverId,
+    this.driverName,
   });
 
   final List<Detail>? details;
-  final String? id;
-  final String? driverId;
-  final String? driverName;
-  final String? vehicleId;
-  final String? vehicleNumber;
-  final String? pickUp;
-  final String? dropOff;
-  final String? startLong;
-  final String? endLong;
-  final String? startLat;
-  final String? endLat;
-  final String? expectedTime;
-  final DateTime? startDate;
-  final DateTime? endDate;
-  final num? distance;
-  final num? payingValue;
-  final num? price;
-  final num? vehicleType;
+  final dynamic id;
+  final dynamic customerId;
+  final dynamic customerName;
+  final dynamic vehicleId;
+  final dynamic vehicleNumber;
+  final dynamic pickUp;
+  final dynamic dropOff;
+  final dynamic startLong;
+  final dynamic endLong;
+  final dynamic startLat;
+  final dynamic endLat;
+  final dynamic expectedTime;
+  final dynamic startDate;
+  final dynamic endDate;
+  final dynamic distance;
+  final dynamic payingValue;
+  final dynamic price;
+  final dynamic vehicleType;
+  final dynamic driverId;
+  final dynamic driverName;
 
   factory DeliversProduct.fromJson(Map<String, dynamic> json) =>
       DeliversProduct(
         details:
             List<Detail>.from(json["details"].map((x) => Detail.fromJson(x))),
         id: json["id"],
-        driverId: json["driverId"],
-        driverName: json["driverName"],
+        customerId: json["customerId"],
+        customerName: json["customerName"],
         vehicleId: json["vehicleId"],
         vehicleNumber: json["vehicleNumber"],
         pickUp: json["pickUp"],
@@ -71,34 +71,14 @@ class DeliversProduct {
         endLat: json["endLat"],
         expectedTime: json["expectedTime"],
         startDate: DateTime.parse(json["startDate"]),
-        endDate: DateTime.parse(json["endDate"]),
+        endDate: json["endDate"],
         distance: json["distance"],
         payingValue: json["payingValue"],
         price: json["price"],
         vehicleType: json["vehicleType"],
+        driverId: json["driverId"],
+        driverName: json["driverName"],
       );
-
-  Map<String, dynamic> toJson() => {
-        "details": List<dynamic>.from(details!.map((x) => x.toJson())),
-        "id": id,
-        "driverId": driverId,
-        "driverName": driverName,
-        "vehicleId": vehicleId,
-        "vehicleNumber": vehicleNumber,
-        "pickUp": pickUp,
-        "dropOff": dropOff,
-        "startLong": startLong,
-        "endLong": endLong,
-        "startLat": startLat,
-        "endLat": endLat,
-        "expectedTime": expectedTime,
-        "startDate": startDate?.toIso8601String(),
-        "endDate": endDate?.toIso8601String(),
-        "distance": distance,
-        "payingValue": payingValue,
-        "price": price,
-        "vehicleType": vehicleType,
-      };
 }
 
 class Detail {
@@ -109,10 +89,10 @@ class Detail {
     this.quantity,
   });
 
-  final String? productId;
-  final String? offerId;
-  final String? productOrOfferName;
-  final num? quantity;
+  final dynamic productId;
+  final dynamic offerId;
+  final dynamic productOrOfferName;
+  final dynamic quantity;
 
   factory Detail.fromJson(Map<String, dynamic> json) => Detail(
         productId: json["productId"],

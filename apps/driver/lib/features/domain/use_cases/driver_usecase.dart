@@ -73,6 +73,13 @@ class DriverUseCase {
     );
   }
 
+   Future<ApiResult<List<Delivers>>> getAvailableDeliversProduct() async {
+    return onResult<List<Delivers>>(
+      await _repository.getAvailableDeliversProduct(),
+      onData: (data) {},
+    );
+  }
+
   Future<ApiResult<dynamic>> login({
     required String email,
     required String password,

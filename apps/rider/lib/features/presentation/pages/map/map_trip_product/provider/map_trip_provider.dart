@@ -11,11 +11,13 @@ import 'package:rider/features/data/models/direct_details.dart';
 
 import '../../../../../../common/assistants/assistantMethods.dart';
 import '../../../../../../common/utils/google_api_key.dart';
+import '../../../../../../main.dart';
 import '../../../../../data/models/delivers_product.dart';
 import '../../../../../data/models/driver.dart';
 import '../../../../../data/models/marker_config.dart';
 import '../../../../../data/models/polyline_config.dart';
 import '../../../../../domain/entities/state_trip_product.dart';
+import '../../../../../domain/use_cases/rider_usecase.dart';
 
 class MapTripProductProvider extends ChangeNotifier with GoogleApiKey {
   final Map<MarkerId, Marker> _markers = {};
@@ -82,6 +84,15 @@ class MapTripProductProvider extends ChangeNotifier with GoogleApiKey {
   void setSelectedDriverIdAndOpenTrip(String? id) async {
     BotToast.showLoading();
     setSelectedDriverId = id;
+    if (_deliverProduct == null) {
+      final x = await si<RiderUseCase>().getDelivery();
+      x.when(success: (data) {
+        setDeliversProduct = data;
+      }, failure: (e) {
+        print("eeeee: $e");
+        BotToast.showText(text: e.toString());
+      });
+    }
     await openTrip(
       startMarker: kCurrentMarker(startPoint),
       endMarker: kDestinationMarker(endPoint),

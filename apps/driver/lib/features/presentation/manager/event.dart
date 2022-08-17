@@ -22,7 +22,9 @@ class GetHistoriesEvent extends DriverEvent {}
 class GetAvailableDeliveries extends DriverEvent {
   GetAvailableDeliveries();
 }
-
+class GetAvailableDeliveriesProduct extends DriverEvent {
+  GetAvailableDeliveriesProduct();
+}
 class LoadingEvent extends DriverEvent {}
 
 class LoginEvent extends DriverEvent {

@@ -2,8 +2,10 @@ import 'package:android_intent_plus/android_intent.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:core/core.dart';
 import 'package:design/design.dart';
+import 'package:driver/app_injection.dart';
 import 'package:driver/common/utils/signal_r_config.dart';
 import 'package:driver/features/data/models/delivers.dart';
+import 'package:driver/features/presentation/manager/bloc.dart';
 import 'package:driver/features/presentation/pages/map_driver/widgets/available_delevieries_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
@@ -13,6 +15,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../AllScreens/newRideScreen.dart';
 import '../../../../common/config/theme/colors.dart';
+import '../../manager/event.dart';
 import '../../widgets/round_app_bar.dart';
 
 final BehaviorSubject<List<Delivers>> deliversStream =
@@ -21,8 +24,20 @@ final BehaviorSubject<List<Delivers>> deliversStream =
 final BehaviorSubject<List<Delivers>> deliversProductStream =
     BehaviorSubject<List<Delivers>>.seeded([]);
 
-class AvailableDeliveries extends StatelessWidget {
+class AvailableDeliveries extends StatefulWidget {
   const AvailableDeliveries({Key? key}) : super(key: key);
+
+  @override
+  State<AvailableDeliveries> createState() => _AvailableDeliveriesState();
+}
+
+class _AvailableDeliveriesState extends State<AvailableDeliveries> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    si<DriverBloc>().add(GetAvailableDeliveries());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,8 +89,6 @@ class AvailableDeliveries extends StatelessWidget {
                           return AvailableDeliveriesItem(
                             delivers: deliver,
                             onTap: () async {
-                       
-
                               try {
                                 BotToast.showLoading();
                                 SignalRDriver()
@@ -99,8 +112,20 @@ class AvailableDeliveries extends StatelessWidget {
   }
 }
 
-class AvilableDeliveriesProduct extends StatelessWidget {
+class AvilableDeliveriesProduct extends StatefulWidget {
   const AvilableDeliveriesProduct({Key? key}) : super(key: key);
+
+  @override
+  State<AvilableDeliveriesProduct> createState() =>
+      _AvilableDeliveriesProductState();
+}
+
+class _AvilableDeliveriesProductState extends State<AvilableDeliveriesProduct> {
+  @override
+  void initState() {
+    super.initState();
+    si<DriverBloc>().add(GetAvailableDeliveriesProduct());
+  }
 
   @override
   Widget build(BuildContext context) {

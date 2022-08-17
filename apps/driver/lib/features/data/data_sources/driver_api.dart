@@ -146,7 +146,29 @@ class DriverApi {
       return List.from(list);
     });
   }
+  Future<Either<dynamic, List<Delivers>>> getAvailableDeliveriesProduct() {
+    return fetch(call: () async {
+      final response = await _api.get(
+        'api/DriverApp/GetAvailableDeliveriesProduct',
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ${si<SStorage>().get(
+              key: kAccessToken,
+              type: ValueType.string,
+            )}',
+          },
+        ),
+      );
+      (json.encode(response.data)).log();
 
+      final List<Delivers> list =
+          List.from((response.data).map((i) => Delivers.fromJson(i)));
+
+      return List.from(list);
+    });
+  }
   Future<Either<dynamic, dynamic>> signUp({
     String? userName,
     String? name,

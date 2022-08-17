@@ -3,6 +3,7 @@ import 'package:dotted_line/dotted_line.dart';
 import 'package:driver/common/utils/signal_r_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:units_converter/models/extension_converter.dart';
 import 'package:units_converter/properties/length.dart';
 import 'package:driver/features/data/models/delivers.dart';
@@ -49,8 +50,8 @@ class AvailableDeliveriesItem extends StatelessWidget {
                   ),
                   ChipItem(
                     iconData: Icons.add_road_rounded,
-                    title:'${delivers.distance?.convertFromTo(LENGTH.meters, LENGTH.kilometers)} كم',
-                        
+                    title:
+                        '${delivers.distance?.convertFromTo(LENGTH.meters, LENGTH.kilometers)} كم',
                   ),
                   ChipItem(
                     iconData: Icons.account_balance_wallet_outlined,
@@ -128,6 +129,21 @@ class AvailableDeliveriesProductItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
+          const SSizedBox.v12(),
+          SizedBox(
+            height: 20,
+          ),
+                    const SSizedBox.v12(),
+
+          Center(
+            child: SText.bodyMedium(
+              "${DateFormat('yyyy-MM-dd hh:mm').format(delivers.dateCreated!)}",
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText1!
+                  .copyWith(fontWeight: FontWeight.w600),
+            ),
+          ),
           ListTile(
             leading: const CircleAvatar(
               backgroundColor: kRed0,

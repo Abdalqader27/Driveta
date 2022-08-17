@@ -68,6 +68,12 @@ class MapDrawer extends StatelessWidget {
                             onTap: () =>
                                 Get.to(() => const AvailableDeliveries())),
                         MapDrawerItem(
+                            icon: Icons.event_available_rounded,
+                            title: 'الطلبات المنتجات المتاحة ',
+                            leadingText: const SizedBox.shrink(),
+                            onTap: () => Get.to(
+                                () => const AvilableDeliveriesProduct())),
+                        MapDrawerItem(
                             icon: Icons.account_balance_wallet,
                             title: 'الرصيد',
                             leadingText: const SizedBox.shrink(),

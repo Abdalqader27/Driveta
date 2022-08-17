@@ -75,17 +75,12 @@ class _MapDriverScreenState extends State<MapDriverScreen> {
               onChanged: (value) async {
                 if (value) {
                   BotToast.showLoading();
-                  si<DriverBloc>().add(GetAvailableDeliveries());
                   await SignalRDriver().openConnection();
                   await makeDriverOnlineNow();
                   BotToast.closeAllLoading();
                   getLocationLiveUpdates();
                   displayToastMessage("تم الاتصال ", context);
                   // Get.to(() => AvailableDeliveries());
-
-
-
-
 
                 } else {
                   await SignalRDriver().stopConnection();

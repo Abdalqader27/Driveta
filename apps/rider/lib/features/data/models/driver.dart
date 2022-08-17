@@ -31,23 +31,23 @@ class Driver {
     this.vehicleType,
   });
 
-  final String? id;
-  final String? name;
-  final String? userName;
-  final String? lat;
-  final String? long;
-  final String? angle;
+  final dynamic id;
+  final dynamic name;
+  final dynamic userName;
+  final dynamic lat;
+  final dynamic long;
+  final dynamic angle;
   final PersonalImage? personalImage;
-  final bool? isAvailable;
-  final String? phoneNumber;
-  final int? rate;
-  final String? vehicleId;
-  final String? vehicleColor;
-  final String? vehicleName;
-  final String? vehicleModelId;
-  final String? vehicleModelName;
-  final String? vehicleNumber;
-  final int? vehicleType;
+  final dynamic isAvailable;
+  final dynamic phoneNumber;
+  final dynamic rate;
+  final dynamic vehicleId;
+  final dynamic vehicleColor;
+  final dynamic vehicleName;
+  final dynamic vehicleModelId;
+  final dynamic vehicleModelName;
+  final dynamic vehicleNumber;
+  final dynamic vehicleType;
 
   factory Driver.fromJson(Map<String, dynamic> json) => Driver(
         id: json["id"],
@@ -99,11 +99,11 @@ class PersonalImage {
     this.type,
   });
 
-  final String? id;
+  final dynamic id;
   final dynamic src;
   final dynamic name;
-  final int? length;
-  final int? type;
+  final dynamic length;
+  final dynamic type;
 
   factory PersonalImage.fromJson(Map<String, dynamic> json) => PersonalImage(
         id: json["id"],
