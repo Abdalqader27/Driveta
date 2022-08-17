@@ -203,7 +203,10 @@ class OrderRecordItem extends StatelessWidget {
               // TODO add time and distance and money
               ChipItem(
                 iconData: Icons.access_time,
-                title: "${history.expectedTime}",
+                title: history.expectedTime!.contains('د')
+                    ? "${history.expectedTime}"
+                    : "${((double.tryParse(history.expectedTime ?? '0') ?? 0) / 60).ceil()} د"
+                        .toString(),
               ),
               ChipItem(
                 iconData: Icons.add_road_rounded,

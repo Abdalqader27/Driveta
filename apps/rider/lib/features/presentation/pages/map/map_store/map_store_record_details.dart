@@ -235,7 +235,10 @@ class _MapStoreRecordDetailsState extends State<MapStoreRecordDetails> {
                           // TODO add time and distance and money
                           ChipItem(
                             iconData: Icons.access_time,
-                            title: '${widget.delivers.expectedTime}',
+                            title: widget.delivers.expectedTime!.contains('د')
+                                ? "${widget.delivers.expectedTime}"
+                                : "${((double.tryParse(widget.delivers.expectedTime ?? '0') ?? 0) / 60).ceil()} د"
+                                    .toString(),
                           ),
                           ChipItem(
                             iconData: Icons.add_road_rounded,
