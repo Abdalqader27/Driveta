@@ -1,16 +1,4 @@
-# Driveta![Screenshot_1660170339](https://user-images.githubusercontent.com/46373332/185733283-f8585531-32db-4382-8f67-d57187bd3759.png)
-![Screenshot_1660173643](https://user-images.githubusercontent.com/46373332/185733325-c8be7939-ac9e-4230-8ad6-eaabda95c966.png)
-![Screenshot_1660173533](https://user-images.githubusercontent.com/46373332/185733327-37a41469-aea5-49dc-b6a9-87a41805d7d8.png)
-![Screenshot_1660172998](https://user-images.githubusercontent.com/46373332/185733330-42484348-87b2-4ed7-ab53-67f8d653d501.png)
-![tg_image_2444222216](https://user-images.githubusercontent.com/46373332/185733337-52f97819-0880-4803-ac41-ad83998df305.jpeg)
-![tg_image_1958512788](https://user-images.githubusercontent.com/46373332/185733339-25db14d1-d8c7-4fac-8039-dd919bb35940.jpeg)
-![tg_image_2776446332](https://user-images.githubusercontent.com/46373332/185733341-0f770784-0ef7-461b-8714-4effef277b87.jpeg)
-![tg_image_2674656186](https://user-images.githubusercontent.com/46373332/185733344-45b5e7ed-c57a-4e85-b720-d508af0bee55.jpeg)
-![tg_image_336038764](https://user-images.githubusercontent.com/46373332/185733345-00ae87fa-c7af-43ff-b0b8-84a211a1e99c.jpeg)
-![tg_image_1429246929](https://user-images.githubusercontent.com/46373332/185733348-421cce28-e475-4dc0-96b6-7dd8718d2c88.jpeg)
-![tg_image_1574564089](https://user-images.githubusercontent.com/46373332/185733353-3f4a8dd9-f804-4a3a-9a05-665bdf7e07de.jpeg)
-![tg_image_3474355679](https://user-images.githubusercontent.com/46373332/185733356-f6eac4fd-baa4-4d99-b2d6-aed6e369c56a.jpeg)
-![tg_image_1944379703](https://user-images.githubusercontent.com/46373332/185733357-7b7b48b5-6cdf-4c7f-a030-621bc13d1b68.jpeg)
-![tg_image_667980218](https://user-images.githubusercontent.com/46373332/185733360-10250d71-c58c-45c1-b0d4-604232ba6e15.jpeg)
-![Screenshot_1660171118](https://user-images.githubusercontent.com/46373332/185733363-b2543672-9589-4d2d-b1de-1401c893986f.png)
-![Screenshot_1660170719](https://user-images.githubusercontent.com/46373332/185733365-f8a2c2a5-c0da-408e-b81b-a1f728b0e3d5.png)
+# Driveta
+An Uber-like Flutter application that allows a user to request services and see it on a map.
+
+![Colorful Planner Mobile App Promotion Instagram Post](https://user-images.githubusercontent.com/46373332/185737310-6336c176-feba-4510-ae54-ae3b9e5516e0.png)
