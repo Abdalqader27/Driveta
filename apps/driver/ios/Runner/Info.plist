@@ -4,6 +4,10 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Open Location</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Open Location</string>
 	<key>CFBundleDisplayName</key>
 	<string>Driver</string>
 	<key>CFBundleExecutable</key>
@@ -43,5 +47,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>NSAppTransportSecurity</key>
+    <dict>
+       <key>NSAllowsArbitraryLoads</key><true/>
+    </dict>
 </dict>
 </plist>

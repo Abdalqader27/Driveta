@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:rider/common/config/theme/colors.dart';
 
 import '../../../generated/assets.dart';
-import '../../../libraries/el_theme/colors.dart';
 
 class PrimaryBackground extends StatelessWidget {
   final Widget child;

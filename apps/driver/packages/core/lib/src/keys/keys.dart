@@ -1,0 +1,1 @@
+/// File created by/// Abed <Abed-supy-io>/// on 27 /Apr/2022library keys;const String kAccessToken = 'access_token';const String kVehicleType = 'vehicle-type';const String kRefreshToken = 'refresh_token';const String kFirebaseToken = 'firebase_token';const String kUserId = 'user_id';const String kArabic = 'ar';const String kEnglish = 'en';

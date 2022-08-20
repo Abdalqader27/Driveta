@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rider/common/widgets/circle_button.dart';
 import 'package:rider/libraries/flutter_screenutil/flutter_screenutil.dart';
 
 import '../../generated/assets.dart';
 import '../../libraries/el_widgets/widgets/material_text.dart';
 import '../../libraries/el_widgets/widgets/responsive_padding.dart';
-import 'circle_button.dart';
 import 'painter/app_bar_shape.dart';
 
 class RoundedAppBar extends StatelessWidget {
   final Function? onTapLeading;
   final String title;
   final String? subTitle;
+  final Color? color;
 
   const RoundedAppBar({
     Key? key,
     this.onTapLeading,
     required this.title,
     this.subTitle,
+    this.color,
   }) : super(key: key);
 
   // final text;
@@ -29,7 +31,7 @@ class RoundedAppBar extends StatelessWidget {
       children: [
         CustomPaint(
           size: Size(1.sw, 105.5.h),
-          painter: AppBarCustomPainterShape(colors.primary),
+          painter: AppBarCustomPainterShape(color ?? colors.primary),
         ),
         CustomPaint(
           size: Size(1.sw, 100.0.h),
@@ -47,7 +49,10 @@ class RoundedAppBar extends StatelessWidget {
                       child: ListTile(
                     title: MaterialText.bodyText1(
                       title,
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 15.sp),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .copyWith(fontSize: 15.sp),
                     ),
                     subtitle: MaterialText.subTitle2(
                       subTitle ?? "",

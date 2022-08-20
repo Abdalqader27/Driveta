@@ -1,0 +1,1 @@
+library theme;import 'package:flutter/material.dart';part 'src/s_colors.dart';

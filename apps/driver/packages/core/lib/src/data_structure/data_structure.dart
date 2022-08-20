@@ -1,0 +1,1 @@
+/// File created by/// Abed <Abed-supy-io>/// on 2 /May/2022library data_structure;import 'dart:collection';import 'package:flutter/foundation.dart';part 'src/s_map.dart';part 'src/s_list.dart';part 'src/s_object.dart';part 'src/s_stack.dart';

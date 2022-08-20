@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rider/libraries/flutter_screenutil/flutter_screenutil.dart';
 
-import '../../libraries/el_theme/colors.dart';
 import '../animations/bouncing_animation.dart';
+import '../config/theme/colors.dart';
 
 class CircleButton extends StatelessWidget {
   final void Function() onTap;

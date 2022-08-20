@@ -1,0 +1,1 @@
+/// File created by/// Abed <Abed-supy-io>/// on 2 /May/2022part of '../data_structure.dart';extension MapIfOfType<T> on T {  R? mapIfOfType<E, R>(R Function(E) f) {    final self = this;    if (self is E) {      return f(self);    } else {      return null;    }  }}/// Example =>/// final name=myObject.mapIfOfType((Person p)=>p.name)??'Unknown';/// name.log();

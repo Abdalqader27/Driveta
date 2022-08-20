@@ -8,7 +8,8 @@ class LottieWidget extends StatelessWidget {
   final double width;
   final String path;
 
-  const LottieWidget({Key? key, required this.path, required this.width}) : super(key: key);
+  const LottieWidget({Key? key, required this.path, required this.width})
+      : super(key: key);
 
   const factory LottieWidget.loading({
     double width,
@@ -19,6 +20,10 @@ class LottieWidget extends StatelessWidget {
     double width,
     String path,
   }) = _NotFound;
+  const factory LottieWidget.empty({
+    double width,
+    String path,
+  }) = _Empty;
 
   @override
   Widget build(BuildContext context) {
@@ -43,4 +48,29 @@ class _NotFound extends LottieWidget {
     double width = 300,
     String path = Assets.lottieErorr,
   }) : super(path: path, width: width);
+}
+
+class _Empty extends LottieWidget {
+  const _Empty({
+    double width = 300,
+    String path = Assets.lottieEmpty,
+  }) : super(path: path, width: width);
+}
+
+class LottieLoading extends StatelessWidget {
+  const LottieLoading({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Lottie.asset(
+          'lotti_files/111034-maps-ciudad-inteligente.json',
+          width: 300,
+        ),
+        const Text('الرجاء الانتظار')
+      ],
+    );
+  }
 }

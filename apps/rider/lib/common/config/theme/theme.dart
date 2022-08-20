@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:theme_provider/theme_provider.dart';
 
 import '../styles/card_styles.dart';
 import 'colors.dart';
@@ -35,13 +34,3 @@ final kDarkMod = ThemeData(
         secondary: kSecondary,
       ),
 );
-
-final appDarkTheme =
-    AppTheme(id: 'dark_id', data: kDarkMod, description: 'dark mode');
-final appLightTheme =
-    AppTheme(id: 'light_id', data: kLightMod, description: 'dark mode');
-
-final List<AppTheme> themes = [
-  appDarkTheme,
-  appLightTheme,
-];

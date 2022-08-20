@@ -4,24 +4,46 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ccd35d3-7e76-481c-8384-bf94ab9ac4ae" name="Default Changelist" comment="seaarch">
+    <list default="true" id="6ccd35d3-7e76-481c-8384-bf94ab9ac4ae" name="Default Changelist" comment="add customer function">
+      <change afterPath="$PROJECT_DIR$/apps/driver/given.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/lib/features/data/models/delivers.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/driver/recieved" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/features/data/models/driver.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/rider/lib/features/data/models/user.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/driver/lib/AllScreens/newRideScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/AllScreens/newRideScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/common/config/theme/theme.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/common/config/theme/theme.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/map_driver/map_driver.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/map_driver/presentation/pages/map_driver/map_driver.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/driver/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/windows/flutter/generated_plugins.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/rider/lib/AllScreens/mainscreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/AllScreens/mainscreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/rider/lib/Assistants/assistantMethods.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/Assistants/assistantMethods.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/rider/lib/Models/marker_config.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/Models/marker_config.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/common/utils/signal_r_config.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/common/utils/signal_r_config.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/data/data_sources/driver_api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/data/data_sources/driver_api.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/data/repositories/driver_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/data/repositories/driver_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/domain/use_cases/driver_usecase.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/domain/use_cases/driver_usecase.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/presentation/manager/bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/presentation/manager/bloc.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/presentation/manager/container.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/presentation/manager/container.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/presentation/manager/event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/presentation/manager/event.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/presentation/pages/map_driver/available_deliver.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/presentation/pages/map_driver/available_deliver.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/presentation/pages/map_driver/map_driver.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/presentation/pages/map_driver/map_driver.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/presentation/pages/map_driver/widgets/available_delevieries_item.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/presentation/pages/map_driver/widgets/available_delevieries_item.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/presentation/pages/map_driver/widgets/map_drawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/presentation/pages/map_driver/widgets/map_drawer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/driver/lib/features/presentation/widgets/CollectFareDialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/driver/lib/features/presentation/widgets/CollectFareDialog.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/Models/address.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/Models/address.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/Models/directDetails.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/Models/directDetails.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/Models/drivers.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/Models/location_data.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/Models/location_data.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/rider/lib/blocs/map_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/blocs/map_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/rider/lib/common/utils/config.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/common/utils/config.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/rider/lib/libraries/el_theme/app_theme.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/el_theme/app_theme.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/common/assistants/assistantMethods.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/common/assistants/assistantMethods.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/common/utils/helper_method.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/common/utils/helper_method.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/common/utils/signal_r.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/common/utils/signal_r.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/common/widgets/check_internet.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/common/widgets/check_internet.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/features/data/data_sources/rider_api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/features/data/data_sources/rider_api.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/features/domain/use_cases/rider_usecase.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/features/domain/use_cases/rider_usecase.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/features/presentation/pages/search/searchScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/features/presentation/pages/search/searchScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/features/presentation/widgets/header_location_destination.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/features/presentation/widgets/header_location_destination.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/features/presentation/widgets/map_next_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/features/presentation/widgets/map_next_button.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/libraries/init_app/run_app.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/libraries/init_app/run_app.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/rider/lib/mainscreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/lib/mainscreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/rider/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/rider/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/rider/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/apps/rider/windows/flutter/generated_plugins.cmake" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,11 +57,45 @@
       </list>
     </option>
   </component>
+  <component name="FindBugs-IDEA-Workspace">
+    <toolWindowEditorPreview>false</toolWindowEditorPreview>
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitToolBoxStore">
     <option name="projectConfigVersion" value="5" />
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="api" />
+                    <option name="lastUsedInstant" value="1653129026" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="master" />
+                    <option name="lastUsedInstant" value="1653129025" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/apps/rider/lib/common/utils/signal_r.dart" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="28WCXlHOg1twe8MEGPqZ9DIip1Q" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -50,33 +106,36 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/apps/rider/assets/images" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/apps/rider/lib/common/utils" />
+    <property name="settings.editor.selected.configurable" value="flutter.settings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/apps/rider/assets/images" />
-      <recent name="$PROJECT_DIR$/apps/rider/lib/AllScreens/widgets" />
       <recent name="$PROJECT_DIR$/apps/rider/lib/common/utils" />
-      <recent name="$PROJECT_DIR$/apps/rider/assets" />
-      <recent name="$PROJECT_DIR$/apps/rider/lib/common/widgets" />
+      <recent name="$PROJECT_DIR$/apps/driver/lib/features1/presentation/pages/support" />
+      <recent name="$PROJECT_DIR$/apps/driver/lib/features1/domain/use_cases" />
+      <recent name="$PROJECT_DIR$/apps/driver/lib/features1/data/repositories" />
+      <recent name="$PROJECT_DIR$/apps/driver/lib/features1/data" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/apps/rider/lib/AllScreens/widgets" />
-      <recent name="$PROJECT_DIR$/apps/rider/lib" />
-      <recent name="$PROJECT_DIR$/apps/driver/lib/AllScreens" />
-      <recent name="$PROJECT_DIR$/apps/driver/lib/features/auth/presentation/pages/sgin_up" />
-      <recent name="$PROJECT_DIR$/apps/driver/lib/features/auth/presentation/pages/sgin_in" />
+      <recent name="$PROJECT_DIR$/apps/driver/lib/features/presentation/widgets" />
+      <recent name="$PROJECT_DIR$/apps/driver/lib/common/assistants" />
+      <recent name="$PROJECT_DIR$/apps/driver/lib/features1/presentation/pages" />
+      <recent name="$PROJECT_DIR$/apps/driver/lib/features1/data/models" />
+      <recent name="$PROJECT_DIR$/apps/driver/lib/features1/injections" />
     </key>
   </component>
-  <component name="RunManager" selected="Flutter.main_driver">
+  <component name="RunManager" selected="Flutter.main_rider">
     <configuration name="main_driver" type="FlutterRunConfigurationType" factoryName="Flutter" temporary="true">
       <option name="filePath" value="$PROJECT_DIR$/apps/driver/lib/main.dart" />
       <method v="2" />
@@ -91,8 +150,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Flutter.main_driver" />
         <item itemvalue="Flutter.main_rider" />
+        <item itemvalue="Flutter.main_driver" />
       </list>
     </recent_temporary>
   </component>
@@ -196,7 +255,77 @@
       <option name="project" value="LOCAL" />
       <updated>1652022019449</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="fix bugs">
+      <created>1652517839517</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1652517839517</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Link Login Screen">
+      <created>1653208464394</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1653208464394</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Link Login Screen">
+      <created>1653208582021</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1653208582021</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Link Profile">
+      <created>1653213720184</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1653213720184</updated>
+    </task>
+    <task id="LOCAL-00018" summary="link history">
+      <created>1653215470045</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1653215470045</updated>
+    </task>
+    <task id="LOCAL-00019" summary="link support api">
+      <created>1653238225435</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1653238225435</updated>
+    </task>
+    <task id="LOCAL-00020" summary="link invoice api">
+      <created>1653239817182</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1653239817182</updated>
+    </task>
+    <task id="LOCAL-00021" summary="add customer function">
+      <created>1653739291242</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1653739291242</updated>
+    </task>
+    <task id="LOCAL-00022" summary="add customer function">
+      <created>1653739747618</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1653739747618</updated>
+    </task>
+    <task id="LOCAL-00023" summary="add customer function">
+      <created>1654952714470</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1654952714470</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -212,6 +341,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
     <MESSAGE value="init" />
     <MESSAGE value="profile page" />
     <MESSAGE value="history item" />
@@ -221,10 +354,39 @@
     <MESSAGE value="add files" />
     <MESSAGE value="work on header loc" />
     <MESSAGE value="seaarch" />
-    <option name="LAST_COMMIT_MESSAGE" value="seaarch" />
+    <MESSAGE value="fix bugs" />
+    <MESSAGE value="Link Login Screen" />
+    <MESSAGE value="Link Profile" />
+    <MESSAGE value="link history" />
+    <MESSAGE value="link support api" />
+    <MESSAGE value="link invoice api" />
+    <MESSAGE value="add customer function" />
+    <option name="LAST_COMMIT_MESSAGE" value="add customer function" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/apps/driver/lib/features/presentation/pages/map_driver/map_driver.dart</url>
+          <line>223</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/apps/rider/lib/common/utils/signal_r.dart</url>
+          <line>21</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/apps/driver/lib/common/utils/signal_r_config.dart</url>
+          <line>54</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/apps/rider/lib/blocs/map_bloc.dart</url>
+          <line>31</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint suspend="THREAD" type="dart-exception" />
       </default-breakpoints>

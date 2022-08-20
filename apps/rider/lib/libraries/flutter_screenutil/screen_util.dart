@@ -36,14 +36,10 @@ class ScreenUtil {
     _instance = ScreenUtil._()
       ..uiSize = designSize
       .._orientation = orientation
-      .._screenWidth = orientation == Orientation.portrait
-          ? constraints.maxWidth
-          : constraints.maxHeight
-      .._screenHeight = orientation == Orientation.landscape
-          ? constraints.maxWidth
-          : constraints.maxHeight;
+      .._screenWidth = orientation == Orientation.portrait ? constraints.maxWidth : constraints.maxHeight
+      .._screenHeight = orientation == Orientation.landscape ? constraints.maxWidth : constraints.maxHeight;
 
-    var window = WidgetsBinding.instance?.window ?? ui.window;
+    var window = WidgetsBinding.instance.window;
     _instance._pixelRatio = window.devicePixelRatio;
     _instance._statusBarHeight = window.padding.top;
     _instance._bottomBarHeight = window.padding.bottom;

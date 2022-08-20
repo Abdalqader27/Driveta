@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:rider/libraries/flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../libraries/el_theme/colors.dart';
+import '../../config/theme/colors.dart';
 
 class TabBarViews extends StatefulWidget {
-  const TabBarViews({Key? key, required this.items, required this.onTapChanged}) : super(key: key);
+  const TabBarViews({Key? key, required this.items, required this.onTapChanged})
+      : super(key: key);
   final List<TabBarModel> items;
   final ValueChanged<int> onTapChanged;
 
@@ -42,12 +43,16 @@ class _TabBarViewsState extends State<TabBarViews> {
           clipBehavior: Clip.antiAlias,
           curve: Curves.easeIn,
           margin: EdgeInsets.symmetric(horizontal: 3.0.w, vertical: 3.r),
-          constraints: BoxConstraints(maxWidth: widget.items[index].isChecked ? 90.0.w : 40.5.w, minWidth: 0),
+          constraints: BoxConstraints(
+              maxWidth: widget.items[index].isChecked ? 90.0.w : 40.5.w,
+              minWidth: 0),
           decoration: _boxDecoration(index),
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Container(
-              constraints: BoxConstraints(maxWidth: widget.items[index].isChecked ? 90.0.w : 40.w, minWidth: 0),
+              constraints: BoxConstraints(
+                  maxWidth: widget.items[index].isChecked ? 90.0.w : 40.w,
+                  minWidth: 0),
               decoration: const BoxDecoration(),
               clipBehavior: Clip.antiAlias,
               padding: EdgeInsets.all(5.r),
@@ -75,7 +80,8 @@ class _TabBarViewsState extends State<TabBarViews> {
 
   BoxDecoration _boxDecoration(index) {
     return BoxDecoration(
-        color: widget.items[index].isChecked ? kPRIMARY : kPRIMARY.withOpacity(.1),
+        color:
+            widget.items[index].isChecked ? kPRIMARY : kPRIMARY.withOpacity(.1),
         borderRadius: BorderRadius.circular(12.r));
   }
 
@@ -84,7 +90,9 @@ class _TabBarViewsState extends State<TabBarViews> {
       widget.items[index].isChecked ? widget.items[index].title : "",
       textAlign: TextAlign.center,
       style: TextStyle(
-          color: widget.items[index].isChecked ? kWhite : kPRIMARY, fontWeight: FontWeight.w600, fontSize: 12.0.sp),
+          color: widget.items[index].isChecked ? kWhite : kPRIMARY,
+          fontWeight: FontWeight.w600,
+          fontSize: 12.0.sp),
     );
   }
 
@@ -106,5 +114,9 @@ class TabBarModel {
   bool isChecked;
   bool visible;
 
-  TabBarModel({required this.title, required this.path, this.isChecked = false, this.visible = true});
+  TabBarModel(
+      {required this.title,
+      required this.path,
+      this.isChecked = false,
+      this.visible = true});
 }

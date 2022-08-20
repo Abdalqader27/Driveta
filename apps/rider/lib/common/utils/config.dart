@@ -1,10 +1,10 @@
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../Models/marker_config.dart';
-import '../../Models/polyline_config.dart';
+import '../../features/data/models/marker_config.dart';
+import '../../features/data/models/polyline_config.dart';
 import '../../generated/assets.dart';
-import '../../libraries/el_theme/colors.dart';
+import '../config/theme/colors.dart';
 
 final kPolylineConfigWalk = PolyLineConfig(
   polylineId: const PolylineId("poly"),
@@ -28,7 +28,7 @@ const kDestinationMarkerId = MarkerId('Destination');
 
 MarkerConfig kCurrentMarker(LatLng point) => MarkerConfig(
       point: point,
-      // pinPath: Assets.iconsCarTop,
+      pinPath: 'assets/images/pin_user.png',
       markerId: kCurrentMarkerId,
       snippet: 'المكان الحالي',
       title: 'أنا',
@@ -36,7 +36,7 @@ MarkerConfig kCurrentMarker(LatLng point) => MarkerConfig(
 
 MarkerConfig kDestinationMarker(LatLng point) => MarkerConfig(
       point: point,
-      // pinPath: Assets.pinsDestinationMapMarker,
+      pinPath: Assets.pinsDestinationMapMarker,
       markerId: kDestinationMarkerId,
       snippet: 'الوجهة',
       title: 'المكان المستهدف',
@@ -44,7 +44,21 @@ MarkerConfig kDestinationMarker(LatLng point) => MarkerConfig(
 
 MarkerConfig kDriverMarker(LatLng point) => MarkerConfig(
       point: point,
+      pinPath: Assets.pinsDrivingPin,
+      markerId: kDriverMarkerId,
+      snippet: 'السائق ',
+      title: 'مكان السائق',
+    );
+MarkerConfig kDriverMarker2(LatLng point) => MarkerConfig(
+      point: point,
       pinPath: Assets.iconsCarTop,
+      markerId: kDriverMarkerId,
+      snippet: 'السائق ',
+      title: 'مكان السائق',
+    );
+MarkerConfig kDriverMarkerBike(LatLng point) => MarkerConfig(
+      point: point,
+      pinPath: 'assets/images/moto_top.png',
       markerId: kDriverMarkerId,
       snippet: 'السائق ',
       title: 'مكان السائق',

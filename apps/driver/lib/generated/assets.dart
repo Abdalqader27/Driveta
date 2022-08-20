@@ -2,12 +2,10 @@
 class Assets {
   Assets._();
 
-  static const String flrEmoji1 = 'assets/flr/emoji1.flr';
-  static const String flrLoadingCloud = 'assets/flr/loadingCloud.flr';
-  static const String flrLoadingMachineTheme = 'assets/flr/Loading_machine_theme.flr';
   static const String fontsSstArabicBold = 'assets/fonts/sst_arabic_bold.ttf';
   static const String fontsSstArabicLight = 'assets/fonts/sst_arabic_light.ttf';
-  static const String fontsSstArabicMedium = 'assets/fonts/sst_arabic_medium.ttf';
+  static const String fontsSstArabicMedium =
+      'assets/fonts/sst_arabic_medium.ttf';
   static const String fontsSstArabicRoman = 'assets/fonts/sst_arabic_roman.ttf';
   static const String iconsCarSpeed = 'assets/icons/car_speed.svg';
   static const String iconsCarTop = 'assets/icons/car_top.png';
@@ -33,21 +31,28 @@ class Assets {
   static const String imagesLoginBottom = 'assets/images/login_bottom.png';
   static const String imagesMainBottom = 'assets/images/main_bottom.png';
   static const String imagesMainTop = 'assets/images/main_top.png';
+  static const String imagesMotoTop = 'assets/images/moto_top.png';
   static const String imagesSignupTop = 'assets/images/signup_top.png';
-  static const String introWalkthrough1 = 'assets/images/intro/walkthrough1.png';
-  static const String introWalkthrough2 = 'assets/images/intro/walkthrough2.png';
-  static const String introWalkthrough3 = 'assets/images/intro/walkthrough3.png';
+  static const String imagesUserIcon = 'assets/images/user_icon.png';
+  static const String introWalkthrough1 =
+      'assets/images/intro/walkthrough1.png';
+  static const String introWalkthrough2 =
+      'assets/images/intro/walkthrough2.png';
+  static const String introWalkthrough3 =
+      'assets/images/intro/walkthrough3.png';
   static const String jsonMapStyle = 'assets/json/mapStyle.json';
   static const String jsonNightBlueMode = 'assets/json/night_blue_mode.json';
   static const String jsonNightMode = 'assets/json/night_mode.json';
   static const String lottieCarAnim = 'assets/lottie/car_anim.json';
+  static const String lottieCarinfo = 'assets/lottie/carinfo.json';
+  static const String lottieEmpty = 'assets/lottie/empty.json';
   static const String lottieErorr = 'assets/lottie/erorr.json';
   static const String lottieNewLoader = 'assets/lottie/new_loader.json';
+  static const String lottieNewUser = 'assets/lottie/new_user.json';
   static const String lottieSearch = 'assets/lottie/search.json';
   static const String lottieTeam = 'assets/lottie/team.json';
-  static const String newUser = 'assets/lottie/new_user.json';
-  static const String carInfo = 'assets/lottie/carinfo.json';
-  static const String pinsDestinationMapMarker = 'assets/images/pins/destination_map_marker.png';
+  static const String pinsDestinationMapMarker =
+      'assets/images/pins/destination_map_marker.png';
   static const String pinsDrivingPin = 'assets/images/pins/driving_pin.png';
   static const String pinsPinUser = 'assets/images/pins/pin_user.png';
 }

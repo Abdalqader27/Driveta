@@ -1,0 +1,28 @@
+name: core
+description: A new Flutter package project.
+version: 0.0.1
+homepage:
+
+environment:
+  sdk: ">=2.16.2 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  logging: ^1.0.2
+  flutter_bloc: ^8.0.1
+  pub_semver: ^2.1.1
+  package_info_plus: ^1.4.0
+  shared_preferences: ^2.0.13
+  logger: ^1.1.0
+  isolate_bloc: ^2.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^1.0.0
+  freezed: ^1.1.1
+  build_runner: ^2.1.8
+
+flutter:

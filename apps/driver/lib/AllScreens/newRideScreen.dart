@@ -1,33 +1,34 @@
 import 'dart:async';
 
+import 'package:android_intent_plus/android_intent.dart';
+import 'package:bot_toast/bot_toast.dart';
+import 'package:core/core.dart';
+import 'package:design/design.dart';
 import 'package:dotted_line/dotted_line.dart';
-import 'package:driver/AllWidgets/CollectFareDialog.dart';
-import 'package:driver/Assistants/assistantMethods.dart';
-import 'package:driver/Models/rideDetails.dart';
+import 'package:driver/common/assistants/assistantMethods.dart';
 import 'package:driver/common/config/theme/colors.dart';
-import 'package:driver/common/widgets/progress_dialog.dart';
-import 'package:driver/configMaps.dart';
-import 'package:driver/libraries/el_widgets/widgets/material_text.dart';
-import 'package:driver/libraries/flutter_screenutil/flutter_screenutil.dart';
-import 'package:driver/main.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:driver/features/data/models/delivers.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
+import 'package:lottie/lottie.dart' hide Marker;
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
+import '../app_injection.dart';
 import '../common/utils/config.dart';
-import '../features/map_driver/presentation/pages/order_book/widgets/header_item.dart';
+import '../common/utils/signal_r_config.dart';
+import '../features/data/models/marker_config.dart';
+import '../features/presentation/pages/history/widgets/header_item.dart';
 import '../generated/assets.dart';
-import '../libraries/el_widgets/widgets/responsive_padding.dart';
-import '../libraries/el_widgets/widgets/responsive_sized_box.dart';
 
 class NewRideScreen extends StatefulWidget {
-  final RideDetails rideDetails;
-
-  const NewRideScreen({required this.rideDetails});
+  final Delivers rideDetails;
+  final int type;
+  const NewRideScreen({required this.rideDetails, this.type = 1});
 
   static const CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),
@@ -39,13 +40,10 @@ class NewRideScreen extends StatefulWidget {
 }
 
 class _NewRideScreenState extends State<NewRideScreen> {
-  final Completer<GoogleMapController> _controllerGoogleMap = Completer();
   late GoogleMapController newRideGoogleMapController;
   final Map<MarkerId, Marker> _markers = {};
-  Set<Circle> circleSet = Set<Circle>();
-  Set<Polyline> polyLineSet = Set<Polyline>();
-  List<LatLng> polylineCorOrdinates = [];
-  PolylinePoints polylinePoints = PolylinePoints();
+  Set<Circle> circleSet = <Circle>{};
+  Set<Polyline> polyLineSet = <Polyline>{};
   double mapPaddingFromBottom = 0;
   var geoLocator = Geolocator();
   late BitmapDescriptor animatingMarkerIcon;
@@ -57,25 +55,29 @@ class _NewRideScreenState extends State<NewRideScreen> {
   Color btnColor = kPRIMARY;
   late Timer timer;
   int durationCounter = 0;
+  final PolylinePoints polylinePoints = PolylinePoints();
+  final Map<PolylineId, Polyline> _polyLines = <PolylineId, Polyline>{};
+  final List<LatLng> polylineCoordinates = [];
+  late StreamSubscription<Position> stream;
 
   @override
-  void initState() {
-    super.initState();
-    acceptRideRequest();
+  void dispose() {
+    stream.cancel();
+    super.dispose();
   }
 
   void getRideLiveLocationUpdates() async {
     LatLng oldPos = const LatLng(0, 0);
 
-    rideStreamSubscription = Geolocator.getPositionStream().listen((Position position) async {
-      currentPosition = position;
+    stream = Geolocator.getPositionStream().listen((Position position) async {
       myPostion = position;
       LatLng mPostion = LatLng(position.latitude, position.longitude);
+      final data =
+          si<SStorage>().get(key: kVehicleType, type: ValueType.string);
 
-      // var rot =
-      //     MapKitAssistant.getMarkerRotation(oldPos.latitude, oldPos.longitude, myPostion.latitude, myPostion.latitude);
-      final markerConfig = kDriverMarker(oldPos);
-
+      late final MarkerConfig markerConfig;
+      markerConfig =
+          data == '500' ? kDriverMotorMarker(oldPos) : kDriverMarker(oldPos);
       final Marker marker = await _marker(
         markerId: markerConfig.markerId,
         pinPath: markerConfig.pinPath,
@@ -83,22 +85,23 @@ class _NewRideScreenState extends State<NewRideScreen> {
         title: markerConfig.title,
         snippet: markerConfig.snippet,
       );
-      setState(() {
-        CameraPosition cameraPosition = CameraPosition(target: mPostion, zoom: 17, bearing: position.heading);
-
-        _markers[markerConfig.markerId] = marker;
-        newRideGoogleMapController.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
-      });
+      CameraPosition cameraPosition =
+          CameraPosition(target: mPostion, zoom: 17, bearing: position.heading);
+      _markers[markerConfig.markerId] = marker;
+      if (mounted) {
+        newRideGoogleMapController
+            .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+      }
       oldPos = mPostion;
       updateRideDetails();
-
-      String? rideRequestId = widget.rideDetails.ride_request_id;
-      Map locMap = {
-        "latitude": currentPosition.latitude.toString(),
-        "longitude": currentPosition.longitude.toString(),
-      };
-      newRequestsRef.child(rideRequestId!).child("driver_location").set(locMap);
     });
+  }
+
+  @override
+  void setState(fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
   }
 
   Future<Marker> _marker(
@@ -108,8 +111,8 @@ class _NewRideScreenState extends State<NewRideScreen> {
       required String title,
       required String snippet}) async {
     return Marker(
-      icon: await BitmapDescriptor.fromAssetImage(const ImageConfiguration(size: Size(200, 200)), pinPath),
-      // icon: BitmapDescriptor.defaultMarker,
+      icon: await BitmapDescriptor.fromAssetImage(
+          const ImageConfiguration(size: Size(200, 200)), pinPath),
       markerId: markerId,
       position: point,
       infoWindow: InfoWindow(title: title, snippet: snippet),
@@ -126,22 +129,25 @@ class _NewRideScreenState extends State<NewRideScreen> {
             mapType: MapType.normal,
             myLocationButtonEnabled: true,
             initialCameraPosition: NewRideScreen._kGooglePlex,
-            myLocationEnabled: true,
+            myLocationEnabled: false,
             markers: Set.of(_markers.values),
             circles: circleSet,
             polylines: polyLineSet,
             onMapCreated: (GoogleMapController controller) async {
-              _controllerGoogleMap.complete(controller);
               newRideGoogleMapController = controller;
+              setState(() => mapPaddingFromBottom = 305.0);
 
-              setState(() {
-                mapPaddingFromBottom = 305.0;
-              });
+              var location = await Location.instance.getLocation();
+              var currentLatLng =
+                  LatLng((location).latitude!, (location).longitude!);
+              print("currentLatLng: $currentLatLng");
+              var pickUpLatLng = LatLng(
+                double.parse(widget.rideDetails.startLat ?? '0'),
+                double.parse(widget.rideDetails.startLong ?? '0'),
+              );
+              print("pickUpLatLng: $pickUpLatLng");
 
-              var currentLatLng = LatLng(currentPosition.latitude, currentPosition.longitude);
-              var pickUpLatLng = widget.rideDetails.pickup;
-
-              await getPlaceDirection(currentLatLng, pickUpLatLng!, false);
+              await getPlaceDirection(currentLatLng, pickUpLatLng, false);
 
               getRideLiveLocationUpdates();
             },
@@ -154,6 +160,68 @@ class _NewRideScreenState extends State<NewRideScreen> {
           ),
         ],
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+      floatingActionButton: Padding(
+        padding: EdgeInsets.symmetric(vertical: 15),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            FloatingActionButton(
+              heroTag: 'newRideScreenLOpenGoogleMaps',
+              onPressed: () async {
+                var location = await Location.instance.getLocation();
+
+                String origin =
+                    "${location.latitude},${location.longitude}"; // lat,long like 123.34,68.56
+                String destination =
+                    "${widget.rideDetails.startLat},${widget.rideDetails.startLong}"; // la
+
+                if (isAndroid) {
+                  final AndroidIntent intent = AndroidIntent(
+                      action: 'action_view',
+                      data: Uri.encodeFull(
+                          "https://www.google.com/maps/dir/?api=1&origin=" +
+                              origin +
+                              "&destination=" +
+                              destination +
+                              "&travelmode=driving&dir_action=navigate"),
+                      package: 'com.google.android.apps.maps');
+                  intent.launch();
+                } else {
+                  String url =
+                      "https://www.google.com/maps/dir/?api=1&origin=" +
+                          origin +
+                          "&destination=" +
+                          destination +
+                          "&travelmode=driving&dir_action=navigate";
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else {
+                    throw 'Could not launch $url';
+                  }
+                }
+              },
+              child: Icon(Icons.map_rounded),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            FloatingActionButton(
+              heroTag: 'newRideScreenLocation',
+              onPressed: () async {
+                var location = await Location.instance.getLocation();
+
+                newRideGoogleMapController.animateCamera(
+                    CameraUpdate.newCameraPosition(CameraPosition(
+                        zoom: 17,
+                        target:
+                            LatLng(location.latitude!, location.longitude!))));
+              },
+              child: Icon(Icons.gps_fixed),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -161,7 +229,8 @@ class _NewRideScreenState extends State<NewRideScreen> {
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
       ),
       height: 310.0,
       child: Padding(
@@ -169,9 +238,17 @@ class _NewRideScreenState extends State<NewRideScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              durationRide,
-              style: const TextStyle(fontSize: 14.0, fontFamily: "Brand Bold", color: Colors.deepPurple),
+            Wrap(
+              children: [
+                Text(
+                  "الوقت المتوقع للوصول  ",
+                  style: const TextStyle(
+                      fontSize: 15, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  durationRide.replaceAll('mins', 'د'),
+                ),
+              ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -181,12 +258,19 @@ class _NewRideScreenState extends State<NewRideScreen> {
                   width: 50,
                 ),
                 Text(
-                  widget.rideDetails.rider_name ?? '',
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  widget.rideDetails.customerName ?? '',
+                  style: const TextStyle(
+                      fontSize: 24, fontWeight: FontWeight.bold),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(right: 10.0),
-                  child: Icon(Icons.phone_android),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {});
+                    launchUrlString(widget.rideDetails.riderPhone ?? '');
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.only(right: 10.0),
+                    child: Icon(Icons.phone_android),
+                  ),
                 ),
               ],
             ),
@@ -194,10 +278,10 @@ class _NewRideScreenState extends State<NewRideScreen> {
               children: [
                 Column(
                   children: [
-                    RPadding.all16(
+                    SPadding.all16(
                       child: SvgPicture.asset(
                         Assets.iconsIcRoute,
-                        height: 80.r,
+                        height: 80,
                       ),
                     ),
                   ],
@@ -207,14 +291,16 @@ class _NewRideScreenState extends State<NewRideScreen> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       HeaderItem(
-                          context: context, title: 'المكان الحالي', subtitle: widget.rideDetails.rider_name ?? ''),
+                          context: context,
+                          title: 'المكان الحالي',
+                          subtitle: widget.rideDetails.pickUp ?? ''),
                       DottedLine(
                         dashColor: Colors.grey.withOpacity(.5),
                       ),
                       HeaderItem(
                         context: context,
                         title: ' الوجهة',
-                        subtitle: widget.rideDetails.pickup_address ?? '',
+                        subtitle: widget.rideDetails.dropOff ?? '',
                       ),
                     ],
                   ),
@@ -227,41 +313,53 @@ class _NewRideScreenState extends State<NewRideScreen> {
             SizedBox(
               child: CupertinoButton(
                 padding: EdgeInsets.zero,
-                borderRadius: BorderRadius.circular(30.r),
+                borderRadius: BorderRadius.circular(30),
                 onPressed: () async {
                   if (status == "accepted") {
-                    status = "arrived";
-                    String? rideRequestId = widget.rideDetails.ride_request_id;
-                    newRequestsRef.child(rideRequestId!).child("status").set(status);
-
+                    BotToast.showLoading();
+                    status = "ArrivedToUser";
                     setState(() {
                       btnTitle = "بدء الرحلة";
                       btnColor = Colors.green;
                     });
 
-                    showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (BuildContext context) => const ProgressDialog(
-                        message: "الرجاء الانتظار",
-                      ),
-                    );
+                    var pickup = LatLng(
+                        double.parse(widget.rideDetails.startLat ?? '0'),
+                        double.parse(widget.rideDetails.startLong ?? '0'));
+                    var dropoff = LatLng(
+                        double.parse(widget.rideDetails.endLat ?? '0'),
+                        double.parse(widget.rideDetails.endLong ?? '0'));
 
-                    await getPlaceDirection(widget.rideDetails.pickup!, widget.rideDetails.dropoff!, true);
+                    await getPlaceDirection(pickup, dropoff, true);
+                    if (widget.type == 1) {
+                      await SignalRDriver()
+                          .arrivedToLocation(id: widget.rideDetails.id ?? '');
+                    } else if (widget.type == 2) {
+                      await SignalRDriver().arrivedToLocationProduct(
+                          id: widget.rideDetails.id ?? '');
+                    }
 
-                    Navigator.pop(context);
-                  } else if (status == "arrived") {
-                    status = "onride";
-                    String? rideRequestId = widget.rideDetails.ride_request_id;
-                    newRequestsRef.child(rideRequestId!).child("status").set(status);
+                    BotToast.closeAllLoading();
+                  } else if (status == "ArrivedToUser") {
+                    BotToast.showLoading();
+                    if (widget.type == 1) {
+                      await SignalRDriver()
+                          .startDelivery(id: widget.rideDetails.id ?? '');
+                    } else if (widget.type == 2) {
+                      await SignalRDriver().startDeliveryProduct(
+                          id: widget.rideDetails.id ?? '');
+                    }
 
+                    // await si<DriverUseCase>().changeDeliveryStatue(
+                    //     id: widget.rideDetails.id, statue: 'ArrivedToUser');
+                    BotToast.closeAllLoading();
+                    status = "StartTrip";
                     setState(() {
                       btnTitle = "انهااء الرحلة";
                       btnColor = Colors.redAccent;
+                      flagOpenPage = false;
                     });
-
-                    initTimer();
-                  } else if (status == "onride") {
+                  } else if (status == "StartTrip") {
                     endTheTrip();
                   }
                 },
@@ -272,18 +370,18 @@ class _NewRideScreenState extends State<NewRideScreen> {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      RSizedBox.h12(),
-                      MaterialText.button(
+                      const SSizedBox.h12(),
+                      SText.titleMedium(
                         btnTitle,
                         style: const TextStyle(color: Colors.white),
                       ),
-                      RSizedBox.h12(),
+                      const SSizedBox.h12(),
                       const Icon(
                         Icons.directions_car,
                         color: Colors.white,
                         size: 26.0,
                       ),
-                      RSizedBox.h12(),
+                      const SSizedBox.h12(),
                     ],
                   ),
                 ),
@@ -295,25 +393,51 @@ class _NewRideScreenState extends State<NewRideScreen> {
     );
   }
 
-  Future<void> getPlaceDirection(LatLng pickUpLatLng, LatLng dropOffLatLng, bool isArrived) async {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) => const ProgressDialog(
-              message: "Please wait...",
-            ));
+  Future<void> setMapFitToTour(
+      Set<Polyline> p, GoogleMapController controller) async {
+    double minLat = p.first.points.first.latitude;
+    double minLong = p.first.points.first.longitude;
+    double maxLat = p.first.points.first.latitude;
+    double maxLong = p.first.points.first.longitude;
 
-    var details = await AssistantMethods.obtainPlaceDirectionDetails(pickUpLatLng, dropOffLatLng);
+    for (Polyline poly in p) {
+      for (var point in poly.points) {
+        if (point.latitude < minLat) minLat = point.latitude;
+        if (point.latitude > maxLat) maxLat = point.latitude;
+        if (point.longitude < minLong) minLong = point.longitude;
+        if (point.longitude > maxLong) maxLong = point.longitude;
+      }
+    }
 
-    Navigator.pop(context);
+    controller.animateCamera(CameraUpdate.newLatLngBounds(
+        LatLngBounds(
+            southwest: LatLng(minLat, minLong),
+            northeast: LatLng(maxLat, maxLong)),
+        100));
+  }
 
-    PolylinePoints polylinePoints = PolylinePoints();
-    List<PointLatLng> decodedPolyLinePointsResult = polylinePoints.decodePolyline(details!.encodedPoints!);
+  Future<void> getPlaceDirection(
+      LatLng pickUpLatLng, LatLng dropOffLatLng, bool isArrived) async {
+    BotToast.showLoading();
+    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+      "AIzaSyCeL6NXSWQJcyl0SjF3CZ0-3vN3q90aGc8",
+      PointLatLng(
+        pickUpLatLng.latitude,
+        pickUpLatLng.longitude,
+      ),
+      PointLatLng(
+        dropOffLatLng.latitude,
+        dropOffLatLng.longitude,
+      ),
+      travelMode: TravelMode.driving,
+    );
 
-    polylineCorOrdinates.clear();
+    BotToast.closeAllLoading();
 
-    if (decodedPolyLinePointsResult.isNotEmpty) {
-      for (var pointLatLng in decodedPolyLinePointsResult) {
-        polylineCorOrdinates.add(LatLng(pointLatLng.latitude, pointLatLng.longitude));
+    if (result.points.isNotEmpty) {
+      polylineCoordinates.clear();
+      for (var point in result.points) {
+        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
       }
     }
 
@@ -324,7 +448,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
         color: kPRIMARY,
         polylineId: const PolylineId("PolylineID"),
         jointType: JointType.round,
-        points: polylineCorOrdinates,
+        points: polylineCoordinates,
         width: 5,
         startCap: Cap.roundCap,
         endCap: Cap.roundCap,
@@ -334,22 +458,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
       polyLineSet.add(polyline);
     });
 
-    LatLngBounds latLngBounds;
-    if (pickUpLatLng.latitude > dropOffLatLng.latitude && pickUpLatLng.longitude > dropOffLatLng.longitude) {
-      latLngBounds = LatLngBounds(southwest: dropOffLatLng, northeast: pickUpLatLng);
-    } else if (pickUpLatLng.longitude > dropOffLatLng.longitude) {
-      latLngBounds = LatLngBounds(
-          southwest: LatLng(pickUpLatLng.latitude, dropOffLatLng.longitude),
-          northeast: LatLng(dropOffLatLng.latitude, pickUpLatLng.longitude));
-    } else if (pickUpLatLng.latitude > dropOffLatLng.latitude) {
-      latLngBounds = LatLngBounds(
-          southwest: LatLng(dropOffLatLng.latitude, pickUpLatLng.longitude),
-          northeast: LatLng(pickUpLatLng.latitude, dropOffLatLng.longitude));
-    } else {
-      latLngBounds = LatLngBounds(southwest: pickUpLatLng, northeast: dropOffLatLng);
-    }
-
-    newRideGoogleMapController.animateCamera(CameraUpdate.newLatLngBounds(latLngBounds, 70));
+    await setMapFitToTour(polyLineSet, newRideGoogleMapController);
 
     Marker pickUpLocMarker = Marker(
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow),
@@ -394,26 +503,6 @@ class _NewRideScreenState extends State<NewRideScreen> {
     });
   }
 
-  void acceptRideRequest() {
-    String? rideRequestId = widget.rideDetails.ride_request_id;
-    newRequestsRef.child(rideRequestId!).child("status").set("accepted");
-    newRequestsRef.child(rideRequestId).child("driver_name").set(driversInformation.name);
-    newRequestsRef.child(rideRequestId).child("driver_phone").set(driversInformation.phone);
-    newRequestsRef.child(rideRequestId).child("driver_id").set(driversInformation.id);
-    newRequestsRef
-        .child(rideRequestId)
-        .child("car_details")
-        .set('${driversInformation.car_color} - ${driversInformation.car_model}');
-
-    Map locMap = {
-      "latitude": currentPosition.latitude.toString(),
-      "longitude": currentPosition.longitude.toString(),
-    };
-    newRequestsRef.child(rideRequestId).child("driver_location").set(locMap);
-
-    driversRef.child(currentfirebaseUser!.uid).child("history").child(rideRequestId).set(true);
-  }
-
   void updateRideDetails() async {
     if (isRequestingDirection == false) {
       isRequestingDirection = true;
@@ -426,13 +515,18 @@ class _NewRideScreenState extends State<NewRideScreen> {
       LatLng destinationLatLng;
 
       if (status == "accepted") {
-        destinationLatLng = widget.rideDetails.pickup!;
+        destinationLatLng = LatLng(
+            double.parse(widget.rideDetails.startLat ?? '0'),
+            double.parse(widget.rideDetails.startLong ?? '0'));
       } else {
-        destinationLatLng = widget.rideDetails.dropoff!;
+        destinationLatLng = LatLng(
+            double.parse(widget.rideDetails.endLat ?? '0'),
+            double.parse(widget.rideDetails.endLong ?? '0'));
       }
 
-      var directionDetails = await AssistantMethods.obtainPlaceDirectionDetails(posLatLng, destinationLatLng);
-      if (directionDetails != null) {
+      var directionDetails = await AssistantMethods.obtainPlaceDirectionDetails(
+          posLatLng, destinationLatLng);
+      if (directionDetails != null && this.mounted) {
         setState(() {
           durationRide = directionDetails.durationText!;
         });
@@ -442,63 +536,125 @@ class _NewRideScreenState extends State<NewRideScreen> {
     }
   }
 
-  void initTimer() {
-    const interval = Duration(seconds: 1);
-    timer = Timer.periodic(interval, (timer) {
-      durationCounter = durationCounter + 1;
-    });
-  }
-
   endTheTrip() async {
-    timer.cancel();
-
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) => const ProgressDialog(
-        message: "Please wait...",
-      ),
-    );
+    BotToast.showLoading();
 
     var currentLatLng = LatLng(myPostion.latitude, myPostion.longitude);
 
-    var directionalDetails =
-        await AssistantMethods.obtainPlaceDirectionDetails(widget.rideDetails.pickup!, currentLatLng);
+    var directionalDetails = await AssistantMethods.obtainPlaceDirectionDetails(
+        LatLng(double.parse(widget.rideDetails.startLat ?? '0'),
+            double.parse(widget.rideDetails.startLong ?? '0')),
+        currentLatLng);
 
-    Navigator.pop(context);
+    if (widget.type == 1) {
+      await SignalRDriver().endDeliveryDriver(
+        id: widget.rideDetails.id ?? '',
+        price: widget.rideDetails.price ?? 0,
+        endLat: currentLatLng.latitude.toString(),
+        endLong: currentLatLng.longitude.toString(),
+        dropOff: widget.rideDetails.dropOff ?? '',
+        expectedTime: directionalDetails!.durationValue.toString(),
+        distance: directionalDetails.distanceValue ?? 0,
+      );
+    } else if (widget.type == 2) {
+      await SignalRDriver().endDeliveryDriverProduct(
+        id: widget.rideDetails.id ?? '',
+        price: widget.rideDetails.price ?? 0,
+        endLat: currentLatLng.latitude.toString(),
+        endLong: currentLatLng.longitude.toString(),
+        dropOff: widget.rideDetails.dropOff ?? '',
+        expectedTime: directionalDetails!.durationValue.toString(),
+        distance: directionalDetails.distanceValue ?? 0,
+      );
+    }
 
-    int fareAmount = AssistantMethods.calculateFares(directionalDetails!);
-
-    String? rideRequestId = widget.rideDetails.ride_request_id;
-    newRequestsRef.child(rideRequestId!).child("fares").set(fareAmount.toString());
-    newRequestsRef.child(rideRequestId).child("status").set("ended");
-    rideStreamSubscription.cancel();
-
+    BotToast.closeAllLoading();
     showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) => CollectFareDialog(
-        paymentMethod: widget.rideDetails.payment_method!,
-        fareAmount: fareAmount,
-      ),
-    );
-
-    saveEarnings(fareAmount);
-  }
-
-  void saveEarnings(int fareAmount) {
-    driversRef.child(currentfirebaseUser!.uid).child("earnings").once().then((s) {
-      DataSnapshot dataSnapShot = s.snapshot;
-
-      if (dataSnapShot.value != null) {
-        double oldEarnings = double.parse(dataSnapShot.value.toString());
-        double totalEarnings = fareAmount + oldEarnings;
-
-        driversRef.child(currentfirebaseUser!.uid).child("earnings").set(totalEarnings.toStringAsFixed(2));
-      } else {
-        double totalEarnings = fareAmount.toDouble();
-        driversRef.child(currentfirebaseUser!.uid).child("earnings").set(totalEarnings.toStringAsFixed(2));
-      }
-    });
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              title: const Text("تفاصيل الرحلة"),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Lottie.asset(
+                    'lotti_files/92520-money-hand.json',
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "الكلفة ",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 25),
+                      ),
+                      Text(
+                        "${widget.rideDetails.price}  ل.س",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 25),
+                      ),
+                    ],
+                  ),
+                  const Divider(),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(Icons.straighten_rounded),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          const Text(
+                            "المسافة ",
+                            style: TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        "${widget.rideDetails.distance} متر",
+                      ),
+                    ],
+                  ),
+                  const Divider(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(Icons.access_time),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          const Text(
+                            "الوقت ",
+                            style: const TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        "${widget.rideDetails.expectedTime}"
+                            .replaceAll("mins", 'د'),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  child: const Text("تم"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            ));
   }
 }

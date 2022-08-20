@@ -1,0 +1,6 @@
+make cl Fruit   
+params     
+s name [f !n]
+meths 
+b sweet [s name !n , i index, d rating]
+dy origin
